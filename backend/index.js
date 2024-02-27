@@ -1,7 +1,7 @@
 import express from "express";
 import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
-import { Hive } from "./models/hive.js";
+// import Hive from "./models/hive.js";
 import hiveRoutes from './routes/hiveRoutes.js'
 import cors from "cors";
 

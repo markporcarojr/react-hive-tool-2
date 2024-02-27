@@ -7,6 +7,7 @@ import Home from "./pages/Home.jsx";
 import SwarmTrap from "./pages/SwarmTrap.jsx";
 import Feeding from "./pages/Feeding.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./scss/styles.scss";
 
 function App() {
   return (

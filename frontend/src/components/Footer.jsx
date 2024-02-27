@@ -3,7 +3,7 @@ import { IconContext } from "react-icons";
 
 function Footer() {
   return (
-    <footer className="text-center mt-5 sticky-bottom">
+    <footer className="text-center mt-5 footer">
       <div className="container d-flex flex-column align-items-center">
         {/* Social Media Icons */}
         <div className="d-flex gap-2 mt-1">
