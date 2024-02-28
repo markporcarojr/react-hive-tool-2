@@ -33,13 +33,8 @@ body {
   clear: both;
 }
 
-.outlined-text {
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
-    1px 1px 0 #000;
-}
-.outlined-text-gold {
-  text-shadow: -1px -1px 0 #ffcb05, 1px -1px 0 #ffcb05, 1px 1px 0 #ffcb05,
-    1px 1px 0 #ffcb05;
+.btn-gold:hover {
+  background-color: rgba(255, 208, 30, 0.75);
 }
 
 footer {
@@ -49,33 +44,12 @@ footer {
   background-color: #ffcb05;
 }
 
-.btn-gold:hover {
-  background-color: rgba(255, 208, 30, 0.75);
-}
-
 input[type="range"] {
   accent-color: #ffcb05;
 }
 
 #facebookBtn:hover {
   background-color: rgb(217, 217, 217);
-}
-
-.temperBtn {
-  --bs-btn-color: #000;
-  --bs-btn-bg: #ffcb05;
-  --bs-btn-border-color: #8a7b3e;
-  --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #7a6203;
-  --bs-btn-hover-border-color: #25cff2;
-  --bs-btn-focus-shadow-rgb: 11, 172, 204;
-  --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #7a6203;
-  --bs-btn-active-border-color: #7a6203;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: #0dcaf0;
-  --bs-btn-disabled-border-color: #0dcaf0;
 }
 
 /* ******************************************* Custom classes ***************************************** */
@@ -106,6 +80,23 @@ input[type="range"] {
 .locationIcon {
   width: 100px;
   height: 100px;
+}
+
+.outlined-text {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+.outlined-text-gold {
+  text-shadow: -1px -1px 0 #ffcb05, 1px -1px 0 #ffcb05, 1px 1px 0 #ffcb05,
+    1px 1px 0 #ffcb05;
+}
+
+.pop {
+  transition: transform 0.2s ease-out;
+}
+
+.pop:hover {
+  transform: scale(1.02);
 }
 
 .privacy {
@@ -142,6 +133,23 @@ input[type="range"] {
   background-repeat: no-repeat;
 }
 
+.temperBtn {
+  --bs-btn-color: #000;
+  --bs-btn-bg: #ffcb05;
+  --bs-btn-border-color: #8a7b3e;
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: #7a6203;
+  --bs-btn-hover-border-color: #25cff2;
+  --bs-btn-focus-shadow-rgb: 11, 172, 204;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: #7a6203;
+  --bs-btn-active-border-color: #7a6203;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #000;
+  --bs-btn-disabled-bg: #0dcaf0;
+  --bs-btn-disabled-border-color: #0dcaf0;
+}
+
 .title {
   background: rgb(0, 39, 76);
   background: linear-gradient(
@@ -153,14 +161,6 @@ input[type="range"] {
   border: 3px solid #ffcb05;
   border-radius: 10px;
   margin-bottom: 1em;
-}
-
-.pop {
-  transition: transform 0.2s ease-out;
-}
-
-.pop:hover {
-  transform: scale(1.02);
 }
 
 /* ******************************************* Custom classes ***************************************** */
