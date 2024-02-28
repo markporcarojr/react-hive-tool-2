@@ -32,7 +32,7 @@ function CustomNavbar() {
 
         <Navbar.Toggle aria-controls="navbarNavAltMarkup" className="fw-bold" />
         <Navbar.Collapse id="navbarNavAltMarkup">
-          <Nav className="ms-lg-auto ms-auto fw-bold">
+          <Nav className="d-flex align-items-end navbar-nav ms-lg-auto ms-auto fw-bold">
             <Nav.Link href="/" className="nav-link active">
               Home
             </Nav.Link>

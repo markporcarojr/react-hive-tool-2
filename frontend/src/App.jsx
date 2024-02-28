@@ -8,6 +8,10 @@ import SwarmTrap from "./pages/SwarmTrap.jsx";
 import Feeding from "./pages/Feeding.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./scss/styles.scss";
+import CreateHive from "./pages/CreateHive.jsx";
+import DeleteHive from "./pages/DeleteHive.jsx";
+import ShowHives from "./pages/ShowHives.jsx";
+import EditHive from "./pages/EditHive.jsx";
 
 function App() {
   return (
@@ -19,6 +23,11 @@ function App() {
       <Route path="/harvest" element={<Harvest />} />
       <Route path="/swarmtraps" element={<SwarmTrap />} />
       <Route path="/feeding" element={<Feeding />} />
+
+      <Route path="/hives/create" element={<CreateHive />} />
+      <Route path="/hives/delete/:id" element={<DeleteHive />} />
+      <Route path="/hives/details/:id" element={<ShowHives />} />
+      <Route path="/hives/edit/:id " element={<EditHive />} />
     </Routes>
   );
 }
