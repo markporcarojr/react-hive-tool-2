@@ -3,25 +3,135 @@
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/bootstrap";
-
-// Custom Colors
-$custom-colors: (
-  "michblue": #00274c,
-  "michgold": #ffcb05,
-  "inputgrey": rgba(217, 217, 217, 0.5),
-  "delete-btn": #d11a2a,
-);
-
-// Merge Colors
-$theme-colors: map-merge($theme-colors, $custom-colors);
-
-// Include any default variable overrides here (though functions won't be available)
+@import "custom";
 
 $enable-shadows: true;
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+// --------------------------------------------- Color Classes -------------------------------------------
 
-// Then add additional custom code here
+// Use the michblue color with Bootstrap classes
+
+.btn-gold:hover {
+  background-color: rgba(255, 208, 30, 0.75);
+}
+
+.bg-michblue {
+  background-color: $michblue;
+}
+
+.text-michblue {
+  color: $michblue;
+}
+
+.btn-michblue {
+  color: #fff; // Text color for buttons
+  background-color: $michblue;
+  border-color: $michblue;
+}
+
+.btn-michblue:hover {
+  background-color: darken($michblue, 10%); // Darken the color on hover
+  border-color: darken($michblue, 10%);
+}
+
+// Define the michgold color variable
+
+// Use the michgold color with Bootstrap classes
+.bg-michgold {
+  background-color: $michgold;
+}
+
+.bg-inputgrey {
+  background-color: $inputgrey;
+}
+
+.text-michgold {
+  color: $michgold;
+}
+
+.btn-michgold {
+  color: #212529;
+  background-color: $michgold;
+  border-color: $michgold;
+}
+
+.btn-michgold:hover {
+  color: #212529;
+  background-color: darken($michgold, 10%); // Darken the color on hover
+  border-color: darken($michgold, 10%);
+}
+
+.btn-michgold:focus,
+.btn-michgold.focus {
+  color: #212529;
+  background-color: #e0a800;
+  border-color: #d39e00;
+  box-shadow: 0 0 0 0.25rem rgba(255, 203, 5, 0.5);
+}
+
+.btn-michgold.disabled,
+.btn-michgold:disabled {
+  color: #212529;
+  background-color: #ffcb05;
+  border-color: #ffcb05;
+}
+
+.btn-michgold:not(:disabled):not(.disabled):active,
+.btn-michgold:not(:disabled):not(.disabled).active,
+.show > .btn-michgold.dropdown-toggle {
+  color: #212529;
+  background-color: #d39e00;
+  border-color: #c69500;
+}
+
+.btn-michgold:not(:disabled):not(.disabled):active:focus,
+.btn-michgold:not(:disabled):not(.disabled).active:focus,
+.show > .btn-michgold.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 203, 5, 0.5),
+    0 0 0 0.5rem rgba(255, 203, 5, 0.25);
+}
+
+.inputgrey {
+  color: #212529;
+  background-color: $inputgrey;
+  border-color: $inputgrey;
+}
+
+.inputgrey:hover {
+  background-color: darken($inputgrey, 10%); // Darken the color on hover
+  border-color: darken($inputgrey, 10%);
+}
+
+.inputgrey:focus,
+.inputgrey.focus {
+  background-color: #e0a800;
+  border-color: #d39e00;
+  box-shadow: 0 0 0 0.25rem rgba(255, 203, 5, 0.5);
+}
+
+.inputgrey.disabled,
+.inputgrey:disabled {
+  background-color: $inputgrey;
+  border-color: $inputgrey;
+}
+
+.inputgrey:not(:disabled):not(.disabled):active {
+  background-color: #d39e00;
+  border-color: #c69500;
+}
+
+.inputgrey:not(:disabled):not(.disabled):active:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 203, 5, 0.5),
+    0 0 0 0.5rem rgba(255, 203, 5, 0.25);
+}
+
+.bg-card {
+  background-color: #0c1c34;
+  // background-color: #051932;
+}
+// --------------------------------------------- Color Classes End -------------------------------------------
+
+/* ******************************************* Custom classes ***************************************** */
 
 :root {
   --bs-body-bg: #00274c;
@@ -31,10 +141,6 @@ body {
   min-height: 400px;
   margin-bottom: 100px;
   clear: both;
-}
-
-.btn-gold:hover {
-  background-color: rgba(255, 208, 30, 0.75);
 }
 
 footer {
@@ -52,12 +158,10 @@ input[type="range"] {
   background-color: rgb(217, 217, 217);
 }
 
-/* ******************************************* Custom classes ***************************************** */
-
 .header-image {
   background-size: cover;
   background-position: center 40%;
-  background-image: url(/assets/images/smoky_apiary@3x.jpg);
+  background-image: url(/images/smoky_apiary@3x.jpg);
   background-color: none !important;
 }
 
@@ -96,7 +200,7 @@ input[type="range"] {
 }
 
 .pop:hover {
-  transform: scale(1.02);
+  transform: scale(1.06);
 }
 
 .privacy {

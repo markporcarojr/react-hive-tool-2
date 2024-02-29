@@ -6,7 +6,9 @@ import Harvest from "./pages/Harvest.jsx";
 import Home from "./pages/Home.jsx";
 import SwarmTrap from "./pages/SwarmTrap.jsx";
 import Feeding from "./pages/Feeding.jsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
+// import "./scss/custom.scss";
 import "./scss/styles.scss";
 import CreateHive from "./pages/CreateHive.jsx";
 import DeleteHive from "./pages/DeleteHive.jsx";
@@ -23,11 +25,12 @@ function App() {
       <Route path="/harvest" element={<Harvest />} />
       <Route path="/swarmtraps" element={<SwarmTrap />} />
       <Route path="/feeding" element={<Feeding />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
       <Route path="/hives/create" element={<CreateHive />} />
       <Route path="/hives/delete/:id" element={<DeleteHive />} />
       <Route path="/hives/details/:id" element={<ShowHives />} />
-      <Route path="/hives/edit/:id " element={<EditHive />} />
+      <Route path="/hives/edit/:id" element={<EditHive />} />
     </Routes>
   );
 }

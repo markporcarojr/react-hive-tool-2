@@ -1,6 +1,6 @@
 export default function PrivacyPolicy() {
   return (
-    <div className="container text-michgold privacy">
+    <div className="container text-white privacy">
       <h1>Privacy Policy</h1>
       <p>Last updated: November 27, 2023</p>
       <p>
@@ -346,7 +346,7 @@ export default function PrivacyPolicy() {
         means to protect Your Personal Data, We cannot guarantee its absolute
         security.
       </p>
-      <h2>Children's Privacy</h2>
+      <h2>Children&apos;s Privacy</h2>
       <p>
         Our Service does not address anyone under the age of 13. We do not
         knowingly collect personally identifiable information from anyone under
@@ -359,15 +359,15 @@ export default function PrivacyPolicy() {
       <p>
         If We need to rely on consent as a legal basis for processing Your
         information and Your country requires consent from a parent, We may
-        require Your parent's consent before We collect and use that
+        require Your parent&apos;s consent before We collect and use that
         information.
       </p>
       <h2>Links to Other Websites</h2>
       <p>
         Our Service may contain links to other websites that are not operated by
         Us. If You click on a third party link, You will be directed to that
-        third party's site. We strongly advise You to review the Privacy Policy
-        of every site You visit.
+        third party&apos;s site. We strongly advise You to review the Privacy
+        Policy of every site You visit.
       </p>
       <p>
         We have no control over and assume no responsibility for the content,

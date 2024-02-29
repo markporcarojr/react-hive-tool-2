@@ -1,0 +1,17 @@
+// custom.scss
+
+// Custom Colors
+$michblue: #00274c;
+$michgold: #ffcb05;
+$inputgrey: rgba(217, 217, 217, 0.5);
+$delete: #d11a2a;
+
+// Extend Bootstrap colors
+$custom-colors: (
+  "michblue": $michblue,
+  "michgold": $michgold,
+  "inputgrey": $inputgrey,
+  "delete": $delete,
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
