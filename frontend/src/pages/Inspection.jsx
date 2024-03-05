@@ -5,6 +5,7 @@ export default function Inspection() {
   return (
     <>
       <CustomNavbar />
+
       <Footer />
     </>
   );

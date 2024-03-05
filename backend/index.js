@@ -1,11 +1,22 @@
+// index.js
 import express from "express";
-import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
-// import Hive from "./models/hive.js";
-import hiveRoutes from './routes/hiveRoutes.js'
 import cors from "cors";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import dotenv from 'dotenv';
+
+import hiveRoutes from "./routes/hiveRoutes.js";
+import inspectionRoutes from "./routes/inspectionRoutes.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config({ path: `${__dirname}/../.env` });
 
 const app = express();
+const PORT = process.env.PORT || 5555; // Use environment variable or default to 5555
+const MONGODB_URL = process.env.MONGODB_URL;
 
 // ****************************************  MiddleWare  **************************************
 
@@ -13,30 +24,24 @@ const app = express();
 app.use(express.json());
 
 // Middleware for handling CORS Policy
-// Option 1: Allow all origins with default(*)
 app.use(cors());
-// Option 2: Allow Custom Origins
-// app.use(cors({
-//     origin: "http://localhost3000",
-//     methods: ["GET", "PUT", "POST", "DElETE"],
-//     allowedHeaders: ["Cntent-Type"],
-// }))
 
 app.get('/', (request, response) => {
-    console.log(request)
-    return response.status(234).send("Welcome!!")
+    return response.status(234).send("Welcome!!");
 });
 
+// Middleware for the routes
 app.use('/new-hive', hiveRoutes)
+app.use('/inspections', inspectionRoutes)
 
 mongoose
-    .connect(mongoDBURL)
+    .connect(MONGODB_URL)
     .then(() => {
-        console.log("Connected to mongoDB");
+        console.log("Connected to MongoDB");
         app.listen(PORT, () => {
             console.log(`Listening on port: ${PORT}`);
         });
     })
     .catch((error) => {
         console.log(error)
-    })
+    });

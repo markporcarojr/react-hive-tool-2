@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import LoadSpinner from "../components/Spinner";
+import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import CustomNavbar from "../components/CustomNavbar";
-import Footer from "../components/Footer";
+import CustomNavbar from "../../components/CustomNavbar";
+import Footer from "../../components/Footer";
 import { Card, Button } from "react-bootstrap";
 
 const DeleteHive = () => {

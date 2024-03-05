@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import CustomNavbar from "../components/CustomNavbar";
-import Footer from "../components/Footer";
-import LoadSpinner from "../components/Spinner";
+import CustomNavbar from "../../components/CustomNavbar";
+import Footer from "../../components/Footer";
+import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
