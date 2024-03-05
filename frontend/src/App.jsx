@@ -1,19 +1,23 @@
 import { Routes, Route } from "react-router-dom";
-import Inspection from "./pages/Inspection.jsx";
 import Inventory from "./pages/Inventory.jsx";
 import Treatment from "./pages/Treatment.jsx";
 import Harvest from "./pages/Harvest.jsx";
-import Home from "./pages/Home.jsx";
 import SwarmTrap from "./pages/SwarmTrap.jsx";
 import Feeding from "./pages/Feeding.jsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import "./scss/custom.scss";
 import "./scss/styles.scss";
+
+import Home from "./pages/hivePages/Home.jsx";
 import CreateHive from "./pages/hivePages/CreateHive.jsx";
 import DeleteHive from "./pages/hivePages/DeleteHive.jsx";
-import ShowHives from "./pages/ShowHives.jsx";
 import EditHive from "./pages/hivePages/EditHive.jsx";
+
+import Inspection from "./pages/inspectionPages/Inspection.jsx";
+import CreateInspection from "./pages/inspectionPages/CreateInspection.jsx";
+import EditInspection from "./pages/inspectionPages/EditInspection.jsx";
+import DeleteInspection from "./pages/inspectionPages/DeleteInspection.jsx";
 
 function App() {
   return (
@@ -24,6 +28,9 @@ function App() {
       <Route path="/hives/edit/:id" element={<EditHive />} />
 
       <Route path="/inspections" element={<Inspection />} />
+      <Route path="/inspections/create" element={<CreateInspection />} />
+      <Route path="/inspections/delete/:id" element={<DeleteInspection />} />
+      <Route path="/inspections/edit/:id" element={<EditInspection />} />
 
       <Route path="/inventory" element={<Inventory />} />
       <Route path="/treatment" element={<Treatment />} />

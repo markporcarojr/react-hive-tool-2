@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import LoadSpinner from "../components/Spinner";
+import LoadSpinner from "../../components/Spinner";
 import { Link } from "react-router-dom";
-import CustomNavbar from "../components/CustomNavbar";
-import Footer from "../components/Footer";
-import HiveCard from "../components/HiveCard"; // Import HiveCard component
+import CustomNavbar from "../../components/CustomNavbar";
+import Footer from "../../components/Footer";
+import HiveCard from "../../components/HiveCard"; // Import HiveCard component
 
 const Home = () => {
   const [hives, setHives] = useState([]);
