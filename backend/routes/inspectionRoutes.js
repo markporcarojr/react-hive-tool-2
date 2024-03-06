@@ -10,15 +10,9 @@ router.post('/', async (req, res) => {
             !req.body.hiveNumber ||
             !req.body.temperament ||
             !req.body.hiveStrength ||
-            !req.body.queen ||
-            !req.body.queenCell ||
-            !req.body.brood ||
-            !req.body.disease ||
-            !req.body.eggs ||
-            !req.body.pests ||
-            !req.body.inspectionDate ||
-            !req.body.inspectionNote ||
-            // userId here
+            !req.body.inspectionDate
+
+
 
         ) {
             return res.status(400).send({
@@ -26,7 +20,8 @@ router.post('/', async (req, res) => {
             });
         }
 
-        const newHive = {
+
+        const newInspection = {
             hiveNumber: req.body.hiveNumber,
             temperament: req.body.temperament,
             hiveStrength: req.body.hiveStrength,
