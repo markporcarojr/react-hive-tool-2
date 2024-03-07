@@ -1,8 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import LoadSpinner from "../../components/Spinner";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import CustomNavbar from "../../components/CustomNavbar";
+import Footer from "../../components/Footer";
+import { Card, Button } from "react-bootstrap";
 
 const DeleteInspection = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const handleDeleteInspection = () => {
+    setLoading(true);
+    axios
+      .delete(`http://localhost:5555/inspections/${id}`)
+      .then(() => {
+        setLoading(false);
+        navigate("/inspections");
+      })
+      .catch((error) => {
+        setLoading(false);
+        alert("An error has occurred. Please Check Console");
+        console.log(error);
+      });
+  };
   return (
-    <div className="text-white text-center mt-5 fs-1">Delete Inspection</div>
+    <>
+      <CustomNavbar />
+      <Card
+        className="rounded-5 border-3 d-flex align-items-center p-5 m-5"
+        style={{ borderColor: "#ffcb05" }}
+      >
+        <h1 className="fs-1 fw-bold my-4 text-white mb-5">Delete Inspection</h1>
+        {loading ? <LoadSpinner /> : ""}
+        <div className="d-flex align-items-center mx-auto text-michgold">
+          <h3>Are You Sure You Want To Delete This Inspection?</h3>
+        </div>
+        <Button className="btn-danger" onClick={handleDeleteInspection}>
+          DELETE
+        </Button>
+      </Card>
+      ;
+      <Footer />
+    </>
   );
 };
 

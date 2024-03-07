@@ -159,7 +159,7 @@ const EditHive = () => {
               className="btn px-5 btn-michgold btn-gold fw-bold rounded-pill"
               onClick={handleEditHive}
             >
-              ADD
+              UPDATE
             </button>
           </div>
         </div>

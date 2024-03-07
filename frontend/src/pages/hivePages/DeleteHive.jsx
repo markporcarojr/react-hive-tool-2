@@ -26,6 +26,7 @@ const DeleteHive = () => {
   };
   return (
     <>
+      {loading && <LoadSpinner />}
       <CustomNavbar />
       <Card
         className="rounded-5 border-3 d-flex align-items-center p-5 m-5"

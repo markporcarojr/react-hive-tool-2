@@ -56,7 +56,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-// Route for getting hive by ID
+// Route for getting Inspection by ID
 router.get('/:id', async (req, res) => {
     try {
 
@@ -71,28 +71,29 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-// Route to update Hive
+// Route to update Inspection
 router.put("/:id", async (req, res) => {
     try {
-        if (!req.body.hiveNumber ||
-            !req.body.breed ||
+        if (
+            !req.body.hiveNumber ||
+            !req.body.temperament ||
             !req.body.hiveStrength ||
-            !req.body.hiveDate
+            !req.body.inspectionDate
 
         ) {
             return res.status(400).send({
-                message: "Must fill out all required fields",
+                message: "Send all required fields"
             });
         }
 
         const { id } = req.params;
-        const result = await Hive.findByIdAndUpdate(id, req.body);
+        const result = await Inspection.findByIdAndUpdate(id, req.body);
 
         if (!result) {
-            return res.status(404).json({ message: 'Hive not found' })
+            return res.status(404).json({ message: 'Inspection not found' })
         }
 
-        return res.status(200).send({ message: "Hive updated Successfully" })
+        return res.status(200).send({ message: "Inspection updated Successfully" })
 
     } catch (error) {
         console.log(error.message);
@@ -100,7 +101,7 @@ router.put("/:id", async (req, res) => {
     }
 })
 
-// Route to Delete a hive
+// Route to Delete an Inspection
 router.delete("/:id", async (req, res) => {
     try {
         const { id } = req.params;

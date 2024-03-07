@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"; // Inside your component...
 const HiveCard = ({ hive }) => {
   const { hiveNumber, breed, hiveStrength, hiveDate } = hive;
   const textStyle = { color: "#ffcb05" };
+  const formattedDate = new Date(hiveDate).toLocaleDateString("en-US");
 
   return (
     <div className="col g-4 ">
@@ -27,8 +28,8 @@ const HiveCard = ({ hive }) => {
             style={textStyle}
           >
             <div>Added: </div>
-            <div>{hiveDate}</div>
-            <Card.Text style={textStyle}>{hiveStrength}%</Card.Text>
+            <div>{formattedDate}</div>
+            <Card.Text style={textStyle}>{hiveStrength}％</Card.Text>
           </Card.Body>
           <div className="d-flex justify-content-between mx-3 mb-2">
             <Link
