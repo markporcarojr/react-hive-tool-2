@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 
 import hiveRoutes from "./routes/hiveRoutes.js";
 import inspectionRoutes from "./routes/inspectionRoutes.js";
+import inventoryRoutes from "./routes/inventoryRoutes.js"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -33,6 +34,7 @@ app.get('/', (request, response) => {
 // Middleware for the routes
 app.use('/new-hive', hiveRoutes)
 app.use('/inspections', inspectionRoutes)
+app.use('/inventory', inventoryRoutes)
 
 mongoose
     .connect(MONGODB_URL)

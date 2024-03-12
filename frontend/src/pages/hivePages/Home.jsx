@@ -4,7 +4,7 @@ import LoadSpinner from "../../components/Spinner";
 import { Link } from "react-router-dom";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
-import HiveCard from "../../components/HiveCard"; // Import HiveCard component
+import HiveCard from "../../components/HiveCard";
 
 const Home = () => {
   const [hives, setHives] = useState([]);

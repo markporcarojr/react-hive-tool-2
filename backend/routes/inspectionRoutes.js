@@ -11,15 +11,11 @@ router.post('/', async (req, res) => {
             !req.body.temperament ||
             !req.body.hiveStrength ||
             !req.body.inspectionDate
-
-
-
         ) {
             return res.status(400).send({
                 message: "Send all required fields"
             });
         }
-
 
         const newInspection = {
             hiveNumber: req.body.hiveNumber,

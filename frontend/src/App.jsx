@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import Inventory from "./pages/Inventory.jsx";
 import Treatment from "./pages/Treatment.jsx";
 import Harvest from "./pages/Harvest.jsx";
 import SwarmTrap from "./pages/SwarmTrap.jsx";
@@ -19,6 +18,11 @@ import CreateInspection from "./pages/inspectionPages/CreateInspection.jsx";
 import EditInspection from "./pages/inspectionPages/EditInspection.jsx";
 import DeleteInspection from "./pages/inspectionPages/DeleteInspection.jsx";
 
+import Inventory from "./pages/inventoryPages/Inventory.jsx";
+import CreateInventory from "./pages/inventoryPages/CreateInventory.jsx";
+import EditInventory from "./pages/inventoryPages/EditInventory.jsx";
+import DeleteInventory from "./pages/inventoryPages/DeleteInventory.jsx";
+
 function App() {
   return (
     <Routes>
@@ -33,6 +37,10 @@ function App() {
       <Route path="/inspections/edit/:id" element={<EditInspection />} />
 
       <Route path="/inventory" element={<Inventory />} />
+      <Route path="/inventory/create" element={<CreateInventory />} />
+      <Route path="/inventory/delete/:id" element={<DeleteInventory />} />
+      <Route path="/inventory/edit/:id" element={<EditInventory />} />
+
       <Route path="/treatment" element={<Treatment />} />
       <Route path="/harvest" element={<Harvest />} />
       <Route path="/swarmtraps" element={<SwarmTrap />} />
