@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import { Card, Button } from "react-bootstrap";
+import BackButton from "../../components/BackButton";
 
 const DeleteInventory = () => {
   const [loading, setLoading] = useState(false);
@@ -24,6 +25,7 @@ const DeleteInventory = () => {
         console.log(error);
       });
   };
+
   return (
     <>
       {loading && <LoadSpinner />}
@@ -37,9 +39,12 @@ const DeleteInventory = () => {
         <div className="d-flex align-items-center mx-auto text-michgold">
           <h3>Are You Sure You Want To Delete This Inventory?</h3>
         </div>
-        <Button className="btn-danger" onClick={handleDeleteInventory}>
-          DELETE
-        </Button>
+        <div>
+          <Button className="btn-danger m-3" onClick={handleDeleteInventory}>
+            YES
+          </Button>
+          <BackButton />
+        </div>
       </Card>
       ;
       <Footer />

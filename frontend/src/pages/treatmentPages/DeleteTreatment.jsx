@@ -7,17 +7,17 @@ import Footer from "../../components/Footer";
 import { Card, Button } from "react-bootstrap";
 import BackButton from "../../components/BackButton";
 
-const DeleteHive = () => {
+const DeleteTreatment = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
-  const handleDeleteHive = () => {
+  const handleDeleteTreatment = () => {
     setLoading(true);
     axios
-      .delete(`http://localhost:5555/new-hive/${id}`)
+      .delete(`http://localhost:5555/treatments/${id}`)
       .then(() => {
         setLoading(false);
-        navigate("/");
+        navigate("/treatments");
       })
       .catch((error) => {
         setLoading(false);
@@ -25,6 +25,7 @@ const DeleteHive = () => {
         console.log(error);
       });
   };
+
   return (
     <>
       {loading && <LoadSpinner />}
@@ -33,13 +34,13 @@ const DeleteHive = () => {
         className="rounded-5 border-3 d-flex align-items-center p-5 m-5"
         style={{ borderColor: "#ffcb05" }}
       >
-        <h1 className="fs-1 fw-bold my-4 text-white mb-5">Delete Hive</h1>
+        <h1 className="fs-1 fw-bold my-4 text-white mb-5">Delete Treatment</h1>
         {loading ? <LoadSpinner /> : ""}
         <div className="d-flex align-items-center mx-auto text-michgold">
-          <h3>Are You Sure You Want To Delete This Hive?</h3>
+          <h3>Are You Sure You Want To Delete This Treatment?</h3>
         </div>
         <div>
-          <Button className="btn-danger m-3" onClick={handleDeleteHive}>
+          <Button className="btn-danger m-3" onClick={handleDeleteTreatment}>
             YES
           </Button>
           <BackButton />
@@ -51,4 +52,4 @@ const DeleteHive = () => {
   );
 };
 
-export default DeleteHive;
+export default DeleteTreatment;

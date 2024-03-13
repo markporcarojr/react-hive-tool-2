@@ -19,7 +19,7 @@ function CustomNavbar() {
                 srcSet={`${logoWebp1x} 1x, ${logoWebp2x} 2x, ${logoWebp3x} 3x`}
               />
               <img
-                className="outlined-text"
+                className="ms-3"
                 src={logoPng1x}
                 style={{ width: "60px" }}
                 alt=""
@@ -42,7 +42,7 @@ function CustomNavbar() {
             <Nav.Link href="/inventory" className="nav-link">
               Inventory
             </Nav.Link>
-            <Nav.Link href="/treatment" className="nav-link">
+            <Nav.Link href="/treatments" className="nav-link">
               Treatment
             </Nav.Link>
             <Nav.Link href="/harvest" className="nav-link">

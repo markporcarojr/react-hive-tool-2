@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import { Card, Button } from "react-bootstrap";
+import BackButton from "../../components/BackButton";
 
 const DeleteInspection = () => {
   const [loading, setLoading] = useState(false);
@@ -36,9 +37,12 @@ const DeleteInspection = () => {
         <div className="d-flex align-items-center mx-auto text-michgold">
           <h3>Are You Sure You Want To Delete This Inspection?</h3>
         </div>
-        <Button className="btn-danger" onClick={handleDeleteInspection}>
-          DELETE
-        </Button>
+        <div>
+          <Button className="btn-danger m-3" onClick={handleDeleteInspection}>
+            YES
+          </Button>
+          <BackButton />
+        </div>
       </Card>
       ;
       <Footer />

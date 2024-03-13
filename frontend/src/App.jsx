@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import Treatment from "./pages/Treatment.jsx";
 import Harvest from "./pages/Harvest.jsx";
 import SwarmTrap from "./pages/SwarmTrap.jsx";
 import Feeding from "./pages/Feeding.jsx";
@@ -23,6 +22,11 @@ import CreateInventory from "./pages/inventoryPages/CreateInventory.jsx";
 import EditInventory from "./pages/inventoryPages/EditInventory.jsx";
 import DeleteInventory from "./pages/inventoryPages/DeleteInventory.jsx";
 
+import Treatment from "./pages/treatmentPages/Treatment.jsx";
+import EditTreatment from "./pages/treatmentPages/EditTreatment.jsx";
+import CreateTreatment from "./pages/treatmentPages/CreateTreatment.jsx";
+import DeleteTreatment from "./pages/treatmentPages/DeleteTreatment.jsx";
+
 function App() {
   return (
     <Routes>
@@ -41,7 +45,11 @@ function App() {
       <Route path="/inventory/delete/:id" element={<DeleteInventory />} />
       <Route path="/inventory/edit/:id" element={<EditInventory />} />
 
-      <Route path="/treatment" element={<Treatment />} />
+      <Route path="/treatments" element={<Treatment />} />
+      <Route path="/treatments/create" element={<CreateTreatment />} />
+      <Route path="/treatments/delete/:id" element={<DeleteTreatment />} />
+      <Route path="/treatments/edit/:id" element={<EditTreatment />} />
+
       <Route path="/harvest" element={<Harvest />} />
       <Route path="/swarmtraps" element={<SwarmTrap />} />
       <Route path="/feeding" element={<Feeding />} />

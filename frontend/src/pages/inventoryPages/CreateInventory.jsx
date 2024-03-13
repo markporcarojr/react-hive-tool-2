@@ -51,14 +51,14 @@ const CreateInventory = () => {
                 id="inventoryType"
                 name="inventoryType"
                 onChange={(e) => setInventoryType(e.target.value)}
-                className="form-control bg-inputgrey border-3 border-michgold rounded-4 opacity-50 fw-bold text-center"
+                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
               />
             </div>
             <div className="m-3 fs-3 mt-0 fw-semibold">
               <Form.Label htmlFor="inventoryAmount">Quantity</Form.Label>
               <Form.Control
                 type="number"
-                className="form-control text-center bg-inputgrey border-3 border-michgold rounded-4 opacity-50 fw-bold"
+                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 id="inventoryAmount"
                 name="inventoryAmount"
                 value={inventoryAmount}
