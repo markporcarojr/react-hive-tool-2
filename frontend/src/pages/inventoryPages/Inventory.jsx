@@ -4,22 +4,22 @@ import LoadSpinner from "../../components/Spinner";
 import { Link } from "react-router-dom";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
-import InspectionCard from "../../components/InspectionCard"; // Import InspectionCard component
+import InventoryCard from "../../components/InventoryCard";
 
-const InspectionPage = () => {
-  const [inspections, setInspections] = useState([]);
+const Inventory = () => {
+  const [inventorys, setInventorys] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:5555/inspections") // Assuming this is the correct endpoint to fetch inspections
+      .get("http://localhost:5555/inventory")
       .then((response) => {
-        setInspections(response.data);
+        setInventorys(response.data);
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching inspection data:", error);
+        console.error("Error fetching inventory data:", error);
         setLoading(false);
       });
   }, []);
@@ -27,30 +27,29 @@ const InspectionPage = () => {
   return (
     <>
       <CustomNavbar />
-
       <div className="p-4">
         <div className="d-flex justify-content-around mb-3">
           <Link
-            to="/inspections/create"
+            to="/inventory/create"
             className="btn btn-warning rounded-pill fw-bold"
           >
-            ADD INSPECTION
+            ADD INVENTORY
           </Link>
         </div>
-
         {loading ? (
           <LoadSpinner />
         ) : (
           <div className="row row-cols-1 row-cols-lg-3 g-2">
-            {inspections.map((inspection) => (
-              <InspectionCard key={inspection._id} inspection={inspection} />
+            {inventorys.map((inventory) => (
+              <InventoryCard key={inventory._id} inventory={inventory} />
             ))}
           </div>
         )}
       </div>
+
       <Footer />
     </>
   );
 };
 
-export default InspectionPage;
+export default Inventory;

@@ -7,17 +7,17 @@ import Footer from "../../components/Footer";
 import { Card, Button } from "react-bootstrap";
 import BackButton from "../../components/BackButton";
 
-const DeleteHive = () => {
+const DeleteInventory = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
-  const handleDeleteHive = () => {
+  const handleDeleteInventory = () => {
     setLoading(true);
     axios
-      .delete(`http://localhost:5555/new-hive/${id}`)
+      .delete(`http://localhost:5555/inventory/${id}`)
       .then(() => {
         setLoading(false);
-        navigate("/");
+        navigate("/inventory");
       })
       .catch((error) => {
         setLoading(false);
@@ -25,6 +25,7 @@ const DeleteHive = () => {
         console.log(error);
       });
   };
+
   return (
     <>
       {loading && <LoadSpinner />}
@@ -36,10 +37,10 @@ const DeleteHive = () => {
         <h1 className="fs-1 fw-bold my-4 text-white mb-5">Delete Hive</h1>
         {loading ? <LoadSpinner /> : ""}
         <div className="d-flex align-items-center mx-auto text-michgold">
-          <h3>Are You Sure You Want To Delete This Hive?</h3>
+          <h3>Are You Sure You Want To Delete This Inventory?</h3>
         </div>
         <div>
-          <Button className="btn-danger m-3" onClick={handleDeleteHive}>
+          <Button className="btn-danger m-3" onClick={handleDeleteInventory}>
             YES
           </Button>
           <BackButton />
@@ -51,4 +52,4 @@ const DeleteHive = () => {
   );
 };
 
-export default DeleteHive;
+export default DeleteInventory;
