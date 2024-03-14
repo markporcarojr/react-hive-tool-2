@@ -2,8 +2,6 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 import dotenv from 'dotenv';
 
 import hiveRoutes from "./routes/hiveRoutes.js";
@@ -13,11 +11,8 @@ import treatmentRoutes from "./routes/treatmentRoutes.js";
 import harvestRoutes from "./routes/harvestRoutes.js";
 import swarmRoutes from "./routes/swarmRoutes.js";
 import feedRoutes from "./routes/feedRoutes.js";
+dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-dotenv.config({ path: `${__dirname}/../.env` });
 
 const app = express();
 const PORT = process.env.PORT || 5555; // Use environment variable or default to 5555
@@ -32,7 +27,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/', (request, response) => {
-    return response.status(234).send("Welcome!!");
+    response.send("Welcome!!");
 });
 
 // ****************************************  Routes  **************************************
