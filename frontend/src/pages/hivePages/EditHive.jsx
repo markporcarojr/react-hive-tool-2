@@ -76,7 +76,7 @@ const EditHive = () => {
               </label>
               <input
                 type="number"
-                className="form-control text-center bg-inputgrey border-3 border-michgold rounded-4 opacity-80 fw-bold"
+                className="form-control text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 id="hiveNumber"
                 name="hiveNumber"
                 value={hiveNumber}
@@ -91,7 +91,7 @@ const EditHive = () => {
               <select
                 name="breed"
                 id="breed"
-                className="form-select mb-2 text-center bg-inputgrey border-3 border-michgold rounded-4 opacity-80 fw-bold"
+                className="form-select mb-2 text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 value={breed}
                 onChange={(e) => setBreed(e.target.value)}
               >
@@ -112,7 +112,7 @@ const EditHive = () => {
               </label>
               <input
                 type="date"
-                className="form-control text-center bg-inputgrey border-3 border-michgold rounded-4 opacity-80 fw-bold"
+                className="form-control text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 id="hiveDate"
                 name="hiveDate"
                 value={hiveDate}

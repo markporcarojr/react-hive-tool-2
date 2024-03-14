@@ -48,7 +48,7 @@ function CustomNavbar() {
             <Nav.Link href="/harvest" className="nav-link">
               Harvest
             </Nav.Link>
-            <Nav.Link href="/swarmtraps" className="nav-link">
+            <Nav.Link href="/swarm" className="nav-link">
               Swarm Traps
             </Nav.Link>
             <Nav.Link href="/feeding" className="nav-link">

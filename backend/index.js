@@ -11,6 +11,7 @@ import inspectionRoutes from "./routes/inspectionRoutes.js";
 import inventoryRoutes from "./routes/inventoryRoutes.js";
 import treatmentRoutes from "./routes/treatmentRoutes.js";
 import harvestRoutes from "./routes/harvestRoutes.js";
+import swarmRoutes from "./routes/swarmRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -33,12 +34,15 @@ app.get('/', (request, response) => {
     return response.status(234).send("Welcome!!");
 });
 
-// Middleware for the routes
+// ****************************************  Routes  **************************************
+
+// Route Definition
 app.use('/new-hive', hiveRoutes);
 app.use('/inspections', inspectionRoutes);
 app.use('/inventory', inventoryRoutes);
 app.use('/treatments', treatmentRoutes);
 app.use('/harvest', harvestRoutes);
+app.use('/swarm', swarmRoutes);
 
 mongoose
     .connect(MONGODB_URL)
