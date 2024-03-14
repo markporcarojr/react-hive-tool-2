@@ -12,6 +12,7 @@ import inventoryRoutes from "./routes/inventoryRoutes.js";
 import treatmentRoutes from "./routes/treatmentRoutes.js";
 import harvestRoutes from "./routes/harvestRoutes.js";
 import swarmRoutes from "./routes/swarmRoutes.js";
+import feedRoutes from "./routes/feedRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -43,6 +44,7 @@ app.use('/inventory', inventoryRoutes);
 app.use('/treatments', treatmentRoutes);
 app.use('/harvest', harvestRoutes);
 app.use('/swarm', swarmRoutes);
+app.use('/feed', feedRoutes);
 
 mongoose
     .connect(MONGODB_URL)

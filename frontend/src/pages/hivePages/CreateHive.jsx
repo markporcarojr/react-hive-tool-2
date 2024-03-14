@@ -55,7 +55,7 @@ const CreateHive = () => {
               </label>
               <input
                 type="number"
-                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 id="hiveNumber"
                 name="hiveNumber"
                 value={hiveNumber}
@@ -70,7 +70,7 @@ const CreateHive = () => {
               <select
                 name="breed"
                 id="breed"
-                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                className="form-select mb-2 text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 value={breed}
                 onChange={(e) => setBreed(e.target.value)}
               >
@@ -91,7 +91,7 @@ const CreateHive = () => {
               </label>
               <input
                 type="date"
-                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                className="form-control text-center bg-inputgrey border-3 text-white border-michgold rounded-4 opacity-85 fw-bold"
                 id="hiveDate"
                 name="hiveDate"
                 value={hiveDate}

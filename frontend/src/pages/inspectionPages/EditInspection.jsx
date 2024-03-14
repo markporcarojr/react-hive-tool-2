@@ -140,6 +140,7 @@ const EditInspection = () => {
                     id="dead"
                     name="temperament"
                     value="⚠️ Dead"
+                    checked={formData.temperament === "⚠️ Dead"}
                     onChange={handleChange}
                   />
                   <Form.Check
@@ -148,6 +149,7 @@ const EditInspection = () => {
                     id="calm"
                     name="temperament"
                     value="✓ Calm"
+                    checked={formData.temperament === "✓ Calm"}
                     onChange={handleChange}
                   />
                   <Form.Check
@@ -156,6 +158,7 @@ const EditInspection = () => {
                     id="aggressive"
                     name="temperament"
                     value="⚠️ Aggressive"
+                    checked={formData.temperament === "⚠️ Aggressive"}
                     onChange={handleChange}
                   />
                   <Form.Check
@@ -164,6 +167,7 @@ const EditInspection = () => {
                     id="active"
                     name="temperament"
                     value="✓ Active"
+                    checked={formData.temperament === "✓ Active"}
                     onChange={handleChange}
                   />
                 </div>

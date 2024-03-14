@@ -51,7 +51,7 @@ function CustomNavbar() {
             <Nav.Link href="/swarm" className="nav-link">
               Swarm Traps
             </Nav.Link>
-            <Nav.Link href="/feeding" className="nav-link">
+            <Nav.Link href="/feed" className="nav-link">
               Feeding
             </Nav.Link>
             {/* <Nav.Link href="/settings-form" className="nav-link">

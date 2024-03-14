@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import Feeding from "./pages/Feeding.jsx";
-import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import "./scss/custom.scss";
 import "./scss/styles.scss";
+
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 
 import Home from "./pages/hivePages/Home.jsx";
 import CreateHive from "./pages/hivePages/CreateHive.jsx";
@@ -34,6 +34,11 @@ import Swarm from "./pages/swarmPages.jsx/Swarm.jsx";
 import CreateSwarm from "./pages/swarmPages.jsx/CreateSwarm.jsx";
 import EditSwarm from "./pages/swarmPages.jsx/EditSwarm.jsx";
 import DeleteSwarm from "./pages/swarmPages.jsx/DeleteSwarm.jsx";
+
+import Feed from "./pages/feedPages/Feed.jsx";
+import CreateFeed from "./pages/feedPages/CreateFeed.jsx";
+import EditFeed from "./pages/feedPages/EditFeed.jsx";
+import DeleteFeed from "./pages/feedPages/DeleteFeed.jsx";
 
 function App() {
   return (
@@ -68,7 +73,11 @@ function App() {
       <Route path="/swarm/edit/:id" element={<EditSwarm />} />
       <Route path="/swarm/delete/:id" element={<DeleteSwarm />} />
 
-      <Route path="/feeding" element={<Feeding />} />
+      <Route path="/feed" element={<Feed />} />
+      <Route path="/feed/create" element={<CreateFeed />} />
+      <Route path="/feed/edit/:id" element={<EditFeed />} />
+      <Route path="/feed/delete/:id" element={<DeleteFeed />} />
+
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
     </Routes>
   );

@@ -11,7 +11,7 @@ const InspectionForm = () => {
   const navigate = useNavigate();
   const [sliderValue, setSliderValue] = useState(50);
   const [formData, setFormData] = useState({
-    hiveNumber: 0,
+    hiveNumber: "",
     temperament: "",
     hiveStrength: 50,
     queen: "",
