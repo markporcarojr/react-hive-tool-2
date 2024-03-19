@@ -1,106 +1,112 @@
 import express from "express";
-import { Treatment } from "../models/treatments.js";
-
+import { createTreatment, getTreatment, getTreatments, updateTreatment, deleteTreatment } from "../controllers/treatmentController.js";
 const router = express.Router();
 
-// Route to create a Treatment
-router.post('/', async (req, res) => {
-    try {
-        if (
-            !req.body.hiveNumber ||
-            !req.body.treatmentType ||
-            !req.body.treatmentDate
+router.post('/', createTreatment);
+router.get('/', getTreatments);
+router.get('/:id', getTreatment);
+router.put('/:id', updateTreatment);
+router.delete('/:id', deleteTreatment);
 
-        ) {
-            return res.status(400).send({
-                message: "Send all required fields"
-            });
-        }
 
-        const newTreatment = {
-            hiveNumber: req.body.hiveNumber,
-            treatmentType: req.body.treatmentType,
-            treatmentDate: req.body.treatmentDate,
+// // Route to create a Treatment
+// router.post('/', async (req, res) => {
+//     try {
+//         if (
+//             !req.body.hiveNumber ||
+//             !req.body.treatmentType ||
+//             !req.body.treatmentDate
 
-        };
-        const treatment = await Treatment.create(newTreatment);
+//         ) {
+//             return res.status(400).send({
+//                 message: "Send all required fields"
+//             });
+//         }
 
-        return res.status(201).send(treatment);
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ message: error.message })
-    }
-})
+//         const newTreatment = {
+//             hiveNumber: req.body.hiveNumber,
+//             treatmentType: req.body.treatmentType,
+//             treatmentDate: req.body.treatmentDate,
 
-// Route to all Treatments
-router.get('/', async (req, res) => {
-    try {
-        const treatments = await Treatment.find({});
+//         };
+//         const treatment = await Treatment.create(newTreatment);
 
-        return res.status(200).json(treatments);
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ message: error.message });
-    }
-})
+//         return res.status(201).send(treatment);
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send({ message: error.message })
+//     }
+// })
 
-// Route for getting Treatment by ID
-router.get('/:id', async (req, res) => {
-    try {
+// // Route to all Treatments
+// router.get('/', async (req, res) => {
+//     try {
+//         const treatments = await Treatment.find({});
 
-        const { id } = req.params;
+//         return res.status(200).json(treatments);
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send({ message: error.message });
+//     }
+// })
 
-        const treatment = await Treatment.findById(id);
+// // Route for getting Treatment by ID
+// router.get('/:id', async (req, res) => {
+//     try {
 
-        return res.status(200).json(treatment);
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ message: error.message });
-    }
-})
+//         const { id } = req.params;
 
-// Route to update Treatment
-router.put("/:id", async (req, res) => {
-    try {
-        if (!req.body.hiveNumber ||
-            !req.body.treatmentType ||
-            !req.body.treatmentDate
+//         const treatment = await Treatment.findById(id);
 
-        ) {
-            return res.status(400).send({
-                message: "Must fill out all required fields",
-            });
-        }
+//         return res.status(200).json(treatment);
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send({ message: error.message });
+//     }
+// })
 
-        const { id } = req.params;
-        const result = await Treatment.findByIdAndUpdate(id, req.body);
+// // Route to update Treatment
+// router.put("/:id", async (req, res) => {
+//     try {
+//         if (!req.body.hiveNumber ||
+//             !req.body.treatmentType ||
+//             !req.body.treatmentDate
 
-        if (!result) {
-            return res.status(404).json({ message: 'Treatment not found' })
-        }
+//         ) {
+//             return res.status(400).send({
+//                 message: "Must fill out all required fields",
+//             });
+//         }
 
-        return res.status(200).send({ message: "Treatment updated Successfully" })
+//         const { id } = req.params;
+//         const result = await Treatment.findByIdAndUpdate(id, req.body);
 
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ message: error.message })
-    }
-})
+//         if (!result) {
+//             return res.status(404).json({ message: 'Treatment not found' })
+//         }
 
-// Route to Delete a Treatment
-router.delete("/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-        const result = await Treatment.findByIdAndDelete(id);
+//         return res.status(200).send({ message: "Treatment updated Successfully" })
 
-        if (!result) {
-            return res.status(404).json({ message: "Treatment not found" });
-        }
-        return res.status(200).send({ message: "Treatment Deleted Successfully" })
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ message: error.message })
-    }
-})
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send({ message: error.message })
+//     }
+// })
+
+// // Route to Delete a Treatment
+// router.delete("/:id", async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const result = await Treatment.findByIdAndDelete(id);
+
+//         if (!result) {
+//             return res.status(404).json({ message: "Treatment not found" });
+//         }
+//         return res.status(200).send({ message: "Treatment Deleted Successfully" })
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send({ message: error.message })
+//     }
+// })
 
 export default router;

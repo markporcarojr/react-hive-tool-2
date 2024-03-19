@@ -1,109 +1,115 @@
 import express from "express";
-import { Hive } from "../models/hive.js";
+import { createHive, getHive, getHives, updateHive, deleteHive } from "../controllers/hiveController.js";
 
 const router = express.Router();
 
-// Route to create a hive
-router.post('/', async (req, res) => {
-    try {
-        if (
-            !req.body.hiveNumber ||
-            !req.body.breed ||
-            !req.body.hiveStrength ||
-            !req.body.hiveDate
+router.post('/', createHive);
+router.get('/', getHives);
+router.get('/:id', getHive);
+router.put('/:id', updateHive);
+router.delete('/:id', deleteHive);
 
-        ) {
-            return res.status(400).send({
-                message: "Send all required fields"
-            });
-        }
+// // Route to create a hive
+// router.post('/', async (req, res) => {
+//     try {
+//         if (
+//             !req.body.hiveNumber ||
+//             !req.body.breed ||
+//             !req.body.hiveStrength ||
+//             !req.body.hiveDate
 
-        const newHive = {
-            hiveNumber: req.body.hiveNumber,
-            breed: req.body.breed,
-            hiveStrength: req.body.hiveStrength,
-            hiveDate: req.body.hiveDate,
+//         ) {
+//             return res.status(400).send({
+//                 message: "Send all required fields"
+//             });
+//         }
 
-        };
-        const hive = await Hive.create(newHive);
+//         const newHive = {
+//             hiveNumber: req.body.hiveNumber,
+//             breed: req.body.breed,
+//             hiveStrength: req.body.hiveStrength,
+//             hiveDate: req.body.hiveDate,
 
-        return res.status(201).send(hive);
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ message: error.message })
-    }
-})
+//         };
+//         const hive = await Hive.create(newHive);
 
-// Route to all hives
-router.get('/', async (req, res) => {
-    try {
-        const hives = await Hive.find({});
+//         return res.status(201).send(hive);
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send({ message: error.message })
+//     }
+// })
 
-        return res.status(200).json(hives);
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ message: error.message });
-    }
-})
+// // Route to all hives
+// router.get('/', async (req, res) => {
+//     try {
+//         const hives = await Hive.find({});
 
-// Route for getting hive by ID
-router.get('/:id', async (req, res) => {
-    try {
+//         return res.status(200).json(hives);
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send({ message: error.message });
+//     }
+// })
 
-        const { id } = req.params;
+// // Route for getting hive by ID
+// router.get('/:id', async (req, res) => {
+//     try {
 
-        const hive = await Hive.findById(id);
+//         const { id } = req.params;
 
-        return res.status(200).json(hive);
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ message: error.message });
-    }
-})
+//         const hive = await Hive.findById(id);
 
-// Route to update Hive
-router.put("/:id", async (req, res) => {
-    try {
-        if (!req.body.hiveNumber ||
-            !req.body.breed ||
-            !req.body.hiveStrength ||
-            !req.body.hiveDate
+//         return res.status(200).json(hive);
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send({ message: error.message });
+//     }
+// })
 
-        ) {
-            return res.status(400).send({
-                message: "Must fill out all required fields",
-            });
-        }
+// // Route to update Hive
+// router.put("/:id", async (req, res) => {
+//     try {
+//         if (!req.body.hiveNumber ||
+//             !req.body.breed ||
+//             !req.body.hiveStrength ||
+//             !req.body.hiveDate
 
-        const { id } = req.params;
-        const result = await Hive.findByIdAndUpdate(id, req.body);
+//         ) {
+//             return res.status(400).send({
+//                 message: "Must fill out all required fields",
+//             });
+//         }
 
-        if (!result) {
-            return res.status(404).json({ message: 'Hive not found' })
-        }
+//         const { id } = req.params;
+//         const result = await Hive.findByIdAndUpdate(id, req.body);
 
-        return res.status(200).send({ message: "Hive updated Successfully" })
+//         if (!result) {
+//             return res.status(404).json({ message: 'Hive not found' })
+//         }
 
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ message: error.message })
-    }
-})
+//         return res.status(200).send({ message: "Hive updated Successfully" })
 
-// Route to Delete a hive
-router.delete("/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-        const result = await Hive.findByIdAndDelete(id);
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send({ message: error.message })
+//     }
+// })
 
-        if (!result) {
-            return res.status(404).json({ message: "Hive not found" });
-        }
-        return res.status(200).send({ message: "Hive Deleted Successfully" })
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).send({ message: error.message })
-    }
-})
+// // Route to Delete a hive
+// router.delete("/:id", async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const result = await Hive.findByIdAndDelete(id);
+
+//         if (!result) {
+//             return res.status(404).json({ message: "Hive not found" });
+//         }
+//         return res.status(200).send({ message: "Hive Deleted Successfully" })
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(500).send({ message: error.message })
+//     }
+// })
 
 export default router;
