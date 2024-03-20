@@ -1,7 +1,11 @@
-import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Navigate, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "./scss/custom.scss";
 import "./scss/styles.scss";
+import LoadSpinner from "./components/Spinner.jsx";
+import Cookies from "js-cookie";
+import UserContext from "./components/UserContext.jsx";
+import PrivateRoutes from "./components/PrivateRoutes.jsx";
 
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 
@@ -40,46 +44,90 @@ import CreateFeed from "./pages/feedPages/CreateFeed.jsx";
 import EditFeed from "./pages/feedPages/EditFeed.jsx";
 import DeleteFeed from "./pages/feedPages/DeleteFeed.jsx";
 
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+
 function App() {
+  const [user, setUser] = useState(null);
+  const userCookie = Cookies.get("userCookie");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function getUser() {
+      const response = await fetch(`http://localhost:5173/user/${userCookie}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const _response = await response.json();
+      if (!response.ok) {
+        console.log(_response.error);
+      }
+      if (response.ok) {
+        setUser(_response.user);
+      }
+      setLoading(true);
+    }
+
+    if (userCookie) {
+      getUser();
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) {
+    return <LoadSpinner />;
+  }
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/hives/create" element={<CreateHive />} />
-      <Route path="/hives/delete/:id" element={<DeleteHive />} />
-      <Route path="/hives/edit/:id" element={<EditHive />} />
+    <UserContext.Provider value={{ user, setUser }}>
+      <Routes>
+        <Route element={<PrivateRoutes />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/hives/create" element={<CreateHive />} />
+          <Route path="/hives/delete/:id" element={<DeleteHive />} />
+          <Route path="/hives/edit/:id" element={<EditHive />} />
 
-      <Route path="/inspections" element={<Inspection />} />
-      <Route path="/inspections/create" element={<CreateInspection />} />
-      <Route path="/inspections/delete/:id" element={<DeleteInspection />} />
-      <Route path="/inspections/edit/:id" element={<EditInspection />} />
+          <Route path="/inspections" element={<Inspection />} />
+          <Route path="/inspections/create" element={<CreateInspection />} />
+          <Route
+            path="/inspections/delete/:id"
+            element={<DeleteInspection />}
+          />
+          <Route path="/inspections/edit/:id" element={<EditInspection />} />
 
-      <Route path="/inventory" element={<Inventory />} />
-      <Route path="/inventory/create" element={<CreateInventory />} />
-      <Route path="/inventory/delete/:id" element={<DeleteInventory />} />
-      <Route path="/inventory/edit/:id" element={<EditInventory />} />
+          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/inventory/create" element={<CreateInventory />} />
+          <Route path="/inventory/delete/:id" element={<DeleteInventory />} />
+          <Route path="/inventory/edit/:id" element={<EditInventory />} />
 
-      <Route path="/treatments" element={<Treatment />} />
-      <Route path="/treatments/create" element={<CreateTreatment />} />
-      <Route path="/treatments/delete/:id" element={<DeleteTreatment />} />
-      <Route path="/treatments/edit/:id" element={<EditTreatment />} />
+          <Route path="/treatments" element={<Treatment />} />
+          <Route path="/treatments/create" element={<CreateTreatment />} />
+          <Route path="/treatments/delete/:id" element={<DeleteTreatment />} />
+          <Route path="/treatments/edit/:id" element={<EditTreatment />} />
 
-      <Route path="/harvest" element={<Harvest />} />
-      <Route path="/harvest/create" element={<CreateHarvest />} />
-      <Route path="/harvest/edit/:id" element={<EditHarvest />} />
-      <Route path="/harvest/delete/:id" element={<DeleteHarvest />} />
+          <Route path="/harvest" element={<Harvest />} />
+          <Route path="/harvest/create" element={<CreateHarvest />} />
+          <Route path="/harvest/edit/:id" element={<EditHarvest />} />
+          <Route path="/harvest/delete/:id" element={<DeleteHarvest />} />
 
-      <Route path="/swarm" element={<Swarm />} />
-      <Route path="/swarm/create" element={<CreateSwarm />} />
-      <Route path="/swarm/edit/:id" element={<EditSwarm />} />
-      <Route path="/swarm/delete/:id" element={<DeleteSwarm />} />
+          <Route path="/swarm" element={<Swarm />} />
+          <Route path="/swarm/create" element={<CreateSwarm />} />
+          <Route path="/swarm/edit/:id" element={<EditSwarm />} />
+          <Route path="/swarm/delete/:id" element={<DeleteSwarm />} />
 
-      <Route path="/feed" element={<Feed />} />
-      <Route path="/feed/create" element={<CreateFeed />} />
-      <Route path="/feed/edit/:id" element={<EditFeed />} />
-      <Route path="/feed/delete/:id" element={<DeleteFeed />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/feed/create" element={<CreateFeed />} />
+          <Route path="/feed/edit/:id" element={<EditFeed />} />
+          <Route path="/feed/delete/:id" element={<DeleteFeed />} />
+        </Route>
 
-      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-    </Routes>
+        <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      </Routes>
+    </UserContext.Provider>
   );
 }
 

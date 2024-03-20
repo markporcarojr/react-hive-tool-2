@@ -5,8 +5,17 @@ import logoWebp3x from "../assets/images/hive_tool@3x.webp";
 import logoPng1x from "../assets/images/hive_tool@1x.png";
 import logoPng2x from "../assets/images/hive_tool@2x.png";
 import logoPng3x from "../assets/images/hive_tool@3x.png";
+import UserContext from "../components/UserContext.jsx";
+import { useContext } from "react";
+import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 
 function CustomNavbar() {
+  const { user, setUser } = useContext(UserContext);
+  function logout() {
+    setUser(null);
+    Cookies.remove("userCookie");
+  }
   return (
     <Navbar expand="lg" style={{ backgroundColor: "#ffcb05" }} sticky="top">
       <Container fluid>
@@ -33,30 +42,35 @@ function CustomNavbar() {
         <Navbar.Toggle aria-controls="navbarNavAltMarkup" className="fw-bold" />
         <Navbar.Collapse id="navbarNavAltMarkup">
           <Nav className="d-flex align-items-end navbar-nav ms-lg-auto ms-auto fw-bold">
-            <Nav.Link href="/" className="nav-link active">
+            <Link to="/" className="nav-link active">
               Home
-            </Nav.Link>
-            <Nav.Link href="/inspections" className="nav-link">
+            </Link>
+            <Link to="/inspections" className="nav-link">
               Inspections
-            </Nav.Link>
-            <Nav.Link href="/inventory" className="nav-link">
+            </Link>
+            <Link to="/inventory" className="nav-link">
               Inventory
-            </Nav.Link>
-            <Nav.Link href="/treatments" className="nav-link">
+            </Link>
+            <Link to="/treatments" className="nav-link">
               Treatment
-            </Nav.Link>
-            <Nav.Link href="/harvest" className="nav-link">
+            </Link>
+            <Link to="/harvest" className="nav-link">
               Harvest
-            </Nav.Link>
-            <Nav.Link href="/swarm" className="nav-link">
+            </Link>
+            <Link to="/swarm" className="nav-link">
               Swarm Traps
-            </Nav.Link>
-            <Nav.Link href="/feed" className="nav-link">
+            </Link>
+            <Link to="/feed" className="nav-link">
               Feeding
-            </Nav.Link>
-            {/* <Nav.Link href="/settings-form" className="nav-link">
-              Settings
+            </Link>
+            {/* <Nav.Link to="/login" className="nav-link">
+              Login
             </Nav.Link> */}
+            {user && (
+              <Link onClick={logout} className="nav-link">
+                Log Out
+              </Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

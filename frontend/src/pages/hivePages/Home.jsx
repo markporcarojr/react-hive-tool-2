@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import LoadSpinner from "../../components/Spinner";
 import { Link } from "react-router-dom";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import HiveCard from "../../components/HiveCard";
+import UserContext from "../../components/UserContext";
 
 const Home = () => {
   const [hives, setHives] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     setLoading(true);
@@ -29,7 +31,7 @@ const Home = () => {
       <CustomNavbar />
       <div id="title" className="container title">
         <h1 className="text-center text-white pt-2 outlined-text display-1 fw-bold apiary">
-          Owen Rd Apiary
+          {user.email} Apiary
         </h1>
         <h5 className="card-title mt-3 fs-2 outlined-text" id="datetime"></h5>
         <div className="d-flex justify-content-between text-white align-items-center outlined-text fs-3 fw-bold my-1 me-2">

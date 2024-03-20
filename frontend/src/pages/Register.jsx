@@ -13,77 +13,56 @@ import logoWebp3x from "../assets/images/hive_tool@3x.webp";
 import logoPng1x from "../assets/images/hive_tool@1x.png";
 import logoPng2x from "../assets/images/hive_tool@2x.png";
 import logoPng3x from "../assets/images/hive_tool@3x.png";
-import LoadSpinner from "../components/Spinner.jsx";
 
-const form_default = {
-  email: "",
-  password: "",
-};
-
-const Login = () => {
-  const [form, setForm] = useState(form_default);
+const Register = () => {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [message, setMessage] = useState(null);
   const { setUser } = useContext(UserContext);
-  // const [loading, setLoading] = useState(false);
-  // const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setLoading(true);
 
-    //   try {
-    //     const response = await axios
-    //       .post("http://localhost:5555/user/login", form, {
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //       })
-    //       .then(() => {
-    //         setLoading(false);
-    //         navigate("/");
-    //       });
+    if (form.password !== form.confirmPassword) {
+      setMessage("Passwords do not match");
+      return;
+    }
+    try {
+      const response = await axios
+        .post("http://localhost:5555/user/register", form, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then(() => {
+          setLoading(false);
+          navigate("/");
+        });
 
-    //     const data = response.data;
+      const data = response.data;
 
-    //     if (response.status === 200 && data.user) {
-    //       const userId = data.user._id;
-    //       Cookies.set("userCookie", userId);
-    //       setUser(data.user);
-    //     } else {
-    //       console.log(data.error);
-    //       setMessage(data.message);
-    //     }
-    //   } catch (error) {
-    //     console.error("An error occurred:", error);
-    //     setMessage("An error occurred while processing your request.");
-    //   }
-    //   setLoading(false);
-    // };
-
-    const response = await fetch("http://localhost:5555/user/login", {
-      method: "POST",
-      body: JSON.stringify(form),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const _response = await response.json();
-
-    if (response.ok && _response.user) {
-      const userId = _response.user._id;
-      Cookies.set("userCookie", userId);
-      setUser(_response.user);
-    } else {
-      console.log(_response.error);
-      return setMessage(_response.message);
+      if (response.status === 200 && data.user) {
+        const userId = data.user._id;
+        Cookies.set("userCookie", userId);
+        setUser(data.user);
+      } else {
+        console.log(data.error);
+        setMessage(data.message);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      setMessage("An error occurred while processing your request.");
     }
   };
 
   return (
     <>
       <CustomNavbar />
-      {/* {loading && <LoadSpinner />} */}
       <Row className="justify-content-center mb-0">
         <div className="d-flex justify-content-center">
           <picture>
@@ -127,19 +106,31 @@ const Login = () => {
                   }
                 />
               </Form.Group>
-
+              {/* New confirmPassword field for registration */}
+              <Form.Group controlId="confirmPassword">
+                <Form.Control
+                  type="password"
+                  autoComplete="current-password"
+                  value={form.confirmPassword}
+                  placeholder="Confirm Password..."
+                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2"
+                  onChange={(e) =>
+                    setForm({ ...form, confirmPassword: e.target.value })
+                  }
+                />
+              </Form.Group>
               <Form.Group>
                 <Button
                   type="submit"
                   className="btn-michgold btn-gold rounded-pill px-5 m-3 mb-2 mt-1"
                 >
-                  LOGIN
+                  REGISTER
                 </Button>
                 <a
-                  href="/register"
+                  href="/login"
                   className="d-block text-center fs-4 text-michgold"
                 >
-                  Create Account
+                  Already have an account? Login
                 </a>
               </Form.Group>
             </Form>
@@ -151,4 +142,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

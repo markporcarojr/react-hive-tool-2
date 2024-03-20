@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../../components/UserContext.jsx";
 
 const CreateHive = () => {
+  const { user } = useContext(UserContext);
   const [hiveNumber, setHiveNumber] = useState(" ");
   const [breed, setBreed] = useState(" ");
   const [hiveStrength, setHiveStrength] = useState(50);
@@ -16,8 +18,8 @@ const CreateHive = () => {
 
   const handleSliderChange = (e) => {
     const value = parseInt(e.target.value); // Parse slider value to integer
-    setSliderValue(value); // Update slider value state
-    setHiveStrength(value); // Update hiveStrength state
+    setSliderValue(value);
+    setHiveStrength(value);
   };
 
   const handleSaveHive = (e) => {
