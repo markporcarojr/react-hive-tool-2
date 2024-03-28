@@ -41,37 +41,34 @@ function CustomNavbar() {
 
         <Navbar.Toggle aria-controls="navbarNavAltMarkup" className="fw-bold" />
         <Navbar.Collapse id="navbarNavAltMarkup">
-          <Nav className="d-flex align-items-end navbar-nav ms-lg-auto ms-auto fw-bold">
-            <Link to="/" className="nav-link active">
-              Home
-            </Link>
-            <Link to="/inspections" className="nav-link">
-              Inspections
-            </Link>
-            <Link to="/inventory" className="nav-link">
-              Inventory
-            </Link>
-            <Link to="/treatments" className="nav-link">
-              Treatment
-            </Link>
-            <Link to="/harvest" className="nav-link">
-              Harvest
-            </Link>
-            <Link to="/swarm" className="nav-link">
-              Swarm Traps
-            </Link>
-            <Link to="/feed" className="nav-link">
-              Feeding
-            </Link>
-            {/* <Nav.Link to="/login" className="nav-link">
-              Login
-            </Nav.Link> */}
-            {user && (
+          {user && (
+            <Nav className="d-flex align-items-end navbar-nav ms-lg-auto ms-auto fw-bold">
+              <Link to="/" className="nav-link active">
+                Home
+              </Link>
+              <Link to="/inspections" className="nav-link">
+                Inspections
+              </Link>
+              <Link to="/inventory" className="nav-link">
+                Inventory
+              </Link>
+              <Link to="/treatments" className="nav-link">
+                Treatment
+              </Link>
+              <Link to="/harvest" className="nav-link">
+                Harvest
+              </Link>
+              <Link to="/swarm" className="nav-link">
+                Swarm Traps
+              </Link>
+              <Link to="/feed" className="nav-link">
+                Feeding
+              </Link>
               <Link onClick={logout} className="nav-link">
                 Log Out
               </Link>
-            )}
-          </Nav>
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

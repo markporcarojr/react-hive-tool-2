@@ -29,6 +29,7 @@ const CreateHive = () => {
       breed,
       hiveStrength,
       hiveDate,
+      userId: user._id,
     };
     setLoading(true);
     axios

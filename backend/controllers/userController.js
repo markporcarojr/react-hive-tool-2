@@ -138,7 +138,7 @@ export const deleteUser = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { userName, apiaryName, email, password } = req.body;
+        const { apiaryName, email, password } = req.body;
         const user = await User.findByIdAndUpdate(id, req.body, { new: true });
         return res.send({
             message: "User was updated successfully.",

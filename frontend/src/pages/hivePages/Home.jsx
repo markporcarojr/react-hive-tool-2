@@ -15,7 +15,7 @@ const Home = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:5555/new-hive")
+      .get(`http://localhost:5555/new-hive?userId=${user._id}`)
       .then((response) => {
         setHives(response.data);
         setLoading(false);
@@ -24,14 +24,14 @@ const Home = () => {
         console.error("Error fetching hive data:", error);
         setLoading(false);
       });
-  }, []);
+  }, [user]);
 
   return (
     <>
       <CustomNavbar />
       <div id="title" className="container title">
         <h1 className="text-center text-white pt-2 outlined-text display-1 fw-bold apiary">
-          {user.email} Apiary
+          {user.email} Apiary <br />
         </h1>
         <h5 className="card-title mt-3 fs-2 outlined-text" id="datetime"></h5>
         <div className="d-flex justify-content-between text-white align-items-center outlined-text fs-3 fw-bold my-1 me-2">
@@ -61,7 +61,7 @@ const Home = () => {
         ) : (
           <div className="row row-cols-1 row-cols-lg-3 g-2">
             {hives.map((hive) => (
-              <HiveCard key={hive._id} hive={hive} />
+              <HiveCard key={hive.userId} hive={hive} />
             ))}
           </div>
         )}
@@ -70,8 +70,5 @@ const Home = () => {
     </>
   );
 };
-// test commit
-// test 2
-// teset 3
 
 export default Home;

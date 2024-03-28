@@ -1,9 +1,8 @@
-import React from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom"; // Inside your component...
 
 const HiveCard = ({ hive }) => {
-  const { hiveNumber, breed, hiveStrength, hiveDate } = hive;
+  const { hiveNumber, breed, hiveStrength, hiveDate, userId } = hive;
   const textStyle = { color: "#ffcb05" };
   const formattedDate = new Date(hiveDate).toLocaleDateString("en-US");
 
