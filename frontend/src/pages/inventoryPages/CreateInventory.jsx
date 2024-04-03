@@ -9,6 +9,7 @@ import { Container, Card, Form, Button } from "react-bootstrap";
 const CreateInventory = () => {
   const [inventoryType, setInventoryType] = useState("");
   const [inventoryAmount, setInventoryAmount] = useState("");
+  const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -27,7 +28,7 @@ const CreateInventory = () => {
       })
       .catch((error) => {
         setLoading(false);
-        alert("An error has occurred. Please Check Console");
+        setMessage(error.response.data.message);
         console.log(error);
       });
   };
@@ -77,6 +78,7 @@ const CreateInventory = () => {
               ADD
             </Button>
           </div>
+          <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
         </Card>
       </Container>
       <Footer />

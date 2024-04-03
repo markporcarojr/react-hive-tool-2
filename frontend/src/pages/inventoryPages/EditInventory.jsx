@@ -10,6 +10,7 @@ const EditInventory = () => {
   const [inventoryType, setInventoryType] = useState("");
   const [inventoryAmount, setInventoryAmount] = useState("");
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
@@ -24,8 +25,8 @@ const EditInventory = () => {
       })
       .catch((error) => {
         setLoading(false);
+        setMessage(error.response.data.message);
         console.log("Error fetching data:", error);
-        alert("An error has occurred. Please check Console");
       });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -46,7 +47,7 @@ const EditInventory = () => {
       })
       .catch((error) => {
         setLoading(false);
-        alert("An error has occurred. Please Check Console");
+        setMessage(error.response.data.message);
         console.log(error);
       });
   };
@@ -97,6 +98,7 @@ const EditInventory = () => {
               UPDATE
             </Button>
           </div>
+          <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
         </Card>
       </Container>
       <Footer />

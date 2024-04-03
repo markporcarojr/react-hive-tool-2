@@ -4,7 +4,9 @@ import { Col, Container, Card } from "react-bootstrap";
 
 const FeedCard = ({ feed }) => {
   const { hiveNumber, feed: feedData, feedDate } = feed;
-  const formattedDate = new Date(feedDate).toLocaleDateString("en-US");
+  const utcDate = new Date(feedDate);
+  const options = { timeZone: "UTC" };
+  const formattedDate = utcDate.toLocaleDateString("en-US", options);
 
   return (
     <Col className="gy-4">

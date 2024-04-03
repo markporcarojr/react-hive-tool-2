@@ -10,6 +10,7 @@ const InspectionForm = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [sliderValue, setSliderValue] = useState(50);
+  const [message, setMessage] = useState();
   const [formData, setFormData] = useState({
     hiveNumber: "",
     temperament: "",
@@ -76,7 +77,7 @@ const InspectionForm = () => {
       })
       .catch((error) => {
         setLoading(false);
-        alert("An error has occurred. Please Check Console");
+        setMessage(error.response.data.message);
         console.log(error);
       });
   };
@@ -309,6 +310,8 @@ const InspectionForm = () => {
               </Form.Group>
 
               {/* Submit Button */}
+              <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
+
               <Button
                 type="submit"
                 form="inspection-form"

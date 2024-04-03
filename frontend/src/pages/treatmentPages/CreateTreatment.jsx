@@ -10,6 +10,7 @@ const CreateTreatment = () => {
   const [hiveNumber, setHiveNumber] = useState("");
   const [treatmentType, setTreatmentType] = useState("");
   const [treatmentDate, setTreatmentDate] = useState("");
+  const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -29,7 +30,7 @@ const CreateTreatment = () => {
       })
       .catch((error) => {
         setLoading(false);
-        alert("An error has occurred. Please Check Console");
+        setMessage(error.response.data.message);
         console.log(error);
       });
   };
@@ -95,6 +96,7 @@ const CreateTreatment = () => {
               ADD
             </Button>
           </div>
+          <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
         </Card>
       </Container>
       <Footer />

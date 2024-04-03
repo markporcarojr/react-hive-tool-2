@@ -4,7 +4,9 @@ import { Col, Container, Card } from "react-bootstrap";
 
 const SwarmCard = ({ swarm }) => {
   const { swarmNumber, location, swarmDate } = swarm;
-  const formattedDate = new Date(swarmDate).toLocaleDateString("en-US");
+  const utcDate = new Date(swarmDate);
+  const options = { timeZone: "UTC" };
+  const formattedDate = utcDate.toLocaleDateString("en-US", options);
 
   return (
     <Col className="gy-4">

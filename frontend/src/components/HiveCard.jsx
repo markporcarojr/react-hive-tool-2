@@ -4,7 +4,9 @@ import { Link } from "react-router-dom"; // Inside your component...
 const HiveCard = ({ hive }) => {
   const { hiveNumber, breed, hiveStrength, hiveDate, userId } = hive;
   const textStyle = { color: "#ffcb05" };
-  const formattedDate = new Date(hiveDate).toLocaleDateString("en-US");
+  const utcDate = new Date(hiveDate);
+  const options = { timeZone: "UTC" };
+  const formattedDate = utcDate.toLocaleDateString("en-US", options);
 
   return (
     <div className="col g-4 ">

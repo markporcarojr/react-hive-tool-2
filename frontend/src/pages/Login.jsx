@@ -2,10 +2,9 @@ import { useState, useContext } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import UserContext from "../components/UserContext.jsx";
 import Cookies from "js-cookie";
-import axios from "axios";
+
 import CustomNavbar from "../components/CustomNavbar.jsx";
 import Footer from "../components/Footer.jsx";
-import { useNavigate } from "react-router-dom";
 
 import logoWebp1x from "../assets/images/hive_tool@1x.webp";
 import logoWebp2x from "../assets/images/hive_tool@2x.webp";
@@ -13,7 +12,6 @@ import logoWebp3x from "../assets/images/hive_tool@3x.webp";
 import logoPng1x from "../assets/images/hive_tool@1x.png";
 import logoPng2x from "../assets/images/hive_tool@2x.png";
 import logoPng3x from "../assets/images/hive_tool@3x.png";
-import LoadSpinner from "../components/Spinner.jsx";
 
 const form_default = {
   email: "",
@@ -24,41 +22,9 @@ const Login = () => {
   const [form, setForm] = useState(form_default);
   const [message, setMessage] = useState(null);
   const { setUser } = useContext(UserContext);
-  // const [loading, setLoading] = useState(false);
-  // const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setLoading(true);
-
-    //   try {
-    //     const response = await axios
-    //       .post("http://localhost:5555/user/login", form, {
-    //         headers: {
-    //           "Content-Type": "application/json",
-    //         },
-    //       })
-    //       .then(() => {
-    //         setLoading(false);
-    //         navigate("/");
-    //       });
-
-    //     const data = response.data;
-
-    //     if (response.status === 200 && data.user) {
-    //       const userId = data.user._id;
-    //       Cookies.set("userCookie", userId);
-    //       setUser(data.user);
-    //     } else {
-    //       console.log(data.error);
-    //       setMessage(data.message);
-    //     }
-    //   } catch (error) {
-    //     console.error("An error occurred:", error);
-    //     setMessage("An error occurred while processing your request.");
-    //   }
-    //   setLoading(false);
-    // };
 
     const response = await fetch("http://localhost:5555/user/login", {
       method: "POST",
@@ -83,7 +49,6 @@ const Login = () => {
   return (
     <>
       <CustomNavbar />
-      {/* {loading && <LoadSpinner />} */}
       <Row className="justify-content-center mb-0">
         <div className="d-flex justify-content-center">
           <picture>

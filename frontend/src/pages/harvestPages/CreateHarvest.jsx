@@ -10,6 +10,7 @@ const CreateHarvest = () => {
   const [harvestType, setHarvestType] = useState("");
   const [harvestAmount, setHarvestAmount] = useState("");
   const [harvestDate, setHarvestDate] = useState("");
+  const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -29,7 +30,7 @@ const CreateHarvest = () => {
       })
       .catch((error) => {
         setLoading(false);
-        alert("An error has occurred. Please Check Console");
+        setMessage(error.response.data.message);
         console.log(error);
       });
   };
@@ -93,6 +94,7 @@ const CreateHarvest = () => {
               ADD
             </Button>
           </div>
+          <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
         </Card>
       </Container>
       <Footer />

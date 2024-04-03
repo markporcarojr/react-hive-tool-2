@@ -10,6 +10,7 @@ const EditHarvest = () => {
   const [harvestType, setHarvestType] = useState("");
   const [harvestAmount, setHarvestAmount] = useState("");
   const [harvestDate, setHarvestDate] = useState("");
+  const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -26,7 +27,7 @@ const EditHarvest = () => {
       .catch((error) => {
         setLoading(false);
         console.log("Error fetching data:", error);
-        alert("An error has occurred. Please check Console");
+        setMessage(error.response.data.message);
       });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,7 +49,7 @@ const EditHarvest = () => {
       })
       .catch((error) => {
         setLoading(false);
-        alert("An error has occurred. Please Check Console");
+        setMessage(error.response.data.message);
         console.log(error);
       });
   };
@@ -112,6 +113,7 @@ const EditHarvest = () => {
               ADD
             </Button>
           </div>
+          <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
         </Card>
       </Container>
       <Footer />

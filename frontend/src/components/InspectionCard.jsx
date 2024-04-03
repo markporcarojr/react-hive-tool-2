@@ -17,7 +17,9 @@ function InspectionCard({ inspection }) {
     id,
   } = inspection;
 
-  const formattedDate = new Date(inspectionDate).toLocaleDateString("en-US");
+  const utcDate = new Date(inspectionDate);
+  const options = { timeZone: "UTC" };
+  const formattedDate = utcDate.toLocaleDateString("en-US", options);
 
   return (
     <div className={`col gy-4 `} data-hive-number={hiveNumber}>

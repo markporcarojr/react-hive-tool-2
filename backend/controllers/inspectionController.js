@@ -9,7 +9,7 @@ export const createInspection = async (req, res) => {
             !req.body.inspectionDate
         ) {
             return res.status(400).send({
-                message: "Send all required fields"
+                message: "Fill out all required fields"
             });
         }
 
@@ -68,7 +68,7 @@ export const updateInspection = async (req, res) => {
 
         ) {
             return res.status(400).send({
-                message: "Send all required fields"
+                message: "Fill out all required fields"
             });
         }
 

@@ -4,7 +4,9 @@ import { Col, Container, Card } from "react-bootstrap";
 
 const HarvestCard = ({ harvest }) => {
   const { harvestAmount, harvestType, harvestDate } = harvest;
-  const formattedDate = new Date(harvestDate).toLocaleDateString("en-US");
+  const utcDate = new Date(harvestDate);
+  const options = { timeZone: "UTC" };
+  const formattedDate = utcDate.toLocaleDateString("en-US", options);
 
   return (
     <Col className="gy-4">

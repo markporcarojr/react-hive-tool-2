@@ -9,7 +9,7 @@ export const createFeed = async (req, res) => {
 
         ) {
             return res.status(400).send({
-                message: "Send all required fields"
+                message: "Fill out all required fields"
             });
         }
 
@@ -61,7 +61,7 @@ export const updateFeed = async (req, res) => {
 
         ) {
             return res.status(400).send({
-                message: "Must fill out all required fields",
+                message: "Fill out all required fields",
             });
         }
 

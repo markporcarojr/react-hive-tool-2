@@ -9,7 +9,7 @@ export const createSwarm = async (req, res) => {
 
         ) {
             return res.status(400).send({
-                message: "Send all required fields"
+                message: "Fill out all required fields"
             });
         }
 
@@ -58,7 +58,7 @@ export const updateSwarm = async (req, res) => {
 
         ) {
             return res.status(400).send({
-                message: "Must fill out all required fields",
+                message: "Fill out all required fields",
             });
         }
 
