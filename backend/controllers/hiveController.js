@@ -5,9 +5,9 @@ export const createHive = async (req, res) => {
     try {
         const { hiveNumber, breed, hiveStrength, hiveDate, userId } = req.body;
 
-        if (!hiveNumber || !breed || !hiveStrength || !hiveDate) {
+        if (!hiveNumber || !breed || hiveStrength == null || !hiveDate) {
             return res.status(400).send({
-                message: "Send all required fields"
+                message: "Fill out all required fields"
             });
         }
 
@@ -29,7 +29,7 @@ export const createHive = async (req, res) => {
 };
 export const getHives = async (req, res) => {
     try {
-        const userId = req.query.userId; // Use req.query.userId for GET requests
+        const userId = req.query.userId;
         const hives = await Hive.find({ userId });
 
         return res.status(200).json(hives);
@@ -55,12 +55,12 @@ export const updateHive = async (req, res) => {
     try {
         if (!req.body.hiveNumber ||
             !req.body.breed ||
-            !req.body.hiveStrength ||
+            req.body.hiveStrength == null ||
             !req.body.hiveDate
 
         ) {
             return res.status(400).send({
-                message: "Must fill out all required fields",
+                message: "Fill out all required fields",
             });
         }
 

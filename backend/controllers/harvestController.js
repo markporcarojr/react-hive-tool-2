@@ -1,11 +1,12 @@
 import { Harvest } from "../models/harvest.js"
 
 export const createHarvest = async (req, res) => {
+    const { harvestAmount, harvestType, harvestDate, userId } = req.body;
     try {
         if (
-            !req.body.harvestAmount ||
-            !req.body.harvestType ||
-            !req.body.harvestDate
+            !harvestAmount ||
+            !harvestType ||
+            !harvestDate
 
         ) {
             return res.status(400).send({
@@ -14,9 +15,10 @@ export const createHarvest = async (req, res) => {
         }
 
         const newHarvest = {
-            harvestAmount: req.body.harvestAmount,
-            harvestType: req.body.harvestType,
-            harvestDate: req.body.harvestDate,
+            harvestAmount,
+            harvestType,
+            harvestDate,
+            userId
 
         };
         const harvest = await Harvest.create(newHarvest);
@@ -29,7 +31,8 @@ export const createHarvest = async (req, res) => {
 }
 export const getHarvests = async (req, res) => {
     try {
-        const harvests = await Harvest.find({});
+        const userId = req.query.userId;
+        const harvests = await Harvest.find({ userId });
 
         return res.status(200).json(harvests);
     } catch (error) {

@@ -17,6 +17,7 @@ import logoPng3x from "../assets/images/hive_tool@3x.png";
 const Register = () => {
   const [form, setForm] = useState({
     email: "",
+    username: "",
     password: "",
     confirmPassword: "",
   });
@@ -87,18 +88,33 @@ const Register = () => {
               <Form.Group controlId="email">
                 <Form.Control
                   type="email"
-                  autoComplete="current-email"
+                  autoComplete="off"
+                  name={`email_${Math.random().toString(36).substring(7)}`}
                   value={form.email}
                   placeholder="Email..."
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
               </Form.Group>
+              <Form.Group controlId="username">
+                <Form.Control
+                  type="text"
+                  autoComplete="username"
+                  value={form.username}
+                  name={`username_${Math.random().toString(36).substring(7)}`}
+                  placeholder="Username..."
+                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2"
+                  onChange={(e) =>
+                    setForm({ ...form, username: e.target.value })
+                  }
+                />
+              </Form.Group>
               <Form.Group controlId="password">
                 <Form.Control
                   type="password"
-                  autoComplete="current-password"
+                  autoComplete="new-password"
                   value={form.password}
+                  name={`password_${Math.random().toString(36).substring(7)}`}
                   placeholder="Password..."
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2"
                   onChange={(e) =>
@@ -106,11 +122,10 @@ const Register = () => {
                   }
                 />
               </Form.Group>
-              {/* New confirmPassword field for registration */}
               <Form.Group controlId="confirmPassword">
                 <Form.Control
                   type="password"
-                  autoComplete="current-password"
+                  autoComplete="new-password"
                   value={form.confirmPassword}
                   placeholder="Confirm Password..."
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2"

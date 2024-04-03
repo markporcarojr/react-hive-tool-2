@@ -2,10 +2,11 @@ import { Feed } from "../models/feed.js";
 
 export const createFeed = async (req, res) => {
     try {
+        const { hiveNumber, feed, feedDate, userId } = req.body;
         if (
-            !req.body.hiveNumber ||
-            !req.body.feed ||
-            !req.body.feedDate
+            !hiveNumber ||
+            !feed ||
+            !feedDate
 
         ) {
             return res.status(400).send({
@@ -14,14 +15,15 @@ export const createFeed = async (req, res) => {
         }
 
         const newFeed = {
-            hiveNumber: req.body.hiveNumber,
-            feed: req.body.feed,
-            feedDate: req.body.feedDate,
+            hiveNumber,
+            feed,
+            feedDate,
+            userId
 
         };
-        const feed = await Feed.create(newFeed);
+        const feeding = await Feed.create(newFeed);
 
-        return res.status(201).send(feed);
+        return res.status(201).send(feeding);
     } catch (error) {
         console.log(error.message);
         res.status(500).send({ message: error.message })
@@ -30,7 +32,8 @@ export const createFeed = async (req, res) => {
 
 export const getFeeds = async (req, res) => {
     try {
-        const feeds = await Feed.find({});
+        const userId = req.query.userId;
+        const feeds = await Feed.find({ userId });
 
         return res.status(200).json(feeds);
     } catch (error) {

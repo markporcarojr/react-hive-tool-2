@@ -18,11 +18,11 @@ const inventorySchema = new Schema({
         type: String,
         required: false
     },
-    // userId: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User', // Assuming your user model is named 'User'
-    //     required: true
-    // }
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
 
 },
     {

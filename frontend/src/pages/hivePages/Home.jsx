@@ -31,7 +31,7 @@ const Home = () => {
       <CustomNavbar />
       <div id="title" className="container title">
         <h1 className="text-center text-white pt-2 outlined-text display-1 fw-bold apiary">
-          {user.email} Apiary <br />
+          {user.username ? user.username + "'s" : "Your"} Apiary <br />
         </h1>
         <h5 className="card-title mt-3 fs-2 outlined-text" id="datetime"></h5>
         <div className="d-flex justify-content-between text-white align-items-center outlined-text fs-3 fw-bold my-1 me-2">

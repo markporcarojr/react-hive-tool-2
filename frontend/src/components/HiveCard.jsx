@@ -9,10 +9,12 @@ const HiveCard = ({ hive }) => {
   const formattedDate = utcDate.toLocaleDateString("en-US", options);
 
   return (
-    <div className="col g-4 ">
+    <div className={`col g-4 `}>
       <div className="container px-2 pop " style={{ maxWidth: "500px" }}>
         <Card
-          className="rounded-5 border-3 bg-card"
+          className={`rounded-5 border-3 ${
+            hiveStrength === 0 ? "bg-danger" : "bg-card"
+          }`}
           style={{ borderColor: "#ffcb05" }}
         >
           <Card.Header

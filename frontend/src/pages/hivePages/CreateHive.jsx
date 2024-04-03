@@ -8,16 +8,17 @@ import UserContext from "../../components/UserContext.jsx";
 
 const CreateHive = () => {
   const { user } = useContext(UserContext);
-  const [hiveNumber, setHiveNumber] = useState(" ");
-  const [breed, setBreed] = useState(" ");
+  const [hiveNumber, setHiveNumber] = useState("");
+  const [breed, setBreed] = useState("");
   const [hiveStrength, setHiveStrength] = useState(50);
-  const [hiveDate, setHiveDate] = useState(" ");
+  const [hiveDate, setHiveDate] = useState("");
   const [sliderValue, setSliderValue] = useState(50);
+  const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSliderChange = (e) => {
-    const value = parseInt(e.target.value); // Parse slider value to integer
+    const value = parseInt(e.target.value, 10); // Parse slider value to integer
     setSliderValue(value);
     setHiveStrength(value);
   };
@@ -40,7 +41,7 @@ const CreateHive = () => {
       })
       .catch((error) => {
         setLoading(false);
-        alert("An error has occurred. Please Check Console");
+        setMessage(error.response.data.message);
         console.log(error);
       });
   };
@@ -144,6 +145,7 @@ const CreateHive = () => {
               ADD
             </button>
           </div>
+          <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
         </div>
       </div>
       <Footer />

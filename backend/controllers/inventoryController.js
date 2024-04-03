@@ -2,9 +2,10 @@ import { Inventory } from "../models/inventory.js";
 
 export const createInventory = async (req, res) => {
     try {
+        const { inventoryType, inventoryAmount, userId } = req.body;
         if (
-            !req.body.inventoryType ||
-            !req.body.inventoryAmount
+            !inventoryType ||
+            !inventoryAmount
 
 
         ) {
@@ -14,8 +15,9 @@ export const createInventory = async (req, res) => {
         }
 
         const newInventory = {
-            inventoryType: req.body.inventoryType,
-            inventoryAmount: req.body.inventoryAmount,
+            inventoryType,
+            inventoryAmount,
+            userId
 
         };
         const inventory = await Inventory.create(newInventory);
@@ -28,7 +30,8 @@ export const createInventory = async (req, res) => {
 }
 export const getInventorys = async (req, res) => {
     try {
-        const inventories = await Inventory.find({});
+        const userId = req.query.userId;
+        const inventories = await Inventory.find({ userId });
 
         return res.status(200).json(inventories);
     } catch (error) {

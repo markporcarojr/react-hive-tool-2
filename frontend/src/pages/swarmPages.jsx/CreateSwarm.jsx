@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Container, Card, Form, Button } from "react-bootstrap";
+import UserContext from "../../components/UserContext.jsx";
 
 const CreateSwarm = () => {
+  const { user } = useContext(UserContext);
   const [swarmNumber, setSwarmNumber] = useState("");
   const [location, setLocation] = useState("");
   const [swarmDate, setSwarmDate] = useState("");
@@ -20,6 +22,7 @@ const CreateSwarm = () => {
       swarmNumber,
       location,
       swarmDate,
+      userId: user._id,
     };
     setLoading(true);
     axios

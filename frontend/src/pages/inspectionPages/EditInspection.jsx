@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
@@ -9,12 +9,12 @@ import { Form, Button, Card, Container } from "react-bootstrap";
 const EditInspection = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [sliderValue, setSliderValue] = useState(50);
+  const [sliderValue, setSliderValue] = useState();
   const [message, setMessage] = useState();
   const [formData, setFormData] = useState({
-    hiveNumber: 0,
+    hiveNumber: "",
     temperament: "",
-    hiveStrength: 50,
+    hiveStrength: "",
     queen: "",
     queenCell: "",
     eggs: "",
@@ -43,6 +43,7 @@ const EditInspection = () => {
           inspectionDate: res.data.inspectionDate,
           inspectionNote: res.data.inspectionNote,
         });
+        setSliderValue(res.data.hiveStrength);
         setLoading(false);
       })
       .catch((error) => {

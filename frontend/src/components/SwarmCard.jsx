@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Col, Container, Card } from "react-bootstrap";
 
 const SwarmCard = ({ swarm }) => {
-  const { swarmNumber, location, swarmDate } = swarm;
+  const { swarmNumber, location, swarmDate, userId } = swarm;
   const utcDate = new Date(swarmDate);
   const options = { timeZone: "UTC" };
   const formattedDate = utcDate.toLocaleDateString("en-US", options);

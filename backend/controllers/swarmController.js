@@ -2,10 +2,11 @@ import { Swarm } from "../models/swarm.js"
 
 export const createSwarm = async (req, res) => {
     try {
+        const { swarmNumber, swarmDate, location, userId } = req.body;
         if (
-            !req.body.swarmNumber ||
-            !req.body.location ||
-            !req.body.swarmDate
+            !swarmNumber ||
+            !location ||
+            !swarmDate
 
         ) {
             return res.status(400).send({
@@ -14,9 +15,10 @@ export const createSwarm = async (req, res) => {
         }
 
         const newSwarm = {
-            swarmNumber: req.body.swarmNumber,
-            location: req.body.location,
-            swarmDate: req.body.swarmDate,
+            swarmNumber,
+            location,
+            swarmDate,
+            userId
 
         };
         const swarm = await Swarm.create(newSwarm);
@@ -29,7 +31,8 @@ export const createSwarm = async (req, res) => {
 }
 export const getSwarms = async (req, res) => {
     try {
-        const swarms = await Swarm.find({});
+        const userId = req.query.userId;
+        const swarms = await Swarm.find({ userId });
 
         return res.status(200).json(swarms);
     } catch (error) {

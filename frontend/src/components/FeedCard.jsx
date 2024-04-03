@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Col, Container, Card } from "react-bootstrap";
 
 const FeedCard = ({ feed }) => {
-  const { hiveNumber, feed: feedData, feedDate } = feed;
+  const { hiveNumber, feed: feedData, feedDate, userId } = feed;
   const utcDate = new Date(feedDate);
   const options = { timeZone: "UTC" };
   const formattedDate = utcDate.toLocaleDateString("en-US", options);

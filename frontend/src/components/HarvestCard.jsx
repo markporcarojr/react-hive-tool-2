@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Col, Container, Card } from "react-bootstrap";
 
 const HarvestCard = ({ harvest }) => {
-  const { harvestAmount, harvestType, harvestDate } = harvest;
+  const { harvestAmount, harvestType, harvestDate, userId } = harvest;
   const utcDate = new Date(harvestDate);
   const options = { timeZone: "UTC" };
   const formattedDate = utcDate.toLocaleDateString("en-US", options);

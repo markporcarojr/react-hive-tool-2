@@ -2,10 +2,11 @@ import { Treatment } from "../models/treatments.js";
 
 export const createTreatment = async (req, res) => {
     try {
+        const { hiveNumber, treatmentDate, treatmentType, userId } = req.body;
         if (
-            !req.body.hiveNumber ||
-            !req.body.treatmentType ||
-            !req.body.treatmentDate
+            !hiveNumber ||
+            !treatmentType ||
+            !treatmentDate
 
         ) {
             return res.status(400).send({
@@ -14,9 +15,10 @@ export const createTreatment = async (req, res) => {
         }
 
         const newTreatment = {
-            hiveNumber: req.body.hiveNumber,
-            treatmentType: req.body.treatmentType,
-            treatmentDate: req.body.treatmentDate,
+            hiveNumber,
+            treatmentType,
+            treatmentDate,
+            userId
 
         };
         const treatment = await Treatment.create(newTreatment);
@@ -29,7 +31,8 @@ export const createTreatment = async (req, res) => {
 }
 export const getTreatments = async (req, res) => {
     try {
-        const treatments = await Treatment.find({});
+        const userId = req.query.userId;
+        const treatments = await Treatment.find({ userId });
 
         return res.status(200).json(treatments);
     } catch (error) {

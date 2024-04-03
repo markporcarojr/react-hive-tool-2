@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Col, Container, Card } from "react-bootstrap";
 
 const InventoryCard = ({ inventory }) => {
-  const { inventoryAmount, inventoryType } = inventory;
+  const { inventoryAmount, inventoryType, userId } = inventory;
   return (
     <Col className="gy-4">
       <Container className="px-2 pop" style={{ maxWidth: "500px" }}>

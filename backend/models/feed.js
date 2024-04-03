@@ -16,11 +16,11 @@ const feedSchema = new Schema({
         type: String,
         required: true
     },
-    // userId: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User', // Assuming your user model is named 'User'
-    //     required: true
-    // }
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }
 },
     {
         timestamps: true

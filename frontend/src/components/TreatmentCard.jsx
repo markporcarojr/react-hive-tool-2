@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Col, Container, Card } from "react-bootstrap";
 
 const TreatmentCard = ({ treatment }) => {
-  const { hiveNumber, treatmentType, treatmentDate } = treatment;
+  const { hiveNumber, treatmentType, treatmentDate, userId } = treatment;
   const utcDate = new Date(treatmentDate);
   const options = { timeZone: "UTC" };
   const formattedDate = utcDate.toLocaleDateString("en-US", options);

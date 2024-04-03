@@ -15,6 +15,7 @@ function InspectionCard({ inspection }) {
     queenCell,
     inspectionNote,
     id,
+    userId,
   } = inspection;
 
   const utcDate = new Date(inspectionDate);
@@ -30,7 +31,9 @@ function InspectionCard({ inspection }) {
         <div
           style={{ borderColor: "#ffcb05" }}
           className={`card border-michgold border-3 rounded-5 mx-auto ${
-            temperament === "⚠️ Dead" ? "bg-danger" : "bg-card"
+            temperament === "⚠️ Dead" || hiveStrength === 0
+              ? "bg-danger"
+              : "bg-card"
           }`}
         >
           <div className="container text-michgold card-body d-flex justify-content-between border-bottom border-3 border-michgold">

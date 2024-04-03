@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Container, Card, Form, Button } from "react-bootstrap";
+import UserContext from "../../components/UserContext";
 
 const CreateFeed = () => {
+  const { user } = useContext(UserContext);
   const [hiveNumber, setHiveNumber] = useState("");
   const [feed, setFeed] = useState("");
   const [feedDate, setFeedDate] = useState("");
@@ -20,6 +22,7 @@ const CreateFeed = () => {
       hiveNumber,
       feed,
       feedDate,
+      userId: user._id,
     };
     setLoading(true);
     axios

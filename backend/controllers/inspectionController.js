@@ -2,11 +2,13 @@ import { Inspection } from "../models/inspections.js";
 
 export const createInspection = async (req, res) => {
     try {
+        const { hiveNumber, hiveStrength, temperament, inspectionDate, userId, queen, queenCell, disease, pests, eggs, inspectionNote, brood } = req.body;
+
         if (
-            !req.body.hiveNumber ||
-            !req.body.temperament ||
-            !req.body.hiveStrength ||
-            !req.body.inspectionDate
+            !hiveNumber ||
+            !temperament ||
+            hiveStrength == null ||
+            !inspectionDate
         ) {
             return res.status(400).send({
                 message: "Fill out all required fields"
@@ -14,17 +16,18 @@ export const createInspection = async (req, res) => {
         }
 
         const newInspection = {
-            hiveNumber: req.body.hiveNumber,
-            temperament: req.body.temperament,
-            hiveStrength: req.body.hiveStrength,
-            queen: req.body.queen,
-            queenCell: req.body.queenCell,
-            brood: req.body.brood,
-            disease: req.body.disease,
-            pests: req.body.pests,
-            eggs: req.body.eggs,
-            inspectionDate: req.body.inspectionDate,
-            inspectionNote: req.body.inspectionNote,
+            hiveNumber,
+            hiveStrength,
+            temperament,
+            inspectionDate,
+            userId,
+            queen,
+            queenCell,
+            disease,
+            pests,
+            eggs,
+            inspectionNote,
+            brood,
 
         };
         const inspection = await Inspection.create(newInspection);
@@ -37,7 +40,8 @@ export const createInspection = async (req, res) => {
 }
 export const getInspections = async (req, res) => {
     try {
-        const inspections = await Inspection.find({});
+        const userId = req.query.userId;
+        const inspections = await Inspection.find({ userId });
 
         return res.status(200).json(inspections);
     } catch (error) {
@@ -63,7 +67,7 @@ export const updateInspection = async (req, res) => {
         if (
             !req.body.hiveNumber ||
             !req.body.temperament ||
-            !req.body.hiveStrength ||
+            req.body.hiveStrength == null ||
             !req.body.inspectionDate
 
         ) {

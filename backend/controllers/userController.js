@@ -63,8 +63,8 @@ export const loginUser = async (req, res) => {
 
 export const registerUser = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        if (!email || !password) {
+        const { email, password, username } = req.body;
+        if (!email || !password || !username) {
             return res.send({
                 message: 'all fields are required'
             })
@@ -76,7 +76,7 @@ export const registerUser = async (req, res) => {
             })
         }
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user = new User({ email, password: hashedPassword })
+        const user = new User({ email, username, password: hashedPassword })
         await user.save();
         return res.send({
             message: "user was registered successfully.",

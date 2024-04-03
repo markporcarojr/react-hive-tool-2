@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
+import UserContext from "../../components/UserContext.jsx";
 
 const InspectionForm = () => {
+  const { user } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [sliderValue, setSliderValue] = useState(50);
@@ -23,6 +25,7 @@ const InspectionForm = () => {
     pests: "",
     inspectionDate: "",
     inspectionNote: "",
+    userId: user._id,
   });
 
   const handleSliderChange = (e) => {
@@ -68,6 +71,7 @@ const InspectionForm = () => {
       pests: formData.pests,
       inspectionDate: formData.inspectionDate,
       inspectionNote: formData.inspectionNote,
+      userId: formData.userId,
     };
     axios
       .post("http://localhost:5555/inspections", data)
