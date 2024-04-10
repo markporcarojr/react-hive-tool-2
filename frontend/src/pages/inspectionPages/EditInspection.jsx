@@ -12,7 +12,6 @@ const EditInspection = () => {
   const [sliderValue, setSliderValue] = useState();
   const [message, setMessage] = useState();
   const [formData, setFormData] = useState({
-    hiveNumber: "",
     temperament: "",
     hiveStrength: "",
     queen: "",
@@ -31,7 +30,6 @@ const EditInspection = () => {
       .get(`http://localhost:5555/inspections/${id}`)
       .then((res) => {
         setFormData({
-          hiveNumber: res.data.hiveNumber,
           temperament: res.data.temperament,
           hiveStrength: res.data.hiveStrength,
           queen: res.data.queen,
@@ -85,7 +83,6 @@ const EditInspection = () => {
   const handleEditInspection = (e) => {
     e.preventDefault();
     const data = {
-      hiveNumber: formData.hiveNumber,
       temperament: formData.temperament,
       hiveStrength: formData.hiveStrength,
       queen: formData.queen,
@@ -119,19 +116,6 @@ const EditInspection = () => {
           <Card.Body>
             {/* Form */}
             <Form onSubmit={handleEditInspection} id="inspection-form">
-              {/* Hive Number */}
-              <Form.Group className="m-3 fs-3 mt-0 fw-semibold">
-                <Form.Label>Hive Number</Form.Label>
-                <Form.Control
-                  className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  type="number"
-                  id="hiveNumber"
-                  name="hiveNumber"
-                  onChange={handleChange}
-                  value={formData.hiveNumber}
-                />
-              </Form.Group>
-
               {/* Temperament */}
               <Form.Group className="m-3 fs-3 mt-0 fw-semibold mb-3">
                 <Form.Label>Temperament</Form.Label>

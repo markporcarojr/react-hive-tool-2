@@ -2,11 +2,12 @@ import { Feed } from "../models/feed.js";
 
 export const createFeed = async (req, res) => {
     try {
-        const { hiveNumber, feed, feedDate, userId } = req.body;
+        const { feed, feedDate, userId, hiveId, hiveNumber } = req.body;
         if (
-            !hiveNumber ||
+            !hiveId ||
             !feed ||
-            !feedDate
+            !feedDate ||
+            !hiveNumber
 
         ) {
             return res.status(400).send({
@@ -18,7 +19,8 @@ export const createFeed = async (req, res) => {
             hiveNumber,
             feed,
             feedDate,
-            userId
+            userId,
+            hiveId
 
         };
         const feeding = await Feed.create(newFeed);
@@ -58,7 +60,7 @@ export const getFeed = async (req, res) => {
 
 export const updateFeed = async (req, res) => {
     try {
-        if (!req.body.hiveNumber ||
+        if (
             !req.body.feed ||
             !req.body.feedDate
 

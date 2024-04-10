@@ -26,8 +26,11 @@ function Footer() {
         {/* Copyright */}
         <div className="text-dark">
           <p className="mb-0">
-            © 2023 Copyright:
-            <a href="https://marks-bees.netlify.app/#/" className="text-dark">
+            © {new Date().getFullYear()} Copyright:
+            <a
+              href="https://marks-bees.netlify.app/#/"
+              className="text-dark ms-1"
+            >
               Porcaro Farms
             </a>
           </p>

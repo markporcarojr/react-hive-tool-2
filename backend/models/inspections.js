@@ -8,7 +8,6 @@ const inspectionSchema = new Schema({
         type: Number,
         required: true
     },
-
     temperament: {
         type: String,
         required: true
@@ -52,6 +51,11 @@ const inspectionSchema = new Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true
+    },
+    hiveId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Hive',
         required: true
     },
 },

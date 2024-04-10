@@ -2,9 +2,10 @@ import { Inspection } from "../models/inspections.js";
 
 export const createInspection = async (req, res) => {
     try {
-        const { hiveNumber, hiveStrength, temperament, inspectionDate, userId, queen, queenCell, disease, pests, eggs, inspectionNote, brood } = req.body;
+        const { hiveNumber, hiveStrength, temperament, inspectionDate, userId, queen, queenCell, disease, pests, eggs, inspectionNote, brood, hiveId } = req.body;
 
         if (
+            !hiveId ||
             !hiveNumber ||
             !temperament ||
             hiveStrength == null ||
@@ -16,6 +17,7 @@ export const createInspection = async (req, res) => {
         }
 
         const newInspection = {
+            hiveId,
             hiveNumber,
             hiveStrength,
             temperament,
@@ -65,7 +67,6 @@ export const getInspection = async (req, res) => {
 export const updateInspection = async (req, res) => {
     try {
         if (
-            !req.body.hiveNumber ||
             !req.body.temperament ||
             req.body.hiveStrength == null ||
             !req.body.inspectionDate

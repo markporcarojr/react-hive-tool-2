@@ -1,9 +1,9 @@
 // // authRoutes.js
 
-// import express from "express";
-// import { Passport } from "passport";
-// import passport from "../config/passport.js";
-// const router = express.Router();
+import express from "express";
+import { Passport } from "passport";
+import passport from "../config/passport.js";
+const router = express.Router();
 
 // // router.get('/login/success', (req, res) => {
 // //     if (req.user) {
@@ -37,11 +37,11 @@
 // });
 
 
-// // router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
+router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 
-// // router.get("/google/callback", passport.authenticate("google", {
-// //     successRedirect: "http://localhost:5173/",
-// //     failureRedirect: "/login/failed"
-// // }))
+router.get("/google/callback", passport.authenticate("google", {
+    successRedirect: "http://localhost:5173/",
+    failureRedirect: "http://localhost:5173/login"
+}))
 
-// export default router;
+export default router;

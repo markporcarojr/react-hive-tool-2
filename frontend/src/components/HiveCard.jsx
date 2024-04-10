@@ -1,7 +1,8 @@
+// HiveCard.jsx
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom"; // Inside your component...
 
-const HiveCard = ({ hive }) => {
+const HiveCard = ({ hive, onInfoButtonClick }) => {
   const { hiveNumber, breed, hiveStrength, hiveDate, userId } = hive;
   const textStyle = { color: "#ffcb05" };
   const utcDate = new Date(hiveDate);
@@ -40,6 +41,12 @@ const HiveCard = ({ hive }) => {
               className="btn btn-outline-danger rounded-pill"
             >
               DELETE
+            </Link>
+            <Link
+              to={`/hives/data/${hive._id}`}
+              className="btn btn-outline-success rounded-pill"
+            >
+              INFO
             </Link>
             <Link
               to={`/hives/edit/${hive._id}`}

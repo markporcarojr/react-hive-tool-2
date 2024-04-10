@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
@@ -13,7 +13,9 @@ const InspectionForm = () => {
   const navigate = useNavigate();
   const [sliderValue, setSliderValue] = useState(50);
   const [message, setMessage] = useState();
+  const [hives, setHives] = useState([]);
   const [formData, setFormData] = useState({
+    hiveId: "",
     hiveNumber: "",
     temperament: "",
     hiveStrength: 50,
@@ -27,6 +29,20 @@ const InspectionForm = () => {
     inspectionNote: "",
     userId: user._id,
   });
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`http://localhost:5555/new-hive?userId=${user._id}`)
+      .then((response) => {
+        setHives(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching hive data:", error);
+        setLoading(false);
+      });
+  }, [user]);
 
   const handleSliderChange = (e) => {
     const value = parseInt(e.target.value, 10); // Parse slider value to integer
@@ -59,8 +75,11 @@ const InspectionForm = () => {
 
   const handleSaveInspection = (e) => {
     e.preventDefault();
+    const selectedHive = JSON.parse(formData.hiveId);
+
     const data = {
-      hiveNumber: formData.hiveNumber,
+      hiveNumber: selectedHive.hiveNumber,
+      hiveId: selectedHive._id,
       temperament: formData.temperament,
       hiveStrength: formData.hiveStrength,
       queen: formData.queen,
@@ -97,15 +116,30 @@ const InspectionForm = () => {
             <Form onSubmit={handleSaveInspection} id="inspection-form">
               {/* Hive Number */}
               <Form.Group className="m-3 fs-3 mt-0 fw-semibold">
-                <Form.Label>Hive Number</Form.Label>
-                <Form.Control
-                  className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  type="number"
-                  id="hiveNumber"
-                  name="hiveNumber"
-                  onChange={handleChange}
-                  value={formData.hiveNumber}
-                />
+                <div className="m-3 mt-0 fs-3 fw-semibold">
+                  <Form.Label htmlFor="hiveId">Hive Number</Form.Label>
+                  <Form.Select
+                    id="hiveId"
+                    className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    aria-label="select example"
+                    name="hiveId"
+                    value={formData.hiveId}
+                    onChange={handleChange}
+                  >
+                    <option value="" disabled>
+                      Select Hive Number
+                    </option>
+                    {hives.map((hive) => (
+                      // By using JSON.stringify(hive) as the value of the <option>,
+                      // we ensure that the entire hive object is associated with each dropdown option,
+                      // enabling us to pass comprehensive hive data to the backend when the user makes a selection.
+                      <option key={hive._id} value={JSON.stringify(hive)}>
+                        {hive.hiveNumber}{" "}
+                        {/* Display hive number to the user */}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </div>
               </Form.Group>
 
               {/* Temperament */}

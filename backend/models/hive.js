@@ -25,6 +25,9 @@ const hiveSchema = new Schema(
             ref: 'User',
             required: true
         },
+        // inspections: [{ type: Schema.Types.ObjectId, ref: 'Inspection' }],
+        // feeds: [{ type: Schema.Types.ObjectId, ref: 'Feed' }],
+        // treatments: [{ type: Schema.Types.ObjectId, ref: 'Treatment' }]
     },
     {
         timestamps: true,

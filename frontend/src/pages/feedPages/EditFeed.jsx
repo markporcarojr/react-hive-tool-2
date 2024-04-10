@@ -7,7 +7,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Container, Card, Form, Button } from "react-bootstrap";
 
 const EditFeed = () => {
-  const [hiveNumber, setHiveNumber] = useState("");
   const [feed, setFeed] = useState("");
   const [feedDate, setFeedDate] = useState("");
   const [message, setMessage] = useState(null);
@@ -19,7 +18,6 @@ const EditFeed = () => {
     axios
       .get(`http://localhost:5555/feed/${id}`)
       .then((res) => {
-        setHiveNumber(res.data.hiveNumber);
         setFeed(res.data.feed);
         setFeedDate(res.data.feedDate);
         setLoading(false);
@@ -36,7 +34,6 @@ const EditFeed = () => {
   const handleEditFeed = (e) => {
     e.preventDefault();
     const data = {
-      hiveNumber,
       feed,
       feedDate,
     };
@@ -63,18 +60,6 @@ const EditFeed = () => {
 
           {/* Forms */}
           <Form onSubmit={handleEditFeed} id="treatment-form">
-            <div className="m-3 fs-3 mt-0 fw-semibold">
-              <Form.Label htmlFor="hiveNumber">Hive Number</Form.Label>
-              <Form.Control
-                type="number"
-                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                name="hiveNumber"
-                id="hiveNumber"
-                value={hiveNumber}
-                onChange={(e) => setHiveNumber(e.target.value)}
-                aria-describedby="hiveNumber"
-              />
-            </div>
             <div className="m-3 mt-0 fs-3 fw-semibold">
               <Form.Label htmlFor="feed">Feeding</Form.Label>
               <Form.Select

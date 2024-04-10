@@ -1,3 +1,4 @@
+// Home.jsx
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import LoadSpinner from "../../components/Spinner";

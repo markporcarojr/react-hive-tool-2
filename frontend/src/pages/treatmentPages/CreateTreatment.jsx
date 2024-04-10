@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
@@ -9,17 +9,35 @@ import UserContext from "../../components/UserContext";
 
 const CreateTreatment = () => {
   const { user } = useContext(UserContext);
-  const [hiveNumber, setHiveNumber] = useState("");
+  const [hives, setHives] = useState([]);
+  const [hiveId, setHiveId] = useState("");
   const [treatmentType, setTreatmentType] = useState("");
   const [treatmentDate, setTreatmentDate] = useState("");
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`http://localhost:5555/new-hive?userId=${user._id}`)
+      .then((response) => {
+        setHives(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching hive data:", error);
+        setLoading(false);
+      });
+  }, [user]);
+
   const handleSaveTreatment = (e) => {
     e.preventDefault();
+    const selectedHive = JSON.parse(hiveId);
+
     const data = {
-      hiveNumber,
+      hiveNumber: selectedHive.hiveNumber,
+      hiveId: selectedHive._id,
       treatmentType,
       treatmentDate,
       userId: user._id,
@@ -47,17 +65,28 @@ const CreateTreatment = () => {
 
           {/* Forms */}
           <Form onSubmit={handleSaveTreatment} id="treatment-form">
-            <div className="m-3 fs-3 mt-0 fw-semibold">
-              <Form.Label htmlFor="hiveNumber">Hive Number</Form.Label>
-              <Form.Control
-                type="number"
+            <div className="m-3 mt-0 fs-3 fw-semibold">
+              <Form.Label htmlFor="hiveId">Hive Number</Form.Label>
+              <Form.Select
+                id="hiveId"
                 className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                name="hiveNumber"
-                id="hiveNumber"
-                value={hiveNumber}
-                onChange={(e) => setHiveNumber(e.target.value)}
-                aria-describedby="hiveNumber"
-              />
+                aria-label="select example"
+                name="hiveId"
+                value={hiveId}
+                onChange={(e) => setHiveId(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select Hive Number
+                </option>
+                {hives.map((hive) => (
+                  // By using JSON.stringify(hive) as the value of the <option>,
+                  // we ensure that the entire hive object is associated with each dropdown option,
+                  // enabling us to pass comprehensive hive data to the backend when the user makes a selection.
+                  <option key={hive._id} value={JSON.stringify(hive)}>
+                    {hive.hiveNumber} {/* Display hive number to the user */}
+                  </option>
+                ))}
+              </Form.Select>
             </div>
             <div className="m-3 mt-0 fs-3 fw-semibold">
               <Form.Label htmlFor="treatmentType">Treatment</Form.Label>

@@ -20,7 +20,13 @@ const feedSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
+    },
+    hiveId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Hive',
+        required: true
     }
+
 },
     {
         timestamps: true

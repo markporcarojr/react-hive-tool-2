@@ -13,6 +13,7 @@ import Home from "./pages/hivePages/Home.jsx";
 import CreateHive from "./pages/hivePages/CreateHive.jsx";
 import EditHive from "./pages/hivePages/EditHive.jsx";
 import DeleteHive from "./pages/hivePages/DeleteHive.jsx";
+import HiveData from "./pages/hivePages/HiveData.jsx";
 
 import Inspection from "./pages/inspectionPages/Inspection.jsx";
 import CreateInspection from "./pages/inspectionPages/CreateInspection.jsx";
@@ -85,6 +86,7 @@ function App() {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Home />} />
+          <Route path="/hives/data/:hiveId" element={<HiveData />} />
           <Route path="/hives/create" element={<CreateHive />} />
           <Route path="/hives/delete/:id" element={<DeleteHive />} />
           <Route path="/hives/edit/:id" element={<EditHive />} />
