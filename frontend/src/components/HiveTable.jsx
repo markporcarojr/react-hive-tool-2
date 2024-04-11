@@ -7,6 +7,7 @@ const formatDate = (dateString) => {
 };
 
 const HiveTable = ({ userInspections, userFeeds, userTreatments }) => {
+  // Extract the Hive Number from the inspection
   const hiveNumber =
     userInspections.length > 0 ? userInspections[0].hiveNumber : null;
 
@@ -43,8 +44,7 @@ const HiveTable = ({ userInspections, userFeeds, userTreatments }) => {
             <th>Date</th>
             <th>Feeding</th>
             <th>Treatment</th>
-            <th>Temperament</th>
-            <th>Hive Strength</th>
+            <th>Inspection</th>
           </tr>
         </thead>
         <tbody>
@@ -53,15 +53,15 @@ const HiveTable = ({ userInspections, userFeeds, userTreatments }) => {
               <td>{formatDate(inspection.inspectionDate)}</td>
               <td></td>
               <td></td>
-              <td>{inspection.temperament}</td>
-              <td>%{inspection.hiveStrength}</td>
+              <td>
+                {inspection.temperament} - %{inspection.hiveStrength}
+              </td>
             </tr>
           ))}
           {sortedFeeds.map((feed) => (
             <tr key={feed._id}>
               <td>{formatDate(feed.feedDate)}</td>
               <td>{feed.feed}</td>
-              <td></td>
               <td></td>
               <td></td>
             </tr>
@@ -72,7 +72,6 @@ const HiveTable = ({ userInspections, userFeeds, userTreatments }) => {
               <td></td>
               <td>{treatment.treatmentType}</td>
               <td></td>
-              <td></td>
             </tr>
           ))}
         </tbody>
@@ -82,3 +81,18 @@ const HiveTable = ({ userInspections, userFeeds, userTreatments }) => {
 };
 
 export default HiveTable;
+
+const tableData = [
+  {
+    date: 11212,
+    feed: "sugar",
+    treatment: "Oxalic acid",
+    Inspection: "Active",
+  },
+  {
+    date: 11212,
+    feed: "sugar",
+    treatment: "Oxalic acid",
+    Inspection: "Active",
+  },
+];

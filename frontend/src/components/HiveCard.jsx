@@ -2,7 +2,7 @@
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom"; // Inside your component...
 
-const HiveCard = ({ hive, onInfoButtonClick }) => {
+const HiveCard = ({ hive }) => {
   const { hiveNumber, breed, hiveStrength, hiveDate, userId } = hive;
   const textStyle = { color: "#ffcb05" };
   const utcDate = new Date(hiveDate);

@@ -1,28 +1,36 @@
 // // authRoutes.js
 
 import express from "express";
-import { Passport } from "passport";
-import passport from "../config/passport.js";
+import passport from "passport";
+
 const router = express.Router();
 
-// // router.get('/login/success', (req, res) => {
-// //     if (req.user) {
-// //         res.status(200).json({
-// //             success: true,
-// //             message: "Succesful",
-// //             user: req.user,
-// //             // cookies: req.cookies
-// //         });
+router.get('/login/success', (req, res) => {
+    if (req.user) {
+        res.status(200).json({
+            error: false,
+            message: "Succesfully Logged In",
+            user: req.user,
+        });
+    } else {
+        res.status(403).json({ error: true, message: "Not Authorized" })
+    }
+});
 
-// //     }
-// // });
+router.get('/login/failed', (req, res) => {
+    res.status(401).json({
+        error: true,
+        message: "Login Failed",
+    });
+});
 
-// // router.get('/login/failed', (req, res) => {
-// //     res.status(401).json({
-// //         success: false,
-// //         message: "Auth Failed",
-// //     });
-// // });
+
+// POST route for user logout
+router.post('/logout', (req, res) => {
+    req.logout(); // Passport logout function
+    res.redirect("http://localhost:5173/login")
+    res.send('Logged out');
+});
 
 // // POST route for user login
 // router.post('/login', passport.authenticate('local'), (req, res) => {
@@ -30,18 +38,34 @@ const router = express.Router();
 //     res.send('Login Successful');
 // });
 
-// // POST route for user logout
-// router.post('/logout', (req, res) => {
-//     req.logout(); // Passport logout function
-//     res.send('Logged out');
-// });
+router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
-
-router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
+// router.get("/google/callback", passport.authenticate("google", {
+//     successRedirect: "http://localhost:5173/",
+//     failureRedirect: "http://localhost:5173/login"
+// }))
 
 router.get("/google/callback", passport.authenticate("google", {
     successRedirect: "http://localhost:5173/",
-    failureRedirect: "http://localhost:5173/login"
-}))
+    failureRedirect: "/login/failed"
+}), async (req, res) => {
+    // Check if user exists in database
+    const existingUser = await User.findOne({ email: req.user.email });
 
+    if (existingUser) {
+        // User already exists, log them in (session or JWT)
+        req.session.userId = existingUser._id; // Using session for example
+        res.redirect('/');
+    } else {
+        // Create a new user document
+        const newUser = new User({
+            email: req.user.email,
+            name: req.user.displayName,
+            googleId: req.user.id
+        });
+        await newUser.save();
+        req.session.userId = newUser._id; // Update session
+        res.redirect('/');
+    }
+});
 export default router;

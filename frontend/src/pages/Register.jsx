@@ -1,11 +1,12 @@
 import { useState, useContext } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import UserContext from "../components/UserContext.jsx";
+import UserContext from "../context/UserContext.jsx";
 import Cookies from "js-cookie";
 import axios from "axios";
 import CustomNavbar from "../components/CustomNavbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { useNavigate } from "react-router-dom";
+import { BsGoogle } from "react-icons/bs";
 
 import logoWebp1x from "../assets/images/hive_tool@1x.webp";
 import logoWebp2x from "../assets/images/hive_tool@2x.webp";
@@ -25,6 +26,10 @@ const Register = () => {
   const { setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const googleAuth = () => {
+    window.open("http://localhost:5555/auth/google/callback", "_self");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -141,6 +146,16 @@ const Register = () => {
                 >
                   REGISTER
                 </Button>
+                <div>
+                  <Button
+                    onClick={googleAuth}
+                    type="submit"
+                    className="btn-michgold btn-gold rounded-pill px-4 m-3 mb-2 mt-1"
+                  >
+                    <BsGoogle />
+                    <span className="ms-3">Register With Google</span>
+                  </Button>
+                </div>
                 <a
                   href="/login"
                   className="d-block text-center fs-4 text-michgold"

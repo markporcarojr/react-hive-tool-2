@@ -5,7 +5,7 @@ import logoWebp3x from "../assets/images/hive_tool@3x.webp";
 import logoPng1x from "../assets/images/hive_tool@1x.png";
 import logoPng2x from "../assets/images/hive_tool@2x.png";
 import logoPng3x from "../assets/images/hive_tool@3x.png";
-import UserContext from "../components/UserContext.jsx";
+import UserContext from "../context/UserContext.jsx";
 import { useContext } from "react";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";

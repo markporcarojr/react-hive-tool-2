@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import UserContext from "../components/UserContext.jsx";
+import UserContext from "../context/UserContext.jsx";
 import Cookies from "js-cookie";
 
 import CustomNavbar from "../components/CustomNavbar.jsx";

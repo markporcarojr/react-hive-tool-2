@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-
+// Map out Objects on backend
 
 
 export default router;
