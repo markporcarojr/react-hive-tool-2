@@ -4,7 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./scss/styles.scss";
 import LoadSpinner from "./components/Spinner.jsx";
 import Cookies from "js-cookie";
-import UserContext from "./components/UserContext.jsx";
+import axios from "axios";
+import UserContext from "./context/UserContext.jsx";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
 
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
@@ -52,6 +53,25 @@ function App() {
   const [user, setUser] = useState(null);
   const userCookie = Cookies.get("userCookie");
   const [loading, setLoading] = useState(false);
+
+  // const getUser = async () => {
+  //   try {
+  //     const url = "http://localhost:5173/auth/login/success";
+  //     const { data } = await axios.get(url, { withCredentials: true });
+
+  //     if (data && data.user) {
+  //       setUser(data.user);
+  //     } else {
+  //       throw new Error("Failed to retrieve user data from backend");
+  //     }
+  //   } catch (err) {
+  //     console.error("Error fetching user data:", err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getUser();
+  // });
 
   useEffect(() => {
     async function getUser() {
