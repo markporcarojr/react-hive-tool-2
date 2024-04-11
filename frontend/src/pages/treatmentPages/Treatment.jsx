@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import TreatmentCard from "../../components/TreatmentCard";
-import UserContext from "../../components/UserContext";
+import UserContext from "../../context/UserContext";
 
 export default function Treatment() {
   const [treatments, setTreatments] = useState([]);

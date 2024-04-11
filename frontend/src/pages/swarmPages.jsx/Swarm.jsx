@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import SwarmCard from "../../components/SwarmCard";
-import UserContext from "../../components/UserContext";
+import UserContext from "../../context/UserContext";
 
 export default function Swarm() {
   const [swarms, setSwarms] = useState([]);

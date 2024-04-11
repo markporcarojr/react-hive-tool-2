@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import HiveCard from "../../components/HiveCard";
-import UserContext from "../../components/UserContext";
+import UserContext from "../../context/UserContext";
 
 const Home = () => {
   const [hives, setHives] = useState([]);

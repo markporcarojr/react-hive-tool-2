@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../../components/UserContext.jsx";
+import UserContext from "../../context/UserContext.jsx";
 
 const CreateHive = () => {
   const { user } = useContext(UserContext);

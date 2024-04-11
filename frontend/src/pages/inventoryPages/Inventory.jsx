@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import InventoryCard from "../../components/InventoryCard";
-import UserContext from "../../components/UserContext";
+import UserContext from "../../context/UserContext";
 
 const Inventory = () => {
   const [inventorys, setInventorys] = useState([]);

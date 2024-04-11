@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import FeedCard from "../../components/FeedCard";
-import UserContext from "../../components/UserContext";
+import UserContext from "../../context/UserContext";
 
 export default function Feed() {
   const [feeds, setFeeds] = useState([]);
