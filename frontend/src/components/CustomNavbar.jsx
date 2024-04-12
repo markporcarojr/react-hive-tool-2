@@ -7,15 +7,14 @@ import logoPng2x from "../assets/images/hive_tool@2x.png";
 import logoPng3x from "../assets/images/hive_tool@3x.png";
 import UserContext from "../context/UserContext.jsx";
 import { useContext } from "react";
-import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 
 function CustomNavbar() {
   const { user, setUser } = useContext(UserContext);
-  function logout() {
-    setUser(null);
-    Cookies.remove("userCookie");
-  }
+  const logout = () => {
+    localStorage.removeItem("token"); // Remove JWT token from localStorage
+    setUser(null); // Clear user context
+  };
   return (
     <Navbar expand="lg" style={{ backgroundColor: "#ffcb05" }} sticky="top">
       <Container fluid>

@@ -1,44 +1,44 @@
 // AuthContext.js
 import React, { createContext, useState } from "react";
-import axios from "axios"; // Import Axios
-import useAuth from "./useAuth";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [authUser, setAuthUser] = useState(null);
-  const { handleSignIn, handleSignOut } = useAuth();
+  const [user, setUser] = useState(null);
 
-  // Authentication logic using Axios
-  const signIn = async (username, password) => {
+  const handleSignIn = async (email, password) => {
     try {
-      const response = await axios.post("/login", { username, password });
-      const { token } = response.data;
-
-      // Set token in localStorage for future requests
-      localStorage.setItem("token", token);
-
-      setAuthUser({ username }); // Assuming successful authentication sets authUser
+      // Make API call to authenticate user and receive JWT token
+      const response = await fetch("http://localhost:5555/user/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem("token", data.token); // Store JWT in localStorage
+        setUser(data.user); // Set user in context
+        return true;
+      } else {
+        // Handle login error
+        return false;
+      }
     } catch (error) {
-      console.error("Sign-in error:", error);
-      // Handle error (e.g., display error message to user)
+      console.error("Error signing in:", error);
+      return false;
     }
   };
 
-  const signOut = () => {
-    // Clear token from localStorage
-    localStorage.removeItem("token");
-
-    // Call handleSignOut from useAuth to sign the user out
-    handleSignOut();
-    setAuthUser(null); // Clear authUser when signed out
+  const handleSignOut = () => {
+    localStorage.removeItem("token"); // Remove JWT from localStorage
+    setUser(null); // Clear user from context
   };
 
   return (
-    <AuthContext.Provider value={{ authUser, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, handleSignIn, handleSignOut }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export default AuthProvider;
+export { AuthContext, AuthProvider };

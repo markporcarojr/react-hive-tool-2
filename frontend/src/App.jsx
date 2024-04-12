@@ -1,9 +1,9 @@
+// App.jsx
 import { useState, useEffect } from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./scss/styles.scss";
 import LoadSpinner from "./components/Spinner.jsx";
-import Cookies from "js-cookie";
 import axios from "axios";
 import UserContext from "./context/UserContext.jsx";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
@@ -51,56 +51,36 @@ import Register from "./pages/Register.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
-  const userCookie = Cookies.get("userCookie");
-  const [loading, setLoading] = useState(false);
-
-  // const getUser = async () => {
-  //   try {
-  //     const url = "http://localhost:5173/auth/login/success";
-  //     const { data } = await axios.get(url, { withCredentials: true });
-
-  //     if (data && data.user) {
-  //       setUser(data.user);
-  //     } else {
-  //       throw new Error("Failed to retrieve user data from backend");
-  //     }
-  //   } catch (err) {
-  //     console.error("Error fetching user data:", err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getUser();
-  // });
+  const [loading, setLoading] = useState(true); // Changed initial value to true
 
   useEffect(() => {
-    async function getUser() {
-      const response = await fetch(`http://localhost:5173/user/${userCookie}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const _response = await response.json();
-      if (!response.ok) {
-        console.log(_response.error);
-      }
-      if (response.ok) {
-        setUser(_response.user);
-      }
-      setLoading(true);
-    }
-
-    if (userCookie) {
-      getUser();
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .get("http://localhost:5555/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setUser(response.data.user);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+          // Handle authentication errors (e.g., redirect to login page)
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     } else {
       setLoading(false);
     }
-  }, []);
+  }, []); // Add 'token' to the dependency array
 
   if (loading) {
     return <LoadSpinner />;
   }
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Routes>
