@@ -2,6 +2,7 @@
 
 import { User } from "../models/user.js";
 import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken';
 
 export const getUsers = async (req, res) => {
     try {
@@ -47,9 +48,13 @@ export const loginUser = async (req, res) => {
                 message: "credentials entered are invalid.",
             })
         }
+        const refreshToken = jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         return res.send({
             message: `${user.email} is logged in.`,
             user,
+            token,
+            refreshToken,
         });
 
     } catch (error) {
@@ -95,24 +100,22 @@ export const registerUser = async (req, res) => {
 
 export const getUser = async (req, res) => {
     try {
-        const { id } = req.params;
-        const user = await User.findById(id);
+        const token = req.header('Authorization').replace('Bearer ', '');
+        console.log('Received Token:', token); // Log the received token
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log('Decoded Token:', decoded); // Log the decoded token
+
+        const user = await User.findById(decoded.userId);
+
         if (!user) {
-            return res.send({
-                message: "user was not found.",
-            });
+            return res.status(404).json({ message: 'User not found' });
         }
 
-        if (user) {
-            return res.send({
-                user,
-            });
-        }
+        res.status(200).json({ user });
     } catch (error) {
-        return res.send({
-            message: "getting a user callback error.",
-            error,
-        });
+        console.error('Fetch user error:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 };
 
@@ -151,5 +154,32 @@ export const updateUser = async (req, res) => {
             message: "updating a user callback error.",
             error,
         })
+    }
+};
+
+export const refresh = async (req, res) => {
+    const refreshToken = req.body.refreshToken;
+
+    if (!refreshToken) {
+        return res.status(401).send({ message: 'Refresh token not provided.' });
+    }
+
+    try {
+        // Verify the refresh token
+        const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+        // Check if the decoded token contains the required user information (e.g., user ID)
+        if (!decoded.userId) {
+            return res.status(401).send({ message: 'Invalid refresh token.' });
+        }
+
+        // Generate a new access token
+        const accessToken = jwt.sign({ userId: decoded.userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        // Send the new access token to the client
+        return res.send({ accessToken });
+    } catch (error) {
+        console.error('Error refreshing token:', error);
+        return res.status(401).send({ message: 'Invalid refresh token.' });
     }
 };
