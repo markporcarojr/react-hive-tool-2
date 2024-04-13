@@ -40,6 +40,14 @@ const inspectionSchema = new Schema({
         type: String,
         required: false
     },
+    feeding: {
+        type: String,
+        required: false
+    },
+    treatments: {
+        type: String,
+        required: false
+    },
     inspectionDate: {
         type: String,
         required: true

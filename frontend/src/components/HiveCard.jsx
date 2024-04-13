@@ -1,6 +1,8 @@
 // HiveCard.jsx
 import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom"; // Inside your component...
+import { Link } from "react-router-dom";
+import { IoInformationCircleOutline } from "react-icons/io5";
+import { IconContext } from "react-icons";
 
 const HiveCard = ({ hive }) => {
   const { hiveNumber, breed, hiveStrength, hiveDate, userId } = hive;
@@ -42,11 +44,12 @@ const HiveCard = ({ hive }) => {
             >
               DELETE
             </Link>
-            <Link
-              to={`/hives/data/${hive._id}`}
-              className="btn btn-outline-success rounded-pill"
-            >
-              INFO
+            <Link to={`/hives/data/${hive._id}`}>
+              <IconContext.Provider value={{ color: "fccb05", size: "2em" }}>
+                <div className="darken-on-hover">
+                  <IoInformationCircleOutline />
+                </div>
+              </IconContext.Provider>
             </Link>
             <Link
               to={`/hives/edit/${hive._id}`}

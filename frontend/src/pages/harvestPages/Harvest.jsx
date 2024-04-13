@@ -24,7 +24,7 @@ export default function Harvest() {
         console.error("Error fetching inventory data:", error);
         setLoading(false);
       });
-  }, []);
+  }, [user]);
 
   return (
     <>

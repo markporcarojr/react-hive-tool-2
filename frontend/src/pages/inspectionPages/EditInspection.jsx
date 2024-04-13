@@ -20,6 +20,8 @@ const EditInspection = () => {
     brood: "",
     disease: "",
     pests: "",
+    feeding: "",
+    treatments: "",
     inspectionDate: "",
     inspectionNote: "",
   });
@@ -38,6 +40,8 @@ const EditInspection = () => {
           brood: res.data.brood,
           disease: res.data.disease,
           pests: res.data.pests,
+          feeding: res.data.feeding,
+          treatments: res.data.treatments,
           inspectionDate: res.data.inspectionDate,
           inspectionNote: res.data.inspectionNote,
         });
@@ -61,22 +65,16 @@ const EditInspection = () => {
   };
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    let parsedValue = value; // Initialize parsedValue with the value directly
+    let { name, value, selectedIndex } = e.target;
 
-    // Check if the input type is checkbox and handle accordingly
-    if (type === "checkbox") {
-      parsedValue = checked
-        ? "✓ " + name.charAt(0).toUpperCase() + name.slice(1)
-        : ""; // Convert checkbox value to string
-    } else if (name === "hiveNumber") {
-      parsedValue = parseInt(value, 10); // Parse hiveNumber to integer
+    if (selectedIndex === 0) {
+      value = "";
     }
 
     // Update formData state
     setFormData((prevState) => ({
       ...prevState,
-      [name]: parsedValue,
+      [name]: value,
     }));
   };
 
@@ -91,6 +89,8 @@ const EditInspection = () => {
       disease: formData.disease,
       eggs: formData.eggs,
       pests: formData.pests,
+      feeding: formData.feeding,
+      treatments: formData.treatments,
       inspectionDate: formData.inspectionDate,
       inspectionNote: formData.inspectionNote,
     };
@@ -134,8 +134,8 @@ const EditInspection = () => {
                     label="Calm"
                     id="calm"
                     name="temperament"
-                    value="✓ Calm"
-                    checked={formData.temperament === "✓ Calm"}
+                    value="Calm"
+                    checked={formData.temperament === "Calm"}
                     onChange={handleChange}
                   />
                   <Form.Check
@@ -152,8 +152,8 @@ const EditInspection = () => {
                     label="Active"
                     id="active"
                     name="temperament"
-                    value="✓ Active"
-                    checked={formData.temperament === "✓ Active"}
+                    value="Active"
+                    checked={formData.temperament === "Active"}
                     onChange={handleChange}
                   />
                 </div>
@@ -195,6 +195,19 @@ const EditInspection = () => {
               {/* Queen, Queen Cells, Eggs */}
               <Form.Group className="mb-3">
                 <div className="ps-0 form-check d-flex justify-content-between">
+                  <label className="fs-2 mb-0" htmlFor="eggs">
+                    Eggs
+                  </label>
+                  <Form.Check
+                    className="fs-2 mb-0"
+                    type="checkbox"
+                    id="eggs"
+                    name="eggs"
+                    checked={formData.eggs}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="ps-0 form-check d-flex justify-content-between">
                   <label className="fs-2 mb-0" htmlFor="queen">
                     Queen Spotted
                   </label>
@@ -221,19 +234,6 @@ const EditInspection = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <div className="ps-0 form-check d-flex justify-content-between">
-                  <label className="fs-2 mb-0" htmlFor="eggs">
-                    Eggs
-                  </label>
-                  <Form.Check
-                    className="fs-2 mb-0"
-                    type="checkbox"
-                    id="eggs"
-                    name="eggs"
-                    checked={formData.eggs}
-                    onChange={handleChange}
-                  />
-                </div>
               </Form.Group>
 
               {/* Brood */}
@@ -246,9 +246,9 @@ const EditInspection = () => {
                   value={formData.brood}
                 >
                   <option>Brood</option>
-                  <option value="✓ Normal Brood">Normal</option>
-                  <option value="✓ Spotty Brood">Spotty</option>
-                  <option value="✓ Compact Brood">Compact</option>
+                  <option value="Normal Brood">Normal</option>
+                  <option value="Spotty Brood">Spotty</option>
+                  <option value="Compact Brood">Compact</option>
                 </Form.Select>
               </Form.Group>
 
@@ -294,6 +294,42 @@ const EditInspection = () => {
                 </Form.Select>
               </Form.Group>
 
+              {/* Feeding */}
+              <Form.Group className="mb-3">
+                {/* <Form.Label>Pests</Form.Label> */}
+                <Form.Select
+                  className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  id="feeding"
+                  name="feeding"
+                  onChange={handleChange}
+                  value={formData.feeding}
+                >
+                  <option>Feeding</option>
+                  <option value="Sugar">Sugar</option>
+                  <option value="Fondant">Fondant</option>
+                  <option value="Pollen Patty">Pollen Patty</option>
+                  <option value="Syrup">Syrup</option>
+                </Form.Select>
+              </Form.Group>
+
+              {/* treatments */}
+              <Form.Group className="mb-3">
+                {/* <Form.Label>Pests</Form.Label> */}
+                <Form.Select
+                  className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  id="treatments"
+                  name="treatments"
+                  onChange={handleChange}
+                  value={formData.treatments}
+                >
+                  <option>Treatments</option>
+                  <option value="Oxalic Acid">Oxalic Acid</option>
+                  <option value="Formic Acid">Formic Acid</option>
+                  <option value="Apivar">Apivar</option>
+                  <option value="Micribes">Microbes</option>
+                </Form.Select>
+              </Form.Group>
+
               {/* Inspection Date */}
               <Form.Group className="mb-3">
                 <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
@@ -317,7 +353,7 @@ const EditInspection = () => {
                 <Form.Control
                   className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
                   as="textarea"
-                  rows={2}
+                  rows={5}
                   id="inspectionNote"
                   name="inspectionNote"
                   onChange={handleChange}

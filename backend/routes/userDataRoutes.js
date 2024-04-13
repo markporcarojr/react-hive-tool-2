@@ -1,7 +1,5 @@
 // userDataRoutes.js
 import { Inspection } from '../models/inspections.js';
-import { Feed } from '../models/feed.js';
-import { Treatment } from '../models/treatments.js';
 import express from 'express';
 
 const router = express.Router();
@@ -12,11 +10,8 @@ router.get('/', async (req, res) => {
 
 
         const userInspections = await Inspection.find({ hiveId });
-        const userFeeds = await Feed.find({ hiveId });
-        const userTreatments = await Treatment.find({ hiveId });
 
-
-        res.json({ userInspections, userFeeds, userTreatments });
+        res.json({ userInspections });
     } catch (error) {
 
         console.error('Error fetching user data:', error);

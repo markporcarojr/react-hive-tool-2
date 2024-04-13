@@ -1,4 +1,8 @@
-import { Table } from "react-bootstrap";
+import { useState } from "react";
+import { IoInformationCircleOutline } from "react-icons/io5";
+import { IconContext } from "react-icons";
+import { Table, Modal, Button } from "react-bootstrap";
+import InspectionCard from "./InspectionCard";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);
@@ -6,27 +10,22 @@ const formatDate = (dateString) => {
   return utcDate.toLocaleDateString("en-US", options);
 };
 
-const HiveTable = ({ userInspections, userFeeds, userTreatments }) => {
-  // Extract the Hive Number from the inspection
+const HiveTable = ({ userInspections }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedInspection, setSelectedInspection] = useState(null);
+
   const hiveNumber =
     userInspections.length > 0 ? userInspections[0].hiveNumber : null;
 
-  const compareDates = (a, b) => {
-    const dateA = new Date(a);
-    const dateB = new Date(b);
-    return dateB - dateA; // Sort in descending order (newest to oldest)
+  const handleShowModal = (inspection) => {
+    setSelectedInspection(inspection);
+    setShowModal(true);
   };
 
-  // Sort user data by date before rendering
-  const sortedInspections = userInspections.sort((a, b) =>
-    compareDates(a.inspectionDate, b.inspectionDate)
-  );
-  const sortedFeeds = userFeeds.sort((a, b) =>
-    compareDates(a.feedDate, b.feedDate)
-  );
-  const sortedTreatments = userTreatments.sort((a, b) =>
-    compareDates(a.treatmentDate, b.treatmentDate)
-  );
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedInspection(null);
+  };
 
   return (
     <div className="text-michgold text-center m-3">
@@ -42,57 +41,56 @@ const HiveTable = ({ userInspections, userFeeds, userTreatments }) => {
         <thead className="fs-5">
           <tr>
             <th>Date</th>
+            <th>Inspection</th>
             <th>Feeding</th>
             <th>Treatment</th>
-            <th>Inspection</th>
+            <th>Info</th>
           </tr>
         </thead>
         <tbody>
-          {sortedInspections.map((inspection) => (
-            <tr key={inspection._id}>
+          {userInspections.map((inspection, index) => (
+            <tr key={index}>
               <td>{formatDate(inspection.inspectionDate)}</td>
-              <td></td>
-              <td></td>
+              <td>{inspection.temperament || "N/A"}</td>
+              <td>{inspection.feeding || "N/A"}</td>
+              <td>{inspection.treatments || "N/A"}</td>
               <td>
-                {inspection.temperament} - %{inspection.hiveStrength}
+                <IconContext.Provider value={{ color: "fccb05", size: "2em" }}>
+                  <div className="darken-on-hover">
+                    <IoInformationCircleOutline
+                      onClick={() => handleShowModal(inspection)}
+                    />
+                  </div>
+                </IconContext.Provider>
               </td>
-            </tr>
-          ))}
-          {sortedFeeds.map((feed) => (
-            <tr key={feed._id}>
-              <td>{formatDate(feed.feedDate)}</td>
-              <td>{feed.feed}</td>
-              <td></td>
-              <td></td>
-            </tr>
-          ))}
-          {sortedTreatments.map((treatment) => (
-            <tr key={treatment._id}>
-              <td>{formatDate(treatment.treatmentDate)}</td>
-              <td></td>
-              <td>{treatment.treatmentType}</td>
-              <td></td>
             </tr>
           ))}
         </tbody>
       </Table>
+      {/* Modal to display detailed inspection information */}
+      <Modal
+        show={showModal}
+        onHide={handleCloseModal}
+        dialogClassName="modal-90w"
+      >
+        <Modal.Header className="d-flex justify-content-around">
+          <Modal.Title className="text-michgold fs-3 fw-bold">
+            Inspection Details
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedInspection && (
+            <InspectionCard inspection={selectedInspection} />
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
 
 export default HiveTable;
-
-const tableData = [
-  {
-    date: 11212,
-    feed: "sugar",
-    treatment: "Oxalic acid",
-    Inspection: "Active",
-  },
-  {
-    date: 11212,
-    feed: "sugar",
-    treatment: "Oxalic acid",
-    Inspection: "Active",
-  },
-];

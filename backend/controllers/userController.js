@@ -48,13 +48,13 @@ export const loginUser = async (req, res) => {
                 message: "credentials entered are invalid.",
             })
         }
-        const refreshToken = jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
+        // const refreshToken = jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         return res.send({
             message: `${user.email} is logged in.`,
             user,
             token,
-            refreshToken,
+            // refreshToken,
         });
 
     } catch (error) {

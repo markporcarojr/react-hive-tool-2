@@ -51,18 +51,14 @@ function CustomNavbar() {
               <Link to="/inventory" className="nav-link">
                 Inventory
               </Link>
-              <Link to="/treatments" className="nav-link">
-                Treatment
-              </Link>
+
               <Link to="/harvest" className="nav-link">
                 Harvest
               </Link>
               <Link to="/swarm" className="nav-link">
                 Swarm Traps
               </Link>
-              <Link to="/feed" className="nav-link">
-                Feeding
-              </Link>
+
               <Link onClick={logout} className="nav-link">
                 Log Out
               </Link>

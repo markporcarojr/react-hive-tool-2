@@ -4,6 +4,7 @@ import UserContext from "../context/UserContext.jsx";
 import axios from "axios";
 import CustomNavbar from "../components/CustomNavbar.jsx";
 import Footer from "../components/Footer.jsx";
+import { useNavigate } from "react-router-dom";
 
 import logoWebp1x from "../assets/images/hive_tool@1x.webp";
 import logoWebp2x from "../assets/images/hive_tool@2x.webp";
@@ -21,10 +22,10 @@ const Login = () => {
   const [form, setForm] = useState(form_default);
   const [message, setMessage] = useState(null);
   const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
         "http://localhost:5555/user/login",
@@ -41,8 +42,10 @@ const Login = () => {
       if (response.status === 200 && _response.token) {
         const token = _response.token;
         localStorage.setItem("token", token); // Store JWT token in localStorage
+
         setUser(_response.user);
         setMessage(null); // Clear any previous error messages
+        navigate("/");
       } else {
         console.log(_response.error);
         setMessage(_response.message);
@@ -80,8 +83,8 @@ const Login = () => {
               <Form.Group controlId="email">
                 <Form.Control
                   type="email"
-                  // autoComplete="current-email"
-                  // value={form.email}
+                  autoComplete="current-email"
+                  value={form.email}
                   placeholder="Email..."
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -90,8 +93,8 @@ const Login = () => {
               <Form.Group controlId="password">
                 <Form.Control
                   type="password"
-                  // autoComplete="current-password"
-                  // value={form.password}
+                  autoComplete="current-password"
+                  value={form.password}
                   placeholder="Password..."
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2"
                   onChange={(e) =>

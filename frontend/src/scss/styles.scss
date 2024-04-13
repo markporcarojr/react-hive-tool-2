@@ -91,6 +91,14 @@ $enable-shadows: true;
     0 0 0 0.5rem rgba(255, 203, 5, 0.25);
 }
 
+.darken-on-hover {
+  transition: filter 0.3s ease;
+}
+
+.darken-on-hover:hover {
+  filter: brightness(75%);
+}
+
 .inputgrey {
   color: #212529;
   background-color: $inputgrey;
@@ -185,6 +193,11 @@ input[type="range"] {
 .locationIcon {
   width: 100px;
   height: 100px;
+}
+
+.modal-text {
+  word-wrap: break-word; /* This allows long words to break and wrap onto the next line */
+  white-space: pre-line; /* This preserves line breaks in the text */
 }
 
 .outlined-text {

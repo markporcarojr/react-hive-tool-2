@@ -9,10 +9,8 @@ import passport from "passport";
 import hiveRoutes from "./routes/hiveRoutes.js";
 import inspectionRoutes from "./routes/inspectionRoutes.js";
 import inventoryRoutes from "./routes/inventoryRoutes.js";
-import treatmentRoutes from "./routes/treatmentRoutes.js";
 import harvestRoutes from "./routes/harvestRoutes.js";
 import swarmRoutes from "./routes/swarmRoutes.js";
-import feedRoutes from "./routes/feedRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from './routes/authRoutes.js'
 import userDataRoutes from "./routes/userDataRoutes.js"
@@ -57,10 +55,8 @@ app.use(
 app.use('/new-hive', hiveRoutes);
 app.use('/inspections', inspectionRoutes);
 app.use('/inventory', inventoryRoutes);
-app.use('/treatments', treatmentRoutes);
 app.use('/harvest', harvestRoutes);
 app.use('/swarm', swarmRoutes);
-app.use('/feed', feedRoutes);
 app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/user-data', userDataRoutes);
