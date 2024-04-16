@@ -20,6 +20,14 @@ const hiveSchema = new Schema(
             type: String,
             required: true
         },
+        queenColor: {
+            type: String,
+            required: false
+        },
+        queenAge: {
+            type: String,
+            required: false
+        },
         userId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',

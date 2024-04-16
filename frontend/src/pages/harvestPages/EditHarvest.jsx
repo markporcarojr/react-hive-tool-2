@@ -110,7 +110,7 @@ const EditHarvest = () => {
               form="harvest-form"
               className="btn px-5 btn-michgold btn-gold fw-bold rounded-pill"
             >
-              ADD
+              UPDATE
             </Button>
           </div>
           <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>

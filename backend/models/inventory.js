@@ -14,7 +14,7 @@ const inventorySchema = new Schema({
         required: true
     },
 
-    inventoryDate: {
+    inventoryLocation: {
         type: String,
         required: false
     },

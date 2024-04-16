@@ -28,8 +28,7 @@ function InspectionCard({ inspection }) {
     <div data-hive-number={hiveNumber}>
       <div className={`container text-start`}>
         <div
-          style={{ borderColor: "#ffcb05" }}
-          className={`card border-michgold border-3 rounded-5  ${
+          className={`card   ${
             temperament === "⚠️ Dead" || hiveStrength === 0
               ? "bg-danger"
               : "bg-card"

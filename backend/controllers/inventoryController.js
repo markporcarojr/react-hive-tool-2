@@ -2,7 +2,7 @@ import { Inventory } from "../models/inventory.js";
 
 export const createInventory = async (req, res) => {
     try {
-        const { inventoryType, inventoryAmount, userId } = req.body;
+        const { inventoryType, inventoryAmount, userId, inventoryLocation } = req.body;
         if (
             !inventoryType ||
             !inventoryAmount
@@ -17,6 +17,7 @@ export const createInventory = async (req, res) => {
         const newInventory = {
             inventoryType,
             inventoryAmount,
+            inventoryLocation,
             userId
 
         };

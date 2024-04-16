@@ -11,6 +11,7 @@ const CreateInventory = () => {
   const { user } = useContext(UserContext);
   const [inventoryType, setInventoryType] = useState("");
   const [inventoryAmount, setInventoryAmount] = useState("");
+  const [inventoryLocation, setInventoryLocation] = useState("");
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const CreateInventory = () => {
     const data = {
       inventoryType,
       inventoryAmount,
+      inventoryLocation,
       userId: user._id,
     };
     setLoading(true);
@@ -67,6 +69,17 @@ const CreateInventory = () => {
                 name="inventoryAmount"
                 value={inventoryAmount}
                 onChange={(e) => setInventoryAmount(e.target.value)}
+              />
+            </div>
+            <div className="m-3 fs-3 mt-0 fw-semibold">
+              <Form.Label htmlFor="inventoryLocation">Location</Form.Label>
+              <Form.Control
+                type="text"
+                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                id="inventoryLocation"
+                name="inventoryLocation"
+                value={inventoryLocation}
+                onChange={(e) => setInventoryLocation(e.target.value)}
               />
             </div>
           </Form>

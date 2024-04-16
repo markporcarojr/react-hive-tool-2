@@ -9,6 +9,7 @@ import { Container, Card, Form, Button } from "react-bootstrap";
 const EditInventory = () => {
   const [inventoryType, setInventoryType] = useState("");
   const [inventoryAmount, setInventoryAmount] = useState("");
+  const [inventoryLocation, setInventoryLocation] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const EditInventory = () => {
       .then((res) => {
         setInventoryType(res.data.inventoryType);
         setInventoryAmount(res.data.inventoryAmount);
+        setInventoryLocation(res.data.inventoryLocation);
 
         setLoading(false);
       })
@@ -37,6 +39,7 @@ const EditInventory = () => {
     const data = {
       inventoryType,
       inventoryAmount,
+      inventoryLocation,
     };
     setLoading(true);
     axios
@@ -83,6 +86,17 @@ const EditInventory = () => {
                 name="inventoryAmount"
                 value={inventoryAmount}
                 onChange={(e) => setInventoryAmount(e.target.value)}
+              />
+            </div>
+            <div className="m-3 fs-3 mt-0 fw-semibold">
+              <Form.Label htmlFor="inventoryLocation">Location</Form.Label>
+              <Form.Control
+                type="text"
+                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                id="inventoryLocation"
+                name="inventoryLocation"
+                value={inventoryLocation}
+                onChange={(e) => setInventoryLocation(e.target.value)}
               />
             </div>
           </Form>

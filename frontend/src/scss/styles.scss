@@ -195,6 +195,12 @@ input[type="range"] {
   height: 100px;
 }
 
+.modal-border {
+  border: 3px solid #fccb05; /* Example border style */
+  border-radius: 10px; /* Optional: Adds rounded corners */
+  padding: 15px;
+}
+
 .modal-text {
   word-wrap: break-word; /* This allows long words to break and wrap onto the next line */
   white-space: pre-line; /* This preserves line breaks in the text */
