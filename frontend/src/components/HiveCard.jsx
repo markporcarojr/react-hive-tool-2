@@ -5,7 +5,16 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
 
 const HiveCard = ({ hive }) => {
-  const { hiveNumber, breed, hiveStrength, hiveDate, userId } = hive;
+  const {
+    hiveNumber,
+    breed,
+    hiveStrength,
+    hiveDate,
+    hiveSource,
+    queenColor,
+    queenAge,
+    userId,
+  } = hive;
   const textStyle = { color: "#ffcb05" };
   const utcDate = new Date(hiveDate);
   const options = { timeZone: "UTC" };
@@ -13,29 +22,41 @@ const HiveCard = ({ hive }) => {
 
   return (
     <div className={`col g-4 `}>
-      <div className="container px-2 pop " style={{ maxWidth: "500px" }}>
+      <div className="container px-2" style={{ maxWidth: "500px" }}>
         <Card
-          className={`rounded-5 border-3 ${
-            hiveStrength === 0 ? "bg-danger" : "bg-card"
-          }`}
-          style={{ borderColor: "#ffcb05" }}
+          className={`${hiveStrength === 0 ? "bg-danger" : "bg-card"}`}
+          // style={{ borderColor: "#ffcb05" }}
         >
           <Card.Header
-            className="fs-4 fw-bold text-center pb-0 mb-2"
+            className="fs-4 fw-bold text-center pb-0 mb-3"
             style={textStyle}
           >
             Hive #{hiveNumber}
           </Card.Header>
-          <Card.Text className="fs-6 text-center mb-2s" style={textStyle}>
-            {breed}
-          </Card.Text>
+
           <Card.Body
-            className="pb-2 pt-1 mt-0 m-1 mb-2 d-flex fw-semibold fs-5 justify-content-between align-items-baseline"
+            className="pb-2 pt-1 mt-0 m-1 mb-2 fw-semibold fs-5"
             style={textStyle}
           >
-            <div>Added: </div>
-            <div>{formattedDate}</div>
-            <Card.Text style={textStyle}>{hiveStrength}％</Card.Text>
+            <div className="row">
+              <div className="col-md-6">
+                <p className="mb-1">Added:</p>
+                <p className="mb-1 ">Source:</p>
+                <p className="mb-1 ">Queen Color:</p>
+                <p className="mb-1 ">Queen Age:</p>
+                <p className="mb-1 ">Strength:</p>
+                <p className="mb-1 ">Breed:</p>
+              </div>
+              <div className="col-md-6">
+                <p className="mb-1 ">{formattedDate}</p>
+                <p className="mb-1 ">{hiveSource}</p>
+                <p className="mb-1 ">{queenColor}</p>
+                <p className="mb-1 ">{queenAge}</p>
+                <p className="mb-1 ">{hiveStrength}%</p>
+                <p className="mb-1 ">{breed}</p>
+              </div>
+            </div>
+            <hr className="border-bottom" />
           </Card.Body>
           <div className="d-flex justify-content-between mx-3 mb-2">
             <Link

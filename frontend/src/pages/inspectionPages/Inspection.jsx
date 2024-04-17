@@ -1,16 +1,17 @@
+//Inspection.jsx
 import { useEffect, useState, useContext } from "react";
-import axios from "axios";
-import LoadSpinner from "../../components/Spinner";
 import { Link } from "react-router-dom";
-import CustomNavbar from "../../components/CustomNavbar";
-import Footer from "../../components/Footer";
-import InspectionCard from "../../components/InspectionCard";
-import UserContext from "../../context/UserContext";
 import { Modal, Button, Table } from "react-bootstrap";
 import { IconContext } from "react-icons";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
+import axios from "axios";
+import UserContext from "../../context/UserContext";
+import LoadSpinner from "../../components/Spinner";
+import CustomNavbar from "../../components/CustomNavbar";
+import Footer from "../../components/Footer";
+import InspectionCard from "../../components/InspectionCard";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);
@@ -39,7 +40,7 @@ const InspectionPage = () => {
       });
   }, []);
 
-  const handleClick = (inspection) => {
+  const handleShowModal = (inspection) => {
     setSelectedInspection(inspection);
     setShowModal(true);
   };
@@ -101,7 +102,7 @@ const InspectionPage = () => {
                             }}
                           >
                             <IoInformationCircleOutline
-                              onClick={() => handleClick(inspection)}
+                              onClick={() => handleShowModal(inspection)}
                             />
                           </IconContext.Provider>
                           <IconContext.Provider

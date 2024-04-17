@@ -7,14 +7,17 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../../context/UserContext.jsx";
 
 const CreateHive = () => {
-  const { user } = useContext(UserContext);
-  const [hiveNumber, setHiveNumber] = useState("");
   const [breed, setBreed] = useState("");
+  const [hiveNumber, setHiveNumber] = useState("");
+  const [hiveSource, setHiveSource] = useState("");
   const [hiveStrength, setHiveStrength] = useState(50);
   const [hiveDate, setHiveDate] = useState("");
   const [sliderValue, setSliderValue] = useState(50);
+  const [queenColor, setQueenColor] = useState("");
+  const [queenAge, setQueenAge] = useState("");
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSliderChange = (e) => {
@@ -29,6 +32,9 @@ const CreateHive = () => {
       hiveNumber,
       breed,
       hiveStrength,
+      hiveSource,
+      queenColor,
+      queenAge,
       hiveDate,
       userId: user._id,
     };
@@ -68,7 +74,23 @@ const CreateHive = () => {
               />
             </div>
             <div className="m-3 fs-3 mt-0 fw-semibold text-center ">
-              <label htmlFor="breed" className="form-label mb-3">
+              <label htmlFor="hiveSource" className="form-label mb-3">
+                Hive Source
+              </label>
+              <select
+                name="hiveSource"
+                id="hiveSource"
+                className="form-select mb-2 text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                value={hiveSource}
+                onChange={(e) => setHiveSource(e.target.value)}
+              >
+                <option className="text-center">Choose Source</option>
+                <option value="Nucleus">Nucleus</option>
+                <option value="Package">Package</option>
+                <option value="Capture Swarm">Capture Swarm</option>
+                <option value="Split">Split</option>
+              </select>
+              <label htmlFor="breed" className="form-label m-3">
                 Breed
               </label>
               <select
@@ -87,6 +109,30 @@ const CreateHive = () => {
                 <option value="German">German</option>
                 <option value="Caucasian">Caucasian</option>
               </select>
+              <label htmlFor="queenColor" className="form-label m-3">
+                Queen Color
+              </label>
+              <input
+                type="text"
+                className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                id="queenColor"
+                name="queenColor"
+                value={queenColor}
+                onChange={(e) => setQueenColor(e.target.value)}
+                aria-describedby="queenColor"
+              />
+              <label htmlFor="queenAge" className="form-label m-3">
+                Queen Age
+              </label>
+              <input
+                type="number"
+                className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                id="queenAge"
+                name="queenAge"
+                value={queenAge}
+                onChange={(e) => setQueenAge(e.target.value)}
+                aria-describedby="queenAge"
+              />
               <label
                 htmlFor="hiveDate"
                 className="form-label fs-3 fw-semibold my-3"

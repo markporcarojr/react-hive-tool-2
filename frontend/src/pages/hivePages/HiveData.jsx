@@ -14,7 +14,7 @@ const HiveData = () => {
   const [loading, setLoading] = useState(false);
   const { hiveId } = useParams();
 
-  const { user } = useContext(UserContext);
+  // const { user } = useContext(UserContext);
 
   useEffect(() => {
     setLoading(true);
