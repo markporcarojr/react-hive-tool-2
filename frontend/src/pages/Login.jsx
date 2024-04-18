@@ -5,6 +5,8 @@ import axios from "axios";
 import CustomNavbar from "../components/CustomNavbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import logoWebp1x from "../assets/images/hive_tool@1x.webp";
 import logoWebp2x from "../assets/images/hive_tool@2x.webp";
@@ -23,6 +25,7 @@ const Login = () => {
   const [message, setMessage] = useState(null);
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,20 +89,26 @@ const Login = () => {
                   autoComplete="current-email"
                   value={form.email}
                   placeholder="Email..."
-                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold white-placeholder"
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
               </Form.Group>
-              <Form.Group controlId="password">
+              <Form.Group controlId="password" className="position-relative">
                 <Form.Control
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   autoComplete="current-password"
                   value={form.password}
                   placeholder="Password..."
-                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2"
+                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2 white-placeholder"
                   onChange={(e) =>
                     setForm({ ...form, password: e.target.value })
                   }
+                />
+                {/* Eye icon button */}
+                <FontAwesomeIcon
+                  icon={showPassword ? faEye : faEyeSlash}
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="eye-icon"
                 />
               </Form.Group>
 
@@ -115,6 +124,12 @@ const Login = () => {
                   className="d-block text-center fs-4 text-michgold"
                 >
                   Create Account
+                </a>
+                <a
+                  href="/forgot-password"
+                  className="d-block text-center fs-4 text-michgold"
+                >
+                  Forgot Password?
                 </a>
               </Form.Group>
             </Form>

@@ -1,6 +1,8 @@
+import BackButton from "../components/BackButton";
 export default function PrivacyPolicy() {
   return (
     <div className="container text-white privacy">
+      <BackButton text={"Back"} />
       <h1>Privacy Policy</h1>
       <p>Last updated: November 27, 2023</p>
       <p>
@@ -14,7 +16,11 @@ export default function PrivacyPolicy() {
         the Service, You agree to the collection and use of information in
         accordance with this Privacy Policy. This Privacy Policy has been
         created with the help of the
-        <a href="https://www.termsfeed.com/privacy-policy-generator/">
+        <a
+          className="ms-1 text-michgold"
+          style={{ textDecoration: "none" }}
+          href="https://www.termsfeed.com/privacy-policy-generator/"
+        >
           Privacy Policy Generator
         </a>
         .

@@ -152,6 +152,14 @@ body {
   clear: both;
 }
 
+.eye-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 footer {
   position: fixed;
   bottom: 0;
@@ -285,6 +293,10 @@ input[type="range"] {
   border: 3px solid #ffcb05;
   border-radius: 10px;
   margin-bottom: 1em;
+}
+
+.white-placeholder::placeholder {
+  color: white;
 }
 
 /* ******************************************* Custom classes ***************************************** */

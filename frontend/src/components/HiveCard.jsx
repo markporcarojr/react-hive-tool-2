@@ -65,13 +65,7 @@ const HiveCard = ({ hive }) => {
             >
               DELETE
             </Link>
-            <Link to={`/hives/data/${hive._id}`}>
-              <IconContext.Provider value={{ color: "fccb05", size: "2em" }}>
-                <div className="darken-on-hover">
-                  <IoInformationCircleOutline />
-                </div>
-              </IconContext.Provider>
-            </Link>
+
             <Link
               to={`/hives/edit/${hive._id}`}
               className="btn btn-outline-warning rounded-pill"

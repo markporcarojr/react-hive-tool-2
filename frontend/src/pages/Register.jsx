@@ -7,6 +7,8 @@ import CustomNavbar from "../components/CustomNavbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { useNavigate } from "react-router-dom";
 import { BsGoogle } from "react-icons/bs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 import logoWebp1x from "../assets/images/hive_tool@1x.webp";
 import logoWebp2x from "../assets/images/hive_tool@2x.webp";
@@ -25,6 +27,8 @@ const Register = () => {
   const [message, setMessage] = useState(null);
   const { setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
   const googleAuth = () => {
@@ -114,22 +118,30 @@ const Register = () => {
                   }
                 />
               </Form.Group>
-              <Form.Group controlId="password">
+              <Form.Group controlId="password" className="position-relative">
                 <Form.Control
-                  type="password"
-                  autoComplete="new-password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
                   value={form.password}
-                  name={`password_${Math.random().toString(36).substring(7)}`}
                   placeholder="Password..."
-                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2"
+                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2 white-placeholder"
                   onChange={(e) =>
                     setForm({ ...form, password: e.target.value })
                   }
                 />
+                {/* Eye icon button */}
+                <FontAwesomeIcon
+                  icon={showPassword ? faEye : faEyeSlash}
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="eye-icon"
+                />
               </Form.Group>
-              <Form.Group controlId="confirmPassword">
+              <Form.Group
+                controlId="confirmPassword"
+                className="position-relative"
+              >
                 <Form.Control
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   autoComplete="new-password"
                   value={form.confirmPassword}
                   placeholder="Confirm Password..."
@@ -137,6 +149,11 @@ const Register = () => {
                   onChange={(e) =>
                     setForm({ ...form, confirmPassword: e.target.value })
                   }
+                />
+                <FontAwesomeIcon
+                  icon={showConfirmPassword ? faEye : faEyeSlash}
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="eye-icon"
                 />
               </Form.Group>
               <Form.Group>

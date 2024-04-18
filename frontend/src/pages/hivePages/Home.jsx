@@ -71,7 +71,7 @@ const Home = () => {
         </div>
       </div>
       <div className="p-4">
-        <div className="d-flex justify-content-around mb-3">
+        <div className="d-flex justify-content-around mb-4">
           <Link
             to="/hives/create/"
             className="btn btn-warning rounded-pill fw-bold "

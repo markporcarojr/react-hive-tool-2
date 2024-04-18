@@ -48,6 +48,8 @@ import DeleteFeed from "./pages/feedPages/DeleteFeed.jsx";
 
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -128,6 +130,8 @@ function App() {
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
       </Routes>
     </UserContext.Provider>
   );
