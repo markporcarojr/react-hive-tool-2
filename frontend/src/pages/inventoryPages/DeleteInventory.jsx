@@ -43,7 +43,7 @@ const DeleteInventory = () => {
           <Button className="btn-danger m-3" onClick={handleDeleteInventory}>
             YES
           </Button>
-          <BackButton />
+          <BackButton text={"NO"} />
         </div>
       </Card>
       ;

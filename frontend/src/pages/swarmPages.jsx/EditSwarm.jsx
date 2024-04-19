@@ -59,6 +59,8 @@ const EditSwarm = () => {
       {loading && <LoadSpinner />}
       <Container style={{ maxWidth: "700px" }}>
         <Card className="text-michgold text-center mt-2 mb-5">
+          <h1 className="fw-bold m-4">EDIT SWARM</h1>
+
           {/* Include partial title here */}
 
           {/* Forms */}

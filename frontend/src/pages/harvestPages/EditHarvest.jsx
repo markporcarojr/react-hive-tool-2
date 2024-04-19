@@ -59,6 +59,8 @@ const EditHarvest = () => {
       {loading && <LoadSpinner />}
       <Container style={{ maxWidth: "700px" }}>
         <Card className="text-michgold text-center mt-2 mb-5">
+          <h1 className="fw-bold m-4">EDIT HARVEST</h1>
+
           {/* Include your partial title here */}
 
           {/* Forms */}

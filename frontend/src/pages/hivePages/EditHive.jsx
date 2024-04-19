@@ -80,6 +80,7 @@ const EditHive = () => {
       {loading && <LoadSpinner />}
       <div className="container" style={{ maxWidth: "700px" }}>
         <div className="card text-michgold text-center mt-2 mb-5">
+          <h1 className="fw-bold m-4">EDIT HIVE</h1>
           <form id="hive-form">
             <div className="m-3 fs-3 mt-0 fw-semibold ">
               <label htmlFor="hiveNumber" className="form-label">

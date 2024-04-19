@@ -41,7 +41,7 @@ const DeleteInspection = () => {
           <Button className="btn-danger m-3" onClick={handleDeleteInspection}>
             YES
           </Button>
-          <BackButton />
+          <BackButton text={"NO"} />
         </div>
       </Card>
       ;

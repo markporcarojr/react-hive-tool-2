@@ -4,7 +4,6 @@ import connectDB from "../backend/config/db.js"
 import cors from "cors";
 import dotenv from 'dotenv';
 import session from 'express-session';
-import passport from "passport";
 
 import hiveRoutes from "./routes/hiveRoutes.js";
 import inspectionRoutes from "./routes/inspectionRoutes.js";

@@ -1,10 +1,9 @@
 // HiveData.jsx
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import HiveTable from "../../components/HiveTable";
 import axios from "axios";
-import UserContext from "../../context/UserContext";
 import LoadSpinner from "../../components/Spinner";
 import { useParams } from "react-router-dom";
 
@@ -13,8 +12,6 @@ const HiveData = () => {
 
   const [loading, setLoading] = useState(false);
   const { hiveId } = useParams();
-
-  // const { user } = useContext(UserContext);
 
   useEffect(() => {
     setLoading(true);

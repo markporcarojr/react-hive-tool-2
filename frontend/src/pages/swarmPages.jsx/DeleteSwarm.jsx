@@ -43,7 +43,7 @@ const DeleteSwarm = () => {
           <Button className="btn-danger m-3" onClick={handleDeleteSwarm}>
             YES
           </Button>
-          <BackButton />
+          <BackButton text={"NO"} />
         </div>
       </Card>
       ;

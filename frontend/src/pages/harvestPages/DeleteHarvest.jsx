@@ -43,7 +43,7 @@ const DeleteHarvest = () => {
           <Button className="btn-danger m-3" onClick={handleDeleteHarvest}>
             YES
           </Button>
-          <BackButton />
+          <BackButton text={"NO"} />
         </div>
       </Card>
       ;

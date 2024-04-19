@@ -26,11 +26,6 @@ import CreateInventory from "./pages/inventoryPages/CreateInventory.jsx";
 import EditInventory from "./pages/inventoryPages/EditInventory.jsx";
 import DeleteInventory from "./pages/inventoryPages/DeleteInventory.jsx";
 
-import Treatment from "./pages/treatmentPages/Treatment.jsx";
-import CreateTreatment from "./pages/treatmentPages/CreateTreatment.jsx";
-import EditTreatment from "./pages/treatmentPages/EditTreatment.jsx";
-import DeleteTreatment from "./pages/treatmentPages/DeleteTreatment.jsx";
-
 import Harvest from "./pages/harvestPages/Harvest.jsx";
 import CreateHarvest from "./pages/harvestPages/CreateHarvest.jsx";
 import EditHarvest from "./pages/harvestPages/EditHarvest.jsx";
@@ -40,11 +35,6 @@ import Swarm from "./pages/swarmPages.jsx/Swarm.jsx";
 import CreateSwarm from "./pages/swarmPages.jsx/CreateSwarm.jsx";
 import EditSwarm from "./pages/swarmPages.jsx/EditSwarm.jsx";
 import DeleteSwarm from "./pages/swarmPages.jsx/DeleteSwarm.jsx";
-
-import Feed from "./pages/feedPages/Feed.jsx";
-import CreateFeed from "./pages/feedPages/CreateFeed.jsx";
-import EditFeed from "./pages/feedPages/EditFeed.jsx";
-import DeleteFeed from "./pages/feedPages/DeleteFeed.jsx";
 
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
@@ -106,11 +96,6 @@ function App() {
           <Route path="/inventory/delete/:id" element={<DeleteInventory />} />
           <Route path="/inventory/edit/:id" element={<EditInventory />} />
 
-          <Route path="/treatments" element={<Treatment />} />
-          <Route path="/treatments/create" element={<CreateTreatment />} />
-          <Route path="/treatments/delete/:id" element={<DeleteTreatment />} />
-          <Route path="/treatments/edit/:id" element={<EditTreatment />} />
-
           <Route path="/harvest" element={<Harvest />} />
           <Route path="/harvest/create" element={<CreateHarvest />} />
           <Route path="/harvest/edit/:id" element={<EditHarvest />} />
@@ -120,11 +105,6 @@ function App() {
           <Route path="/swarm/create" element={<CreateSwarm />} />
           <Route path="/swarm/edit/:id" element={<EditSwarm />} />
           <Route path="/swarm/delete/:id" element={<DeleteSwarm />} />
-
-          <Route path="/feed" element={<Feed />} />
-          <Route path="/feed/create" element={<CreateFeed />} />
-          <Route path="/feed/edit/:id" element={<EditFeed />} />
-          <Route path="/feed/delete/:id" element={<DeleteFeed />} />
         </Route>
 
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
