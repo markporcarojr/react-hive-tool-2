@@ -13,7 +13,6 @@ const HiveCard = ({ hive }) => {
     hiveSource,
     queenColor,
     queenAge,
-    userId,
   } = hive;
   const textStyle = { color: "#ffcb05" };
   const utcDate = new Date(hiveDate);

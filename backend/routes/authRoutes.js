@@ -53,16 +53,11 @@ router.post('/logout', (req, res) => {
 //     res.send('Login Successful');
 // });
 
-router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
-
-// router.get("/google/callback", passport.authenticate("google", {
-//     successRedirect: "http://localhost:5173/",
-//     failureRedirect: "http://localhost:5173/login"
-// }))
+router.get("/google", passport.authenticate("google", { scope: ["email"] }));
 
 router.get("/google/callback", passport.authenticate("google", {
     successRedirect: "http://localhost:5173/",
-    failureRedirect: "/login/failed"
+    failureRedirect: "/login"
 }), async (req, res) => {
     // Check if user exists in database
     const existingUser = await User.findOne({ email: req.user.email });

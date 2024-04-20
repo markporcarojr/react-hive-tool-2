@@ -155,29 +155,3 @@ export const updateUser = async (req, res) => {
     }
 };
 
-export const refresh = async (req, res) => {
-    const refreshToken = req.body.refreshToken;
-
-    if (!refreshToken) {
-        return res.status(401).send({ message: 'Refresh token not provided.' });
-    }
-
-    try {
-        // Verify the refresh token
-        const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-
-        // Check if the decoded token contains the required user information (e.g., user ID)
-        if (!decoded.userId) {
-            return res.status(401).send({ message: 'Invalid refresh token.' });
-        }
-
-        // Generate a new access token
-        const accessToken = jwt.sign({ userId: decoded.userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        // Send the new access token to the client
-        return res.send({ accessToken });
-    } catch (error) {
-        console.error('Error refreshing token:', error);
-        return res.status(401).send({ message: 'Invalid refresh token.' });
-    }
-};

@@ -16,6 +16,10 @@ const hiveSchema = new Schema(
             type: String,
             required: true
         },
+        hiveImage: {
+            type: String,
+            required: false
+        },
         hiveStrength: {
             type: Number,
             required: true

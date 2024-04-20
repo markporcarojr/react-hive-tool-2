@@ -1,12 +1,14 @@
 // App.jsx
 import { useState, useEffect } from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./scss/styles.scss";
 import LoadSpinner from "./components/Spinner.jsx";
-import axios from "axios";
-import UserContext from "./context/UserContext.jsx";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
+import UserContext from "./context/UserContext.jsx";
 
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 
@@ -14,7 +16,6 @@ import Home from "./pages/hivePages/Home.jsx";
 import CreateHive from "./pages/hivePages/CreateHive.jsx";
 import EditHive from "./pages/hivePages/EditHive.jsx";
 import DeleteHive from "./pages/hivePages/DeleteHive.jsx";
-import HiveData from "./pages/hivePages/HiveData.jsx";
 
 import Inspection from "./pages/inspectionPages/Inspection.jsx";
 import CreateInspection from "./pages/inspectionPages/CreateInspection.jsx";
@@ -44,6 +45,7 @@ import ResetPassword from "./pages/ResetPassword.jsx";
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Changed initial value to true
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -59,7 +61,7 @@ function App() {
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
-          // Handle authentication errors (e.g., redirect to login page)
+          navigate("/");
         })
         .finally(() => {
           setLoading(false);
@@ -78,7 +80,6 @@ function App() {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Home />} />
-          <Route path="/hives/data/:hiveId" element={<HiveData />} />
           <Route path="/hives/create" element={<CreateHive />} />
           <Route path="/hives/delete/:id" element={<DeleteHive />} />
           <Route path="/hives/edit/:id" element={<EditHive />} />

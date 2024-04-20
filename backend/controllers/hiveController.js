@@ -3,7 +3,7 @@ import { Hive } from "../models/hive.js";
 
 export const createHive = async (req, res) => {
     try {
-        const { hiveNumber, breed, hiveStrength, hiveDate, userId, queenColor, queenAge, hiveSource } = req.body;
+        const { hiveNumber, breed, hiveStrength, hiveDate, userId, queenColor, queenAge, hiveSource, hiveImage } = req.body;
 
         if (!hiveNumber || !breed || hiveStrength == null || !hiveDate) {
             return res.status(400).send({
@@ -20,6 +20,7 @@ export const createHive = async (req, res) => {
             userId,
             queenColor,
             queenAge,
+            hiveImage
         });
 
         const hive = await newHive.save();

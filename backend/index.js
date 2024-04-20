@@ -12,7 +12,6 @@ import harvestRoutes from "./routes/harvestRoutes.js";
 import swarmRoutes from "./routes/swarmRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from './routes/authRoutes.js'
-import userDataRoutes from "./routes/userDataRoutes.js"
 
 dotenv.config();
 
@@ -46,9 +45,6 @@ app.use(
 );
 
 
-// app.use(passport.initialize());
-// app.use(passport.session());
-
 // ****************************************  Routes  **************************************
 
 app.use('/new-hive', hiveRoutes);
@@ -58,7 +54,6 @@ app.use('/harvest', harvestRoutes);
 app.use('/swarm', swarmRoutes);
 app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
-app.use('/user-data', userDataRoutes);
 
 
 app.listen(PORT, () => {
