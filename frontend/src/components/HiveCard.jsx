@@ -38,7 +38,7 @@ const HiveCard = ({ hive }) => {
             style={textStyle}
           >
             <div className="row">
-              <div className="col-md-6">
+              <div className="col-6">
                 <p className="mb-1">Added:</p>
                 <p className="mb-1 ">Source:</p>
                 <p className="mb-1 ">Queen Color:</p>
@@ -46,7 +46,7 @@ const HiveCard = ({ hive }) => {
                 <p className="mb-1 ">Strength:</p>
                 <p className="mb-1 ">Breed:</p>
               </div>
-              <div className="col-md-6">
+              <div className="col-6">
                 <p className="mb-1 ">{formattedDate}</p>
                 <p className="mb-1 ">{hiveSource}</p>
                 <p className="mb-1 ">{queenColor}</p>

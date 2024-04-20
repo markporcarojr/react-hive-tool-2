@@ -4,6 +4,10 @@ import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import {
+  uploadImageToStorage,
+  deleteImageFromStorage,
+} from "../../utils/firebaseUtils.js";
 
 const EditHive = () => {
   const [breed, setBreed] = useState("");
@@ -13,6 +17,8 @@ const EditHive = () => {
   const [hiveDate, setHiveDate] = useState("");
   const [sliderValue, setSliderValue] = useState(50);
   const [queenColor, setQueenColor] = useState("");
+  const [hiveImage, setHiveImage] = useState(null);
+  const [oldImageURL, setOldImageURL] = useState(null);
   const [queenAge, setQueenAge] = useState("");
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -32,6 +38,7 @@ const EditHive = () => {
         setQueenAge(res.data.queenAge);
         setQueenColor(res.data.queenColor);
         setSliderValue(res.data.hiveStrength);
+        setOldImageURL(res.data.hiveImage);
         setLoading(false);
       })
       .catch((error) => {
@@ -49,29 +56,51 @@ const EditHive = () => {
     setHiveStrength(value); // Update hiveStrength state
   };
 
-  const handleEditHive = (e) => {
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setHiveImage(file);
+  };
+
+  const handleEditHive = async (e) => {
     e.preventDefault();
-    const data = {
-      hiveNumber,
-      breed,
-      hiveStrength,
-      hiveSource,
-      queenColor,
-      queenAge,
-      hiveDate,
-    };
     setLoading(true);
-    axios
-      .put(`http://localhost:5555/new-hive/${id}`, data)
-      .then(() => {
-        setLoading(false);
-        navigate("/");
-      })
-      .catch((error) => {
-        setLoading(false);
-        setMessage(error.response.data.message);
-        console.log(error);
-      });
+
+    try {
+      let imageUrl = oldImageURL; // Initialize imageUrl with the old image URL
+
+      // Check if a new image has been uploaded
+      if (hiveImage) {
+        // Upload the new image and get its URL
+        imageUrl = await uploadImageToStorage(hiveImage, "images/");
+      }
+
+      const data = {
+        hiveNumber,
+        breed,
+        hiveStrength,
+        hiveSource,
+        queenColor,
+        queenAge,
+        hiveDate,
+        hiveImage: imageUrl,
+      };
+
+      // Update hive data using axios
+      await axios.put(`http://localhost:5555/new-hive/${id}`, data);
+
+      // Check if there's an old image URL and a new image has been uploaded
+      if (oldImageURL && hiveImage) {
+        // Delete the old image
+        await deleteImageFromStorage(oldImageURL);
+      }
+
+      setLoading(false);
+      navigate("/");
+    } catch (error) {
+      setLoading(false);
+      setMessage(error.response?.data?.message || "An error occurred.");
+      console.error(error);
+    }
   };
 
   return (
@@ -155,6 +184,17 @@ const EditHive = () => {
                 value={queenAge}
                 onChange={(e) => setQueenAge(e.target.value)}
                 aria-describedby="queenAge"
+              />
+              <label htmlFor="hiveImage" className="form-label m-3">
+                Hive Image
+              </label>
+              <input
+                type="file"
+                className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                id="hiveImage"
+                name="hiveImage"
+                onChange={handleImageUpload}
+                aria-describedby="hiveImage"
               />
               <label
                 htmlFor="hiveDate"

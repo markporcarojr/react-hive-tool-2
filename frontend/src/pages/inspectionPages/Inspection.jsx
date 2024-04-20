@@ -79,7 +79,7 @@ const InspectionPage = () => {
                 <tr>
                   <th>Date</th>
                   <th>Hive Number</th>
-                  <th>Action</th>
+                  <th>Options</th>
                 </tr>
               </thead>
               <tbody>

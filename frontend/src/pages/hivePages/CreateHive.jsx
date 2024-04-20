@@ -5,6 +5,7 @@ import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../context/UserContext.jsx";
+import { uploadImageToStorage } from "../../utils/firebaseUtils.js";
 
 const CreateHive = () => {
   const [breed, setBreed] = useState("");
@@ -15,7 +16,8 @@ const CreateHive = () => {
   const [sliderValue, setSliderValue] = useState(50);
   const [queenColor, setQueenColor] = useState("");
   const [queenAge, setQueenAge] = useState("");
-  const [message, setMessage] = useState(null);
+  const [hiveImage, setHiveImage] = useState(null);
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -26,30 +28,41 @@ const CreateHive = () => {
     setHiveStrength(value);
   };
 
-  const handleSaveHive = (e) => {
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setHiveImage(file);
+  };
+
+  const handleSaveHive = async (e) => {
     e.preventDefault();
-    const data = {
-      hiveNumber,
-      breed,
-      hiveStrength,
-      hiveSource,
-      queenColor,
-      queenAge,
-      hiveDate,
-      userId: user._id,
-    };
     setLoading(true);
-    axios
-      .post("http://localhost:5555/new-hive", data)
-      .then(() => {
-        setLoading(false);
-        navigate("/");
-      })
-      .catch((error) => {
-        setLoading(false);
-        setMessage(error.response.data.message);
-        console.log(error);
-      });
+
+    try {
+      // Upload image to Firebase Storage
+      const imageUrl = await uploadImageToStorage(hiveImage, "images/");
+
+      const data = {
+        hiveNumber,
+        breed,
+        hiveStrength,
+        hiveSource,
+        queenColor,
+        queenAge,
+        hiveDate,
+        userId: user._id,
+        hiveImage: imageUrl,
+      };
+
+      // Send data to backend API
+      await axios.post("http://localhost:5555/new-hive", data);
+      setLoading(false);
+      setMessage("Hive added successfully.");
+      navigate("/");
+    } catch (error) {
+      setLoading(false);
+      setMessage(error.response?.data?.message || "An error occurred.");
+      console.error(error);
+    }
   };
 
   return (
@@ -132,6 +145,18 @@ const CreateHive = () => {
                 value={queenAge}
                 onChange={(e) => setQueenAge(e.target.value)}
                 aria-describedby="queenAge"
+              />
+              <label htmlFor="hiveImage" className="form-label m-3">
+                Hive Image
+              </label>
+              <input
+                type="file"
+                className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                id="hiveImage"
+                name="hiveImage"
+                // value={hiveImage}
+                onChange={handleImageUpload}
+                aria-describedby="hiveImage"
               />
               <label
                 htmlFor="hiveDate"

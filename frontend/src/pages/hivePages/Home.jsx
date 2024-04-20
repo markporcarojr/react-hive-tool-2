@@ -12,6 +12,7 @@ import LoadSpinner from "../../components/Spinner";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import HiveCard from "../../components/HiveCard";
+import ImageDisplay from "../../components/ImageDisplay";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);
@@ -88,18 +89,19 @@ const Home = () => {
               bordered
               striped
               hover
-              // responsive
+              responsive
               variant="dark"
-              className="text-michgold"
+              className="text-michgold table-responsive"
             >
               <thead className="fs-4 fw-bold text-center">
                 <tr>
-                  <th>Hive Number</th>
+                  <th>Hive Image</th>
+                  <th>Hive ID</th>
                   <th>Date Added</th>
                   <th>Queen Color</th>
                   <th>Queen Age</th>
                   <th>Hive Source</th>
-                  <th>Action</th>
+                  <th>Options</th>
                 </tr>
               </thead>
               <tbody>
@@ -108,8 +110,15 @@ const Home = () => {
                       new Date(b.inspectionDate) - new Date(a.inspectionDate)
                   ) */}
                 {hives.map((hive) => (
-                  <tr key={hive._id}>
-                    <td className="text-center">{hive.hiveNumber}</td>
+                  <tr key={hive._id} className="text-center align-middle">
+                    <td className="text-center">
+                      <ImageDisplay
+                        imageUrl={hive.hiveImage}
+                        maxHeight={"100px"}
+                        maxWidth={"100px"}
+                      />
+                    </td>
+                    <td className="text-center fs-3">#{hive.hiveNumber}</td>
                     <td className="text-center">{formatDate(hive.hiveDate)}</td>
                     <td className="text-center">{hive.queenColor}</td>
                     <td className="text-center">{hive.queenAge}</td>
@@ -162,9 +171,18 @@ const Home = () => {
                 className="modal-border bg-card"
               >
                 <Modal.Header className="d-flex justify-content-around">
-                  <Modal.Title className="text-michgold fs-3 fw-bold">
-                    Hive Details
-                  </Modal.Title>
+                  <div className="container d-flex justify-content-center align-items-center">
+                    {selectedHive && (
+                      <ImageDisplay
+                        imageUrl={selectedHive.hiveImage}
+                        maxHeight={"400px"}
+                        maxWidth={"400px"}
+                        style={{
+                          objectFit: "scale-down",
+                        }}
+                      />
+                    )}
+                  </div>
                 </Modal.Header>
                 <Modal.Body>
                   {selectedHive && <HiveCard hive={selectedHive} />}

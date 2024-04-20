@@ -1,10 +1,11 @@
-import { storage } from "./firebaseConfig";
-
-const ImageDisplay = ({ imageUrl }) => {
+// ImageDisplay.jsx
+const ImageDisplay = ({ imageUrl, maxWidth, maxHeight }) => {
   return (
-    <div>
-      <img src={imageUrl} alt="Uploaded" />
-    </div>
+    <img
+      src={imageUrl}
+      alt="Hive Image"
+      style={{ maxWidth: maxWidth || "120px", maxHeight: maxHeight || "120px" }}
+    />
   );
 };
 
