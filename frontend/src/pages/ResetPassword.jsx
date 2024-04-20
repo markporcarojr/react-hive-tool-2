@@ -47,7 +47,7 @@ const ResetPassword = () => {
             <Button
               variant="primary"
               type="submit"
-              className="btn-michgold btn-gold rounded-pill px-5 m-3 mb-2 mt-1"
+              className="btn-michgold rounded-pill px-5 m-3 mb-2 mt-1"
             >
               Update Password
             </Button>

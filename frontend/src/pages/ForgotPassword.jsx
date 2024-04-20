@@ -3,10 +3,12 @@ import { Container, Form, Button, Col } from "react-bootstrap";
 import axios from "axios";
 import CustomNavbar from "../components/CustomNavbar.jsx";
 import Footer from "../components/Footer.jsx";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
@@ -19,6 +21,7 @@ const ForgotPassword = () => {
       );
       setMessage(response.data.message);
       setEmail("");
+      navigate("/login");
     } catch (error) {
       console.error("Password reset error:", error);
       setMessage("An error occurred. Please try again later.");
@@ -47,7 +50,7 @@ const ForgotPassword = () => {
             <Button
               variant="primary"
               type="submit"
-              className="btn-michgold btn-gold rounded-pill px-5 m-3 mb-2 mt-1"
+              className="btn-michgold rounded-pill px-5 m-3 mb-2 mt-1"
             >
               Reset Password
             </Button>

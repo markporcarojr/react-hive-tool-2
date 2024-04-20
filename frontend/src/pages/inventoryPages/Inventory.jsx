@@ -65,7 +65,7 @@ const Inventory = () => {
         <div className="d-flex justify-content-around mb-4">
           <Link
             to="/inventory/create"
-            className="btn btn-warning rounded-pill fw-bold"
+            className="btn btn-michgold rounded-pill fw-bold"
           >
             ADD INVENTORY
           </Link>
@@ -80,14 +80,14 @@ const Inventory = () => {
               hover
               // responsive
               variant="dark"
-              className="text-michgold"
+              className="text-michgold inventory-table"
             >
               <thead className="fs-4 fw-bold text-center">
                 <tr>
                   <th>Inventory Item</th>
                   <th>Amount</th>
                   <th>Location</th>
-                  <th>Action</th>
+                  <th>Options</th>
                 </tr>
               </thead>
               <tbody>

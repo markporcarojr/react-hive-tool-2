@@ -20,7 +20,7 @@ import logoPng3x from "../assets/images/hive_tool@3x.png";
 const Register = () => {
   const [form, setForm] = useState({
     email: "",
-    username: "",
+    apiaryName: "",
     password: "",
     confirmPassword: "",
   });
@@ -105,16 +105,16 @@ const Register = () => {
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
               </Form.Group>
-              <Form.Group controlId="username">
+              <Form.Group controlId="apiaryName">
                 <Form.Control
                   type="text"
-                  autoComplete="username"
-                  value={form.username}
-                  name={`username_${Math.random().toString(36).substring(7)}`}
-                  placeholder="Username..."
+                  autoComplete="apiaryName"
+                  value={form.apiaryName}
+                  name={form.apiaryName}
+                  placeholder="Apiary Name..."
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2"
                   onChange={(e) =>
-                    setForm({ ...form, username: e.target.value })
+                    setForm({ ...form, apiaryName: e.target.value })
                   }
                 />
               </Form.Group>

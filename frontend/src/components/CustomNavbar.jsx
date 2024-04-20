@@ -58,6 +58,9 @@ function CustomNavbar() {
               <Link to="/swarm" className="nav-link">
                 Swarm Traps
               </Link>
+              <Link to={`/update-user/${user._id}`} className="nav-link">
+                Update User
+              </Link>
 
               <Link onClick={logout} className="nav-link">
                 Log Out

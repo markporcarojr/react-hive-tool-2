@@ -2,7 +2,9 @@ import BackButton from "../components/BackButton";
 export default function PrivacyPolicy() {
   return (
     <div className="container text-white privacy">
-      <BackButton text={"Back"} />
+      <div className="text-center mt-3">
+        <BackButton text={"Back"} />
+      </div>
       <h1>Privacy Policy</h1>
       <p>Last updated: November 27, 2023</p>
       <p>
@@ -401,6 +403,9 @@ export default function PrivacyPolicy() {
       <ul>
         <li>By email: owenroadapiary@gmail.com</li>
       </ul>
+      <div className="text-center m-3">
+        <BackButton text={"Back"} />
+      </div>
     </div>
   );
 }

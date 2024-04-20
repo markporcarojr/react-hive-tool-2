@@ -57,7 +57,7 @@ const InspectionPage = () => {
         <div className="d-flex justify-content-around mb-4">
           <Link
             to="/inspections/create"
-            className="btn btn-warning rounded-pill fw-bold"
+            className="btn btn-michgold rounded-pill fw-bold"
           >
             ADD INSPECTION
           </Link>

@@ -56,7 +56,7 @@ const Home = () => {
       <CustomNavbar />
       <div id="title" className="container title">
         <h1 className="text-center text-white pt-2 outlined-text display-1 fw-bold apiary">
-          {user.username ? user.username + "'s" : "Your"} Apiary <br />
+          {user.apiaryName ? user.apiaryName : "Your Apiary"} <br />
         </h1>
         <h5 className="card-title mt-3 fs-2 outlined-text" id="datetime"></h5>
         <div className="d-flex justify-content-between text-white align-items-center outlined-text fs-3 fw-bold my-1 me-2">
@@ -75,7 +75,7 @@ const Home = () => {
         <div className="d-flex justify-content-around mb-4">
           <Link
             to="/hives/create/"
-            className="btn btn-warning rounded-pill fw-bold "
+            className="btn btn-michgold rounded-pill fw-bold"
           >
             ADD HIVE
           </Link>
@@ -91,7 +91,7 @@ const Home = () => {
               hover
               responsive
               variant="dark"
-              className="text-michgold table-responsive"
+              className="text-michgold table-responsive hive-table"
             >
               <thead className="fs-4 fw-bold text-center">
                 <tr>

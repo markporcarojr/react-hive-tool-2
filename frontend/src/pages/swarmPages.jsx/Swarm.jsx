@@ -33,7 +33,7 @@ export default function Swarm() {
         <div className="d-flex justify-content-around mb-3">
           <Link
             to="/swarm/create"
-            className="btn btn-warning rounded-pill fw-bold"
+            className="btn btn-michgold rounded-pill fw-bold"
           >
             ADD SWARM
           </Link>

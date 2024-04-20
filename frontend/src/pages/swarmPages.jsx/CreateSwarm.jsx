@@ -89,7 +89,7 @@ const CreateSwarm = () => {
             <Button
               type="submit"
               form="swarm-form"
-              className="btn px-5 btn-michgold btn-gold fw-bold rounded-pill"
+              className="btn px-5 btn-michgold fw-bold rounded-pill"
             >
               ADD
             </Button>

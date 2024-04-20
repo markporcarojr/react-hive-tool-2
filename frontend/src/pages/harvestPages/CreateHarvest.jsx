@@ -92,7 +92,7 @@ const CreateHarvest = () => {
             <Button
               type="submit"
               form="harvest-form"
-              className="btn px-5 btn-michgold btn-gold fw-bold rounded-pill"
+              className="btn px-5 btn-michgold  fw-bold rounded-pill"
             >
               ADD
             </Button>

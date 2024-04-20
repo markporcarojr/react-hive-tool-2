@@ -368,7 +368,7 @@ const EditInspection = () => {
               <Button
                 type="submit"
                 form="inspection-form"
-                className="btn btn-michgold btn-gold rounded-pill"
+                className="btn btn-michgold rounded-pill"
               >
                 UPDATE
               </Button>

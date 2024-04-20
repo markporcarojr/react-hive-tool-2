@@ -300,16 +300,24 @@ input[type="range"] {
 }
 
 /* Custom styles for mobile */
+
 @media (max-width: 576px) {
   /* Hide certain table columns on mobile */
-  .table-responsive .text-center th:nth-child(3),
-  .table-responsive .text-center td:nth-child(3),
-  .table-responsive .text-center th:nth-child(4),
-  .table-responsive .text-center td:nth-child(4),
-  .table-responsive .text-center th:nth-child(5),
-  .table-responsive .text-center td:nth-child(5),
-  .table-responsive .text-center th:nth-child(6),
-  .table-responsive .text-center td:nth-child(6) {
+  .hive-table th:nth-child(3),
+  .hive-table td:nth-child(3),
+  .hive-table th:nth-child(4),
+  .hive-table td:nth-child(4),
+  .hive-table th:nth-child(5),
+  .hive-table td:nth-child(5),
+  .hive-table th:nth-child(6),
+  .hive-table td:nth-child(6) {
+    display: none;
+  }
+}
+@media (max-width: 576px) {
+  /* Hide certain table columns on mobile */
+  .inventory-table th:nth-child(3),
+  .inventory-table td:nth-child(3) {
     display: none;
   }
 }

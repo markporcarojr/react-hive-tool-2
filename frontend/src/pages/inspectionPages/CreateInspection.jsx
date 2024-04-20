@@ -391,7 +391,7 @@ const InspectionForm = () => {
               <Button
                 type="submit"
                 form="inspection-form"
-                className="btn btn-michgold btn-gold rounded-pill"
+                className="btn btn-michgold rounded-pill"
               >
                 ADD
               </Button>

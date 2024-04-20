@@ -108,7 +108,7 @@ const EditInventory = () => {
             <Button
               type="submit"
               form="edit-inventory-form"
-              className="btn px-5 btn-michgold btn-gold fw-bold rounded-pill"
+              className="btn px-5 btn-michgold fw-bold rounded-pill"
               onClick={handleEditInventory}
             >
               UPDATE

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,24 +6,30 @@ import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import { Card, Button } from "react-bootstrap";
 import BackButton from "../../components/BackButton";
+import { deleteImageFromStorage } from "../../utils/firebaseUtils";
 
 const DeleteHive = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
-  const handleDeleteHive = () => {
+
+  const handleDeleteHive = async () => {
     setLoading(true);
-    axios
-      .delete(`http://localhost:5555/new-hive/${id}`)
-      .then(() => {
-        setLoading(false);
-        navigate("/");
-      })
-      .catch((error) => {
-        setLoading(false);
-        alert("An error has occurred. Please Check Console");
-        console.log(error);
-      });
+    try {
+      // Delete the image from Firebase Storage
+      const response = await axios.get(`http://localhost:5555/new-hive/${id}`);
+      const hive = response.data;
+      await deleteImageFromStorage(hive.hiveImage);
+
+      // Now delete the hive from your API
+      await axios.delete(`http://localhost:5555/new-hive/${id}`);
+      setLoading(false);
+      navigate("/");
+    } catch (error) {
+      setLoading(false);
+      alert("An error has occurred. Please Check Console");
+      console.log(error);
+    }
   };
   return (
     <>
