@@ -1,13 +1,14 @@
 import { useState, useContext } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import UserContext from "../context/UserContext.jsx";
 import axios from "axios";
-import CustomNavbar from "../components/CustomNavbar.jsx";
-import Footer from "../components/Footer.jsx";
+import cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
+import Footer from "../components/Footer.jsx";
+import UserContext from "../context/UserContext.jsx";
+import CustomNavbar from "../components/CustomNavbar.jsx";
 import logoWebp1x from "../assets/images/hive_tool@1x.webp";
 import logoWebp2x from "../assets/images/hive_tool@2x.webp";
 import logoWebp3x from "../assets/images/hive_tool@3x.webp";
@@ -40,18 +41,17 @@ const Login = () => {
         }
       );
 
-      const _response = response.data;
+      const responseData = response.data;
 
-      if (response.status === 200 && _response.token) {
-        const token = _response.token;
+      if (response.status === 200 && responseData.token) {
+        const { user, token } = responseData;
         localStorage.setItem("token", token); // Store JWT token in localStorage
-
-        setUser(_response.user);
+        setUser(user);
         setMessage(null); // Clear any previous error messages
         navigate("/");
       } else {
-        console.log(_response.error);
-        setMessage(_response.message);
+        console.log(responseData.error);
+        setMessage(responseData.message || "An error occurred during login.");
       }
     } catch (error) {
       console.error("Login error:", error);

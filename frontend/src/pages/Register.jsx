@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import CustomNavbar from "../components/CustomNavbar.jsx";
 import Footer from "../components/Footer.jsx";
+import LoadSpinner from "../components/Spinner.jsx";
 import { useNavigate } from "react-router-dom";
 import { BsGoogle } from "react-icons/bs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,11 +19,12 @@ import logoPng2x from "../assets/images/hive_tool@2x.png";
 import logoPng3x from "../assets/images/hive_tool@3x.png";
 
 const Register = () => {
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     apiaryName: "",
     password: "",
     confirmPassword: "",
+    zipcode: "",
   });
   const [message, setMessage] = useState(null);
   const { setUser } = useContext(UserContext);
@@ -38,13 +40,13 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (form.password !== form.confirmPassword) {
+    if (formData.password !== formData.confirmPassword) {
       setMessage("Passwords do not match");
       return;
     }
     try {
       const response = await axios
-        .post("http://localhost:5555/user/register", form, {
+        .post("http://localhost:5555/user/register", formData, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -57,8 +59,8 @@ const Register = () => {
       const data = response.data;
 
       if (response.status === 200 && data.user) {
-        const userId = data.user._id;
-        Cookies.set("userCookie", userId);
+        // const userId = data.user._id;
+        // Cookies.set("userCookie", userId);
         setUser(data.user);
       } else {
         console.log(data.error);
@@ -98,23 +100,38 @@ const Register = () => {
                 <Form.Control
                   type="email"
                   autoComplete="off"
-                  name={`email_${Math.random().toString(36).substring(7)}`}
-                  value={form.email}
+                  name={formData.email}
+                  value={formData.email}
                   placeholder="Email..."
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                 />
               </Form.Group>
               <Form.Group controlId="apiaryName">
                 <Form.Control
                   type="text"
                   autoComplete="apiaryName"
-                  value={form.apiaryName}
-                  name={form.apiaryName}
+                  value={formData.apiaryName}
+                  name={formData.apiaryName}
                   placeholder="Apiary Name..."
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2"
                   onChange={(e) =>
-                    setForm({ ...form, apiaryName: e.target.value })
+                    setFormData({ ...formData, apiaryName: e.target.value })
+                  }
+                />
+              </Form.Group>
+              <Form.Group controlId="zipcode">
+                <Form.Control
+                  type="number"
+                  autoComplete="zipcode"
+                  value={formData.zipcode}
+                  name={formData.zipcode}
+                  placeholder="Enter Zipcode..."
+                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2"
+                  onChange={(e) =>
+                    setFormData({ ...formData, zipcode: e.target.value })
                   }
                 />
               </Form.Group>
@@ -122,11 +139,11 @@ const Register = () => {
                 <Form.Control
                   type={showPassword ? "text" : "password"}
                   autoComplete="current-password"
-                  value={form.password}
+                  value={formData.password}
                   placeholder="Password..."
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2 white-placeholder"
                   onChange={(e) =>
-                    setForm({ ...form, password: e.target.value })
+                    setFormData({ ...formData, password: e.target.value })
                   }
                 />
                 {/* Eye icon button */}
@@ -143,11 +160,14 @@ const Register = () => {
                 <Form.Control
                   type={showConfirmPassword ? "text" : "password"}
                   autoComplete="new-password"
-                  value={form.confirmPassword}
+                  value={formData.confirmPassword}
                   placeholder="Confirm Password..."
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2"
                   onChange={(e) =>
-                    setForm({ ...form, confirmPassword: e.target.value })
+                    setFormData({
+                      ...formData,
+                      confirmPassword: e.target.value,
+                    })
                   }
                 />
                 <FontAwesomeIcon

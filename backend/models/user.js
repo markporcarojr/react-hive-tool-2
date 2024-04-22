@@ -20,7 +20,9 @@ const userSchema = new Schema({
     },
     userName: {
         type: String,
-        // required: true,
+    },
+    zipcode: {
+        type: Number,
     },
 
 },

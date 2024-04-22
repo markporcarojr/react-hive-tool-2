@@ -41,18 +41,18 @@ const HiveCard = ({ hive }) => {
               <div className="col-6">
                 <p className="mb-1">Added:</p>
                 <p className="mb-1 ">Source:</p>
+                <p className="mb-1 ">Breed:</p>
                 <p className="mb-1 ">Queen Color:</p>
                 <p className="mb-1 ">Queen Age:</p>
                 <p className="mb-1 ">Strength:</p>
-                <p className="mb-1 ">Breed:</p>
               </div>
-              <div className="col-6">
+              <div className="col-6 text-end">
                 <p className="mb-1 ">{formattedDate}</p>
                 <p className="mb-1 ">{hiveSource}</p>
+                <p className="mb-1 ">{breed}</p>
                 <p className="mb-1 ">{queenColor}</p>
                 <p className="mb-1 ">{queenAge}</p>
                 <p className="mb-1 ">{hiveStrength}%</p>
-                <p className="mb-1 ">{breed}</p>
               </div>
             </div>
             <hr className="border-bottom" />

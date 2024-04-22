@@ -71,7 +71,7 @@ const EditHive = () => {
       // Check if a new image has been uploaded
       if (hiveImage) {
         // Upload the new image and get its URL
-        imageUrl = await uploadImageToStorage(hiveImage, "images/");
+        imageUrl = await uploadImageToStorage(hiveImage, "images/hiveImages/");
       }
 
       const data = {
@@ -98,6 +98,7 @@ const EditHive = () => {
       navigate("/");
     } catch (error) {
       setLoading(false);
+      console.error("Backend Error:", error.response?.data);
       setMessage(error.response?.data?.message || "An error occurred.");
       console.error(error);
     }

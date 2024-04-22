@@ -39,7 +39,10 @@ const CreateHive = () => {
 
     try {
       // Upload image to Firebase Storage
-      const imageUrl = await uploadImageToStorage(hiveImage, "images/");
+      const imageUrl = await uploadImageToStorage(
+        hiveImage,
+        "images/hiveImages/"
+      );
 
       const data = {
         hiveNumber,

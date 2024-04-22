@@ -1,15 +1,20 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import UserContext from "../context/UserContext.jsx";
 import axios from "axios";
 import CustomNavbar from "../components/CustomNavbar.jsx";
 import Footer from "../components/Footer.jsx";
 import { Container, Button, Col, Form } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
-const UpdateUserForm = ({ userId }) => {
-  const { id } = useParams();
+const UpdateUserForm = () => {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     apiaryName: "",
     userName: "",
+    zipcode: "",
   });
   const [message, setMessage] = useState("");
 
@@ -21,10 +26,11 @@ const UpdateUserForm = ({ userId }) => {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        `http://localhost:5555/user/update/${id}`,
+        `http://localhost:5555/user/update/${user._id}`,
         formData
       );
       setMessage(response.data.message);
+      navigate("/");
     } catch (error) {
       console.error("Update user error:", error);
       setMessage("An error occurred. Please try again.");
@@ -51,7 +57,7 @@ const UpdateUserForm = ({ userId }) => {
             </Form.Group>
           </Col>
           <Col md={5} className="mx-auto">
-            <Form.Group controlId="username" className="text-michgold mb-4">
+            <Form.Group controlId="userName" className="text-michgold mb-4">
               <Form.Control
                 type="text"
                 id="userName"
@@ -63,6 +69,20 @@ const UpdateUserForm = ({ userId }) => {
               />
             </Form.Group>
           </Col>
+          <Col md={5} className="mx-auto">
+            <Form.Group controlId="zipcode" className="text-michgold mb-4">
+              <Form.Control
+                type="number"
+                id="zipcode"
+                name="zipcode"
+                placeholder="Enter Your Zipcode..."
+                value={formData.zipcode}
+                onChange={handleChange}
+                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2 white-placeholder"
+              />
+            </Form.Group>
+          </Col>
+
           <div className="text-center mt-3">
             <Button
               variant="primary"

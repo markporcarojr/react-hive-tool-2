@@ -8,11 +8,13 @@ import logoPng3x from "../assets/images/hive_tool@3x.png";
 import UserContext from "../context/UserContext.jsx";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import cookies from "js-cookie";
 
 function CustomNavbar() {
   const { user, setUser } = useContext(UserContext);
   const logout = () => {
-    localStorage.removeItem("token"); // Remove JWT token from localStorage
+    localStorage.removeItem("token");
+    cookies.remove("userCookie");
     setUser(null); // Clear user context
   };
   return (
@@ -58,7 +60,7 @@ function CustomNavbar() {
               <Link to="/swarm" className="nav-link">
                 Swarm Traps
               </Link>
-              <Link to={`/update-user/${user._id}`} className="nav-link">
+              <Link to={`/update/${user._id}`} className="nav-link">
                 Update User
               </Link>
 

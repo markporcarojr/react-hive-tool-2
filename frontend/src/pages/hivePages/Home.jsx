@@ -13,10 +13,12 @@ import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import HiveCard from "../../components/HiveCard";
 import ImageDisplay from "../../components/ImageDisplay";
+import fetchWeatherData from "../../utils/fetchWeatherData.js";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);
   const options = { timeZone: "UTC" };
+
   return utcDate.toLocaleDateString("en-US", options);
 };
 
@@ -26,6 +28,23 @@ const Home = () => {
   const [selectedHive, setSelectedHive] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const { user } = useContext(UserContext);
+  const [weatherData, setWeatherData] = useState(null);
+  // const [userLocation, setUserLocation] = useState(null);
+  const [weatherIcon, setWeatherIcon] = useState("");
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      if (user && user.zipcode) {
+        const data = await fetchWeatherData(user.zipcode);
+        if (data) {
+          setWeatherData(data.data);
+          setWeatherIcon(data.iconUrl);
+        }
+      }
+    };
+
+    fetchWeather();
+  }, [user]);
 
   useEffect(() => {
     setLoading(true);
@@ -59,17 +78,23 @@ const Home = () => {
           {user.apiaryName ? user.apiaryName : "Your Apiary"} <br />
         </h1>
         <h5 className="card-title mt-3 fs-2 outlined-text" id="datetime"></h5>
-        <div className="d-flex justify-content-between text-white align-items-center outlined-text fs-3 fw-bold my-1 me-2">
-          <span className="card-text mb-0 ms-2 mt-" id="city">
-            Ortonville
-          </span>
-          <div>
-            <span className="card-text mb-0 text-white">☀️</span>
-            <span className="card-text mb-0" id="temp">
-              60℉
+
+        {weatherData && (
+          <div className="d-flex justify-content-between text-white align-items-center outlined-text fs-3 fw-bold my-1 me-2">
+            <span className="card-text mb-0 ms-2 mt-" id="city">
+              {weatherData.name}
             </span>
+            <div>
+              <span className="card-text mb-0">
+                <img src={weatherIcon} alt="Weather Icon" />
+              </span>
+
+              <span className="card-text mb-0 ms-1" id="temp">
+                {Math.floor(weatherData.main.temp)}℉
+              </span>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="p-4">
         <div className="d-flex justify-content-around mb-4">
@@ -116,6 +141,7 @@ const Home = () => {
                         imageUrl={hive.hiveImage}
                         maxHeight={"100px"}
                         maxWidth={"100px"}
+                        alt={"Hive Image"}
                       />
                     </td>
                     <td className="text-center fs-3">#{hive.hiveNumber}</td>

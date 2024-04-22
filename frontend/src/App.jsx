@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import cookies from "js-cookie";
 
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,6 +10,7 @@ import "./scss/styles.scss";
 import LoadSpinner from "./components/Spinner.jsx";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
 import UserContext from "./context/UserContext.jsx";
+import UpdateUserForm from "./pages/UpdateUserForm.jsx";
 
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 
@@ -44,14 +46,16 @@ import ResetPassword from "./pages/ResetPassword.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
+  const userCookie = cookies.get("userCookie");
   const [loading, setLoading] = useState(true); // Changed initial value to true
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+
     if (token) {
       axios
-        .get("http://localhost:5555/user", {
+        .get(`http://localhost:5555/user/${userCookie}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -79,6 +83,8 @@ function App() {
     <UserContext.Provider value={{ user, setUser }}>
       <Routes>
         <Route element={<PrivateRoutes />}>
+          <Route path="/update/:id" element={<UpdateUserForm />} />
+
           <Route path="/" element={<Home />} />
           <Route path="/hives/create" element={<CreateHive />} />
           <Route path="/hives/delete/:id" element={<DeleteHive />} />

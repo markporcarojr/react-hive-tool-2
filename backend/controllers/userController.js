@@ -66,7 +66,7 @@ export const loginUser = async (req, res) => {
 
 export const registerUser = async (req, res) => {
     try {
-        const { email, password, apiaryName } = req.body;
+        const { email, password, apiaryName, zipcode } = req.body;
         if (!email || !password || !apiaryName) {
             return res.send({
                 message: 'all fields are required'
@@ -79,7 +79,7 @@ export const registerUser = async (req, res) => {
             })
         }
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user = new User({ email, apiaryName, password: hashedPassword })
+        const user = new User({ email, apiaryName, password: hashedPassword, zipcode })
         await user.save();
         return res.send({
             message: "user was registered successfully.",
@@ -155,20 +155,30 @@ export const deleteUser = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { apiaryName, userName } = req.body;
+        const { apiaryName, userName, zipcode } = req.body;
 
-        // Check if apiaryName, userName is provided in the request body
-        if (!apiaryName || !userName) {
-            return res.status(400).json({ message: "Apiary Name and Username are required" });
-        }
+        // Retrieve the current user data
+        const currentUser = await User.findById(id);
 
-        // Update the user's apiaryName, userName
-        const updatedUser = await User.findByIdAndUpdate(id, { apiaryName, userName }, { new: true });
-
-        // Check if user with the given ID exists
-        if (!updatedUser) {
+        // Check if the user with the given ID exists
+        if (!currentUser) {
             return res.status(404).json({ message: "User not found" });
         }
+
+        // Update only the provided fields
+        const updatedFields = {};
+        if (apiaryName) {
+            updatedFields.apiaryName = apiaryName;
+        }
+        if (userName) {
+            updatedFields.userName = userName;
+        }
+        if (zipcode) {
+            updatedFields.zipcode = zipcode;
+        }
+
+        // Update the user with the modified fields
+        const updatedUser = await User.findByIdAndUpdate(id, updatedFields, { new: true });
 
         res.status(200).json({ message: "User updated successfully", user: updatedUser });
     } catch (error) {
@@ -176,5 +186,6 @@ export const updateUser = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
 
 
