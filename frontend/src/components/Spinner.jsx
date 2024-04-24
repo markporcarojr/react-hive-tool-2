@@ -2,12 +2,12 @@ import Spinner from "react-bootstrap/Spinner";
 
 const LoadSpinner = () => {
   return (
-    <div className="d-flex justify-content-around mb-3">
+    <div className="d-flex justify-content-center align-items-center vh-100">
       <Spinner
         animation="border"
         variant="warning"
         role="status"
-        className="text-center"
+        style={{ width: "10vw", height: "10vw" }}
       >
         <span className="visually-hidden">Loading...</span>
       </Spinner>

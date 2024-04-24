@@ -41,62 +41,65 @@ const CreateInventory = () => {
   return (
     <>
       <CustomNavbar />
-      {loading && <LoadSpinner />}
-      <Container style={{ maxWidth: "700px" }}>
-        <Card className="text-michgold text-center mt-2 mb-5">
-          {/* Include your partial title here */}
-          {/* Assuming partials/title is another component */}
-          {/* <%- include("partials/title")%> */}
+      {loading ? (
+        <LoadSpinner />
+      ) : (
+        <Container style={{ maxWidth: "700px" }}>
+          <Card className="text-michgold text-center mt-2 mb-5">
+            {/* Include your partial title here */}
+            {/* Assuming partials/title is another component */}
+            {/* <%- include("partials/title")%> */}
 
-          {/* Forms */}
-          <Form id="inventory-form" onSubmit={handleSaveInventory}>
-            <div className="m-3 fs-3 mt-0 fw-semibold">
-              <Form.Label htmlFor="inventoryType">Equipment Name</Form.Label>
-              <Form.Control
-                type="text"
-                id="inventoryType"
-                name="inventoryType"
-                onChange={(e) => setInventoryType(e.target.value)}
-                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-              />
-            </div>
-            <div className="m-3 fs-3 mt-0 fw-semibold">
-              <Form.Label htmlFor="inventoryAmount">Quantity</Form.Label>
-              <Form.Control
-                type="number"
-                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                id="inventoryAmount"
-                name="inventoryAmount"
-                value={inventoryAmount}
-                onChange={(e) => setInventoryAmount(e.target.value)}
-              />
-            </div>
-            <div className="m-3 fs-3 mt-0 fw-semibold">
-              <Form.Label htmlFor="inventoryLocation">Location</Form.Label>
-              <Form.Control
-                type="text"
-                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                id="inventoryLocation"
-                name="inventoryLocation"
-                value={inventoryLocation}
-                onChange={(e) => setInventoryLocation(e.target.value)}
-              />
-            </div>
-          </Form>
-          {/* Form end */}
+            {/* Forms */}
+            <Form id="inventory-form" onSubmit={handleSaveInventory}>
+              <div className="m-3 fs-3 mt-0 fw-semibold">
+                <Form.Label htmlFor="inventoryType">Equipment Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  id="inventoryType"
+                  name="inventoryType"
+                  onChange={(e) => setInventoryType(e.target.value)}
+                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                />
+              </div>
+              <div className="m-3 fs-3 mt-0 fw-semibold">
+                <Form.Label htmlFor="inventoryAmount">Quantity</Form.Label>
+                <Form.Control
+                  type="number"
+                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  id="inventoryAmount"
+                  name="inventoryAmount"
+                  value={inventoryAmount}
+                  onChange={(e) => setInventoryAmount(e.target.value)}
+                />
+              </div>
+              <div className="m-3 fs-3 mt-0 fw-semibold">
+                <Form.Label htmlFor="inventoryLocation">Location</Form.Label>
+                <Form.Control
+                  type="text"
+                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  id="inventoryLocation"
+                  name="inventoryLocation"
+                  value={inventoryLocation}
+                  onChange={(e) => setInventoryLocation(e.target.value)}
+                />
+              </div>
+            </Form>
+            {/* Form end */}
 
-          <div className="d-flex justify-content-around mb-3">
-            <Button
-              type="submit"
-              form="inventory-form"
-              className="btn px-5 btn-michgold fw-bold rounded-pill"
-            >
-              ADD
-            </Button>
-          </div>
-          <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
-        </Card>
-      </Container>
+            <div className="d-flex justify-content-around mb-3">
+              <Button
+                type="submit"
+                form="inventory-form"
+                className="btn px-5 btn-michgold fw-bold rounded-pill"
+              >
+                ADD
+              </Button>
+            </div>
+            <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
+          </Card>
+        </Container>
+      )}
       <Footer />
     </>
   );

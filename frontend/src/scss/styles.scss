@@ -321,5 +321,12 @@ input[type="range"] {
     display: none;
   }
 }
+@media (max-width: 576px) {
+  /* Hide certain table columns on mobile */
+  .inspection-table th:nth-child(1),
+  .inspection-table td:nth-child(1) {
+    display: none;
+  }
+}
 
 /* ******************************************* Custom classes ***************************************** */

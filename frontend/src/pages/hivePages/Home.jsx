@@ -1,6 +1,6 @@
 // Home.jsx
 import { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Modal, Button, Table } from "react-bootstrap";
 import { IconContext } from "react-icons";
 import { IoInformationCircleOutline } from "react-icons/io5";
@@ -29,8 +29,11 @@ const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const { user } = useContext(UserContext);
   const [weatherData, setWeatherData] = useState(null);
-  // const [userLocation, setUserLocation] = useState(null);
   const [weatherIcon, setWeatherIcon] = useState("");
+  const [backgroundImage, setBackgroundImage] = useState("");
+  const { id } = useParams();
+  const imageUrl =
+    "https://firebasestorage.googleapis.com/v0/b/react-hive-tool-73d34.appspot.com/o/images%2FapiaryImages%2FIMG_0891.jpeg9c4ba8d0-734d-436d-8115-68d4778bc18e?alt=media&token=82a3bc7b-8ce1-4ff5-8931-ab12e30ed872";
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -45,6 +48,26 @@ const Home = () => {
 
     fetchWeather();
   }, [user]);
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`http://localhost:5555/user/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log(response.data);
+        setBackgroundImage(response.data.user.apiaryImage);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.log("Error fetching data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [id]);
 
   useEffect(() => {
     setLoading(true);
@@ -73,7 +96,19 @@ const Home = () => {
   return (
     <>
       <CustomNavbar />
-      <div id="title" className="container title">
+      <div
+        id="title"
+        // className=" title"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          // backgroundPositionY: "60%",
+          backgroundRepeat: "no-repeat",
+          width: "100%",
+          height: "100%", // Adjust height as needed
+        }}
+      >
         <h1 className="text-center text-white pt-2 outlined-text display-1 fw-bold apiary">
           {user.apiaryName ? user.apiaryName : "Your Apiary"} <br />
         </h1>

@@ -14,6 +14,9 @@ const userSchema = new Schema({
     apiaryName: {
         type: String,
     },
+    apiaryImage: {
+        type: String,
+    },
     password: {
         type: String,
         required: true,

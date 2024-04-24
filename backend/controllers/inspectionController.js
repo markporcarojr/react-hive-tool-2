@@ -2,7 +2,7 @@ import { Inspection } from "../models/inspections.js";
 
 export const createInspection = async (req, res) => {
     try {
-        const { hiveNumber, hiveStrength, temperament, inspectionDate, userId, queen, queenCell, disease, pests, eggs, feeding, treatments, inspectionNote, brood, hiveId } = req.body;
+        const { hiveNumber, hiveStrength, temperament, inspectionDate, userId, queen, queenCell, disease, pests, eggs, feeding, treatments, inspectionNote, brood, hiveId, inspectionImage } = req.body;
 
         if (
             !hiveId ||
@@ -31,6 +31,7 @@ export const createInspection = async (req, res) => {
             treatments,
             eggs,
             inspectionNote,
+            inspectionImage,
             brood,
 
         };

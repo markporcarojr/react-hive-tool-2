@@ -66,7 +66,7 @@ export const loginUser = async (req, res) => {
 
 export const registerUser = async (req, res) => {
     try {
-        const { email, password, apiaryName, zipcode } = req.body;
+        const { email, password, apiaryName, zipcode, apiaryImage } = req.body;
         if (!email || !password || !apiaryName) {
             return res.send({
                 message: 'all fields are required'
@@ -79,7 +79,7 @@ export const registerUser = async (req, res) => {
             })
         }
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user = new User({ email, apiaryName, password: hashedPassword, zipcode })
+        const user = new User({ email, apiaryName, password: hashedPassword, zipcode, apiaryImage })
         await user.save();
         return res.send({
             message: "user was registered successfully.",
@@ -155,7 +155,7 @@ export const deleteUser = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { apiaryName, userName, zipcode } = req.body;
+        const { apiaryName, userName, zipcode, apiaryImage } = req.body;
 
         // Retrieve the current user data
         const currentUser = await User.findById(id);
@@ -175,6 +175,9 @@ export const updateUser = async (req, res) => {
         }
         if (zipcode) {
             updatedFields.zipcode = zipcode;
+        }
+        if (apiaryImage) {
+            updatedFields.apiaryImage = apiaryImage;
         }
 
         // Update the user with the modified fields

@@ -5,12 +5,18 @@ import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
+import {
+  uploadImageToStorage,
+  deleteImageFromStorage,
+} from "../../utils/firebaseUtils.js";
 
 const EditInspection = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [sliderValue, setSliderValue] = useState();
   const [message, setMessage] = useState();
+  const [inspectionImage, setInspectionImage] = useState(null);
+  const [oldImageURL, setOldImageURL] = useState(null);
   const [formData, setFormData] = useState({
     temperament: "",
     hiveStrength: "",
@@ -45,6 +51,7 @@ const EditInspection = () => {
           inspectionDate: res.data.inspectionDate,
           inspectionNote: res.data.inspectionNote,
         });
+        setOldImageURL(res.data.inspectionImage);
         setSliderValue(res.data.hiveStrength);
         setLoading(false);
       })
@@ -64,6 +71,11 @@ const EditInspection = () => {
     }));
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setInspectionImage(file);
+  };
+
   const handleChange = (e) => {
     let { name, value, selectedIndex } = e.target;
 
@@ -78,33 +90,47 @@ const EditInspection = () => {
     }));
   };
 
-  const handleEditInspection = (e) => {
+  const handleEditInspection = async (e) => {
     e.preventDefault();
-    const data = {
-      temperament: formData.temperament,
-      hiveStrength: formData.hiveStrength,
-      queen: formData.queen,
-      queenCell: formData.queenCell,
-      brood: formData.brood,
-      disease: formData.disease,
-      eggs: formData.eggs,
-      pests: formData.pests,
-      feeding: formData.feeding,
-      treatments: formData.treatments,
-      inspectionDate: formData.inspectionDate,
-      inspectionNote: formData.inspectionNote,
-    };
-    axios
-      .put(`http://localhost:5555/inspections/${id}`, data)
-      .then(() => {
-        setLoading(false);
-        navigate("/inspections");
-      })
-      .catch((error) => {
-        setLoading(false);
-        setMessage(error.response.data.message);
-        console.log(error);
-      });
+
+    try {
+      let imageUrl = oldImageURL; // Initialize imageUrl with the old image URL
+
+      // Check if a new image has been uploaded
+      if (inspectionImage) {
+        // Upload the new image and get its URL
+        imageUrl = await uploadImageToStorage(
+          inspectionImage,
+          "images/inspectionImages/"
+        );
+      }
+      const data = {
+        temperament: formData.temperament,
+        hiveStrength: formData.hiveStrength,
+        queen: formData.queen,
+        queenCell: formData.queenCell,
+        brood: formData.brood,
+        disease: formData.disease,
+        eggs: formData.eggs,
+        pests: formData.pests,
+        feeding: formData.feeding,
+        treatments: formData.treatments,
+        inspectionDate: formData.inspectionDate,
+        inspectionNote: formData.inspectionNote,
+        inspectionImage: imageUrl,
+      };
+      await axios.put(`http://localhost:5555/inspections/${id}`, data);
+      if (oldImageURL && inspectionImage) {
+        // Delete the old image
+        await deleteImageFromStorage(oldImageURL);
+      }
+      setLoading(false);
+      navigate("/inspections");
+    } catch (error) {
+      setLoading(false);
+      setMessage(error.response.data.message);
+      console.log(error);
+    }
   };
 
   return (
@@ -329,6 +355,23 @@ const EditInspection = () => {
                   <option value="Apivar">Apivar</option>
                   <option value="Micribes">Microbes</option>
                 </Form.Select>
+              </Form.Group>
+              {/* Inspection Image */}
+              <Form.Group className="mb-3">
+                <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
+                  Inspection Image
+                </Form.Label>
+                <Form.Control
+                  type="file"
+                  accept="image/*"
+                  capture="camera"
+                  className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  id="inspectionImage"
+                  name="inspectionImage"
+                  // value={inspectionImage}
+                  onChange={handleImageUpload}
+                  aria-describedby="inspectionImage"
+                />
               </Form.Group>
 
               {/* Inspection Date */}

@@ -12,6 +12,7 @@ import LoadSpinner from "../../components/Spinner";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import InspectionCard from "../../components/InspectionCard";
+import ImageDisplay from "../../components/ImageDisplay";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);
@@ -73,10 +74,11 @@ const InspectionPage = () => {
               hover
               // responsive
               variant="dark"
-              className="text-michgold"
+              className="text-michgold inspection-table"
             >
               <thead className="fs-4 fw-bold text-center">
                 <tr>
+                  <th>Image</th>
                   <th>Date</th>
                   <th>Hive Number</th>
                   <th>Options</th>
@@ -90,6 +92,14 @@ const InspectionPage = () => {
                   )
                   .map((inspection) => (
                     <tr key={inspection._id}>
+                      <td>
+                        <ImageDisplay
+                          imageUrl={inspection.inspectionImage}
+                          maxHeight={"100px"}
+                          maxWidth={"100px"}
+                          alt={"Inspection Image"}
+                        />
+                      </td>
                       <td>{formatDate(inspection.inspectionDate)}</td>
                       <td>{inspection.hiveNumber}</td>
                       <td>
@@ -140,9 +150,18 @@ const InspectionPage = () => {
                 className="modal-border bg-card"
               >
                 <Modal.Header className="d-flex justify-content-around">
-                  <Modal.Title className="text-michgold fs-3 fw-bold">
-                    Inspection Details
-                  </Modal.Title>
+                  <div className="container d-flex justify-content-center align-items-center">
+                    {selectedInspection && (
+                      <ImageDisplay
+                        imageUrl={selectedInspection.inspectionImage}
+                        maxHeight={"400px"}
+                        maxWidth={"400px"}
+                        style={{
+                          objectFit: "scale-down",
+                        }}
+                      />
+                    )}
+                  </div>
                 </Modal.Header>
                 <Modal.Body>
                   {selectedInspection && (

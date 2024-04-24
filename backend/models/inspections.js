@@ -16,6 +16,10 @@ const inspectionSchema = new Schema({
         type: Number,
         required: true
     },
+    inspectionImage: {
+        type: String,
+        required: false
+    },
     queen: {
         type: String,
         required: false
