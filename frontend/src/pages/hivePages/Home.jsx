@@ -32,8 +32,6 @@ const Home = () => {
   const [weatherIcon, setWeatherIcon] = useState("");
   const [backgroundImage, setBackgroundImage] = useState("");
   const { id } = useParams();
-  const imageUrl =
-    "https://firebasestorage.googleapis.com/v0/b/react-hive-tool-73d34.appspot.com/o/images%2FapiaryImages%2FIMG_0891.jpeg9c4ba8d0-734d-436d-8115-68d4778bc18e?alt=media&token=82a3bc7b-8ce1-4ff5-8931-ab12e30ed872";
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -107,6 +105,7 @@ const Home = () => {
           backgroundRepeat: "no-repeat",
           width: "100%",
           height: "100%", // Adjust height as needed
+          borderBottom: "12px solid #ffcb05",
         }}
       >
         <h1 className="text-center text-white pt-2 outlined-text display-1 fw-bold apiary">

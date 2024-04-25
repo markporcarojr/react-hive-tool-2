@@ -1,12 +1,15 @@
 // // authRoutes.js
 
 import express from "express";
-import passport from "passport";
 import nodemailer from "nodemailer";
 import { User } from "../models/user.js";
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
+
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const REDIRECT_URI = process.env.REDIRECT_URI;
 
 const router = express.Router();
 
@@ -20,64 +23,56 @@ const generateResetToken = async () => {
     }
 };
 
-router.get('/login/success', (req, res) => {
-    if (req.user) {
-        res.status(200).json({
-            error: false,
-            message: "Succesfully Logged In",
-            user: req.user,
+
+router.get('/google', (req, res) => {
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=email%20profile`;
+    res.redirect(authUrl);
+});
+
+
+// Callback endpoint to handle Google's response
+router.get('/google/callback', async (req, res) => {
+    const code = req.query.code;
+    if (!code) {
+        return res.status(400).json({ error: 'Authorization code missing' });
+    }
+
+    try {
+        // Exchange authorization code for access token
+        const tokenUrl = 'https://oauth2.googleapis.com/token';
+        const params = new URLSearchParams();
+        params.append('code', code);
+        params.append('client_id', GOOGLE_CLIENT_ID);
+        params.append('client_secret', GOOGLE_CLIENT_SECRET);
+        params.append('redirect_uri', REDIRECT_URI);
+        params.append('grant_type', 'authorization_code');
+        const tokenResponse = await fetch(tokenUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: params,
         });
-    } else {
-        res.status(403).json({ error: true, message: "Not Authorized" })
+        const tokenData = await tokenResponse.json();
+
+        // Use the access token to fetch user information
+        const { access_token } = tokenData;
+        const userInfoUrl = `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token}`;
+        const userInfoResponse = await fetch(userInfoUrl);
+        const userData = await userInfoResponse.json();
+
+        // Here you can handle user authentication and create a session or JWT token
+        // For example, you can check if the user already exists in your database
+        // If not, you can create a new user record based on the received user data
+
+        // Send the user data or authentication token back to the frontend
+        res.json(userData);
+    } catch (error) {
+        console.error('Google auth error:', error);
+        res.status(500).json({ error: 'Google authentication failed' });
     }
 });
 
-router.get('/login/failed', (req, res) => {
-    res.status(401).json({
-        error: true,
-        message: "Login Failed",
-    });
-});
-
-
-// POST route for user logout
-router.post('/logout', (req, res) => {
-    req.logout(); // Passport logout function
-    res.redirect("http://localhost:5173/login")
-    res.send('Logged out');
-});
-
-// // POST route for user login
-// router.post('/login', passport.authenticate('local'), (req, res) => {
-//     // Redirect or send response after successful login
-//     res.send('Login Successful');
-// });
-
-router.get("/google", passport.authenticate("google", { scope: ["email"] }));
-
-router.get("/google/callback", passport.authenticate("google", {
-    successRedirect: "http://localhost:5173/",
-    failureRedirect: "/login"
-}), async (req, res) => {
-    // Check if user exists in database
-    const existingUser = await User.findOne({ email: req.user.email });
-
-    if (existingUser) {
-        // User already exists, log them in (session or JWT)
-        req.session.userId = existingUser._id; // Using session for example
-        res.redirect('/');
-    } else {
-        // Create a new user document
-        const newUser = new User({
-            email: req.user.email,
-            name: req.user.displayName,
-            googleId: req.user.id
-        });
-        await newUser.save();
-        req.session.userId = newUser._id; // Update session
-        res.redirect('/');
-    }
-});
 
 // POST route for password reset
 router.post("/forgot-password", async (req, res) => {

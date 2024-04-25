@@ -2,7 +2,7 @@ import { Swarm } from "../models/swarm.js"
 
 export const createSwarm = async (req, res) => {
     try {
-        const { swarmNumber, swarmDate, location, userId } = req.body;
+        const { swarmNumber, swarmDate, location, userId, swarmImage } = req.body;
         if (
             !swarmNumber ||
             !location ||
@@ -18,7 +18,8 @@ export const createSwarm = async (req, res) => {
             swarmNumber,
             location,
             swarmDate,
-            userId
+            userId,
+            swarmImage
 
         };
         const swarm = await Swarm.create(newSwarm);

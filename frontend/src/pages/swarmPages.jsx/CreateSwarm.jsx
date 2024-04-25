@@ -6,36 +6,50 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Container, Card, Form, Button } from "react-bootstrap";
 import UserContext from "../../context/UserContext.jsx";
+import { uploadImageToStorage } from "../../utils/firebaseUtils.js";
 
 const CreateSwarm = () => {
   const { user } = useContext(UserContext);
   const [swarmNumber, setSwarmNumber] = useState("");
   const [location, setLocation] = useState("");
   const [swarmDate, setSwarmDate] = useState("");
+  const [swarmImage, setSwarmImage] = useState("");
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSaveSwarm = (e) => {
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setSwarmImage(file);
+  };
+
+  const handleSaveSwarm = async (e) => {
     e.preventDefault();
-    const data = {
-      swarmNumber,
-      location,
-      swarmDate,
-      userId: user._id,
-    };
     setLoading(true);
-    axios
-      .post("http://localhost:5555/swarm", data)
-      .then(() => {
-        setLoading(false);
-        navigate("/swarm");
-      })
-      .catch((error) => {
-        setLoading(false);
-        setMessage(error.response.data.message);
-        console.log(error);
-      });
+
+    try {
+      // Upload image to Firebase Storage
+      const imageUrl = await uploadImageToStorage(
+        swarmImage,
+        "images/swarmImages/"
+      );
+
+      const data = {
+        swarmNumber,
+        location,
+        swarmDate,
+        userId: user._id,
+        swarmImage: imageUrl,
+      };
+
+      await axios.post("http://localhost:5555/swarm", data);
+      setLoading(false);
+      navigate("/swarm");
+    } catch (error) {
+      setLoading(false);
+      setMessage(error.response.data.message);
+      console.log(error);
+    }
   };
   return (
     <>
@@ -72,6 +86,17 @@ const CreateSwarm = () => {
                     rows={3}
                   />
                 </Form.Group>
+              </div>
+              <div className="m-3 fs-3 mt-0 fw-semibold">
+                <Form.Label htmlFor="swarmImage">Swarm Image</Form.Label>
+                <Form.Control
+                  type="file"
+                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  id="swarmImage"
+                  name="swarmImage"
+                  // value={swarmImage}
+                  onChange={handleImageUpload}
+                />
               </div>
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="swarmDate">Date</Form.Label>

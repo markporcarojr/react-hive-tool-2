@@ -10,18 +10,15 @@ const SwarmCard = ({ swarm }) => {
 
   return (
     <Col className="gy-4">
-      <Container className="px-2 pop" style={{ maxWidth: "500px" }}>
-        <Card
-          className="text-michgold border-michgold rounded-5 border-3 bg-card"
-          style={{ borderColor: "#ffcb05" }}
-        >
+      <Container className="px-2">
+        <Card className="text-michgold  bg-card">
           <Card.Header className="d-flex justify-content-between pt-0 ">
             <div className="m-2 mb-0 fs-3">Swarm #{swarmNumber}</div>
             <div className="m-2 mb-0 fs-4">{formattedDate}</div>
           </Card.Header>
           <Card.Body className="mb-0 fs-4 p-2 text-center">
             <Card.Title className="mb-0 fs-4 fw-bold p-2">
-              {location}
+              Location: {location}
             </Card.Title>
           </Card.Body>
           <div className="d-flex justify-content-between mx-3 mb-2">

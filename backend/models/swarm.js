@@ -17,6 +17,10 @@ const swarmSchema = new Schema({
         type: String,
         required: true
     },
+    swarmImage: {
+        type: String,
+        required: false
+    },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

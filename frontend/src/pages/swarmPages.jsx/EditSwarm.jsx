@@ -5,6 +5,10 @@ import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Card, Form, Button } from "react-bootstrap";
+import {
+  uploadImageToStorage,
+  deleteImageFromStorage,
+} from "../../utils/firebaseUtils.js";
 
 const EditSwarm = () => {
   const [swarmNumber, setSwarmNumber] = useState("");
@@ -13,7 +17,10 @@ const EditSwarm = () => {
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [oldImageURL, setOldImageURL] = useState(null);
+  const [swarmImage, setSwarmImage] = useState("");
   const { id } = useParams();
+
   useEffect(() => {
     setLoading(true);
     axios
@@ -23,6 +30,7 @@ const EditSwarm = () => {
         setLocation(res.data.location);
         setSwarmDate(res.data.swarmDate);
         setLoading(false);
+        setOldImageURL(res.data.swarmImage);
       })
       .catch((error) => {
         setLoading(false);
@@ -33,25 +41,47 @@ const EditSwarm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleEditSwarm = (e) => {
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setSwarmImage(file);
+  };
+
+  const handleEditSwarm = async (e) => {
     e.preventDefault();
-    const data = {
-      swarmNumber,
-      location,
-      swarmDate,
-    };
     setLoading(true);
-    axios
-      .put(`http://localhost:5555/swarm/${id}`, data)
-      .then(() => {
-        setLoading(false);
-        navigate("/swarm");
-      })
-      .catch((error) => {
-        setLoading(false);
-        setMessage(error.response.data.message);
-        console.log(error);
-      });
+
+    try {
+      let imageUrl = oldImageURL; // Initialize imageUrl with the old image URL
+
+      // Check if a new image has been uploaded
+      if (swarmImage) {
+        // Upload the new image and get its URL
+        imageUrl = await uploadImageToStorage(
+          swarmImage,
+          "images/swarmImages/"
+        );
+      }
+
+      const data = {
+        swarmNumber,
+        location,
+        swarmDate,
+        swarmImage: imageUrl,
+      };
+
+      await axios.put(`http://localhost:5555/swarm/${id}`, data);
+      if (oldImageURL && swarmImage) {
+        // Delete the old image
+        await deleteImageFromStorage(oldImageURL);
+      }
+
+      setLoading(false);
+      navigate("/swarm");
+    } catch (error) {
+      setLoading(false);
+      setMessage(error.response.data.message);
+      console.log(error);
+    }
   };
   return (
     <>
@@ -90,6 +120,16 @@ const EditSwarm = () => {
                     rows={3}
                   />
                 </Form.Group>
+              </div>
+              <div className="m-3 fs-3 mt-0 fw-semibold">
+                <Form.Label htmlFor="swarmImage">Swarm Image</Form.Label>
+                <Form.Control
+                  type="File"
+                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  id="swarmImage"
+                  name="swarmImage"
+                  onChange={handleImageUpload}
+                />
               </div>
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="swarmDate">Date</Form.Label>

@@ -3,6 +3,9 @@
 import { User } from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
+import { OAuth2Client } from 'google-auth-library';
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export const getUsers = async (req, res) => {
     try {
@@ -27,40 +30,102 @@ export const getUsers = async (req, res) => {
 
 };
 
+// export const loginUser = async (req, res) => {
+//     try {
+//         const { email, password } = req.body;
+//         if (!email || !password) {
+//             return res.send({
+//                 message: "both fields are required.",
+//             })
+//         }
+//         const user = await User.findOne({ email });
+//         if (!user) {
+//             return res.send({
+//                 message: "user is not registered.",
+//             })
+//         }
+
+//         const isMatch = await bcrypt.compare(password, user.password);
+//         if (!isMatch) {
+//             return res.send({
+//                 message: "credentials entered are invalid.",
+//             })
+//         }
+//         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+//         return res.send({
+//             message: `${user.apiaryName} is logged in.`,
+//             user,
+//             token,
+//         });
+
+//     } catch (error) {
+//         console.log(error);
+//         return res.send({
+//             message: "logging in a user callback error.",
+//             error,
+//         })
+//     }
+// };
 export const loginUser = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res.send({
-                message: "both fields are required.",
-            })
+        const { email, password, googleOAuthToken } = req.body;
+
+        if (googleOAuthToken) {
+            // Handle Google OAuth login
+            const ticket = await client.verifyIdToken({
+                idToken: googleOAuthToken,
+                audience: process.env.GOOGLE_CLIENT_ID, // Your Google OAuth client ID
+            });
+            const payload = ticket.getPayload();
+            const googleEmail = payload.email;
+
+            // Check if the user with this googleEmail exists in your database
+            let user = await User.findOne({ email: googleEmail });
+
+            if (!user) {
+                // Create a new user if not found
+                user = await User.create({
+                    email: googleEmail,
+                    // Additional user properties as needed
+                });
+            }
+
+            // Generate JWT token for the user
+            const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+
+            return res.status(200).send({
+                message: `${user.apiaryName || 'User'} is logged in via Google OAuth.`,
+                user,
+                token,
+            });
         }
+
+        // Handle email/password login
+        if (!email || !password) {
+            return res.status(400).send({ message: "Both email and password are required." });
+        }
+
         const user = await User.findOne({ email });
         if (!user) {
-            return res.send({
-                message: "user is not registered.",
-            })
+            return res.status(404).send({ message: "User is not registered." });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.send({
-                message: "credentials entered are invalid.",
-            })
+            return res.status(401).send({ message: "Invalid credentials." });
         }
+
+        // Generate JWT token for the user
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-        return res.send({
-            message: `${user.apiaryName} is logged in.`,
+
+        res.status(200).send({
+            message: `${user.apiaryName || 'User'} is logged in.`,
             user,
             token,
         });
-
     } catch (error) {
-        console.log(error);
-        return res.send({
-            message: "logging in a user callback error.",
-            error,
-        })
+        console.error("Login error:", error);
+        res.status(500).send({ message: "An error occurred during login." });
     }
 };
 

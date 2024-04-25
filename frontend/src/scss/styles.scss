@@ -145,7 +145,9 @@ $enable-shadows: true;
   --bs-body-bg: #00274c;
 }
 body {
-  // background-image: url(/images/honeycomb.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../assets/images/honeycomb@3x.jpg);
   font-family: "Josefin Sans", sans-serif;
   min-height: 400px;
   margin-bottom: 100px;
@@ -169,6 +171,11 @@ footer {
 
 input[type="range"] {
   accent-color: #ffcb05;
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
 }
 
 #facebookBtn:hover {
@@ -255,13 +262,13 @@ input[type="range"] {
 
 .svg-honey {
   background-size: contain;
-  background-image: url(/images/honeypot_noback.png);
   background-repeat: no-repeat;
+  background-image: url(../assets/images/honeypot_noback.png);
 }
 
 .svg-wax {
   background-size: contain;
-  background-image: url(/images/honeycomb_noback.png);
+  background-image: url(../assets/images/honeycomb_noback.png);
   background-repeat: no-repeat;
 }
 
@@ -303,6 +310,7 @@ input[type="range"] {
 
 @media (max-width: 576px) {
   /* Hide certain table columns on mobile */
+
   .hive-table th:nth-child(3),
   .hive-table td:nth-child(3),
   .hive-table th:nth-child(4),
@@ -310,19 +318,11 @@ input[type="range"] {
   .hive-table th:nth-child(5),
   .hive-table td:nth-child(5),
   .hive-table th:nth-child(6),
-  .hive-table td:nth-child(6) {
-    display: none;
-  }
-}
-@media (max-width: 576px) {
-  /* Hide certain table columns on mobile */
+  .hive-table td:nth-child(6),
   .inventory-table th:nth-child(3),
-  .inventory-table td:nth-child(3) {
-    display: none;
-  }
-}
-@media (max-width: 576px) {
-  /* Hide certain table columns on mobile */
+  .inventory-table td:nth-child(3),
+  .swarm-table th:nth-child(1),
+  .swarm-table td:nth-child(1),
   .inspection-table th:nth-child(1),
   .inspection-table td:nth-child(1) {
     display: none;

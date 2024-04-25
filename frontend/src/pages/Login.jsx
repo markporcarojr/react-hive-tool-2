@@ -1,10 +1,12 @@
 import { useState, useContext } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
-import cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { GoogleLogin } from "@react-oauth/google";
+// import cookies from "js-cookie";
+// import { BsGoogle } from "react-icons/bs";
 
 import Footer from "../components/Footer.jsx";
 import UserContext from "../context/UserContext.jsx";
@@ -27,6 +29,13 @@ const Login = () => {
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+
+  const responseMessage = (response) => {
+    console.log(response);
+  };
+  const errorMessage = (error) => {
+    console.log(error);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -112,6 +121,13 @@ const Login = () => {
                 />
               </Form.Group>
 
+              <div>
+                <GoogleLogin
+                  redirectUri="http://localhost:5173/oauth/google/callback"
+                  onSuccess={responseMessage}
+                  onError={errorMessage}
+                />
+              </div>
               <Form.Group>
                 <Button
                   type="submit"
@@ -125,6 +141,7 @@ const Login = () => {
                 >
                   Create Account
                 </a>
+
                 <a
                   href="/forgot-password"
                   className="d-block text-center fs-4 text-michgold"
