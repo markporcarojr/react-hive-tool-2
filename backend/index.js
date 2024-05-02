@@ -12,6 +12,7 @@ import harvestRoutes from "./routes/harvestRoutes.js";
 import swarmRoutes from "./routes/swarmRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from './routes/authRoutes.js'
+import todoRoutes from './routes/todoRoutes.js'
 
 dotenv.config();
 
@@ -54,6 +55,7 @@ app.use('/harvest', harvestRoutes);
 app.use('/swarm', swarmRoutes);
 app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
+app.use('/todo', todoRoutes);
 
 
 app.listen(PORT, () => {

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
@@ -46,10 +46,6 @@ const CreateInventory = () => {
       ) : (
         <Container style={{ maxWidth: "700px" }}>
           <Card className="text-michgold text-center mt-2 mb-5">
-            {/* Include your partial title here */}
-            {/* Assuming partials/title is another component */}
-            {/* <%- include("partials/title")%> */}
-
             {/* Forms */}
             <Form id="inventory-form" onSubmit={handleSaveInventory}>
               <div className="m-3 fs-3 mt-0 fw-semibold">

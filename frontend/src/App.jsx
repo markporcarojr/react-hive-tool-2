@@ -1,12 +1,13 @@
 // App.jsx
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./scss/styles.scss";
+
 import { useState, useEffect } from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import cookies from "js-cookie";
 
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./scss/styles.scss";
 import LoadSpinner from "./components/Spinner.jsx";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
 import UserContext from "./context/UserContext.jsx";
@@ -34,15 +35,17 @@ import CreateHarvest from "./pages/harvestPages/CreateHarvest.jsx";
 import EditHarvest from "./pages/harvestPages/EditHarvest.jsx";
 import DeleteHarvest from "./pages/harvestPages/DeleteHarvest.jsx";
 
-import Swarm from "./pages/swarmPages.jsx/Swarm.jsx";
-import CreateSwarm from "./pages/swarmPages.jsx/CreateSwarm.jsx";
-import EditSwarm from "./pages/swarmPages.jsx/EditSwarm.jsx";
-import DeleteSwarm from "./pages/swarmPages.jsx/DeleteSwarm.jsx";
+import Swarm from "./pages/swarmPages/Swarm.jsx";
+import CreateSwarm from "./pages/swarmPages/CreateSwarm.jsx";
+import EditSwarm from "./pages/swarmPages/EditSwarm.jsx";
+import DeleteSwarm from "./pages/swarmPages/DeleteSwarm.jsx";
 
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
+
+import TodoList from "./pages/todoPages/TodoList.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -112,6 +115,8 @@ function App() {
           <Route path="/swarm/create" element={<CreateSwarm />} />
           <Route path="/swarm/edit/:id" element={<EditSwarm />} />
           <Route path="/swarm/delete/:id" element={<DeleteSwarm />} />
+
+          <Route path="/todo" element={<TodoList />} />
         </Route>
 
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />

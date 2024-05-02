@@ -23,12 +23,10 @@ const generateResetToken = async () => {
     }
 };
 
-
 router.get('/google', (req, res) => {
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=email%20profile`;
     res.redirect(authUrl);
 });
-
 
 // Callback endpoint to handle Google's response
 router.get('/google/callback', async (req, res) => {
@@ -72,7 +70,6 @@ router.get('/google/callback', async (req, res) => {
         res.status(500).json({ error: 'Google authentication failed' });
     }
 });
-
 
 // POST route for password reset
 router.post("/forgot-password", async (req, res) => {

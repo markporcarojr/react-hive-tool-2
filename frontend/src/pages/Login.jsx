@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { GoogleLogin } from "@react-oauth/google";
+// import { GoogleLogin } from "@react-oauth/google";
 // import cookies from "js-cookie";
 // import { BsGoogle } from "react-icons/bs";
 
@@ -98,7 +98,7 @@ const Login = () => {
                   autoComplete="current-email"
                   value={form.email}
                   placeholder="Email..."
-                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold white-placeholder"
+                  className="text-center bg-white text-black border-3 border-michgold rounded-4 fw-bold"
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                 />
               </Form.Group>
@@ -108,7 +108,7 @@ const Login = () => {
                   autoComplete="current-password"
                   value={form.password}
                   placeholder="Password..."
-                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2 white-placeholder"
+                  className="text-center bg-white text-black border-3 border-michgold rounded-4 fw-bold"
                   onChange={(e) =>
                     setForm({ ...form, password: e.target.value })
                   }
@@ -121,13 +121,13 @@ const Login = () => {
                 />
               </Form.Group>
 
-              <div>
+              {/* <div>
                 <GoogleLogin
                   redirectUri="http://localhost:5173/oauth/google/callback"
                   onSuccess={responseMessage}
                   onError={errorMessage}
                 />
-              </div>
+              </div> */}
               <Form.Group>
                 <Button
                   type="submit"

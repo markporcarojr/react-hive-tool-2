@@ -30,7 +30,7 @@ const Home = () => {
   const { user } = useContext(UserContext);
   const [weatherData, setWeatherData] = useState(null);
   const [weatherIcon, setWeatherIcon] = useState("");
-  const [backgroundImage, setBackgroundImage] = useState("");
+  const [backgroundImage, setBackgroundImage] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -55,7 +55,6 @@ const Home = () => {
         const response = await axios.get(`http://localhost:5555/user/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log(response.data);
         setBackgroundImage(response.data.user.apiaryImage);
         setLoading(false);
       } catch (error) {
@@ -95,8 +94,6 @@ const Home = () => {
     <>
       <CustomNavbar />
       <div
-        id="title"
-        // className=" title"
         style={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: "cover",

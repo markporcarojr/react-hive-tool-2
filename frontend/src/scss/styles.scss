@@ -11,16 +11,20 @@ $enable-shadows: true;
 
 // Use the michblue color with Bootstrap classes
 
-.btn-gold:hover {
-  background-color: rgba(255, 208, 30, 0.75);
+.bg-card {
+  background-color: #0c1c34;
+}
+
+.bg-inputgrey {
+  background-color: $inputgrey;
 }
 
 .bg-michblue {
   background-color: $michblue;
 }
 
-.text-michblue {
-  color: $michblue;
+.bg-michgold {
+  background-color: $michgold;
 }
 
 .btn-michblue {
@@ -32,21 +36,6 @@ $enable-shadows: true;
 .btn-michblue:hover {
   background-color: darken($michblue, 10%); // Darken the color on hover
   border-color: darken($michblue, 10%);
-}
-
-// Define the michgold color variable
-
-// Use the michgold color with Bootstrap classes
-.bg-michgold {
-  background-color: $michgold;
-}
-
-.bg-inputgrey {
-  background-color: $inputgrey;
-}
-
-.text-michgold {
-  color: $michgold;
 }
 
 .btn-michgold {
@@ -133,10 +122,14 @@ $enable-shadows: true;
     0 0 0 0.5rem rgba(255, 203, 5, 0.25);
 }
 
-.bg-card {
-  background-color: #0c1c34;
-  // background-color: #051932;
+.text-michblue {
+  color: $michblue;
 }
+
+.text-michgold {
+  color: $michgold;
+}
+
 // --------------------------------------------- Color Classes End -------------------------------------------
 
 /* ******************************************* Custom classes ***************************************** */
@@ -287,6 +280,19 @@ input[type="range"] {
   --bs-btn-disabled-color: #000;
   --bs-btn-disabled-bg: #0dcaf0;
   --bs-btn-disabled-border-color: #0dcaf0;
+}
+
+.placeholder-text {
+  font-size: 1.5rem;
+}
+
+.todo {
+  border: 2px solid #fccb05;
+  border-radius: 5px;
+}
+
+.complete {
+  text-decoration: line-through;
 }
 
 .title {
