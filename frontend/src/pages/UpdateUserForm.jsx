@@ -103,7 +103,6 @@ const UpdateUserForm = () => {
           );
           updatedFormData.apiaryImage = imageUrl;
         }
-        console.log("Updated Form Data:", updatedFormData);
 
         const token = localStorage.getItem("token");
         const response = await axios.patch(

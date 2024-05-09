@@ -59,17 +59,21 @@ const InspectionForm = () => {
   };
 
   const handleChange = (e) => {
-    let { name, value, selectedIndex } = e.target;
+    const { name, value, type, checked } = e.target;
 
-    if (selectedIndex === 0) {
-      value = "";
+    if (type === "checkbox") {
+      // Handle checkbox input
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: checked ? value : "",
+      }));
+    } else {
+      // Handle other form inputs (text inputs, selects, etc.)
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
     }
-
-    // Update formData state
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
   };
 
   const handleImageUpload = (e) => {
@@ -80,13 +84,20 @@ const InspectionForm = () => {
   const handleSaveInspection = async (e) => {
     e.preventDefault();
     const selectedHive = JSON.parse(formData.hiveId);
+    let imageUrl = null;
 
     try {
-      // Upload image to Firebase Storage
-      const imageUrl = await uploadImageToStorage(
-        inspectionImage,
-        "images/inspectionImages/"
-      );
+      setLoading(true);
+
+      // Check if an image is selected
+      if (inspectionImage) {
+        // Upload image to Firebase Storage
+        imageUrl = await uploadImageToStorage(
+          inspectionImage,
+          "images/inspectionImages/"
+        );
+      }
+
       const data = {
         hiveNumber: selectedHive.hiveNumber,
         hiveId: selectedHive._id,
@@ -105,10 +116,10 @@ const InspectionForm = () => {
         userId: formData.userId,
         inspectionImage: imageUrl,
       };
+
       axios.post("http://localhost:5555/inspections", data);
       setLoading(false);
       setMessage("Inspection added successfully.");
-
       navigate("/inspections");
     } catch (error) {
       setLoading(false);
@@ -370,20 +381,6 @@ const InspectionForm = () => {
                   </Form.Select>
                 </Form.Group>
 
-                {/* Inspection Date */}
-                <Form.Group className="mb-3">
-                  <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
-                    Date
-                  </Form.Label>
-                  <Form.Control
-                    className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                    type="date"
-                    id="inspectionDate"
-                    name="inspectionDate"
-                    onChange={handleChange}
-                    value={formData.inspectionDate}
-                  />
-                </Form.Group>
                 {/* Inspection Image */}
                 <Form.Group className="mb-3">
                   <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
@@ -396,7 +393,6 @@ const InspectionForm = () => {
                     className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                     id="inspectionImage"
                     name="inspectionImage"
-                    // value={inspectionImage}
                     onChange={handleImageUpload}
                     aria-describedby="inspectionImage"
                   />

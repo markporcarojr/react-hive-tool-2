@@ -77,17 +77,21 @@ const EditInspection = () => {
   };
 
   const handleChange = (e) => {
-    let { name, value, selectedIndex } = e.target;
+    const { name, value, type, checked } = e.target;
 
-    if (selectedIndex === 0) {
-      value = "";
+    if (type === "checkbox") {
+      // Handle checkbox input
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: checked ? value : "",
+      }));
+    } else {
+      // Handle other form inputs (text inputs, selects, etc.)
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
     }
-
-    // Update formData state
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
   };
 
   const handleEditInspection = async (e) => {
@@ -232,6 +236,7 @@ const EditInspection = () => {
                     name="eggs"
                     checked={formData.eggs}
                     onChange={handleChange}
+                    value="Eggs"
                   />
                 </div>
                 <div className="ps-0 form-check d-flex justify-content-between">
@@ -259,6 +264,7 @@ const EditInspection = () => {
                     name="queenCell"
                     checked={formData.queenCell}
                     onChange={handleChange}
+                    value="Queen Cells"
                   />
                 </div>
               </Form.Group>
