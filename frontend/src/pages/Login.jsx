@@ -30,13 +30,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-  const responseMessage = (response) => {
-    console.log(response);
-  };
-  const errorMessage = (error) => {
-    console.log(error);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -71,27 +64,31 @@ const Login = () => {
   return (
     <>
       <CustomNavbar />
-      <Row className="justify-content-center mb-0">
-        <div className="d-flex justify-content-center">
-          <picture>
-            <source
-              type="image/webp"
-              srcSet={`${logoWebp1x} 1x, ${logoWebp2x} 2x, ${logoWebp3x} 3x`}
-            />
-            <img
-              className="ms-3"
-              src={logoPng1x}
-              alt=""
-              srcSet={`${logoPng1x} 1x, ${logoPng2x} 2x, ${logoPng3x} 3x`}
-            />
-          </picture>
-        </div>
-      </Row>
-      <Container fluid>
-        <Row className="justify-content-center">
-          <Col md={6} className="text-center">
-            <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
-            <Form noValidate onSubmit={handleSubmit}>
+      <Container
+        fluid
+        style={{ maxWidth: "700px", backgroundColor: "rgba(0, 39, 76, 0.5)" }}
+        className="border border-warning rounded"
+      >
+        <Form noValidate onSubmit={handleSubmit}>
+          <Row className="justify-content-center mb-0">
+            <div className="d-flex justify-content-center">
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet={`${logoWebp1x} 1x, ${logoWebp2x} 2x, ${logoWebp3x} 3x`}
+                />
+                <img
+                  className="ms-"
+                  src={logoPng1x}
+                  alt=""
+                  srcSet={`${logoPng1x} 1x, ${logoPng2x} 2x, ${logoPng3x} 3x`}
+                />
+              </picture>
+            </div>
+          </Row>
+          <Row className="justify-content-center">
+            <Col md={6} className="text-center">
+              <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
               <Form.Group controlId="email">
                 <Form.Control
                   type="email"
@@ -131,7 +128,7 @@ const Login = () => {
               <Form.Group>
                 <Button
                   type="submit"
-                  className="btn-michgold btn-gold rounded-pill px-5 m-3 mb-2 mt-1"
+                  className="btn-michgold btn-gold rounded-pill px-5 m-3 "
                 >
                   LOGIN
                 </Button>
@@ -144,14 +141,14 @@ const Login = () => {
 
                 <a
                   href="/forgot-password"
-                  className="d-block text-center fs-4 text-michgold"
+                  className="d-block text-center fs-4 text-michgold mb-3"
                 >
                   Forgot Password?
                 </a>
               </Form.Group>
-            </Form>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        </Form>
       </Container>
       <Footer />
     </>

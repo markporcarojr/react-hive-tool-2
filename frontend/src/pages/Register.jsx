@@ -240,8 +240,3 @@ const Register = () => {
 };
 
 export default Register;
-
-const req = ["a", "b", "c"];
-const password = "ABc&10";
-
-req.indexOf(password[0]);

@@ -20,10 +20,7 @@ const HarvestCard = ({ harvest }) => {
   return (
     <Col className="gy-4">
       <Container className="px-2 pop" style={{ maxWidth: "500px" }}>
-        <Card
-          className="text-michgold border-michgold rounded-5 border-3 bg-card"
-          style={{ borderColor: "#ffcb05" }}
-        >
+        <Card className="text-michgold border-michgold bg-card">
           <Card.Header>
             <div className="text-center fs-4">{formattedDate}</div>
           </Card.Header>
