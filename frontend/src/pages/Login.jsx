@@ -1,37 +1,22 @@
-import { useState, useContext } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-// import { GoogleLogin } from "@react-oauth/google";
-// import cookies from "js-cookie";
-// import { BsGoogle } from "react-icons/bs";
-
 import Footer from "../components/Footer.jsx";
 import UserContext from "../context/UserContext.jsx";
 import CustomNavbar from "../components/CustomNavbar.jsx";
-import logoWebp1x from "../assets/images/hive_tool@1x.webp";
-import logoWebp2x from "../assets/images/hive_tool@2x.webp";
-import logoWebp3x from "../assets/images/hive_tool@3x.webp";
-import logoPng1x from "../assets/images/hive_tool@1x.png";
-import logoPng2x from "../assets/images/hive_tool@2x.png";
-import logoPng3x from "../assets/images/hive_tool@3x.png";
-
-const form_default = {
-  email: "",
-  password: "",
-};
+import { useState, useContext } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import AuthForm from "../components/AuthForm.jsx";
 
 const Login = () => {
-  const [form, setForm] = useState(form_default);
   const [message, setMessage] = useState(null);
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const initialData = {
+    email: "",
+    password: "",
+  };
+
+  const handleSubmit = async (form) => {
     try {
       const response = await axios.post(
         "http://localhost:5555/user/login",
@@ -61,95 +46,33 @@ const Login = () => {
     }
   };
 
+  const formFields = [
+    {
+      name: "email",
+      type: "email",
+      placeholder: "Email...",
+      autoComplete: "current-email",
+    },
+    {
+      name: "password",
+      type: "password",
+      placeholder: "Password...",
+      autoComplete: "current-password",
+    },
+  ];
+
   return (
     <>
       <CustomNavbar />
-      <Container
-        fluid
-        style={{ maxWidth: "700px", backgroundColor: "rgba(0, 39, 76, 0.5)" }}
-        className="border border-warning rounded"
-      >
-        <Form noValidate onSubmit={handleSubmit}>
-          <Row className="justify-content-center mb-0">
-            <div className="d-flex justify-content-center">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcSet={`${logoWebp1x} 1x, ${logoWebp2x} 2x, ${logoWebp3x} 3x`}
-                />
-                <img
-                  className="ms-"
-                  src={logoPng1x}
-                  alt=""
-                  srcSet={`${logoPng1x} 1x, ${logoPng2x} 2x, ${logoPng3x} 3x`}
-                />
-              </picture>
-            </div>
-          </Row>
-          <Row className="justify-content-center">
-            <Col md={6} className="text-center">
-              <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
-              <Form.Group controlId="email">
-                <Form.Control
-                  type="email"
-                  autoComplete="current-email"
-                  value={form.email}
-                  placeholder="Email..."
-                  className="text-center bg-white text-black border-3 border-michgold rounded-4 fw-bold"
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                />
-              </Form.Group>
-              <Form.Group controlId="password" className="position-relative">
-                <Form.Control
-                  type={showPassword ? "text" : "password"}
-                  autoComplete="current-password"
-                  value={form.password}
-                  placeholder="Password..."
-                  className="text-center bg-white text-black border-3 border-michgold rounded-4 fw-bold"
-                  onChange={(e) =>
-                    setForm({ ...form, password: e.target.value })
-                  }
-                />
-                {/* Eye icon button */}
-                <FontAwesomeIcon
-                  icon={showPassword ? faEye : faEyeSlash}
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="eye-icon"
-                />
-              </Form.Group>
-
-              {/* <div>
-                <GoogleLogin
-                  redirectUri="http://localhost:5173/oauth/google/callback"
-                  onSuccess={responseMessage}
-                  onError={errorMessage}
-                />
-              </div> */}
-              <Form.Group>
-                <Button
-                  type="submit"
-                  className="btn-michgold btn-gold rounded-pill px-5 m-3 "
-                >
-                  LOGIN
-                </Button>
-                <a
-                  href="/register"
-                  className="d-block text-center fs-4 text-michgold"
-                >
-                  Create Account
-                </a>
-
-                <a
-                  href="/forgot-password"
-                  className="d-block text-center fs-4 text-michgold mb-3"
-                >
-                  Forgot Password?
-                </a>
-              </Form.Group>
-            </Col>
-          </Row>
-        </Form>
-      </Container>
+      <AuthForm
+        formFields={formFields}
+        initialData={initialData}
+        onSubmit={handleSubmit}
+        message={message}
+        buttonText="LOGIN"
+        linkText="Create Account"
+        linkHref="/register"
+      />
       <Footer />
     </>
   );
