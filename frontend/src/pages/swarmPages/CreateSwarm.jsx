@@ -62,6 +62,8 @@ const CreateSwarm = () => {
             {/* Include partial title here */}
 
             {/* Forms */}
+            <h1 className="m-5 fw-bold">NEW SWARM TRAP</h1>
+
             <Form onSubmit={handleSaveSwarm} id="swarm-form">
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="swarmNumber">Swarm Number</Form.Label>

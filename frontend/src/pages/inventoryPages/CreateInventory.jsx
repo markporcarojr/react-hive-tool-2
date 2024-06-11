@@ -47,6 +47,8 @@ const CreateInventory = () => {
         <Container style={{ maxWidth: "700px" }}>
           <Card className="text-michgold text-center mt-2 mb-5">
             {/* Forms */}
+            <h1 className="m-5 fw-bold">NEW ITEM</h1>
+
             <Form id="inventory-form" onSubmit={handleSaveInventory}>
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="inventoryType">Equipment Name</Form.Label>

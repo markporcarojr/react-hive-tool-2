@@ -72,7 +72,9 @@ const Login = () => {
         buttonText="LOGIN"
         linkText="Create Account"
         linkHref="/register"
+        isLogin={true}
       />
+
       <Footer />
     </>
   );

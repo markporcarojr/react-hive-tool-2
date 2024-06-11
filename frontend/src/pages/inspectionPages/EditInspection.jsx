@@ -143,7 +143,7 @@ const EditInspection = () => {
       {loading && <LoadSpinner />}
       <Container className="mt-2 mb-5" style={{ maxWidth: "700px" }}>
         <Card className="text-michgold text-center">
-          <h1 className="fw-bold m-4">EDIT INSPECTION</h1>
+          <h1 className="fw-bold m-5">EDIT INSPECTION</h1>
           <Card.Body>
             {/* Form */}
             <Form onSubmit={handleEditInspection} id="inspection-form">

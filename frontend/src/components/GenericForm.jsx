@@ -1,39 +1,29 @@
-import { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 
-const GenericForm = ({ fields, initialValues, onSubmit, buttonText }) => {
-  const [values, setValues] = useState({});
+import { useForm } from "react-hook-form";
 
-  useEffect(() => {
-    if (initialValues) {
-      setValues(initialValues);
-    }
-  }, [initialValues]);
+const GenericForm = ({ fields, initialValues, onSubmit, buttonText }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: initialValues || {}, // Set default values
+  });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(values);
+    e.preventDefault(); // Not needed here, form submission handled by handleSubmit
   };
 
   return (
-    <Form onSubmit={handleSubmit} id="generic-form">
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      {/* ... your form fields with register and errors */}
       {fields.map((field) => (
         <div key={field.name} className="m-3 fs-3 mt-0 fw-semibold">
           <Form.Label htmlFor={field.name}>{field.label}</Form.Label>
           {field.type === "select" ? (
             <Form.Select
-              id={field.name}
-              value={values[field.name] || ""}
-              onChange={handleChange}
-              name={field.name}
+              {...register(field.name)} // Use register for fields
               className="bg-inputgrey text-center text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
             >
               {field.options.map((option) => (
@@ -44,21 +34,17 @@ const GenericForm = ({ fields, initialValues, onSubmit, buttonText }) => {
             </Form.Select>
           ) : (
             <Form.Control
+              {...register(field.name)} // Use register for fields
               type={field.type}
-              id={field.name}
-              name={field.name}
-              value={values[field.name] || ""}
-              onChange={handleChange}
               className="bg-inputgrey text-white text-center border-3 border-michgold rounded-4 opacity-85 fw-bold"
             />
           )}
+          {errors[field.name] && ( // Display errors from formState
+            <p className="text-danger">{errors[field.name].message}</p>
+          )}
         </div>
       ))}
-      <Button
-        type="submit"
-        form="generic-form"
-        className="btn btn-michgold fw-bold rounded-pill"
-      >
+      <Button type="submit" className="btn btn-michgold fw-bold rounded-pill">
         {buttonText}
       </Button>
     </Form>

@@ -1,44 +1,45 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useForm } from "react-hook-form";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import UserContext from "../../context/UserContext.jsx";
 import {
   uploadImageToStorage,
   deleteImageFromStorage,
 } from "../../utils/firebaseUtils.js";
 
 const EditHive = () => {
-  const [breed, setBreed] = useState("");
-  const [hiveNumber, setHiveNumber] = useState("");
-  const [hiveSource, setHiveSource] = useState("");
-  const [hiveStrength, setHiveStrength] = useState(50);
-  const [hiveDate, setHiveDate] = useState("");
-  const [sliderValue, setSliderValue] = useState(50);
-  const [queenColor, setQueenColor] = useState("");
-  const [hiveImage, setHiveImage] = useState(null);
-  const [oldImageURL, setOldImageURL] = useState(null);
-  const [queenAge, setQueenAge] = useState("");
-  const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [oldImageURL, setOldImageURL] = useState("");
+  const [sliderValue, setSliderValue] = useState(50);
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   const { id } = useParams();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm();
 
   useEffect(() => {
     setLoading(true);
     axios
       .get(`http://localhost:5555/new-hive/${id}`)
       .then((res) => {
-        setHiveNumber(res.data.hiveNumber);
-        setBreed(res.data.breed);
-        setHiveStrength(res.data.hiveStrength);
-        setHiveDate(res.data.hiveDate);
-        setHiveSource(res.data.hiveSource);
-        setQueenAge(res.data.queenAge);
-        setQueenColor(res.data.queenColor);
-        setSliderValue(res.data.hiveStrength);
-        setOldImageURL(res.data.hiveImage);
+        // this helped clean up the code!
+        const hiveData = res.data;
+        for (const key in hiveData) {
+          setValue(key, hiveData[key]);
+        }
+        setSliderValue(hiveData.hiveStrength);
+        setOldImageURL(hiveData.hiveImage);
         setLoading(false);
       })
       .catch((error) => {
@@ -46,98 +47,88 @@ const EditHive = () => {
         console.log("Error fetching data:", error);
         setMessage(error.response.data.message);
       });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id, setValue]);
 
   const handleSliderChange = (e) => {
-    const value = parseInt(e.target.value); // Parse slider value to integer
-    setSliderValue(value); // Update slider value state
-    setHiveStrength(value); // Update hiveStrength state
+    const value = parseInt(e.target.value, 10);
+    setValue("hiveStrength", value);
+    setSliderValue(value);
   };
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    setHiveImage(file);
+    setValue("hiveImage", file);
   };
 
-  const handleEditHive = async (e) => {
-    e.preventDefault();
+  const handleEditHive = async (data) => {
     setLoading(true);
-
+    setMessage(""); // Clear previous messages
     try {
-      let imageUrl = oldImageURL; // Initialize imageUrl with the old image URL
-
-      // Check if a new image has been uploaded
-      if (hiveImage) {
-        // Upload the new image and get its URL
-        imageUrl = await uploadImageToStorage(hiveImage, "images/hiveImages/");
+      let imageUrl = oldImageURL;
+      if (data.hiveImage && data.hiveImage instanceof File) {
+        imageUrl = await uploadImageToStorage(
+          data.hiveImage,
+          "images/hiveImages/"
+        );
       }
 
-      const data = {
-        hiveNumber,
-        breed,
-        hiveStrength,
-        hiveSource,
-        queenColor,
-        queenAge,
-        hiveDate,
-        hiveImage: imageUrl,
+      const formData = {
+        ...data,
+        userId: user._id,
+        hiveImage: imageUrl, // Use the new or old image URL
       };
 
-      // Update hive data using axios
-      await axios.put(`http://localhost:5555/new-hive/${id}`, data);
+      await axios.put(`http://localhost:5555/new-hive/${id}`, formData);
 
-      // Check if there's an old image URL and a new image has been uploaded
-      if (oldImageURL && hiveImage) {
-        // Delete the old image
+      if (oldImageURL && data.hiveImage instanceof File) {
+        // Delete the old image only if a new image was uploaded
         await deleteImageFromStorage(oldImageURL);
       }
 
       setLoading(false);
+      setMessage("Hive updated successfully.");
       navigate("/");
     } catch (error) {
       setLoading(false);
-      console.error("Backend Error:", error.response?.data);
-      setMessage(error.response?.data?.message);
-      console.error(error);
+      setMessage(error.response?.data?.message || "An error occurred.");
     }
   };
+
+  const hiveStrength = watch("hiveStrength", sliderValue);
 
   return (
     <>
       <CustomNavbar />
-      {loading ? (
-        <LoadSpinner />
-      ) : (
+      {loading && <LoadSpinner />}
+      {!loading && (
         <div className="container" style={{ maxWidth: "700px" }}>
           <div className="card text-michgold text-center mt-2 mb-5">
-            <h1 className="fw-bold m-4">EDIT HIVE</h1>
-            <form id="hive-form">
-              <div className="m-3 fs-3 mt-0 fw-semibold ">
+            <h1 className="m-5">EDIT HIVE</h1>
+            <form id="hive-form" onSubmit={handleSubmit(handleEditHive)}>
+              <div className="m-3 fs-3 mt-0 fw-semibold">
                 <label htmlFor="hiveNumber" className="form-label">
                   Hive Number
                 </label>
                 <input
                   type="number"
+                  {...register("hiveNumber", { required: true })}
                   className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                   id="hiveNumber"
                   name="hiveNumber"
-                  value={hiveNumber}
-                  onChange={(e) => setHiveNumber(e.target.value)}
-                  aria-describedby="hiveNumber"
                 />
+                {errors.hiveNumber && (
+                  <p className="text-danger">Hive Number is required</p>
+                )}
               </div>
-              <div className="m-3 fs-3 mt-0 fw-semibold text-center ">
+              <div className="m-3 fs-3 mt-0 fw-semibold text-center">
                 <label htmlFor="hiveSource" className="form-label mb-3">
                   Hive Source
                 </label>
                 <select
+                  {...register("hiveSource", { required: true })}
                   name="hiveSource"
                   id="hiveSource"
                   className="form-select mb-2 text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  value={hiveSource}
-                  onChange={(e) => setHiveSource(e.target.value)}
                 >
                   <option className="text-center">Choose Source</option>
                   <option value="Nucleus">Nucleus</option>
@@ -145,15 +136,18 @@ const EditHive = () => {
                   <option value="Capture Swarm">Capture Swarm</option>
                   <option value="Split">Split</option>
                 </select>
+                {errors.hiveSource && (
+                  <p className="text-danger">Hive Source is required</p>
+                )}
+
                 <label htmlFor="breed" className="form-label m-3">
                   Breed
                 </label>
                 <select
+                  {...register("breed")}
                   name="breed"
                   id="breed"
                   className="form-select mb-2 text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  value={breed}
-                  onChange={(e) => setBreed(e.target.value)}
                 >
                   <option className="text-center">Choose Breed</option>
                   <option value="Unknown">Unknown</option>
@@ -164,41 +158,42 @@ const EditHive = () => {
                   <option value="German">German</option>
                   <option value="Caucasian">Caucasian</option>
                 </select>
+
                 <label htmlFor="queenColor" className="form-label m-3">
                   Queen Color
                 </label>
                 <input
+                  {...register("queenColor")}
                   type="text"
                   className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                   id="queenColor"
                   name="queenColor"
-                  value={queenColor}
-                  onChange={(e) => setQueenColor(e.target.value)}
-                  aria-describedby="queenColor"
                 />
+
                 <label htmlFor="queenAge" className="form-label m-3">
                   Queen Age
                 </label>
                 <input
+                  {...register("queenAge")}
                   type="number"
                   className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                   id="queenAge"
                   name="queenAge"
-                  value={queenAge}
-                  onChange={(e) => setQueenAge(e.target.value)}
-                  aria-describedby="queenAge"
                 />
+
                 <label htmlFor="hiveImage" className="form-label m-3">
                   Hive Image
                 </label>
                 <input
                   type="file"
+                  accept="image/*"
+                  capture="camera"
                   className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                   id="hiveImage"
                   name="hiveImage"
                   onChange={handleImageUpload}
-                  aria-describedby="hiveImage"
                 />
+
                 <label
                   htmlFor="hiveDate"
                   className="form-label fs-3 fw-semibold my-3"
@@ -206,17 +201,17 @@ const EditHive = () => {
                   Date
                 </label>
                 <input
+                  {...register("hiveDate", { required: true })}
                   type="date"
                   className="form-control text-center bg-inputgrey border-3 text-white border-michgold rounded-4 opacity-85 fw-bold"
                   id="hiveDate"
                   name="hiveDate"
-                  value={hiveDate}
-                  onChange={(e) => setHiveDate(e.target.value)}
                 />
+                {errors.hiveDate && (
+                  <p className="text-danger">Date is required</p>
+                )}
               </div>
-              {/* <!-- Form end --> */}
 
-              {/* <!-- Hive Range --> */}
               <label
                 htmlFor="hiveStrength"
                 className="form-label my-1 fs-3 fw-semibold"
@@ -227,8 +222,8 @@ const EditHive = () => {
                 <p className="mt-3" style={{ flex: 1 }}>
                   0
                 </p>
-
                 <input
+                  {...register("hiveStrength", { required: true })}
                   type="range"
                   className="m-3 custom-range"
                   min="0"
@@ -236,27 +231,24 @@ const EditHive = () => {
                   id="hiveStrength"
                   name="hiveStrength"
                   style={{ minWidth: "60%", flex: 3 }}
-                  value={hiveStrength}
                   onChange={handleSliderChange}
                 />
-
                 <div style={{ flex: 1 }}>
                   <span id="sliderValue" className="mt-3">
-                    {sliderValue}
+                    {hiveStrength}
                   </span>
                 </div>
               </div>
+              <div className="d-flex justify-content-around mb-3">
+                <button
+                  type="submit"
+                  form="hive-form"
+                  className="btn px-5 btn-michgold fw-bold rounded-pill"
+                >
+                  UPDATE
+                </button>
+              </div>
             </form>
-            <div className="d-flex justify-content-around mb-3">
-              <button
-                type="submit"
-                form="hive-form"
-                className="btn px-5 btn-michgold fw-bold rounded-pill"
-                onClick={handleEditHive}
-              >
-                UPDATE
-              </button>
-            </div>
             <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
           </div>
         </div>

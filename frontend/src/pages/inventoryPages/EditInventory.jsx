@@ -62,13 +62,14 @@ const EditInventory = () => {
       ) : (
         <Container style={{ maxWidth: "700px" }}>
           <Card className="text-michgold text-center mt-2 mb-5">
-            <h1 className="fw-bold m-4">EDIT ITEM</h1>
+            <h1 className="fw-bold m-5">EDIT ITEM</h1>
 
             {/* Include your partial title here */}
             {/* Assuming partials/title is another component */}
             {/* <%- include("partials/title")%> */}
 
             {/* Forms */}
+
             <Form id="edit-inventory-form">
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="inventoryType">Equipment Name</Form.Label>

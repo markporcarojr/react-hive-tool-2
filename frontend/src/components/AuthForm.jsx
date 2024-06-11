@@ -18,6 +18,7 @@ const AuthForm = ({
   buttonText,
   linkText,
   linkHref,
+  isLogin,
 }) => {
   const [form, setForm] = useState(initialData);
   const [showPassword, setShowPassword] = useState({});
@@ -106,6 +107,14 @@ const AuthForm = ({
               >
                 {linkText}
               </a>
+              {isLogin && (
+                <a
+                  href="/forgot-password"
+                  className="d-block text-center fs-4 text-michgold mb-3"
+                >
+                  Forgot Password?
+                </a>
+              )}
             </Form.Group>
           </Col>
         </Row>

@@ -138,6 +138,7 @@ const InspectionForm = () => {
           <Card className="text-michgold text-center">
             <Card.Body>
               {/* Form */}
+              <h1 className="m-5 fw-bold">NEW INSPECTION</h1>
               <Form onSubmit={handleSaveInspection} id="inspection-form">
                 {/* Hive Number */}
                 <Form.Group className="m-3 fs-3 mt-0 fw-semibold">

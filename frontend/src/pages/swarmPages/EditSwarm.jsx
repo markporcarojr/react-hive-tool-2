@@ -96,6 +96,8 @@ const EditSwarm = () => {
             {/* Include partial title here */}
 
             {/* Forms */}
+            <h1 className="m-5 fw-bold">EDIT SWARM TRAP</h1>
+
             <Form onSubmit={handleEditSwarm} id="swarm-form">
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="swarmNumber">Swarm Number</Form.Label>

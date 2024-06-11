@@ -19,7 +19,10 @@ const DeleteHive = () => {
       // Delete the image from Firebase Storage
       const response = await axios.get(`http://localhost:5555/new-hive/${id}`);
       const hive = response.data;
-      await deleteImageFromStorage(hive.hiveImage);
+      // fixed bug, if user has no image
+      if (hive.hiveImage) {
+        await deleteImageFromStorage(hive.hiveImage);
+      }
 
       // Now delete the hive from your API
       await axios.delete(`http://localhost:5555/new-hive/${id}`);
