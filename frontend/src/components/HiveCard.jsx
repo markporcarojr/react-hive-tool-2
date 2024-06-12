@@ -13,6 +13,9 @@ const HiveCard = ({ hive }) => {
     hiveSource,
     queenColor,
     queenAge,
+    queenExcluder,
+    superBoxes,
+    broodBoxes,
   } = hive;
   const textStyle = { color: "#ffcb05" };
   const utcDate = new Date(hiveDate);
@@ -45,6 +48,9 @@ const HiveCard = ({ hive }) => {
                 <p className="mb-1 ">Queen Color:</p>
                 <p className="mb-1 ">Queen Age:</p>
                 <p className="mb-1 ">Strength:</p>
+                <p className="mb-1 ">Queen Excluder:</p>
+                <p className="mb-1 ">Super Boxes:</p>
+                <p className="mb-1 ">Brood Boxes:</p>
               </div>
               <div className="col-6 text-end">
                 <p className="mb-1 ">{formattedDate}</p>
@@ -53,25 +59,13 @@ const HiveCard = ({ hive }) => {
                 <p className="mb-1 ">{queenColor}</p>
                 <p className="mb-1 ">{queenAge}</p>
                 <p className="mb-1 ">{hiveStrength}%</p>
+                <p className="mb-1 ">{queenExcluder}</p>
+                <p className="mb-1 ">{superBoxes}</p>
+                <p className="mb-1 ">{broodBoxes}</p>
               </div>
             </div>
             <hr className="border-bottom" />
           </Card.Body>
-          <div className="d-flex justify-content-between mx-3 mb-2">
-            <Link
-              to={`/hives/delete/${hive._id}`}
-              className="btn btn-outline-danger rounded-pill"
-            >
-              DELETE
-            </Link>
-
-            <Link
-              to={`/hives/edit/${hive._id}`}
-              className="btn btn-outline-warning rounded-pill"
-            >
-              EDIT
-            </Link>
-          </div>
         </Card>
       </div>
     </div>

@@ -31,20 +31,6 @@ const HarvestCard = ({ harvest }) => {
               <div className="fs-3">+ {harvestAmount} Lbs</div>
             </Card.Title>
           </Card.Body>
-          <div className="d-flex justify-content-between mx-3 mb-2">
-            <Link
-              to={`/harvest/delete/${harvest._id}`}
-              className="btn btn-outline-danger rounded-pill"
-            >
-              DELETE
-            </Link>
-            <Link
-              to={`/harvest/edit/${harvest._id}`}
-              className="btn btn-outline-warning rounded-pill"
-            >
-              EDIT
-            </Link>
-          </div>
         </Card>
       </Container>
     </Col>

@@ -61,21 +61,6 @@ function InspectionCard({ inspection }) {
               <p>Notes: {inspectionNote}</p>
             </div>
           </div>
-
-          <div className="d-flex justify-content-between mx-3 mb-2">
-            <Link
-              to={`/inspections/delete/${inspection._id}`}
-              className="btn btn-outline-danger rounded-pill"
-            >
-              DELETE
-            </Link>
-            <Link
-              to={`/inspections/edit/${inspection._id}`}
-              className="btn btn-outline-warning rounded-pill"
-            >
-              EDIT
-            </Link>
-          </div>
         </div>
       </div>
     </div>

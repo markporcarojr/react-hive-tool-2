@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
@@ -9,31 +10,19 @@ import UserContext from "../../context/UserContext.jsx";
 import { uploadImageToStorage } from "../../utils/firebaseUtils.js";
 
 const InspectionForm = () => {
-  const { user } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const [sliderValue, setSliderValue] = useState(50);
   const [message, setMessage] = useState();
-  const [inspectionImage, setInspectionImage] = useState(null);
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const [hives, setHives] = useState([]);
-  const [formData, setFormData] = useState({
-    hiveId: "",
-    hiveNumber: "",
-    temperament: "",
-    hiveStrength: 50,
-    queen: "",
-    queenCell: "",
-    eggs: "",
-    brood: "",
-    disease: "",
-    pests: "",
-    feeding: "",
-    treatments: "",
-    inspectionDate: "",
-    inspectionNote: "",
-    userId: user._id,
-    inspectionImage: "",
-  });
+  const [sliderValue, setSliderValue] = useState(50);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm();
 
   useEffect(() => {
     setLoading(true);
@@ -49,82 +38,59 @@ const InspectionForm = () => {
       });
   }, [user]);
 
+  useEffect(() => {
+    if (user && user._id) {
+      setValue("userId", user._id); // Set the userId field value
+    }
+  }, [user, setValue]);
+
   const handleSliderChange = (e) => {
     const value = parseInt(e.target.value, 10); // Parse slider value to integer
+    setValue("hiveStrength", value);
     setSliderValue(value); // Update slider value state
-    setFormData((prevState) => ({
-      ...prevState,
-      hiveStrength: value, // Update hiveStrength state as number
-    }));
-  };
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    if (type === "checkbox") {
-      // Handle checkbox input
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: checked ? value : "",
-      }));
-    } else {
-      // Handle other form inputs (text inputs, selects, etc.)
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
-    }
   };
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    setInspectionImage(file);
+    setValue("inspectionImage", file);
   };
 
-  const handleSaveInspection = async (e) => {
-    e.preventDefault();
-    const selectedHive = JSON.parse(formData.hiveId);
-    let imageUrl = null;
+  const handleSaveInspection = async (data) => {
+    setLoading(true);
+    const selectedHive = JSON.parse(data.hiveId);
 
     try {
-      setLoading(true);
-
+      let imageUrl = null;
       // Check if an image is selected
-      if (inspectionImage) {
+      if (data.inspectionImage) {
         // Upload image to Firebase Storage
         imageUrl = await uploadImageToStorage(
-          inspectionImage,
+          data.inspectionImage,
           "images/inspectionImages/"
         );
       }
 
-      const data = {
+      const formData = {
+        ...data,
+        eggs: data.eggs || "",
+        queen: data.queen || "",
+        queenCell: data.queenCell || "",
         hiveNumber: selectedHive.hiveNumber,
         hiveId: selectedHive._id,
-        temperament: formData.temperament,
-        hiveStrength: formData.hiveStrength,
-        queen: formData.queen,
-        queenCell: formData.queenCell,
-        brood: formData.brood,
-        disease: formData.disease,
-        eggs: formData.eggs,
-        pests: formData.pests,
-        feeding: formData.feeding,
-        treatments: formData.treatments,
-        inspectionDate: formData.inspectionDate,
-        inspectionNote: formData.inspectionNote,
-        userId: formData.userId,
+        userId: data.userId,
         inspectionImage: imageUrl,
       };
 
-      axios.post("http://localhost:5555/inspections", data);
+      console.log("Form data to be sent to backend:", formData);
+
+      axios.post("http://localhost:5555/inspections", formData);
       setLoading(false);
       setMessage("Inspection added successfully.");
       navigate("/inspections");
     } catch (error) {
       setLoading(false);
       setMessage(error.response.data.message || "An error occurred.");
-      console.log(error);
+      console.log("Error during inspection submission:", error);
     }
   };
 
@@ -139,18 +105,20 @@ const InspectionForm = () => {
             <Card.Body>
               {/* Form */}
               <h1 className="m-5 fw-bold">NEW INSPECTION</h1>
-              <Form onSubmit={handleSaveInspection} id="inspection-form">
+              <Form
+                onSubmit={handleSubmit(handleSaveInspection)}
+                id="inspection-form"
+              >
                 {/* Hive Number */}
                 <Form.Group className="m-3 fs-3 mt-0 fw-semibold">
                   <div className="m-3 mt-0 fs-3 fw-semibold">
                     <Form.Label htmlFor="hiveId">Hive Number</Form.Label>
                     <Form.Select
+                      {...register("hiveId", { required: true })}
                       id="hiveId"
                       className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                       aria-label="select example"
                       name="hiveId"
-                      value={formData.hiveId}
-                      onChange={handleChange}
                     >
                       <option value="" disabled>
                         Select Hive Number
@@ -160,12 +128,15 @@ const InspectionForm = () => {
                         // we ensure that the entire hive object is associated with each dropdown option,
                         // enabling us to pass comprehensive hive data to the backend when the user makes a selection.
                         <option key={hive._id} value={JSON.stringify(hive)}>
-                          {hive.hiveNumber}{" "}
+                          {hive.hiveNumber}
                           {/* Display hive number to the user */}
                         </option>
                       ))}
                     </Form.Select>
                   </div>
+                  {errors.hiveId && (
+                    <span className="text-danger">This field is required</span>
+                  )}
                 </Form.Group>
 
                 {/* Temperament */}
@@ -173,39 +144,41 @@ const InspectionForm = () => {
                   <Form.Label>Temperament</Form.Label>
                   <div className="d-flex justify-content-evenly">
                     <Form.Check
+                      {...register("temperament", { required: true })}
                       type="radio"
                       label="Dead"
                       id="dead"
                       name="temperament"
                       value="⚠️ Dead"
-                      onChange={handleChange}
                     />
                     <Form.Check
+                      {...register("temperament", { required: true })}
                       type="radio"
                       label="Calm"
                       id="calm"
                       name="temperament"
                       value="Calm"
-                      onChange={handleChange}
                     />
                     <Form.Check
+                      {...register("temperament", { required: true })}
                       type="radio"
                       label="Aggressive"
                       id="aggressive"
                       name="temperament"
                       value="⚠️ Aggressive"
-                      onChange={handleChange}
                     />
                     <Form.Check
+                      {...register("temperament", { required: true })}
                       type="radio"
                       label="Active"
                       id="active"
                       name="temperament"
                       value="Active"
-                      onChange={handleChange}
                     />
                   </div>
-                  {/* Add the other radio buttons similarly */}
+                  {errors.temperament && (
+                    <span className="text-danger">This field is required</span>
+                  )}
                 </Form.Group>
 
                 {/* Hive Strength */}
@@ -222,6 +195,7 @@ const InspectionForm = () => {
                   </p>
 
                   <input
+                    {...register("hiveStrength", { required: true })}
                     type="range"
                     className="m-3 custom-range"
                     min="0"
@@ -229,7 +203,6 @@ const InspectionForm = () => {
                     id="hiveStrength"
                     name="hiveStrength"
                     style={{ minWidth: "60%", flex: 3 }}
-                    value={formData.hiveStrength}
                     onChange={handleSliderChange}
                   />
 
@@ -238,6 +211,9 @@ const InspectionForm = () => {
                       {sliderValue}
                     </span>
                   </div>
+                  {errors.temperament && (
+                    <span className="text-danger">This field is required</span>
+                  )}
                 </div>
 
                 {/* Queen, Queen Cells, Eggs */}
@@ -247,12 +223,11 @@ const InspectionForm = () => {
                       Eggs
                     </label>
                     <Form.Check
+                      {...register("eggs")}
                       className="fs-2 mb-0"
                       type="checkbox"
                       id="eggs"
                       name="eggs"
-                      checked={formData.eggs}
-                      onChange={handleChange}
                       value="Eggs"
                     />
                   </div>
@@ -261,12 +236,11 @@ const InspectionForm = () => {
                       Queen Spotted
                     </label>
                     <Form.Check
+                      {...register("queen")}
                       className="fs-2 mb-0"
                       type="checkbox"
                       id="queen"
                       name="queen"
-                      checked={formData.queen}
-                      onChange={handleChange}
                       value="Queen Present"
                     />
                   </div>
@@ -276,12 +250,11 @@ const InspectionForm = () => {
                       Queen Cells
                     </label>
                     <Form.Check
+                      {...register("queenCell")}
                       className="fs-2 mb-0"
                       type="checkbox"
                       id="queenCell"
                       name="queenCell"
-                      checked={formData.queenCell}
-                      onChange={handleChange}
                       value="⚠️ Queen Cells"
                     />
                   </div>
@@ -290,13 +263,15 @@ const InspectionForm = () => {
                 {/* Brood */}
                 <Form.Group className="mb-3">
                   <Form.Select
+                    {...register("brood")}
                     className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                     id="brood"
+                    aria-label="select example"
                     name="brood"
-                    onChange={handleChange}
-                    value={formData.brood}
                   >
-                    <option>Brood</option>
+                    <option value="" disabled selected>
+                      Brood Pattern
+                    </option>
                     <option value="Normal Brood">Normal</option>
                     <option value="Spotty Brood">Spotty</option>
                     <option value="Compact Brood">Compact</option>
@@ -306,14 +281,15 @@ const InspectionForm = () => {
                 {/* Disease */}
                 <Form.Group className="mb-3">
                   <Form.Select
+                    {...register("disease")}
                     className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
                     id="disease"
                     name="disease"
-                    onChange={handleChange}
-                    value={formData.disease}
                   >
-                    <option className="">Disease</option>
-                    <option value="No Diseases">No Diseases</option>
+                    <option value="" disabled selected>
+                      Select Diseases
+                    </option>
+                    <option value="">No Diseases</option>
                     <option value="⚠️ Varroa Mites">Varroa Mites</option>
                     <option value="⚠️ Chalkbrood">Chalkbrood</option>
                     <option value="⚠️ Stonebrood">Stonebrood</option>
@@ -330,14 +306,15 @@ const InspectionForm = () => {
                 <Form.Group className="mb-3">
                   {/* <Form.Label>Pests</Form.Label> */}
                   <Form.Select
+                    {...register("pests")}
                     className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
                     id="pests"
                     name="pests"
-                    onChange={handleChange}
-                    value={formData.pests}
                   >
-                    <option>Pests</option>
-                    <option value="No Pests">No Pests</option>
+                    <option value="" disabled selected>
+                      Select Pests
+                    </option>
+                    <option value="">No Pests</option>
                     <option value="⚠️ Wax moths">Wax Moths</option>
                     <option value="⚠️ Mice">Mice</option>
                     <option value="⚠️ Hive Beetle">Hive Beetle</option>
@@ -349,13 +326,15 @@ const InspectionForm = () => {
                 <Form.Group className="mb-3">
                   {/* <Form.Label>Pests</Form.Label> */}
                   <Form.Select
+                    {...register("feeding")}
                     className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
                     id="feeding"
                     name="feeding"
-                    onChange={handleChange}
-                    value={formData.feeding}
                   >
-                    <option>Feeding</option>
+                    <option value="" disabled selected>
+                      Select Feeding
+                    </option>
+                    <option value="">No Feeding</option>
                     <option value="Sugar">Sugar</option>
                     <option value="Fondant">Fondant</option>
                     <option value="Pollen Patty">Pollen Patty</option>
@@ -368,13 +347,15 @@ const InspectionForm = () => {
                   {/* <Form.Label>Pests</Form.Label> */}
 
                   <Form.Select
+                    {...register("treatments")}
                     className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
                     id="treatments"
                     name="treatments"
-                    onChange={handleChange}
-                    value={formData.treatments}
                   >
-                    <option>Treatments</option>
+                    <option value="" disabled selected>
+                      Select Treatment
+                    </option>
+                    <option value="">No Treatment</option>
                     <option value="Oxalic Acid">Oxalic Acid</option>
                     <option value="Formic Acid">Formic Acid</option>
                     <option value="Apivar">Apivar</option>
@@ -404,13 +385,15 @@ const InspectionForm = () => {
                     Date
                   </Form.Label>
                   <Form.Control
+                    {...register("inspectionDate", { required: true })}
                     className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                     type="date"
                     id="inspectionDate"
                     name="inspectionDate"
-                    onChange={handleChange}
-                    value={formData.inspectionDate}
                   />
+                  {errors.inspectionDate && (
+                    <span className="text-danger">This field is required</span>
+                  )}
                 </Form.Group>
 
                 {/* Inspection Note */}
@@ -419,13 +402,12 @@ const InspectionForm = () => {
                     Notes
                   </Form.Label>
                   <Form.Control
+                    {...register("inspectionNote")}
                     className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
                     as="textarea"
                     rows={5}
                     id="inspectionNote"
                     name="inspectionNote"
-                    onChange={handleChange}
-                    value={formData.inspectionNote}
                   />
                 </Form.Group>
 
@@ -433,6 +415,7 @@ const InspectionForm = () => {
                 <p style={{ color: "#ab0a0a", textAlign: "center" }}>
                   {message}
                 </p>
+                <input type="hidden" {...register("userId")} />
 
                 <Button
                   type="submit"

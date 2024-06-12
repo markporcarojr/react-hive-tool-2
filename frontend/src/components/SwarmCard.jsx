@@ -21,20 +21,6 @@ const SwarmCard = ({ swarm }) => {
               Location: {location}
             </Card.Title>
           </Card.Body>
-          <div className="d-flex justify-content-between mx-3 mb-2">
-            <Link
-              to={`/swarm/delete/${swarm._id}`}
-              className="btn btn-outline-danger rounded-pill"
-            >
-              DELETE
-            </Link>
-            <Link
-              to={`/swarm/edit/${swarm._id}`}
-              className="btn btn-outline-warning rounded-pill"
-            >
-              EDIT
-            </Link>
-          </div>
         </Card>
       </Container>
     </Col>

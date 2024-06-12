@@ -1,433 +1,424 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useForm } from "react-hook-form";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
+import UserContext from "../../context/UserContext.jsx";
 import {
   uploadImageToStorage,
   deleteImageFromStorage,
 } from "../../utils/firebaseUtils.js";
 
-const EditInspection = () => {
+const EditInspectionForm = () => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const [sliderValue, setSliderValue] = useState();
   const [message, setMessage] = useState();
-  const [inspectionImage, setInspectionImage] = useState(null);
   const [oldImageURL, setOldImageURL] = useState(null);
-  const [formData, setFormData] = useState({
-    temperament: "",
-    hiveStrength: "",
-    queen: "",
-    queenCell: "",
-    eggs: "",
-    brood: "",
-    disease: "",
-    pests: "",
-    feeding: "",
-    treatments: "",
-    inspectionDate: "",
-    inspectionNote: "",
-  });
+  const [sliderValue, setSliderValue] = useState(50);
+
+  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   const { id } = useParams();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm();
+
   useEffect(() => {
     setLoading(true);
     axios
       .get(`http://localhost:5555/inspections/${id}`)
       .then((res) => {
-        setFormData({
-          temperament: res.data.temperament,
-          hiveStrength: res.data.hiveStrength,
-          queen: res.data.queen,
-          queenCell: res.data.queenCell,
-          eggs: res.data.eggs,
-          brood: res.data.brood,
-          disease: res.data.disease,
-          pests: res.data.pests,
-          feeding: res.data.feeding,
-          treatments: res.data.treatments,
-          inspectionDate: res.data.inspectionDate,
-          inspectionNote: res.data.inspectionNote,
-        });
-        setOldImageURL(res.data.inspectionImage);
-        setSliderValue(res.data.hiveStrength);
+        const inspectionData = res.data;
+        for (const key in inspectionData) {
+          setValue(key, inspectionData[key]);
+        }
+        setOldImageURL(inspectionData.inspectionImage);
+        setSliderValue(inspectionData.hiveStrength);
         setLoading(false);
       })
       .catch((error) => {
+        console.error("Error fetching hive data:", error);
         setLoading(false);
-        alert("An error has occurred. Please check console");
-        console.error("Error fetching inspection data:", error);
       });
-  }, []);
+  }, [user]);
+
+  useEffect(() => {
+    if (user && user._id) {
+      setValue("userId", user._id); // Set the userId field value
+      console.log("User ID set in form:", user._id); // Debug log
+    }
+  }, [user, setValue]);
 
   const handleSliderChange = (e) => {
     const value = parseInt(e.target.value, 10); // Parse slider value to integer
+    setValue("hiveStrength", value);
     setSliderValue(value); // Update slider value state
-    setFormData((prevState) => ({
-      ...prevState,
-      hiveStrength: value, // Update hiveStrength state as number
-    }));
   };
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    setInspectionImage(file);
+    setValue("inspectionImage", file);
   };
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    if (type === "checkbox") {
-      // Handle checkbox input
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: checked ? value : "",
-      }));
-    } else {
-      // Handle other form inputs (text inputs, selects, etc.)
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
-    }
-  };
-
-  const handleEditInspection = async (e) => {
-    e.preventDefault();
+  const handleEditInspection = async (data) => {
+    setLoading(true);
+    // const selectedHive = JSON.parse(data.hiveId);
 
     try {
       let imageUrl = oldImageURL; // Initialize imageUrl with the old image URL
 
       // Check if a new image has been uploaded
-      if (inspectionImage) {
+      if (data.inspectionImage) {
         // Upload the new image and get its URL
         imageUrl = await uploadImageToStorage(
-          inspectionImage,
+          data.inspectionImage,
           "images/inspectionImages/"
         );
       }
-      const data = {
-        temperament: formData.temperament,
-        hiveStrength: formData.hiveStrength,
-        queen: formData.queen,
-        queenCell: formData.queenCell,
-        brood: formData.brood,
-        disease: formData.disease,
-        eggs: formData.eggs,
-        pests: formData.pests,
-        feeding: formData.feeding,
-        treatments: formData.treatments,
-        inspectionDate: formData.inspectionDate,
-        inspectionNote: formData.inspectionNote,
+
+      const formData = {
+        ...data,
+        eggs: data.eggs || "",
+        queen: data.queen || "",
+        queenCell: data.queenCell || "",
+        userId: data.userId,
         inspectionImage: imageUrl,
       };
-      await axios.put(`http://localhost:5555/inspections/${id}`, data);
-      if (oldImageURL && inspectionImage) {
+
+      axios.put(`http://localhost:5555/inspections/${id}`, formData);
+      if (oldImageURL && data.inspectionImage) {
         // Delete the old image
         await deleteImageFromStorage(oldImageURL);
       }
       setLoading(false);
+      setMessage("Inspection added successfully.");
       navigate("/inspections");
     } catch (error) {
       setLoading(false);
-      setMessage(error.response.data.message);
-      console.log(error);
+      setMessage(error.response.data.message || "An error occurred.");
+      console.log("Error during inspection submission:", error);
     }
   };
+
+  const hiveStrength = watch("hiveStrength", sliderValue);
 
   return (
     <>
       <CustomNavbar />
-      {loading && <LoadSpinner />}
-      <Container className="mt-2 mb-5" style={{ maxWidth: "700px" }}>
-        <Card className="text-michgold text-center">
-          <h1 className="fw-bold m-5">EDIT INSPECTION</h1>
-          <Card.Body>
-            {/* Form */}
-            <Form onSubmit={handleEditInspection} id="inspection-form">
-              {/* Temperament */}
-              <Form.Group className="m-3 fs-3 mt-0 fw-semibold mb-3">
-                <Form.Label>Temperament</Form.Label>
-                <div className="d-flex justify-content-evenly">
-                  <Form.Check
-                    type="radio"
-                    label="Dead"
-                    id="dead"
-                    name="temperament"
-                    value="⚠️ Dead"
-                    checked={formData.temperament === "⚠️ Dead"}
-                    onChange={handleChange}
-                  />
-                  <Form.Check
-                    type="radio"
-                    label="Calm"
-                    id="calm"
-                    name="temperament"
-                    value="Calm"
-                    checked={formData.temperament === "Calm"}
-                    onChange={handleChange}
-                  />
-                  <Form.Check
-                    type="radio"
-                    label="Aggressive"
-                    id="aggressive"
-                    name="temperament"
-                    value="⚠️ Aggressive"
-                    checked={formData.temperament === "⚠️ Aggressive"}
-                    onChange={handleChange}
-                  />
-                  <Form.Check
-                    type="radio"
-                    label="Active"
-                    id="active"
-                    name="temperament"
-                    value="Active"
-                    checked={formData.temperament === "Active"}
-                    onChange={handleChange}
-                  />
-                </div>
-                {/* Add the other radio buttons similarly */}
-              </Form.Group>
-
-              {/* Hive Strength */}
-
-              <label
-                htmlFor="hiveStrength"
-                className="form-label my-1 fs-3 fw-semibold"
+      {loading ? (
+        <LoadSpinner />
+      ) : (
+        <Container className="mt-2 mb-5" style={{ maxWidth: "700px" }}>
+          <Card className="text-michgold text-center">
+            <Card.Body>
+              {/* Form */}
+              <h1 className="m-5 fw-bold">EDIT INSPECTION</h1>
+              <Form
+                onSubmit={handleSubmit(handleEditInspection)}
+                id="inspection-form"
               >
-                Hive Strength
-              </label>
-              <div className="d-flex justify-content-evenly mb-3">
-                <p className="mt-3" style={{ flex: 1 }}>
-                  0
+                {/* Temperament */}
+                <Form.Group className="m-3 fs-3 mt-0 fw-semibold mb-3">
+                  <Form.Label>Temperament</Form.Label>
+                  <div className="d-flex justify-content-evenly">
+                    <Form.Check
+                      {...register("temperament", { required: true })}
+                      type="radio"
+                      label="Dead"
+                      id="dead"
+                      name="temperament"
+                      value="⚠️ Dead"
+                    />
+                    <Form.Check
+                      {...register("temperament", { required: true })}
+                      type="radio"
+                      label="Calm"
+                      id="calm"
+                      name="temperament"
+                      value="Calm"
+                    />
+                    <Form.Check
+                      {...register("temperament", { required: true })}
+                      type="radio"
+                      label="Aggressive"
+                      id="aggressive"
+                      name="temperament"
+                      value="⚠️ Aggressive"
+                    />
+                    <Form.Check
+                      {...register("temperament", { required: true })}
+                      type="radio"
+                      label="Active"
+                      id="active"
+                      name="temperament"
+                      value="Active"
+                    />
+                  </div>
+                  {errors.temperament && (
+                    <span className="text-danger">This field is required</span>
+                  )}
+                </Form.Group>
+
+                {/* Hive Strength */}
+
+                <label
+                  htmlFor="hiveStrength"
+                  className="form-label my-1 fs-3 fw-semibold"
+                >
+                  Hive Strength
+                </label>
+                <div className="d-flex justify-content-evenly mb-3">
+                  <p className="mt-3" style={{ flex: 1 }}>
+                    0
+                  </p>
+
+                  <input
+                    {...register("hiveStrength", { required: true })}
+                    type="range"
+                    className="m-3 custom-range"
+                    min="0"
+                    max="100"
+                    id="hiveStrength"
+                    name="hiveStrength"
+                    style={{ minWidth: "60%", flex: 3 }}
+                    onChange={handleSliderChange}
+                  />
+
+                  <div style={{ flex: 1 }}>
+                    <span id="sliderValue" className="mt-3">
+                      {hiveStrength}
+                    </span>
+                  </div>
+                  {errors.temperament && (
+                    <span className="text-danger">This field is required</span>
+                  )}
+                </div>
+
+                {/* Queen, Queen Cells, Eggs */}
+                <Form.Group className="mb-3">
+                  <div className="ps-0 form-check d-flex justify-content-between">
+                    <label className="fs-2 mb-0" htmlFor="eggs">
+                      Eggs
+                    </label>
+                    <Form.Check
+                      {...register("eggs")}
+                      className="fs-2 mb-0"
+                      type="checkbox"
+                      id="eggs"
+                      name="eggs"
+                      value="Eggs"
+                    />
+                  </div>
+                  <div className="ps-0 form-check d-flex justify-content-between">
+                    <label className="fs-2 mb-0" htmlFor="queen">
+                      Queen Spotted
+                    </label>
+                    <Form.Check
+                      {...register("queen")}
+                      className="fs-2 mb-0"
+                      type="checkbox"
+                      id="queen"
+                      name="queen"
+                      value="Queen Present"
+                    />
+                  </div>
+
+                  <div className="ps-0 form-check d-flex justify-content-between">
+                    <label className="fs-2 mb-0" htmlFor="queenCell">
+                      Queen Cells
+                    </label>
+                    <Form.Check
+                      {...register("queenCell")}
+                      className="fs-2 mb-0"
+                      type="checkbox"
+                      id="queenCell"
+                      name="queenCell"
+                      value="⚠️ Queen Cells"
+                    />
+                  </div>
+                </Form.Group>
+
+                {/* Brood */}
+                <Form.Group className="mb-3">
+                  <Form.Select
+                    {...register("brood")}
+                    className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    id="brood"
+                    aria-label="select example"
+                    name="brood"
+                  >
+                    <option value="" disabled selected>
+                      Brood Pattern
+                    </option>
+                    <option value="Normal Brood">Normal</option>
+                    <option value="Spotty Brood">Spotty</option>
+                    <option value="Compact Brood">Compact</option>
+                  </Form.Select>
+                </Form.Group>
+
+                {/* Disease */}
+                <Form.Group className="mb-3">
+                  <Form.Select
+                    {...register("disease")}
+                    className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    id="disease"
+                    aria-label="select example"
+                    name="disease"
+                  >
+                    <option value="" disabled selected>
+                      Select Diseases
+                    </option>
+                    <option value="">No Diseases</option>
+                    <option value="⚠️ Varroa Mites">Varroa Mites</option>
+                    <option value="⚠️ Chalkbrood">Chalkbrood</option>
+                    <option value="⚠️ Stonebrood">Stonebrood</option>
+                    <option value="⚠️ American Foulbrood">
+                      American Foulbrood
+                    </option>
+                    <option value="⚠️ European Foulbrood">
+                      European Foulbrood
+                    </option>
+                  </Form.Select>
+                </Form.Group>
+
+                {/* Pests */}
+                <Form.Group className="mb-3">
+                  {/* <Form.Label>Pests</Form.Label> */}
+                  <Form.Select
+                    {...register("pests")}
+                    className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    id="pests"
+                    aria-label="select example"
+                    name="pests"
+                  >
+                    <option value="" disabled selected>
+                      Select Pests
+                    </option>
+                    <option value="">No Pests</option>
+                    <option value="⚠️ Wax moths">Wax Moths</option>
+                    <option value="⚠️ Mice">Mice</option>
+                    <option value="⚠️ Hive Beetle">Hive Beetle</option>
+                    <option value="⚠️ Ants">Ants</option>
+                  </Form.Select>
+                </Form.Group>
+
+                {/* Feeding */}
+                <Form.Group className="mb-3">
+                  {/* <Form.Label>Pests</Form.Label> */}
+                  <Form.Select
+                    {...register("feeding")}
+                    className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    id="feeding"
+                    aria-label="select example"
+                    name="feeding"
+                  >
+                    <option value="" disabled selected>
+                      Select Feeding
+                    </option>
+                    <option value="">No Feeding</option>
+                    <option value="Fondant">Fondant</option>
+                    <option value="Pollen Patty">Pollen Patty</option>
+                    <option value="Syrup">Syrup</option>
+                  </Form.Select>
+                </Form.Group>
+
+                {/* Treatments */}
+                <Form.Group className="mb-3">
+                  {/* <Form.Label>Pests</Form.Label> */}
+
+                  <Form.Select
+                    {...register("treatments")}
+                    className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    id="treatments"
+                    name="treatments"
+                  >
+                    <option value="" disabled selected>
+                      Select Treatment
+                    </option>
+                    <option value="">No Treatment</option>
+                    <option value="Oxalic Acid">Oxalic Acid</option>
+                    <option value="Formic Acid">Formic Acid</option>
+                    <option value="Apivar">Apivar</option>
+                    <option value="Micribes">Microbes</option>
+                  </Form.Select>
+                </Form.Group>
+
+                {/* Inspection Image */}
+                <Form.Group className="mb-3">
+                  <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
+                    Inspection Image
+                  </Form.Label>
+                  <Form.Control
+                    type="file"
+                    accept="image/*"
+                    capture="camera"
+                    className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    id="inspectionImage"
+                    name="inspectionImage"
+                    onChange={handleImageUpload}
+                    aria-describedby="inspectionImage"
+                  />
+                </Form.Group>
+                {/* Inspection Date */}
+                <Form.Group className="mb-3">
+                  <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
+                    Date
+                  </Form.Label>
+                  <Form.Control
+                    {...register("inspectionDate", { required: true })}
+                    className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    type="date"
+                    id="inspectionDate"
+                    name="inspectionDate"
+                  />
+                  {errors.inspectionDate && (
+                    <span className="text-danger">This field is required</span>
+                  )}
+                </Form.Group>
+
+                {/* Inspection Note */}
+                <Form.Group className="mb-3">
+                  <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
+                    Notes
+                  </Form.Label>
+                  <Form.Control
+                    {...register("inspectionNote")}
+                    className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    as="textarea"
+                    rows={5}
+                    id="inspectionNote"
+                    name="inspectionNote"
+                  />
+                </Form.Group>
+
+                {/* Submit Button */}
+                <p style={{ color: "#ab0a0a", textAlign: "center" }}>
+                  {message}
                 </p>
+                <input type="hidden" {...register("userId")} />
 
-                <input
-                  type="range"
-                  className="m-3 custom-range"
-                  min="0"
-                  max="100"
-                  id="hiveStrength"
-                  name="hiveStrength"
-                  style={{ minWidth: "60%", flex: 3 }}
-                  value={formData.hiveStrength}
-                  onChange={handleSliderChange}
-                />
-
-                <div style={{ flex: 1 }}>
-                  <span id="sliderValue" className="mt-3">
-                    {sliderValue}
-                  </span>
-                </div>
-              </div>
-
-              {/* Queen, Queen Cells, Eggs */}
-              <Form.Group className="mb-3">
-                <div className="ps-0 form-check d-flex justify-content-between">
-                  <label className="fs-2 mb-0" htmlFor="eggs">
-                    Eggs
-                  </label>
-                  <Form.Check
-                    className="fs-2 mb-0"
-                    type="checkbox"
-                    id="eggs"
-                    name="eggs"
-                    checked={formData.eggs}
-                    onChange={handleChange}
-                    value="Eggs"
-                  />
-                </div>
-                <div className="ps-0 form-check d-flex justify-content-between">
-                  <label className="fs-2 mb-0" htmlFor="queen">
-                    Queen Spotted
-                  </label>
-                  <Form.Check
-                    className="fs-2 mb-0"
-                    type="checkbox"
-                    id="queen"
-                    name="queen"
-                    checked={formData.queen}
-                    onChange={handleChange}
-                    value="Queen Present"
-                  />
-                </div>
-                <div className="ps-0 form-check d-flex justify-content-between">
-                  <label className="fs-2 mb-0" htmlFor="queenCell">
-                    Queen Cells
-                  </label>
-                  <Form.Check
-                    className="fs-2 mb-0"
-                    type="checkbox"
-                    id="queenCell"
-                    name="queenCell"
-                    checked={formData.queenCell}
-                    onChange={handleChange}
-                    value="Queen Cells"
-                  />
-                </div>
-              </Form.Group>
-
-              {/* Brood */}
-              <Form.Group className="mb-3">
-                <Form.Select
-                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  id="brood"
-                  name="brood"
-                  onChange={handleChange}
-                  value={formData.brood}
+                <Button
+                  type="submit"
+                  form="inspection-form"
+                  className="btn btn-michgold rounded-pill"
                 >
-                  <option>Brood</option>
-                  <option value="Normal Brood">Normal</option>
-                  <option value="Spotty Brood">Spotty</option>
-                  <option value="Compact Brood">Compact</option>
-                </Form.Select>
-              </Form.Group>
-
-              {/* Disease */}
-              <Form.Group className="mb-3">
-                <Form.Select
-                  className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  id="disease"
-                  name="disease"
-                  onChange={handleChange}
-                  value={formData.disease}
-                >
-                  <option className="">Disease</option>
-                  <option value="No Diseases">No Diseases</option>
-                  <option value="⚠️ Varroa Mites">Varroa Mites</option>
-                  <option value="⚠️ Chalkbrood">Chalkbrood</option>
-                  <option value="⚠️ Stonebrood">Stonebrood</option>
-                  <option value="⚠️ American Foulbrood">
-                    American Foulbrood
-                  </option>
-                  <option value="⚠️ European Foulbrood">
-                    European Foulbrood
-                  </option>
-                </Form.Select>
-              </Form.Group>
-
-              {/* Pests */}
-              <Form.Group className="mb-3">
-                {/* <Form.Label>Pests</Form.Label> */}
-                <Form.Select
-                  className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  id="pests"
-                  name="pests"
-                  onChange={handleChange}
-                  value={formData.pests}
-                >
-                  <option>Pests</option>
-                  <option value="No Pests">No Pests</option>
-                  <option value="⚠️ Wax moths">Wax Moths</option>
-                  <option value="⚠️ Mice">Mice</option>
-                  <option value="⚠️ Hive Beetle">Hive Beetle</option>
-                  <option value="⚠️ Ants">Ants</option>
-                </Form.Select>
-              </Form.Group>
-
-              {/* Feeding */}
-              <Form.Group className="mb-3">
-                {/* <Form.Label>Pests</Form.Label> */}
-                <Form.Select
-                  className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  id="feeding"
-                  name="feeding"
-                  onChange={handleChange}
-                  value={formData.feeding}
-                >
-                  <option>Feeding</option>
-                  <option value="Sugar">Sugar</option>
-                  <option value="Fondant">Fondant</option>
-                  <option value="Pollen Patty">Pollen Patty</option>
-                  <option value="Syrup">Syrup</option>
-                </Form.Select>
-              </Form.Group>
-
-              {/* treatments */}
-              <Form.Group className="mb-3">
-                {/* <Form.Label>Pests</Form.Label> */}
-                <Form.Select
-                  className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  id="treatments"
-                  name="treatments"
-                  onChange={handleChange}
-                  value={formData.treatments}
-                >
-                  <option>Treatments</option>
-                  <option value="Oxalic Acid">Oxalic Acid</option>
-                  <option value="Formic Acid">Formic Acid</option>
-                  <option value="Apivar">Apivar</option>
-                  <option value="Micribes">Microbes</option>
-                </Form.Select>
-              </Form.Group>
-              {/* Inspection Image */}
-              <Form.Group className="mb-3">
-                <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
-                  Inspection Image
-                </Form.Label>
-                <Form.Control
-                  type="file"
-                  accept="image/*"
-                  capture="camera"
-                  className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  id="inspectionImage"
-                  name="inspectionImage"
-                  // value={inspectionImage}
-                  onChange={handleImageUpload}
-                  aria-describedby="inspectionImage"
-                />
-              </Form.Group>
-
-              {/* Inspection Date */}
-              <Form.Group className="mb-3">
-                <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
-                  Date
-                </Form.Label>
-                <Form.Control
-                  className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  type="date"
-                  id="inspectionDate"
-                  name="inspectionDate"
-                  onChange={handleChange}
-                  value={formData.inspectionDate}
-                />
-              </Form.Group>
-
-              {/* Inspection Note */}
-              <Form.Group className="mb-3">
-                <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
-                  Notes
-                </Form.Label>
-                <Form.Control
-                  className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  as="textarea"
-                  rows={5}
-                  id="inspectionNote"
-                  name="inspectionNote"
-                  onChange={handleChange}
-                  value={formData.inspectionNote}
-                />
-              </Form.Group>
-
-              {/* Submit Button */}
-              <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
-
-              <Button
-                type="submit"
-                form="inspection-form"
-                className="btn btn-michgold rounded-pill"
-              >
-                UPDATE
-              </Button>
-            </Form>
-          </Card.Body>
-        </Card>
-      </Container>
+                  ADD
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Container>
+      )}
       <Footer />
     </>
   );
 };
 
-export default EditInspection;
+export default EditInspectionForm;

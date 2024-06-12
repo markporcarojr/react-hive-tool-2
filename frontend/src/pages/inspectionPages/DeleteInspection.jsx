@@ -6,24 +6,49 @@ import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import { Card, Button } from "react-bootstrap";
 import BackButton from "../../components/BackButton";
+import { deleteImageFromStorage } from "../../utils/firebaseUtils";
 
 const DeleteInspection = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
-  const handleDeleteInspection = () => {
+
+  // const handleDeleteInspection = () => {
+  //   setLoading(true);
+  //   axios
+  //     .delete(`http://localhost:5555/inspections/${id}`)
+  //     .then(() => {
+  //       setLoading(false);
+  //       navigate("/inspections");
+  //     })
+  //     .catch((error) => {
+  //       setLoading(false);
+  //       alert("An error has occurred. Please Check Console");
+  //       console.log(error);
+  //     });
+  // };
+  const handleDeleteInspection = async () => {
     setLoading(true);
-    axios
-      .delete(`http://localhost:5555/inspections/${id}`)
-      .then(() => {
-        setLoading(false);
-        navigate("/inspections");
-      })
-      .catch((error) => {
-        setLoading(false);
-        alert("An error has occurred. Please Check Console");
-        console.log(error);
-      });
+    try {
+      // Delete the image from Firebase Storage
+      const response = await axios.get(
+        `http://localhost:5555/inspections/${id}`
+      );
+      const inspection = response.data;
+      // fixed bug, if user has no image
+      if (inspection.inspectionImage) {
+        await deleteImageFromStorage(inspection.inspectionImage);
+      }
+
+      // Now delete the hive from your API
+      await axios.delete(`http://localhost:5555/inspections/${id}`);
+      setLoading(false);
+      navigate("/inspections");
+    } catch (error) {
+      setLoading(false);
+      alert("An error has occurred. Please Check Console");
+      console.log(error);
+    }
   };
   return (
     <>

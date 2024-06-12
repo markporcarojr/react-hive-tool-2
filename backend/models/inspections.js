@@ -16,6 +16,10 @@ const inspectionSchema = new Schema({
         type: Number,
         required: true
     },
+    inspectionDate: {
+        type: String,
+        required: true
+    },
     inspectionImage: {
         type: String,
         required: false
@@ -51,10 +55,6 @@ const inspectionSchema = new Schema({
     treatments: {
         type: String,
         required: false
-    },
-    inspectionDate: {
-        type: String,
-        required: true
     },
     inspectionNote: {
         type: String,

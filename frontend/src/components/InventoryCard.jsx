@@ -28,20 +28,6 @@ const InventoryCard = ({ inventory }) => {
               </Card.Title>
             </div>
           </Card.Body>
-          <div className="d-flex justify-content-between mx-3 mb-2">
-            <Link
-              to={`/inventory/delete/${inventory._id}`}
-              className="btn btn-outline-danger rounded-pill"
-            >
-              DELETE
-            </Link>
-            <Link
-              to={`/inventory/edit/${inventory._id}`}
-              className="btn btn-outline-warning rounded-pill"
-            >
-              EDIT
-            </Link>
-          </div>
         </Card>
       </Container>
     </Col>

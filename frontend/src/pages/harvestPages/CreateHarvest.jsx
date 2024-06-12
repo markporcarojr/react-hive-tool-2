@@ -10,9 +10,6 @@ import UserContext from "../../context/UserContext";
 
 const CreateHarvest = () => {
   const { user } = useContext(UserContext);
-  // const [harvestType, setHarvestType] = useState("");
-  // const [harvestAmount, setHarvestAmount] = useState("");
-  // const [harvestDate, setHarvestDate] = useState("");
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();

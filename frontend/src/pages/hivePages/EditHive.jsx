@@ -16,6 +16,7 @@ const EditHive = () => {
   const [message, setMessage] = useState("");
   const [oldImageURL, setOldImageURL] = useState("");
   const [sliderValue, setSliderValue] = useState(50);
+
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
   const { id } = useParams();
@@ -180,7 +181,45 @@ const EditHive = () => {
                   id="queenAge"
                   name="queenAge"
                 />
+                <label htmlFor="queenExcluder" className="form-label m-3">
+                  Queen Excluder
+                </label>
+                <select
+                  {...register("queenExcluder")}
+                  name="queenExcluder"
+                  id="queenExcluder"
+                  className="form-select  text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                >
+                  <option className="text-center" disabled selected>
+                    --
+                  </option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
 
+                <label htmlFor="broodBoxes" className="form-label m-3">
+                  Number of Brood Boxes
+                </label>
+                <input
+                  {...register("broodBoxes")}
+                  type="number"
+                  className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  id="broodBoxes"
+                  name="broodBoxes"
+                  aria-describedby="broodBoxes"
+                />
+
+                <label htmlFor="superBoxes" className="form-label m-3">
+                  Number of Super Boxes
+                </label>
+                <input
+                  {...register("superBoxes")}
+                  type="number"
+                  className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  id="superBoxes"
+                  name="superBoxes"
+                  aria-describedby="superBoxes"
+                />
                 <label htmlFor="hiveImage" className="form-label m-3">
                   Hive Image
                 </label>

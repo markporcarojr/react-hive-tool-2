@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
@@ -7,21 +8,26 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Container, Card, Form, Button } from "react-bootstrap";
 
 const EditInventory = () => {
-  const [inventoryType, setInventoryType] = useState("");
-  const [inventoryAmount, setInventoryAmount] = useState("");
-  const [inventoryLocation, setInventoryLocation] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
   useEffect(() => {
     setLoading(true);
     axios
       .get(`http://localhost:5555/inventory/${id}`)
       .then((res) => {
-        setInventoryType(res.data.inventoryType);
-        setInventoryAmount(res.data.inventoryAmount);
-        setInventoryLocation(res.data.inventoryLocation);
+        setValue("inventoryType", res.data.inventoryType);
+        setValue("inventoryAmount", res.data.inventoryAmount);
+        setValue("inventoryLocation", res.data.inventoryLocation);
 
         setLoading(false);
       })
@@ -34,16 +40,13 @@ const EditInventory = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleEditInventory = (e) => {
-    e.preventDefault();
-    const data = {
-      inventoryType,
-      inventoryAmount,
-      inventoryLocation,
+  const handleEditInventory = (data) => {
+    const formData = {
+      ...data,
     };
     setLoading(true);
     axios
-      .put(`http://localhost:5555/inventory/${id}`, data)
+      .put(`http://localhost:5555/inventory/${id}`, formData)
       .then(() => {
         setLoading(false);
         navigate("/inventory");
@@ -62,46 +65,48 @@ const EditInventory = () => {
       ) : (
         <Container style={{ maxWidth: "700px" }}>
           <Card className="text-michgold text-center mt-2 mb-5">
-            <h1 className="fw-bold m-5">EDIT ITEM</h1>
-
-            {/* Include your partial title here */}
-            {/* Assuming partials/title is another component */}
-            {/* <%- include("partials/title")%> */}
-
             {/* Forms */}
+            <h1 className="m-5 fw-bold">EDIT ITEM</h1>
 
-            <Form id="edit-inventory-form">
+            <Form
+              id="inventory-form"
+              onSubmit={handleSubmit(handleEditInventory)}
+            >
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="inventoryType">Equipment Name</Form.Label>
                 <Form.Control
+                  {...register("inventoryType", { required: true })}
                   type="text"
                   id="inventoryType"
                   name="inventoryType"
-                  value={inventoryType}
-                  onChange={(e) => setInventoryType(e.target.value)}
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 />
+                {errors.inventoryType && (
+                  <p className="text-danger">Inventory Type is required</p>
+                )}
               </div>
+
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="inventoryAmount">Quantity</Form.Label>
                 <Form.Control
+                  {...register("inventoryAmount", { required: true })}
                   type="number"
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                   id="inventoryAmount"
                   name="inventoryAmount"
-                  value={inventoryAmount}
-                  onChange={(e) => setInventoryAmount(e.target.value)}
                 />
+                {errors.inventoryAmount && (
+                  <p className="text-danger">Quantity is required</p>
+                )}
               </div>
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="inventoryLocation">Location</Form.Label>
                 <Form.Control
+                  {...register("inventoryLocation")}
                   type="text"
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                   id="inventoryLocation"
                   name="inventoryLocation"
-                  value={inventoryLocation}
-                  onChange={(e) => setInventoryLocation(e.target.value)}
                 />
               </div>
             </Form>
@@ -110,9 +115,8 @@ const EditInventory = () => {
             <div className="d-flex justify-content-around mb-3">
               <Button
                 type="submit"
-                form="edit-inventory-form"
+                form="inventory-form"
                 className="btn px-5 btn-michgold fw-bold rounded-pill"
-                onClick={handleEditInventory}
               >
                 UPDATE
               </Button>

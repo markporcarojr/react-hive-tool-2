@@ -20,6 +20,14 @@ const hiveSchema = new Schema(
             type: String,
             required: false
         },
+        broodBoxes: {
+            type: Number,
+            required: false
+        },
+        superBoxes: {
+            type: Number,
+            required: false
+        },
         hiveStrength: {
             type: Number,
             required: true
@@ -29,6 +37,10 @@ const hiveSchema = new Schema(
             required: false
         },
         queenAge: {
+            type: String,
+            required: false
+        },
+        queenExcluder: {
             type: String,
             required: false
         },
