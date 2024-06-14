@@ -269,7 +269,7 @@ const InspectionForm = () => {
                     aria-label="select example"
                     name="brood"
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Brood Pattern
                     </option>
                     <option value="Normal Brood">Normal</option>
@@ -286,7 +286,7 @@ const InspectionForm = () => {
                     id="disease"
                     name="disease"
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Select Diseases
                     </option>
                     <option value="">No Diseases</option>
@@ -311,7 +311,7 @@ const InspectionForm = () => {
                     id="pests"
                     name="pests"
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Select Pests
                     </option>
                     <option value="">No Pests</option>
@@ -331,7 +331,7 @@ const InspectionForm = () => {
                     id="feeding"
                     name="feeding"
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Select Feeding
                     </option>
                     <option value="">No Feeding</option>
@@ -352,7 +352,7 @@ const InspectionForm = () => {
                     id="treatments"
                     name="treatments"
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Select Treatment
                     </option>
                     <option value="">No Treatment</option>

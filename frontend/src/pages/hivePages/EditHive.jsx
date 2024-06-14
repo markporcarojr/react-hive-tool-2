@@ -106,21 +106,6 @@ const EditHive = () => {
           <div className="card text-michgold text-center mt-2 mb-5">
             <h1 className="m-5">EDIT HIVE</h1>
             <form id="hive-form" onSubmit={handleSubmit(handleEditHive)}>
-              <div className="m-3 fs-3 mt-0 fw-semibold">
-                <label htmlFor="hiveNumber" className="form-label">
-                  Hive Number
-                </label>
-                <input
-                  type="number"
-                  {...register("hiveNumber", { required: true })}
-                  className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  id="hiveNumber"
-                  name="hiveNumber"
-                />
-                {errors.hiveNumber && (
-                  <p className="text-danger">Hive Number is required</p>
-                )}
-              </div>
               <div className="m-3 fs-3 mt-0 fw-semibold text-center">
                 <label htmlFor="hiveSource" className="form-label mb-3">
                   Hive Source
@@ -131,7 +116,7 @@ const EditHive = () => {
                   id="hiveSource"
                   className="form-select mb-2 text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 >
-                  <option className="text-center">Choose Source</option>
+                  <option value="">Choose Source</option>
                   <option value="Nucleus">Nucleus</option>
                   <option value="Package">Package</option>
                   <option value="Capture Swarm">Capture Swarm</option>
@@ -190,9 +175,7 @@ const EditHive = () => {
                   id="queenExcluder"
                   className="form-select  text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 >
-                  <option className="text-center" disabled selected>
-                    --
-                  </option>
+                  <option value="">Select an option</option>
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>
                 </select>

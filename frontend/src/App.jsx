@@ -5,7 +5,6 @@ import "./scss/styles.scss";
 import { useState, useEffect } from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import cookies from "js-cookie";
 
 import axios from "axios";
 import LoadSpinner from "./components/Spinner.jsx";
@@ -49,7 +48,6 @@ import TodoList from "./pages/todoPages/TodoList.jsx";
 
 function App() {
   const [user, setUser] = useState(null);
-  const userCookie = cookies.get("userCookie");
   const [loading, setLoading] = useState(true); // Changed initial value to true
   const navigate = useNavigate();
 
@@ -58,7 +56,7 @@ function App() {
 
     if (token) {
       axios
-        .get(`http://localhost:5555/user/${userCookie}`, {
+        .get(`http://localhost:5555/user/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

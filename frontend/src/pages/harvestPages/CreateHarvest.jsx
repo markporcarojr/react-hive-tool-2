@@ -69,10 +69,12 @@ const CreateHarvest = () => {
                 {...register("harvestType", { required: true })}
                 id="harvestType"
                 className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                aria-label="select example"
                 name="harvestType"
+                defaultValue={""}
               >
-                <option selected>---</option>
+                <option value="" disabled>
+                  Select an option
+                </option>
                 <option value="Honey">Honey</option>
                 <option value="Wax">Wax</option>
               </Form.Select>

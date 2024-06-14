@@ -30,6 +30,7 @@ const Home = () => {
   const { user } = useContext(UserContext);
   const [weatherData, setWeatherData] = useState(null);
   const [weatherIcon, setWeatherIcon] = useState("");
+  const [state, setState] = useState("");
   const [backgroundImage, setBackgroundImage] = useState(null);
   const { id } = useParams();
 
@@ -40,6 +41,7 @@ const Home = () => {
         if (data) {
           setWeatherData(data.data);
           setWeatherIcon(data.iconUrl);
+          setState(data.state);
         }
       }
     };
@@ -52,7 +54,7 @@ const Home = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`http://localhost:5555/user/${id}`, {
+        const response = await axios.get("http://localhost:5555/user", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setBackgroundImage(response.data.user.apiaryImage);
@@ -111,11 +113,17 @@ const Home = () => {
         <h5 className="card-title mt-3 fs-2 outlined-text" id="datetime"></h5>
 
         {weatherData && (
-          <div className="d-flex justify-content-between text-white align-items-center outlined-text fs-3 fw-bold my-1 me-2">
-            <span className="card-text mb-0 ms-2 mt-" id="city">
-              {weatherData.name}
+          <div
+            id="weather"
+            className="d-inline-flex flex-column text-white outlined-text ms-5 fw-bold "
+          >
+            <span
+              className="d-flex card-text fs-3 justify-content-center align-items-center"
+              id="city"
+            >
+              {weatherData.name}, {state}
             </span>
-            <div>
+            <div className="d-flex fs-2 justify-content-center align-items-center">
               <span className="card-text mb-0">
                 <img src={weatherIcon} alt="Weather Icon" />
               </span>
@@ -153,10 +161,10 @@ const Home = () => {
                 <tr>
                   <th>Hive Image</th>
                   <th>Hive ID</th>
-                  <th>Date Added</th>
                   <th>Queen Color</th>
-                  <th>Queen Age</th>
-                  <th>Hive Source</th>
+                  <th>Brood Boxes</th>
+                  <th>Super Boxes</th>
+                  <th>Queen Excluder</th>
                   <th>Options</th>
                 </tr>
               </thead>
@@ -170,16 +178,16 @@ const Home = () => {
                     <td className="text-center">
                       <ImageDisplay
                         imageUrl={hive.hiveImage}
-                        maxHeight={"100px"}
-                        maxWidth={"100px"}
+                        maxHeight={"10rem"}
+                        maxWidth={"10rem"}
                         alt={"Hive Image"}
                       />
                     </td>
                     <td className="text-center fs-3">#{hive.hiveNumber}</td>
-                    <td className="text-center">{formatDate(hive.hiveDate)}</td>
                     <td className="text-center">{hive.queenColor}</td>
-                    <td className="text-center">{hive.queenAge}</td>
-                    <td className="text-center">{hive.hiveSource}</td>
+                    <td className="text-center">{hive.broodBoxes}</td>
+                    <td className="text-center">{hive.superBoxes}</td>
+                    <td className="text-center">{hive.queenExcluder}</td>
                     <td>
                       <div className="d-flex justify-content-around">
                         <IconContext.Provider

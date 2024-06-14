@@ -9,6 +9,7 @@ const fetchWeatherData = async (zipcode) => {
       `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&appid=${apiKey}&units=imperial`
     );
 
+    const { lat, lon } = response.data.coord;
     const weatherMain = response.data.weather[0].main;
     let iconUrl;
 
@@ -35,10 +36,15 @@ const fetchWeatherData = async (zipcode) => {
         iconUrl = "https://openweathermap.org/img/wn/13d@2x.png";
         break;
       default:
-        iconUrl = ""; // Handle other cases if needed
+        iconUrl = "";
     }
+    const geocodeResponse = await axios.get(
+      `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`
+    );
 
-    return { data: response.data, iconUrl };
+    const state = geocodeResponse.data[0].state;
+
+    return { data: response.data, iconUrl, state };
   } catch (error) {
     console.error("Fetch weather data error:", error);
     return null;

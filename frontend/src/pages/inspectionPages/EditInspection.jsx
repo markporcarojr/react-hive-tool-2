@@ -52,7 +52,6 @@ const EditInspectionForm = () => {
   useEffect(() => {
     if (user && user._id) {
       setValue("userId", user._id); // Set the userId field value
-      console.log("User ID set in form:", user._id); // Debug log
     }
   }, [user, setValue]);
 
@@ -69,7 +68,6 @@ const EditInspectionForm = () => {
 
   const handleEditInspection = async (data) => {
     setLoading(true);
-    // const selectedHive = JSON.parse(data.hiveId);
 
     try {
       let imageUrl = oldImageURL; // Initialize imageUrl with the old image URL
@@ -254,7 +252,7 @@ const EditInspectionForm = () => {
                     aria-label="select example"
                     name="brood"
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Brood Pattern
                     </option>
                     <option value="Normal Brood">Normal</option>
@@ -272,7 +270,7 @@ const EditInspectionForm = () => {
                     aria-label="select example"
                     name="disease"
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Select Diseases
                     </option>
                     <option value="">No Diseases</option>
@@ -298,7 +296,7 @@ const EditInspectionForm = () => {
                     aria-label="select example"
                     name="pests"
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Select Pests
                     </option>
                     <option value="">No Pests</option>
@@ -319,7 +317,7 @@ const EditInspectionForm = () => {
                     aria-label="select example"
                     name="feeding"
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Select Feeding
                     </option>
                     <option value="">No Feeding</option>
@@ -339,7 +337,7 @@ const EditInspectionForm = () => {
                     id="treatments"
                     name="treatments"
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Select Treatment
                     </option>
                     <option value="">No Treatment</option>

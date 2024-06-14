@@ -7,29 +7,6 @@ import { OAuth2Client } from 'google-auth-library';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-export const getUsers = async (req, res) => {
-    try {
-        const users = await User.find({});
-        if (!users) {
-            return res.send({
-                message: "no users were found."
-            })
-        }
-        return res.send({
-            userCount: users.length,
-            users
-        })
-
-    } catch (error) {
-        console.log(error);
-        return res.send({
-            message: 'getting all users callback error',
-            error,
-        })
-    }
-
-};
-
 export const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -53,7 +30,7 @@ export const loginUser = async (req, res) => {
         }
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
         return res.send({
-            message: `${user.apiaryName} is logged in.`,
+            message: `${user.userName} is logged in.`,
             user,
             token,
         });

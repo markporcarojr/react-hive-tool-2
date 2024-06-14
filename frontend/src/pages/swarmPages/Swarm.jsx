@@ -31,7 +31,6 @@ export default function Swarm() {
     axios
       .get(`http://localhost:5555/swarm?userId=${user._id}`)
       .then((response) => {
-        console.log(response.data);
         setSwarms(response.data);
         setLoading(false);
       })

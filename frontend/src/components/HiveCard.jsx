@@ -53,15 +53,15 @@ const HiveCard = ({ hive }) => {
                 <p className="mb-1 ">Brood Boxes:</p>
               </div>
               <div className="col-6 text-end">
-                <p className="mb-1 ">{formattedDate}</p>
-                <p className="mb-1 ">{hiveSource}</p>
-                <p className="mb-1 ">{breed}</p>
-                <p className="mb-1 ">{queenColor}</p>
-                <p className="mb-1 ">{queenAge}</p>
-                <p className="mb-1 ">{hiveStrength}%</p>
-                <p className="mb-1 ">{queenExcluder}</p>
-                <p className="mb-1 ">{superBoxes}</p>
-                <p className="mb-1 ">{broodBoxes}</p>
+                <p className="mb-1 ">{formattedDate || "N/A"}</p>
+                <p className="mb-1 ">{hiveSource || "N/A"}</p>
+                <p className="mb-1 ">{breed || "N/A"}</p>
+                <p className="mb-1 ">{queenColor || "N/A"}</p>
+                <p className="mb-1 ">{queenAge || "N/A"}</p>
+                <p className="mb-1 ">{hiveStrength || "N/A"}%</p>
+                <p className="mb-1 ">{queenExcluder || "N/A"}</p>
+                <p className="mb-1 ">{superBoxes || "N/A"}</p>
+                <p className="mb-1 ">{broodBoxes || "N/A"}</p>
               </div>
             </div>
             <hr className="border-bottom" />

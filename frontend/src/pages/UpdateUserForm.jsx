@@ -40,7 +40,7 @@ const UpdateUserForm = () => {
         const token = localStorage.getItem("token");
 
         //1- get response for all fields
-        const response = await axios.get(`http://localhost:5555/user/${id}`, {
+        const response = await axios.get(`http://localhost:5555/user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const { apiaryName, userName, zipcode, apiaryImage } =
@@ -146,7 +146,6 @@ const UpdateUserForm = () => {
 
               <Form.Control
                 type="text"
-                id="apiaryName"
                 name="apiaryName"
                 placeholder="Enter Your Apiary Name..."
                 value={formData.apiaryName}
@@ -159,7 +158,6 @@ const UpdateUserForm = () => {
 
               <Form.Control
                 type="text"
-                id="userName"
                 name="userName"
                 placeholder="Enter Your User Name..."
                 value={formData.userName}
@@ -172,7 +170,6 @@ const UpdateUserForm = () => {
 
               <Form.Control
                 type="number"
-                id="zipcode"
                 name="zipcode"
                 placeholder="Enter Your Zipcode..."
                 value={formData.zipcode}
@@ -185,7 +182,6 @@ const UpdateUserForm = () => {
               <Form.Control
                 type="file"
                 placeholder="Apiary Image..."
-                id="apiaryImage"
                 name="apiaryImage"
                 onChange={handleImageUpload}
                 className="text-center bg-white text-black border-3 border-michgold rounded-4 fw-bold"

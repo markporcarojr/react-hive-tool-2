@@ -335,6 +335,13 @@ input[type="range"] {
   }
 }
 
+@media screen and (max-width: 767px) {
+  #weather {
+    display: flex !important;
+    justify-content: center !important;
+  }
+}
+
 #main-container {
   place-items: center center;
 }

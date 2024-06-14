@@ -100,7 +100,7 @@ const CreateHive = () => {
                   id="hiveSource"
                   className="form-select mb-2 text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 >
-                  <option className="text-center">Choose Source</option>
+                  <option value="">Choose Source</option>
                   <option value="Nucleus">Nucleus</option>
                   <option value="Package">Package</option>
                   <option value="Capture Swarm">Capture Swarm</option>
@@ -119,7 +119,7 @@ const CreateHive = () => {
                   id="breed"
                   className="form-select mb-2 text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 >
-                  <option className="text-center">Choose Breed</option>
+                  <option value="">Select an option</option>
                   <option value="Unknown">Unknown</option>
                   <option value="Italian">Italian</option>
                   <option value="Carniolan">Carniolan</option>
@@ -161,9 +161,10 @@ const CreateHive = () => {
                   name="queenExcluder"
                   id="queenExcluder"
                   className="form-select  text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  defaultValue=""
                 >
-                  <option className="text-center" disabled selected>
-                    --
+                  <option value="" disabled>
+                    Select an option
                   </option>
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>

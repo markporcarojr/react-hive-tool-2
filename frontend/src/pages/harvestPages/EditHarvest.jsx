@@ -26,17 +26,15 @@ const EditHarvest = () => {
     axios
       .get(`http://localhost:5555/harvest/${id}`)
       .then((res) => {
-        setValue({
-          harvestAmount: res.data.harvestAmount,
-          harvestType: res.data.harvestType,
-          harvestDate: res.data.harvestDate,
-        });
+        setValue("harvestAmount", res.data.harvestAmount);
+        setValue("harvestType", res.data.harvestType);
+        setValue("harvestDate", res.data.harvestDate);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
         console.log("Error fetching data:", error);
-        setMessage(error.response.data.message);
+        setMessage(error.res.data.message);
       });
   }, [id]);
 
@@ -91,8 +89,11 @@ const EditHarvest = () => {
                 className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 aria-label="select example"
                 name="harvestType"
+                defaultValue={""}
               >
-                <option selected>---</option>
+                <option value="" disabled>
+                  Select an option
+                </option>
                 <option value="Honey">Honey</option>
                 <option value="Wax">Wax</option>
               </Form.Select>
