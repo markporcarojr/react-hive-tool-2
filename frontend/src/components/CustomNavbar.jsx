@@ -8,13 +8,11 @@ import logoPng3x from "../assets/images/hive_tool@3x.png";
 import UserContext from "../context/UserContext.jsx";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import cookies from "js-cookie";
 
 function CustomNavbar() {
   const { user, setUser } = useContext(UserContext);
   const logout = () => {
     localStorage.removeItem("token");
-    cookies.remove("userCookie");
     setUser(null); // Clear user context
   };
   return (

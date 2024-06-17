@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function InspectionCard({ inspection }) {
+  if (!inspection) {
+    return <div>No hive data available</div>;
+  }
   const {
     hiveNumber,
     inspectionDate,

@@ -11,6 +11,7 @@ import { uploadImageToStorage } from "../../utils/firebaseUtils.js";
 const CreateHive = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [hives, setHives] = useState("");
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [sliderValue, setSliderValue] = useState(50);
@@ -26,6 +27,20 @@ const CreateHive = () => {
     setValue("hiveStrength", 50);
   }, [setValue]);
 
+  // useEffect(() => {
+  //   setLoading(true);
+  //   axios
+  //     .get(`http://localhost:5555/new-hive?userId=${user._id}`)
+  //     .then((response) => {
+  //       setHives(response.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching hive data:", error);
+  //       setLoading(false);
+  //     });
+  // }, [user]);
+
   const handleSliderChange = (e) => {
     const value = parseInt(e.target.value, 10);
     setValue("hiveStrength", value);
@@ -37,9 +52,29 @@ const CreateHive = () => {
     setValue("hiveImage", file);
   };
 
+  const checkHiveNumberExists = async (hiveNumber) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5555/check-hive-number?userId=${user._id}&hiveNumber=${hiveNumber}`
+      );
+      return response.data.exists;
+    } catch (error) {
+      console.error("Error checking hive number:", error);
+      return false;
+    }
+  };
+
   const handleSaveHive = async (data) => {
     setLoading(true);
-    setMessage(""); // Clear previous messages
+    setMessage("");
+
+    const hiveNumberExists = await checkHiveNumberExists(data.hiveNumber);
+    if (hiveNumberExists) {
+      setLoading(false);
+      setMessage("Hive Number already exists");
+      return;
+    }
+
     try {
       let imageUrl = "";
       if (data.hiveImage) {
@@ -263,7 +298,12 @@ const CreateHive = () => {
                 </button>
               </div>
             </form>
-            <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
+            <p
+              className="fw-bold fs-4 "
+              style={{ color: "#ab0a0a", textAlign: "center" }}
+            >
+              {message}
+            </p>
           </div>
         </div>
       )}

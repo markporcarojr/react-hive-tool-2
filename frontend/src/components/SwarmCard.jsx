@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { Col, Container, Card } from "react-bootstrap";
 
 const SwarmCard = ({ swarm }) => {
+  if (!swarm) {
+    return <div>No hive data available</div>;
+  }
   const { swarmNumber, location, swarmDate, userId } = swarm;
   const utcDate = new Date(swarmDate);
   const options = { timeZone: "UTC" };

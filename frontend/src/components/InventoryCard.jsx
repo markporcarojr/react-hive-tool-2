@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { Col, Container, Card } from "react-bootstrap";
 
 const InventoryCard = ({ inventory }) => {
+  if (!inventory) {
+    return <div>No hive data available</div>;
+  }
   const { inventoryAmount, inventoryType, inventoryLocation, userId } =
     inventory;
   return (

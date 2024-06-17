@@ -4,13 +4,13 @@ import Footer from "../../components/Footer";
 import { Link } from "react-router-dom";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
-import HarvestCard from "../../components/HarvestCard";
 import UserContext from "../../context/UserContext";
 import { Modal, Button, Table } from "react-bootstrap";
 import { IconContext } from "react-icons";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
+import CustomModal from "../../components/Modal.jsx";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);
@@ -133,33 +133,13 @@ export default function Harvest() {
             </Table>
           </>
         )}
-        <Modal show={showModal} onHide={handleCloseModal}>
-          <div
-            style={{ borderColor: "#ffcb05" }}
-            className="modal-border bg-card"
-          >
-            <Modal.Header className="d-flex justify-content-around">
-              <Modal.Title className="text-michgold fs-3 fw-bold">
-                Harvest Details
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body className="border-michgold rounded-5 border-3 bg-card">
-              {selectedHarvest && <HarvestCard harvest={selectedHarvest} />}
-            </Modal.Body>
-            <Modal.Footer className="d-flex justify-content-center">
-              <div className="d-grid gap-2">
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  onClick={handleCloseModal}
-                  as="block"
-                >
-                  Close
-                </Button>
-              </div>
-            </Modal.Footer>
-          </div>
-        </Modal>
+
+        <CustomModal
+          show={showModal}
+          onHide={handleCloseModal}
+          selectedItem={selectedHarvest}
+          cardType="harvest"
+        />
       </div>
 
       <Footer />

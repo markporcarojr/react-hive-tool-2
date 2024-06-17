@@ -10,8 +10,8 @@ import UserContext from "../../context/UserContext";
 import LoadSpinner from "../../components/Spinner";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
-import InspectionCard from "../../components/InspectionCard";
 import ImageDisplay from "../../components/ImageDisplay";
+import CustomModal from "../../components/Modal";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);
@@ -206,44 +206,12 @@ const InspectionPage = () => {
               </tbody>
             </Table>
 
-            <Modal show={showModal} onHide={handleCloseModal}>
-              <div
-                style={{ borderColor: "#ffcb05" }}
-                className="modal-border bg-card"
-              >
-                <Modal.Header className="d-flex justify-content-around">
-                  <div className="container d-flex justify-content-center align-items-center">
-                    {selectedInspection && (
-                      <ImageDisplay
-                        imageUrl={selectedInspection.inspectionImage}
-                        maxHeight={"400px"}
-                        maxWidth={"400px"}
-                        style={{
-                          objectFit: "scale-down",
-                        }}
-                      />
-                    )}
-                  </div>
-                </Modal.Header>
-                <Modal.Body>
-                  {selectedInspection && (
-                    <InspectionCard inspection={selectedInspection} />
-                  )}
-                </Modal.Body>
-                <Modal.Footer className="d-flex justify-content-center">
-                  <div className="d-grid gap-2">
-                    <Button
-                      variant="secondary"
-                      size="lg"
-                      onClick={handleCloseModal}
-                      as="block"
-                    >
-                      Close
-                    </Button>
-                  </div>
-                </Modal.Footer>
-              </div>
-            </Modal>
+            <CustomModal
+              show={showModal}
+              onHide={handleCloseModal}
+              selectedItem={selectedInspection}
+              cardType="inspection"
+            />
           </>
         )}
       </div>

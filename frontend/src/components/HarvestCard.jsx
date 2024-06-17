@@ -4,6 +4,9 @@ import "../scss/styles.scss";
 import "../assets/images/honeycomb_noback.png";
 
 const HarvestCard = ({ harvest }) => {
+  if (!harvest) {
+    return <div>No hive data available</div>;
+  }
   const { harvestAmount, harvestType, harvestDate, userId } = harvest;
   console.log("Harvest Type:", harvestType);
   const utcDate = new Date(harvestDate);

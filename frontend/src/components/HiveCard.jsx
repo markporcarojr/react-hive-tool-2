@@ -5,6 +5,9 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 import { IconContext } from "react-icons";
 
 const HiveCard = ({ hive }) => {
+  if (!hive) {
+    return <div>No hive data available</div>;
+  }
   const {
     hiveNumber,
     breed,

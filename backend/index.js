@@ -13,6 +13,7 @@ import swarmRoutes from "./routes/swarmRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from './routes/authRoutes.js'
 import todoRoutes from './routes/todoRoutes.js'
+import { Hive } from "./models/hive.js";
 
 dotenv.config();
 
@@ -56,6 +57,23 @@ app.use('/swarm', swarmRoutes);
 app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/todo', todoRoutes);
+
+app.get('/check-hive-number', async (req, res) => {
+    const { userId, hiveNumber } = req.query;
+
+    try {
+        const hive = await Hive.findOne({ userId, hiveNumber }); // Assuming you have a Hive model
+        if (hive) {
+            res.json({ exists: true });
+        } else {
+            res.json({ exists: false });
+        }
+    } catch (error) {
+        console.error('Error checking hive number:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
 
 
 app.listen(PORT, () => {
