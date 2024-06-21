@@ -139,10 +139,12 @@ const UpdateUserForm = () => {
           className="mt-5 text-michgold container bg-michblue p-3 rounded-3"
           style={{ maxWidth: "500px", border: "3px solid #ffcb05" }}
         >
-          <h1 className="text-center mb-5">Update User</h1>
+          <h1 className="m-5 fw-bold text-center">UPDATE USER</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="apiaryName" className="text-michgold mb-4">
-              <Form.Label>Apiary Name:</Form.Label>
+              <Form.Label className="fs-3 m-3 fw-semibold">
+                Apiary Name
+              </Form.Label>
 
               <Form.Control
                 type="text"
@@ -154,7 +156,9 @@ const UpdateUserForm = () => {
               />
             </Form.Group>
             <Form.Group controlId="userName" className="text-michgold mb-4">
-              <Form.Label>User Name:</Form.Label>
+              <Form.Label className="fs-3 m-3 fw-semibold">
+                User Name
+              </Form.Label>
 
               <Form.Control
                 type="text"
@@ -166,7 +170,7 @@ const UpdateUserForm = () => {
               />
             </Form.Group>
             <Form.Group controlId="zipcode" className="text-michgold mb-4">
-              <Form.Label>Zipcode:</Form.Label>
+              <Form.Label className="fs-3 m-3 fw-semibold">Zipcode</Form.Label>
 
               <Form.Control
                 type="number"
@@ -178,7 +182,9 @@ const UpdateUserForm = () => {
               />
             </Form.Group>
             <Form.Group controlId="apiaryImage" className="text-michgold mb-4">
-              <Form.Label>Apiary Image:</Form.Label>
+              <Form.Label className="fs-3 m-3 fw-semibold">
+                Apiary Image
+              </Form.Label>
               <Form.Control
                 type="file"
                 placeholder="Apiary Image..."

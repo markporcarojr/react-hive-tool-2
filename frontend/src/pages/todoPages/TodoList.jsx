@@ -9,6 +9,8 @@ import UserContext from "../../context/UserContext.jsx";
 import { IconContext } from "react-icons";
 import { MdModeEditOutline } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
+import { FaBell } from "react-icons/fa";
+import NotificationForm from "../../components/NotificationForm.jsx";
 
 const TodoList = () => {
   const { user } = useContext(UserContext);
@@ -22,6 +24,38 @@ const TodoList = () => {
   const { id } = useParams();
   const [edit, setEdit] = useState(false);
   const [editTodoId, setEditTodoId] = useState(null);
+
+  // Notification state and functions
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+  const setReminder = async (email, interval, message) => {
+    try {
+      const response = await fetch("/api/set-reminder", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, interval, message }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        try {
+          const errorData = JSON.parse(errorText);
+          throw new Error(errorData.error || errorText);
+        } catch (e) {
+          throw new Error(errorText);
+        }
+      }
+
+      const dataText = await response.text();
+      const data = dataText ? JSON.parse(dataText) : {};
+      console.log("Reminder set:", data);
+    } catch (error) {
+      console.error("Error setting reminder:", error.message, error);
+    }
+  };
 
   const handleDeleteTodo = (id) => {
     setLoading(true);
@@ -222,6 +256,15 @@ const TodoList = () => {
                 <div>
                   <IconContext.Provider
                     value={{
+                      color: "gold",
+                      size: "2em",
+                      className: "darken-on-hover me-3",
+                    }}
+                  >
+                    <FaBell onClick={handleShow} size={30} />
+                  </IconContext.Provider>
+                  <IconContext.Provider
+                    value={{
                       color: "green",
                       size: "2em",
                       className: "darken-on-hover me-3",
@@ -244,6 +287,13 @@ const TodoList = () => {
           </Card>
         </Container>
       )}
+      <div className="text-michgold">
+        <NotificationForm
+          show={show}
+          handleClose={handleClose}
+          setReminder={setReminder}
+        />
+      </div>
       <Footer />
     </>
   );

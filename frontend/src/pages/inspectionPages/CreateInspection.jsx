@@ -8,14 +8,30 @@ import { useNavigate } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
 import UserContext from "../../context/UserContext.jsx";
 import { uploadImageToStorage } from "../../utils/firebaseUtils.js";
+import fetchWeatherData from "../../utils/fetchWeatherData.js";
 
 const InspectionForm = () => {
+  const curr = new Date();
+  curr.setDate(curr.getDate());
+  const currentDate = curr.toISOString().substring(0, 10);
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState();
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [hives, setHives] = useState([]);
+  const [weatherData, setWeatherData] = useState("");
   const [sliderValue, setSliderValue] = useState(50);
+  const [selectedDate, setSelectedDate] = useState(currentDate);
+
+  const weatherConditionValue =
+    weatherData && weatherData.weather && weatherData.weather[0]
+      ? weatherData.weather[0].description
+      : "";
+  const weatherTempValue =
+    weatherData && weatherData.main && weatherData.main.temp
+      ? `${Math.floor(weatherData.main.temp)} ℉`
+      : "";
 
   const {
     register,
@@ -36,18 +52,40 @@ const InspectionForm = () => {
         console.error("Error fetching hive data:", error);
         setLoading(false);
       });
-  }, [user]);
 
-  useEffect(() => {
+    // TODO: Why this is here
+
     if (user && user._id) {
       setValue("userId", user._id); // Set the userId field value
     }
-  }, [user, setValue]);
+  }, []);
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      if (user && user.zipcode) {
+        const data = await fetchWeatherData(user.zipcode);
+        if (data) {
+          setWeatherData(data.data);
+          const description = data.data.weather[0].description;
+          const temp = Math.floor(data.data.main.temp);
+
+          setValue("weatherTemp", temp);
+          setValue("weatherCondition", description);
+        }
+      }
+    };
+
+    fetchWeather();
+  }, []);
+
+  const handleDateChange = (e) => {
+    setSelectedDate(e.target.value);
+  };
 
   const handleSliderChange = (e) => {
     const value = parseInt(e.target.value, 10); // Parse slider value to integer
     setValue("hiveStrength", value);
-    setSliderValue(value); // Update slider value state
+    setSliderValue(value);
   };
 
   const handleImageUpload = (e) => {
@@ -81,8 +119,6 @@ const InspectionForm = () => {
         inspectionImage: imageUrl,
       };
 
-      console.log("Form data to be sent to backend:", formData);
-
       axios.post("http://localhost:5555/inspections", formData);
       setLoading(false);
       setMessage("Inspection added successfully.");
@@ -100,131 +136,142 @@ const InspectionForm = () => {
       {loading ? (
         <LoadSpinner />
       ) : (
-        <Container className="mt-2 mb-5" style={{ maxWidth: "700px" }}>
-          <Card className="text-michgold text-center">
+        <Container
+          style={{
+            maxWidth: "700px",
+            border: "3px solid #ffcb05",
+            borderRadius: "1em",
+          }}
+          className="mt-5"
+        >
+          <Card className="text-michgold ">
             <Card.Body>
               {/* Form */}
-              <h1 className="m-5 fw-bold">NEW INSPECTION</h1>
+              <h1 className="m-5 fw-bold text-center">NEW INSPECTION</h1>
+
               <Form
                 onSubmit={handleSubmit(handleSaveInspection)}
                 id="inspection-form"
               >
                 {/* Hive Number */}
-                <Form.Group className="m-3 fs-3 mt-0 fw-semibold">
-                  <div className="m-3 mt-0 fs-3 fw-semibold">
-                    <Form.Label htmlFor="hiveId">Hive Number</Form.Label>
-                    <Form.Select
-                      {...register("hiveId", { required: true })}
-                      id="hiveId"
-                      className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                      aria-label="select example"
-                      name="hiveId"
-                    >
-                      <option value="" disabled>
-                        Select Hive Number
-                      </option>
-                      {hives.map((hive) => (
-                        // By using JSON.stringify(hive) as the value of the <option>,
-                        // we ensure that the entire hive object is associated with each dropdown option,
-                        // enabling us to pass comprehensive hive data to the backend when the user makes a selection.
-                        <option key={hive._id} value={JSON.stringify(hive)}>
-                          {hive.hiveNumber}
-                          {/* Display hive number to the user */}
+                <div className="text-center">
+                  <Form.Group className="m-3 fs-3 mt-0 fw-semibold">
+                    <div className="m-3 mt-0 fs-3 fw-semibold">
+                      <Form.Label htmlFor="hiveId">Hive Number</Form.Label>
+                      <Form.Select
+                        {...register("hiveId", { required: true })}
+                        id="hiveId"
+                        className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                        aria-label="select example"
+                        name="hiveId"
+                      >
+                        <option value="" disabled>
+                          Select Hive Number
                         </option>
-                      ))}
-                    </Form.Select>
+                        {hives.map((hive) => (
+                          // By using JSON.stringify(hive) as the value of the <option>,
+                          // we ensure that the entire hive object is associated with each dropdown option,
+                          // enabling us to pass comprehensive hive data to the backend when the user makes a selection.
+                          <option key={hive._id} value={JSON.stringify(hive)}>
+                            {hive.hiveNumber}
+                            {/* Display hive number to the user */}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </div>
+                    {errors.hiveId && (
+                      <span className="text-danger">
+                        This field is required
+                      </span>
+                    )}
+                  </Form.Group>
+                  {/* Temperament */}
+                  <Form.Group className="m-3 fs-3 mt-0 fw-semibold mb-3">
+                    <Form.Label>Temperament</Form.Label>
+                    <div className="d-flex justify-content-evenly">
+                      <Form.Check
+                        {...register("temperament", { required: true })}
+                        type="radio"
+                        label="Dead"
+                        id="dead"
+                        name="temperament"
+                        value="⚠️ Dead"
+                      />
+                      <Form.Check
+                        {...register("temperament", { required: true })}
+                        type="radio"
+                        label="Calm"
+                        id="calm"
+                        name="temperament"
+                        value="Calm"
+                      />
+                      <Form.Check
+                        {...register("temperament", { required: true })}
+                        type="radio"
+                        label="Aggressive"
+                        id="aggressive"
+                        name="temperament"
+                        value="⚠️ Aggressive"
+                      />
+                      <Form.Check
+                        {...register("temperament", { required: true })}
+                        type="radio"
+                        label="Active"
+                        id="active"
+                        name="temperament"
+                        value="Active"
+                      />
+                    </div>
+                    {errors.temperament && (
+                      <span className="text-danger">
+                        This field is required
+                      </span>
+                    )}
+                  </Form.Group>
+                  {/* Hive Strength */}
+                  <label
+                    htmlFor="hiveStrength"
+                    className="form-label my-1 fs-3 fw-semibold"
+                  >
+                    Hive Strength
+                  </label>
+                  <div className="d-flex justify-content-evenly mb-3">
+                    <p className="mt-3" style={{ flex: 1 }}>
+                      0
+                    </p>
+                    <input
+                      {...register("hiveStrength", { required: true })}
+                      type="range"
+                      className="m-3 custom-range"
+                      min="0"
+                      max="100"
+                      id="hiveStrength"
+                      name="hiveStrength"
+                      style={{ minWidth: "60%", flex: 3 }}
+                      onChange={handleSliderChange}
+                    />
+                    <div style={{ flex: 1 }}>
+                      <span id="sliderValue" className="mt-3">
+                        {sliderValue}
+                      </span>
+                    </div>
+                    {errors.temperament && (
+                      <span className="text-danger">
+                        This field is required
+                      </span>
+                    )}
                   </div>
-                  {errors.hiveId && (
-                    <span className="text-danger">This field is required</span>
-                  )}
-                </Form.Group>
-
-                {/* Temperament */}
-                <Form.Group className="m-3 fs-3 mt-0 fw-semibold mb-3">
-                  <Form.Label>Temperament</Form.Label>
-                  <div className="d-flex justify-content-evenly">
-                    <Form.Check
-                      {...register("temperament", { required: true })}
-                      type="radio"
-                      label="Dead"
-                      id="dead"
-                      name="temperament"
-                      value="⚠️ Dead"
-                    />
-                    <Form.Check
-                      {...register("temperament", { required: true })}
-                      type="radio"
-                      label="Calm"
-                      id="calm"
-                      name="temperament"
-                      value="Calm"
-                    />
-                    <Form.Check
-                      {...register("temperament", { required: true })}
-                      type="radio"
-                      label="Aggressive"
-                      id="aggressive"
-                      name="temperament"
-                      value="⚠️ Aggressive"
-                    />
-                    <Form.Check
-                      {...register("temperament", { required: true })}
-                      type="radio"
-                      label="Active"
-                      id="active"
-                      name="temperament"
-                      value="Active"
-                    />
-                  </div>
-                  {errors.temperament && (
-                    <span className="text-danger">This field is required</span>
-                  )}
-                </Form.Group>
-
-                {/* Hive Strength */}
-
-                <label
-                  htmlFor="hiveStrength"
-                  className="form-label my-1 fs-3 fw-semibold"
-                >
-                  Hive Strength
-                </label>
-                <div className="d-flex justify-content-evenly mb-3">
-                  <p className="mt-3" style={{ flex: 1 }}>
-                    0
-                  </p>
-
-                  <input
-                    {...register("hiveStrength", { required: true })}
-                    type="range"
-                    className="m-3 custom-range"
-                    min="0"
-                    max="100"
-                    id="hiveStrength"
-                    name="hiveStrength"
-                    style={{ minWidth: "60%", flex: 3 }}
-                    onChange={handleSliderChange}
-                  />
-
-                  <div style={{ flex: 1 }}>
-                    <span id="sliderValue" className="mt-3">
-                      {sliderValue}
-                    </span>
-                  </div>
-                  {errors.temperament && (
-                    <span className="text-danger">This field is required</span>
-                  )}
                 </div>
 
                 {/* Queen, Queen Cells, Eggs */}
                 <Form.Group className="mb-3">
                   <div className="ps-0 form-check d-flex justify-content-between">
-                    <label className="fs-2 mb-0" htmlFor="eggs">
+                    <label className="fs-3 mb-0 mx-3" htmlFor="eggs">
                       Eggs
                     </label>
                     <Form.Check
                       {...register("eggs")}
-                      className="fs-2 mb-0"
+                      className="fs-3 mb-0"
                       type="checkbox"
                       id="eggs"
                       name="eggs"
@@ -232,12 +279,12 @@ const InspectionForm = () => {
                     />
                   </div>
                   <div className="ps-0 form-check d-flex justify-content-between">
-                    <label className="fs-2 mb-0" htmlFor="queen">
+                    <label className="fs-3 mb-0 mx-3" htmlFor="queen">
                       Queen Spotted
                     </label>
                     <Form.Check
                       {...register("queen")}
-                      className="fs-2 mb-0"
+                      className="fs-3 mb-0"
                       type="checkbox"
                       id="queen"
                       name="queen"
@@ -246,12 +293,12 @@ const InspectionForm = () => {
                   </div>
 
                   <div className="ps-0 form-check d-flex justify-content-between">
-                    <label className="fs-2 mb-0" htmlFor="queenCell">
+                    <label className="fs-3 mb-0 mx-3" htmlFor="queenCell">
                       Queen Cells
                     </label>
                     <Form.Check
                       {...register("queenCell")}
-                      className="fs-2 mb-0"
+                      className="fs-3 mb-0"
                       type="checkbox"
                       id="queenCell"
                       name="queenCell"
@@ -262,6 +309,9 @@ const InspectionForm = () => {
 
                 {/* Brood */}
                 <Form.Group className="mb-3">
+                  <Form.Label className="fs-3 m-3 fw-semibold">
+                    Brood Pattern
+                  </Form.Label>
                   <Form.Select
                     {...register("brood")}
                     className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
@@ -280,6 +330,9 @@ const InspectionForm = () => {
 
                 {/* Disease */}
                 <Form.Group className="mb-3">
+                  <Form.Label className="fs-3 m-3 fw-semibold">
+                    Diseases
+                  </Form.Label>
                   <Form.Select
                     {...register("disease")}
                     className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
@@ -304,7 +357,9 @@ const InspectionForm = () => {
 
                 {/* Pests */}
                 <Form.Group className="mb-3">
-                  {/* <Form.Label>Pests</Form.Label> */}
+                  <Form.Label className="fs-3 m-3 fw-semibold">
+                    Pests
+                  </Form.Label>
                   <Form.Select
                     {...register("pests")}
                     className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
@@ -324,7 +379,9 @@ const InspectionForm = () => {
 
                 {/* Feeding */}
                 <Form.Group className="mb-3">
-                  {/* <Form.Label>Pests</Form.Label> */}
+                  <Form.Label className="fs-3 m-3 fw-semibold">
+                    Feeding
+                  </Form.Label>
                   <Form.Select
                     {...register("feeding")}
                     className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
@@ -344,7 +401,9 @@ const InspectionForm = () => {
 
                 {/* Treatments */}
                 <Form.Group className="mb-3">
-                  {/* <Form.Label>Pests</Form.Label> */}
+                  <Form.Label className="fs-3 m-3 fw-semibold">
+                    Treatments
+                  </Form.Label>
 
                   <Form.Select
                     {...register("treatments")}
@@ -364,8 +423,8 @@ const InspectionForm = () => {
                 </Form.Group>
 
                 {/* Inspection Image */}
-                <Form.Group className="mb-3">
-                  <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
+                <Form.Group>
+                  <Form.Label className="m-3 fs-3 mt-3 fw-semibold">
                     Inspection Image
                   </Form.Label>
                   <Form.Control
@@ -380,8 +439,8 @@ const InspectionForm = () => {
                   />
                 </Form.Group>
                 {/* Inspection Date */}
-                <Form.Group className="mb-3">
-                  <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
+                <Form.Group className="mb-">
+                  <Form.Label className="m-3 fs-3 mt-3 fw-semibold">
                     Date
                   </Form.Label>
                   <Form.Control
@@ -390,15 +449,46 @@ const InspectionForm = () => {
                     type="date"
                     id="inspectionDate"
                     name="inspectionDate"
+                    value={selectedDate}
+                    onChange={handleDateChange}
                   />
                   {errors.inspectionDate && (
                     <span className="text-danger">This field is required</span>
                   )}
                 </Form.Group>
+                {/* Weather Temperature */}
+                <Form.Group className="mb-">
+                  <Form.Label className="m-3 fs-3 mt-3 fw-semibold">
+                    Temperature
+                  </Form.Label>
+                  <Form.Control
+                    {...register("weatherTemp", { required: false })}
+                    className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    type="text"
+                    id="weatherTemp"
+                    name="weatherTemp"
+                    value={weatherTempValue}
+                  />
+                </Form.Group>
+                {/* Weather Conditions */}
+
+                <Form.Group className="mb-3">
+                  <Form.Label className="m-3 fs-3 mt-3 fw-semibold">
+                    Weather Conditions
+                  </Form.Label>
+                  <Form.Control
+                    {...register("weatherCondition", { required: false })}
+                    className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    type="text"
+                    id="weatherCondition"
+                    name="weatherCondition"
+                    value={weatherConditionValue}
+                  />
+                </Form.Group>
 
                 {/* Inspection Note */}
                 <Form.Group className="mb-3">
-                  <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
+                  <Form.Label className="m-3 fs-3 mt-3 fw-semibold">
                     Notes
                   </Form.Label>
                   <Form.Control
@@ -417,13 +507,15 @@ const InspectionForm = () => {
                 </p>
                 <input type="hidden" {...register("userId")} />
 
-                <Button
-                  type="submit"
-                  form="inspection-form"
-                  className="btn btn-michgold rounded-pill"
-                >
-                  ADD
-                </Button>
+                <div className="d-flex justify-content-around mt-3">
+                  <Button
+                    type="submit"
+                    form="inspection-form"
+                    className="btn px-5 btn-michgold fw-bold rounded-pill"
+                  >
+                    ADD
+                  </Button>
+                </div>
               </Form>
             </Card.Body>
           </Card>

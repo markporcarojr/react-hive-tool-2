@@ -42,7 +42,7 @@ const AuthForm = ({
 
   return (
     <Container
-      className="border border-warning rounded"
+      className="border border-warning rounded mt-5"
       fluid
       style={{ maxWidth: "700px", backgroundColor: "#000000" }}
     >

@@ -94,10 +94,17 @@ const EditSwarm = () => {
       {loading ? (
         <LoadSpinner />
       ) : (
-        <Container style={{ maxWidth: "700px" }}>
-          <Card className="text-michgold text-center mt-2 mb-5">
+        <Container
+          style={{
+            maxWidth: "700px",
+            border: "3px solid #ffcb05",
+            borderRadius: "1em",
+          }}
+          className="mt-5"
+        >
+          <Card className="text-michgold  mt-2 mb-5">
             {/* Forms */}
-            <h1 className="m-5 fw-bold">EDIT SWARM TRAP</h1>
+            <h1 className="m-5 fw-bold text-center">EDIT SWARM TRAP</h1>
 
             <Form onSubmit={handleSubmit(handleEditSwarm)} id="swarm-form">
               <div className="m-3 fs-3 mt-0 fw-semibold">
@@ -155,7 +162,7 @@ const EditSwarm = () => {
             </Form>
             {/* Form end */}
 
-            <div className="d-flex justify-content-around mb-3">
+            <div className="d-flex justify-content-around mt-3">
               <Button
                 type="submit"
                 form="swarm-form"

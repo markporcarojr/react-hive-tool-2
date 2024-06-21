@@ -19,6 +19,8 @@ function InspectionCard({ inspection }) {
     treatments,
     queenCell,
     inspectionNote,
+    weatherCondition,
+    weatherTemp,
     id,
     userId,
   } = inspection;
@@ -38,6 +40,10 @@ function InspectionCard({ inspection }) {
           }`}
         >
           <div className="container text-michgold card-body d-flex justify-content-between border-bottom border-3 border-michgold">
+            <div className="text-center mt-2">
+              <p className="mb-0">{weatherCondition}</p>
+              <div>{weatherTemp} ℉</div>
+            </div>
             <h2 className="mt-1">Hive #{hiveNumber}</h2>
             <div className="text-center mt-2">
               <p className="mb-0">Inspected</p>

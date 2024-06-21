@@ -63,10 +63,17 @@ const EditInventory = () => {
       {loading ? (
         <LoadSpinner />
       ) : (
-        <Container style={{ maxWidth: "700px" }}>
-          <Card className="text-michgold text-center mt-2 mb-5">
+        <Container
+          style={{
+            maxWidth: "700px",
+            border: "3px solid #ffcb05",
+            borderRadius: "1em",
+          }}
+          className="mt-5"
+        >
+          <Card className="text-michgold  mt-2 mb-5">
             {/* Forms */}
-            <h1 className="m-5 fw-bold">EDIT ITEM</h1>
+            <h1 className="m-5 fw-bold text-center">EDIT ITEM</h1>
 
             <Form
               id="inventory-form"

@@ -36,7 +36,7 @@ const EditHarvest = () => {
         console.log("Error fetching data:", error);
         setMessage(error.res.data.message);
       });
-  }, [id]);
+  }, []);
 
   const handleEditHarvest = (data) => {
     const formData = {
@@ -59,13 +59,17 @@ const EditHarvest = () => {
     <>
       <CustomNavbar />
       {loading && <LoadSpinner />}
-      <Container style={{ maxWidth: "700px" }}>
-        <Card className="text-michgold text-center mt-2 mb-5">
-          <h1 className="m-5">ADD HARVEST</h1>
-          {/* Include your partial title here */}
-
+      <Container
+        style={{
+          maxWidth: "700px",
+          border: "3px solid #ffcb05",
+          borderRadius: "1em",
+        }}
+        className="mt-5"
+      >
+        <Card className="text-michgold  mt-2 mb-5">
           {/* Forms */}
-          <h1 className="m-5">EDIT HARVEST</h1>
+          <h1 className="m-5 fw-bold text-center">EDIT HARVEST</h1>
           <Form onSubmit={handleSubmit(handleEditHarvest)} id="harvest-form">
             <div className="m-3 fs-3 mt-0 fw-semibold">
               <Form.Label htmlFor="harvestAmount">Harvest Amount</Form.Label>
@@ -123,7 +127,7 @@ const EditHarvest = () => {
               form="harvest-form"
               className="btn px-5 btn-michgold  fw-bold rounded-pill"
             >
-              ADD
+              UPDATE
             </Button>
           </div>
           <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>

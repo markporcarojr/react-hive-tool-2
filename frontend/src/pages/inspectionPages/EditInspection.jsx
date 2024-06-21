@@ -37,7 +37,9 @@ const EditInspectionForm = () => {
       .then((res) => {
         const inspectionData = res.data;
         for (const key in inspectionData) {
-          setValue(key, inspectionData[key]);
+          if (key !== "inspectionImage") {
+            setValue(key, inspectionData[key]);
+          }
         }
         setOldImageURL(inspectionData.inspectionImage);
         setSliderValue(inspectionData.hiveStrength);
@@ -47,13 +49,21 @@ const EditInspectionForm = () => {
         console.error("Error fetching hive data:", error);
         setLoading(false);
       });
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     if (user && user._id) {
       setValue("userId", user._id); // Set the userId field value
     }
-  }, [user, setValue]);
+  }, []);
+
+  const placeholderOptions = {
+    brood: "Select Brood Pattern",
+    disease: "Select Diseases",
+    pests: "Select Pests",
+    feeding: "Select Feeding",
+    treatments: "Select Treatment",
+  };
 
   const handleSliderChange = (e) => {
     const value = parseInt(e.target.value, 10); // Parse slider value to integer
@@ -113,96 +123,105 @@ const EditInspectionForm = () => {
       {loading ? (
         <LoadSpinner />
       ) : (
-        <Container className="mt-2 mb-5" style={{ maxWidth: "700px" }}>
-          <Card className="text-michgold text-center">
+        <Container
+          style={{
+            maxWidth: "700px",
+            border: "3px solid #ffcb05",
+            borderRadius: "1em",
+          }}
+          className="mt-5"
+        >
+          <Card className="text-michgold ">
             <Card.Body>
               {/* Form */}
-              <h1 className="m-5 fw-bold">EDIT INSPECTION</h1>
+              <h1 className="m-5 fw-bold text-center">EDIT INSPECTION</h1>
               <Form
                 onSubmit={handleSubmit(handleEditInspection)}
                 id="inspection-form"
               >
-                {/* Temperament */}
-                <Form.Group className="m-3 fs-3 mt-0 fw-semibold mb-3">
-                  <Form.Label>Temperament</Form.Label>
-                  <div className="d-flex justify-content-evenly">
-                    <Form.Check
-                      {...register("temperament", { required: true })}
-                      type="radio"
-                      label="Dead"
-                      id="dead"
-                      name="temperament"
-                      value="⚠️ Dead"
+                <div className="text-center">
+                  {/* Temperament */}
+                  <Form.Group className="m-3 fs-4 mt-0 fw-semibold mb-3">
+                    <Form.Label className="fs-3 m-3">Temperament</Form.Label>
+                    <div className="d-flex justify-content-evenly">
+                      <Form.Check
+                        {...register("temperament", { required: true })}
+                        type="radio"
+                        label="Dead"
+                        id="dead"
+                        name="temperament"
+                        value="⚠️ Dead"
+                      />
+                      <Form.Check
+                        {...register("temperament", { required: true })}
+                        type="radio"
+                        label="Calm"
+                        id="calm"
+                        name="temperament"
+                        value="Calm"
+                      />
+                      <Form.Check
+                        {...register("temperament", { required: true })}
+                        type="radio"
+                        label="Aggressive"
+                        id="aggressive"
+                        name="temperament"
+                        value="⚠️ Aggressive"
+                      />
+                      <Form.Check
+                        {...register("temperament", { required: true })}
+                        type="radio"
+                        label="Active"
+                        id="active"
+                        name="temperament"
+                        value="Active"
+                      />
+                    </div>
+                    {errors.temperament && (
+                      <span className="text-danger">
+                        This field is required
+                      </span>
+                    )}
+                  </Form.Group>
+                  {/* Hive Strength */}
+                  <label
+                    htmlFor="hiveStrength"
+                    className="form-label my-1 fs-3 fw-semibold"
+                  >
+                    Hive Strength
+                  </label>
+                  <div className="d-flex justify-content-evenly mb-3">
+                    <p className="mt-3" style={{ flex: 1 }}>
+                      0
+                    </p>
+                    <input
+                      {...register("hiveStrength", { required: true })}
+                      type="range"
+                      className="m-3 custom-range"
+                      min="0"
+                      max="100"
+                      id="hiveStrength"
+                      name="hiveStrength"
+                      style={{ minWidth: "60%", flex: 3 }}
+                      onChange={handleSliderChange}
                     />
-                    <Form.Check
-                      {...register("temperament", { required: true })}
-                      type="radio"
-                      label="Calm"
-                      id="calm"
-                      name="temperament"
-                      value="Calm"
-                    />
-                    <Form.Check
-                      {...register("temperament", { required: true })}
-                      type="radio"
-                      label="Aggressive"
-                      id="aggressive"
-                      name="temperament"
-                      value="⚠️ Aggressive"
-                    />
-                    <Form.Check
-                      {...register("temperament", { required: true })}
-                      type="radio"
-                      label="Active"
-                      id="active"
-                      name="temperament"
-                      value="Active"
-                    />
+                    <div style={{ flex: 1 }}>
+                      <span id="sliderValue" className="mt-3">
+                        {hiveStrength}
+                      </span>
+                    </div>
+                    {errors.temperament && (
+                      <span className="text-danger">
+                        This field is required
+                      </span>
+                    )}
                   </div>
-                  {errors.temperament && (
-                    <span className="text-danger">This field is required</span>
-                  )}
-                </Form.Group>
-
-                {/* Hive Strength */}
-
-                <label
-                  htmlFor="hiveStrength"
-                  className="form-label my-1 fs-3 fw-semibold"
-                >
-                  Hive Strength
-                </label>
-                <div className="d-flex justify-content-evenly mb-3">
-                  <p className="mt-3" style={{ flex: 1 }}>
-                    0
-                  </p>
-
-                  <input
-                    {...register("hiveStrength", { required: true })}
-                    type="range"
-                    className="m-3 custom-range"
-                    min="0"
-                    max="100"
-                    id="hiveStrength"
-                    name="hiveStrength"
-                    style={{ minWidth: "60%", flex: 3 }}
-                    onChange={handleSliderChange}
-                  />
-
-                  <div style={{ flex: 1 }}>
-                    <span id="sliderValue" className="mt-3">
-                      {hiveStrength}
-                    </span>
-                  </div>
-                  {errors.temperament && (
-                    <span className="text-danger">This field is required</span>
-                  )}
                 </div>
 
                 {/* Queen, Queen Cells, Eggs */}
                 <Form.Group className="mb-3">
                   <div className="ps-0 form-check d-flex justify-content-between">
-                    <label className="fs-2 mb-0" htmlFor="eggs">
+                    <label className="fs-3 mb-0 mx-3" htmlFor="eggs">
                       Eggs
                     </label>
                     <Form.Check
@@ -215,7 +234,7 @@ const EditInspectionForm = () => {
                     />
                   </div>
                   <div className="ps-0 form-check d-flex justify-content-between">
-                    <label className="fs-2 mb-0" htmlFor="queen">
+                    <label className="fs-3 mb-0 mx-3" htmlFor="queen">
                       Queen Spotted
                     </label>
                     <Form.Check
@@ -229,7 +248,7 @@ const EditInspectionForm = () => {
                   </div>
 
                   <div className="ps-0 form-check d-flex justify-content-between">
-                    <label className="fs-2 mb-0" htmlFor="queenCell">
+                    <label className="fs-3 mb-0 mx-3" htmlFor="queenCell">
                       Queen Cells
                     </label>
                     <Form.Check
@@ -245,6 +264,9 @@ const EditInspectionForm = () => {
 
                 {/* Brood */}
                 <Form.Group className="mb-3">
+                  <Form.Label className="fs-3 m-3 fw-semibold">
+                    Brood Pattern
+                  </Form.Label>
                   <Form.Select
                     {...register("brood")}
                     className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
@@ -252,9 +274,6 @@ const EditInspectionForm = () => {
                     aria-label="select example"
                     name="brood"
                   >
-                    <option value="" disabled>
-                      Brood Pattern
-                    </option>
                     <option value="Normal Brood">Normal</option>
                     <option value="Spotty Brood">Spotty</option>
                     <option value="Compact Brood">Compact</option>
@@ -263,6 +282,9 @@ const EditInspectionForm = () => {
 
                 {/* Disease */}
                 <Form.Group className="mb-3">
+                  <Form.Label className="fs-3 m-3 fw-semibold">
+                    Diseases
+                  </Form.Label>
                   <Form.Select
                     {...register("disease")}
                     className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
@@ -270,9 +292,6 @@ const EditInspectionForm = () => {
                     aria-label="select example"
                     name="disease"
                   >
-                    <option value="" disabled>
-                      Select Diseases
-                    </option>
                     <option value="">No Diseases</option>
                     <option value="⚠️ Varroa Mites">Varroa Mites</option>
                     <option value="⚠️ Chalkbrood">Chalkbrood</option>
@@ -288,7 +307,9 @@ const EditInspectionForm = () => {
 
                 {/* Pests */}
                 <Form.Group className="mb-3">
-                  {/* <Form.Label>Pests</Form.Label> */}
+                  <Form.Label className="fs-3 m-3 fw-semibold">
+                    Pests
+                  </Form.Label>
                   <Form.Select
                     {...register("pests")}
                     className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
@@ -296,9 +317,6 @@ const EditInspectionForm = () => {
                     aria-label="select example"
                     name="pests"
                   >
-                    <option value="" disabled>
-                      Select Pests
-                    </option>
                     <option value="">No Pests</option>
                     <option value="⚠️ Wax moths">Wax Moths</option>
                     <option value="⚠️ Mice">Mice</option>
@@ -309,7 +327,9 @@ const EditInspectionForm = () => {
 
                 {/* Feeding */}
                 <Form.Group className="mb-3">
-                  {/* <Form.Label>Pests</Form.Label> */}
+                  <Form.Label className="fs-3 m-3 fw-semibold">
+                    Feeding
+                  </Form.Label>
                   <Form.Select
                     {...register("feeding")}
                     className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
@@ -317,9 +337,6 @@ const EditInspectionForm = () => {
                     aria-label="select example"
                     name="feeding"
                   >
-                    <option value="" disabled>
-                      Select Feeding
-                    </option>
                     <option value="">No Feeding</option>
                     <option value="Fondant">Fondant</option>
                     <option value="Pollen Patty">Pollen Patty</option>
@@ -328,8 +345,10 @@ const EditInspectionForm = () => {
                 </Form.Group>
 
                 {/* Treatments */}
-                <Form.Group className="mb-3">
-                  {/* <Form.Label>Pests</Form.Label> */}
+                <Form.Group>
+                  <Form.Label className="fs-3 m-3 fw-semibold">
+                    Treatments
+                  </Form.Label>
 
                   <Form.Select
                     {...register("treatments")}
@@ -350,7 +369,7 @@ const EditInspectionForm = () => {
 
                 {/* Inspection Image */}
                 <Form.Group className="mb-3">
-                  <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
+                  <Form.Label className="m-3 fs-3 fw-semibold">
                     Inspection Image
                   </Form.Label>
                   <Form.Control
@@ -402,13 +421,15 @@ const EditInspectionForm = () => {
                 </p>
                 <input type="hidden" {...register("userId")} />
 
-                <Button
-                  type="submit"
-                  form="inspection-form"
-                  className="btn btn-michgold rounded-pill"
-                >
-                  ADD
-                </Button>
+                <div className="d-flex justify-content-around">
+                  <Button
+                    type="submit"
+                    form="inspection-form"
+                    className="btn px-5 btn-michgold fw-bold rounded-pill"
+                  >
+                    UPDATE
+                  </Button>
+                </div>
               </Form>
             </Card.Body>
           </Card>

@@ -70,6 +70,14 @@ const inspectionSchema = new Schema({
         ref: 'Hive',
         required: true
     },
+    weatherCondition: {
+        type: String,
+        required: false
+    },
+    weatherTemp: {
+        type: String,
+        required: false
+    },
 },
     {
         timestamps: true,

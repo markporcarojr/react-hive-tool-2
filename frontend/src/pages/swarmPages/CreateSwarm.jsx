@@ -29,7 +29,6 @@ const CreateSwarm = () => {
 
   const handleSaveSwarm = async (data) => {
     setLoading(true);
-    setMessage(""); // Clear previous messages
 
     try {
       let imageUrl = "";
@@ -60,12 +59,19 @@ const CreateSwarm = () => {
       {loading ? (
         <LoadSpinner />
       ) : (
-        <Container style={{ maxWidth: "700px" }}>
-          <Card className="text-michgold text-center mt-2 mb-5">
+        <Container
+          style={{
+            maxWidth: "700px",
+            border: "3px solid #ffcb05",
+            borderRadius: "1em",
+          }}
+          className="mt-5"
+        >
+          <Card className="text-michgold  mt-2 mb-5">
             {/* Include partial title here */}
 
             {/* Forms */}
-            <h1 className="m-5 fw-bold">NEW SWARM TRAP</h1>
+            <h1 className="m-5 fw-bold text-center">NEW SWARM TRAP</h1>
 
             <Form onSubmit={handleSubmit(handleSaveSwarm)} id="swarm-form">
               <div className="m-3 fs-3 mt-0 fw-semibold">
@@ -123,7 +129,7 @@ const CreateSwarm = () => {
             </Form>
             {/* Form end */}
 
-            <div className="d-flex justify-content-around mb-3">
+            <div className="d-flex justify-content-around mt-3">
               <Button
                 type="submit"
                 form="swarm-form"

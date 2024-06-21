@@ -12,12 +12,6 @@ import { MdModeEditOutline } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
 import CustomModal from "../../components/Modal";
 
-const formatDate = (dateString) => {
-  const utcDate = new Date(dateString);
-  const options = { timeZone: "UTC" };
-  return utcDate.toLocaleDateString("en-US", options);
-};
-
 const Inventory = () => {
   const [inventorys, setInventorys] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -37,7 +31,7 @@ const Inventory = () => {
         console.error("Error fetching inventory data:", error);
         setLoading(false);
       });
-  }, [user]);
+  }, []);
 
   const handleClick = (inventory) => {
     setSelectedInventory(inventory);

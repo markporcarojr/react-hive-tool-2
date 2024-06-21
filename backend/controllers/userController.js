@@ -111,7 +111,7 @@ export const loginUser = async (req, res) => {
 export const registerUser = async (req, res) => {
     try {
         const { email, password, apiaryName, zipcode, apiaryImage } = req.body;
-        if (!email || !password || !apiaryName) {
+        if (!email || !password) {
             return res.send({
                 message: 'All fields are required'
             })

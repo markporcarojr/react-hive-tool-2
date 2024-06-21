@@ -42,10 +42,16 @@ const CreateHarvest = () => {
     <>
       <CustomNavbar />
       {loading && <LoadSpinner />}
-      <Container style={{ maxWidth: "700px" }}>
-        <Card className="text-michgold text-center mt-2 mb-5">
-          <h1 className="m-5">ADD HARVEST</h1>
-          {/* Include your partial title here */}
+      <Container
+        style={{
+          maxWidth: "700px",
+          border: "3px solid #ffcb05",
+          borderRadius: "1em",
+        }}
+        className="mt-5"
+      >
+        <Card className="text-michgold  mt-2 mb-5">
+          <h1 className="m-5 fw-bold text-center">ADD HARVEST</h1>
 
           {/* Forms */}
           <Form onSubmit={handleSubmit(handleSaveHarvest)} id="harvest-form">

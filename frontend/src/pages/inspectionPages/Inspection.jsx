@@ -44,7 +44,7 @@ const InspectionPage = () => {
         console.error("Error fetching inspection data:", error);
         setLoading(false);
       });
-  }, [user._id]);
+  }, []);
 
   const handleShowModal = (inspection) => {
     setSelectedInspection(inspection);

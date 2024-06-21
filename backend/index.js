@@ -13,6 +13,8 @@ import swarmRoutes from "./routes/swarmRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from './routes/authRoutes.js'
 import todoRoutes from './routes/todoRoutes.js'
+import notificationRoutes from "./routes/notificationRoutes.js"
+
 import { Hive } from "./models/hive.js";
 
 dotenv.config();
@@ -57,6 +59,7 @@ app.use('/swarm', swarmRoutes);
 app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/todo', todoRoutes);
+app.use('/api', notificationRoutes);
 
 app.get('/check-hive-number', async (req, res) => {
     const { userId, hiveNumber } = req.query;

@@ -25,11 +25,11 @@ const formatDate = (dateString) => {
 const Home = () => {
   const [hives, setHives] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { user } = useContext(UserContext);
   const [weatherData, setWeatherData] = useState(null);
   const [weatherIcon, setWeatherIcon] = useState("");
-  const [state, setState] = useState("");
+  const [location, setLocation] = useState("");
   const [backgroundImage, setBackgroundImage] = useState(null);
+  const { user } = useContext(UserContext);
   const { id } = useParams();
 
   const [selectedHive, setSelectedHive] = useState(null);
@@ -42,13 +42,13 @@ const Home = () => {
         if (data) {
           setWeatherData(data.data);
           setWeatherIcon(data.iconUrl);
-          setState(data.state);
+          setLocation(data.state);
         }
       }
     };
 
     fetchWeather();
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -67,7 +67,7 @@ const Home = () => {
     };
 
     fetchUserData();
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -81,7 +81,7 @@ const Home = () => {
         console.error("Error fetching hive data:", error);
         setLoading(false);
       });
-  }, [user]);
+  }, []);
 
   const handleShowModal = (hive) => {
     setSelectedHive(hive);
@@ -121,7 +121,7 @@ const Home = () => {
               className="d-flex card-text fs-3 justify-content-center align-items-center"
               id="city"
             >
-              {weatherData.name}, {state}
+              {weatherData.name}, {location}
             </span>
             <div className="d-flex fs-2 justify-content-center align-items-center">
               <span className="card-text mb-0">
@@ -170,10 +170,6 @@ const Home = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* .sort(
-                    (a, b) =>
-                      new Date(b.inspectionDate) - new Date(a.inspectionDate)
-                  ) */}
                 {hives.map((hive) => (
                   <tr key={hive._id} className="text-center align-middle">
                     <td className="text-center">

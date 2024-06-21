@@ -6,6 +6,7 @@ import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import UserContext from "../../context/UserContext.jsx";
+import { Container } from "react-bootstrap";
 import {
   uploadImageToStorage,
   deleteImageFromStorage,
@@ -48,7 +49,7 @@ const EditHive = () => {
         console.log("Error fetching data:", error);
         setMessage(error.response.data.message);
       });
-  }, [id, setValue]);
+  }, []);
 
   const handleSliderChange = (e) => {
     const value = parseInt(e.target.value, 10);
@@ -102,178 +103,189 @@ const EditHive = () => {
       <CustomNavbar />
       {loading && <LoadSpinner />}
       {!loading && (
-        <div className="container" style={{ maxWidth: "700px" }}>
-          <div className="card text-michgold text-center mt-2 mb-5">
-            <h1 className="m-5">EDIT HIVE</h1>
-            <form id="hive-form" onSubmit={handleSubmit(handleEditHive)}>
-              <div className="m-3 fs-3 mt-0 fw-semibold text-center">
-                <label htmlFor="hiveSource" className="form-label mb-3">
-                  Hive Source
-                </label>
-                <select
-                  {...register("hiveSource", { required: true })}
-                  name="hiveSource"
-                  id="hiveSource"
-                  className="form-select mb-2 text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                >
-                  <option value="">Choose Source</option>
-                  <option value="Nucleus">Nucleus</option>
-                  <option value="Package">Package</option>
-                  <option value="Capture Swarm">Capture Swarm</option>
-                  <option value="Split">Split</option>
-                </select>
-                {errors.hiveSource && (
-                  <p className="text-danger">Hive Source is required</p>
-                )}
+        <Container
+          style={{
+            maxWidth: "700px",
+            border: "3px solid #ffcb05",
+            borderRadius: "1em",
+          }}
+          className="mt-5"
+        >
+          <div>
+            <div className="card text-michgold  mt-2 mb-5">
+              <h1 className="m-5 fw-bold text-center">EDIT HIVE</h1>
+              <form id="hive-form" onSubmit={handleSubmit(handleEditHive)}>
+                <div className="m-3 fs-3 mt-0 fw-semibold ">
+                  <label htmlFor="hiveSource" className="form-label m-3">
+                    Hive Source
+                  </label>
+                  <select
+                    {...register("hiveSource", { required: true })}
+                    name="hiveSource"
+                    id="hiveSource"
+                    className="form-select mb-2 text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  >
+                    <option value="">Choose Source</option>
+                    <option value="Nucleus">Nucleus</option>
+                    <option value="Package">Package</option>
+                    <option value="Capture Swarm">Capture Swarm</option>
+                    <option value="Split">Split</option>
+                  </select>
+                  {errors.hiveSource && (
+                    <p className="text-danger">Hive Source is required</p>
+                  )}
 
-                <label htmlFor="breed" className="form-label m-3">
-                  Breed
-                </label>
-                <select
-                  {...register("breed")}
-                  name="breed"
-                  id="breed"
-                  className="form-select mb-2 text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                >
-                  <option className="text-center">Choose Breed</option>
-                  <option value="Unknown">Unknown</option>
-                  <option value="Italian">Italian</option>
-                  <option value="Carniolan">Carniolan</option>
-                  <option value="Buckfast">Buckfast</option>
-                  <option value="Russian">Russian</option>
-                  <option value="German">German</option>
-                  <option value="Caucasian">Caucasian</option>
-                </select>
+                  <label htmlFor="breed" className="form-label m-3">
+                    Breed
+                  </label>
+                  <select
+                    {...register("breed")}
+                    name="breed"
+                    id="breed"
+                    className="form-select mb-2 text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  >
+                    <option className="text-center">Choose Breed</option>
+                    <option value="Unknown">Unknown</option>
+                    <option value="Italian">Italian</option>
+                    <option value="Carniolan">Carniolan</option>
+                    <option value="Buckfast">Buckfast</option>
+                    <option value="Russian">Russian</option>
+                    <option value="German">German</option>
+                    <option value="Caucasian">Caucasian</option>
+                  </select>
 
-                <label htmlFor="queenColor" className="form-label m-3">
-                  Queen Color
-                </label>
-                <input
-                  {...register("queenColor")}
-                  type="text"
-                  className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  id="queenColor"
-                  name="queenColor"
-                />
+                  <label htmlFor="queenColor" className="form-label m-3">
+                    Queen Color
+                  </label>
+                  <input
+                    {...register("queenColor")}
+                    type="text"
+                    className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    id="queenColor"
+                    name="queenColor"
+                  />
 
-                <label htmlFor="queenAge" className="form-label m-3">
-                  Queen Age
-                </label>
-                <input
-                  {...register("queenAge")}
-                  type="number"
-                  className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  id="queenAge"
-                  name="queenAge"
-                />
-                <label htmlFor="queenExcluder" className="form-label m-3">
-                  Queen Excluder
-                </label>
-                <select
-                  {...register("queenExcluder")}
-                  name="queenExcluder"
-                  id="queenExcluder"
-                  className="form-select  text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                >
-                  <option value="">Select an option</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
+                  <label htmlFor="queenAge" className="form-label m-3">
+                    Queen Age
+                  </label>
+                  <input
+                    {...register("queenAge")}
+                    type="number"
+                    className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    id="queenAge"
+                    name="queenAge"
+                  />
+                  <label htmlFor="queenExcluder" className="form-label m-3">
+                    Queen Excluder
+                  </label>
+                  <select
+                    {...register("queenExcluder")}
+                    name="queenExcluder"
+                    id="queenExcluder"
+                    className="form-select  text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                  >
+                    <option value="">Select an option</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
 
-                <label htmlFor="broodBoxes" className="form-label m-3">
-                  Number of Brood Boxes
-                </label>
-                <input
-                  {...register("broodBoxes")}
-                  type="number"
-                  className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  id="broodBoxes"
-                  name="broodBoxes"
-                  aria-describedby="broodBoxes"
-                />
+                  <label htmlFor="broodBoxes" className="form-label m-3">
+                    Number of Brood Boxes
+                  </label>
+                  <input
+                    {...register("broodBoxes")}
+                    type="number"
+                    className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    id="broodBoxes"
+                    name="broodBoxes"
+                    aria-describedby="broodBoxes"
+                  />
 
-                <label htmlFor="superBoxes" className="form-label m-3">
-                  Number of Super Boxes
-                </label>
-                <input
-                  {...register("superBoxes")}
-                  type="number"
-                  className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  id="superBoxes"
-                  name="superBoxes"
-                  aria-describedby="superBoxes"
-                />
-                <label htmlFor="hiveImage" className="form-label m-3">
-                  Hive Image
-                </label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  capture="camera"
-                  className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
-                  id="hiveImage"
-                  name="hiveImage"
-                  onChange={handleImageUpload}
-                />
+                  <label htmlFor="superBoxes" className="form-label m-3">
+                    Number of Super Boxes
+                  </label>
+                  <input
+                    {...register("superBoxes")}
+                    type="number"
+                    className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    id="superBoxes"
+                    name="superBoxes"
+                    aria-describedby="superBoxes"
+                  />
+                  <label htmlFor="hiveImage" className="form-label m-3">
+                    Hive Image
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    capture="camera"
+                    className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    id="hiveImage"
+                    name="hiveImage"
+                    onChange={handleImageUpload}
+                  />
 
-                <label
-                  htmlFor="hiveDate"
-                  className="form-label fs-3 fw-semibold my-3"
-                >
-                  Date
-                </label>
-                <input
-                  {...register("hiveDate", { required: true })}
-                  type="date"
-                  className="form-control text-center bg-inputgrey border-3 text-white border-michgold rounded-4 opacity-85 fw-bold"
-                  id="hiveDate"
-                  name="hiveDate"
-                />
-                {errors.hiveDate && (
-                  <p className="text-danger">Date is required</p>
-                )}
-              </div>
-
-              <label
-                htmlFor="hiveStrength"
-                className="form-label my-1 fs-3 fw-semibold"
-              >
-                Hive Strength
-              </label>
-              <div className="d-flex justify-content-evenly mb-3">
-                <p className="mt-3" style={{ flex: 1 }}>
-                  0
-                </p>
-                <input
-                  {...register("hiveStrength", { required: true })}
-                  type="range"
-                  className="m-3 custom-range"
-                  min="0"
-                  max="100"
-                  id="hiveStrength"
-                  name="hiveStrength"
-                  style={{ minWidth: "60%", flex: 3 }}
-                  onChange={handleSliderChange}
-                />
-                <div style={{ flex: 1 }}>
-                  <span id="sliderValue" className="mt-3">
-                    {hiveStrength}
-                  </span>
+                  <label
+                    htmlFor="hiveDate"
+                    className="form-label fs-3 fw-semibold m-3"
+                  >
+                    Date
+                  </label>
+                  <input
+                    {...register("hiveDate", { required: true })}
+                    type="date"
+                    className="form-control text-center bg-inputgrey border-3 text-white border-michgold rounded-4 opacity-85 fw-bold"
+                    id="hiveDate"
+                    name="hiveDate"
+                  />
+                  {errors.hiveDate && (
+                    <p className="text-danger">Date is required</p>
+                  )}
                 </div>
-              </div>
-              <div className="d-flex justify-content-around mb-3">
-                <button
-                  type="submit"
-                  form="hive-form"
-                  className="btn px-5 btn-michgold fw-bold rounded-pill"
-                >
-                  UPDATE
-                </button>
-              </div>
-            </form>
-            <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
+
+                <div className="text-center">
+                  <label
+                    htmlFor="hiveStrength"
+                    className="form-label m-3 text-center fs-3 fw-semibold"
+                  >
+                    Hive Strength
+                  </label>
+                </div>
+                <div className="d-flex justify-content-evenly mb-3">
+                  <p className="m-3" style={{ flex: 1 }}>
+                    0
+                  </p>
+                  <input
+                    {...register("hiveStrength", { required: true })}
+                    type="range"
+                    className="m-3 custom-range"
+                    min="0"
+                    max="100"
+                    id="hiveStrength"
+                    name="hiveStrength"
+                    style={{ minWidth: "60%", flex: 3 }}
+                    onChange={handleSliderChange}
+                  />
+                  <div style={{ flex: 1 }}>
+                    <span id="sliderValue" className="mt-3">
+                      {hiveStrength}
+                    </span>
+                  </div>
+                </div>
+                <div className="d-flex justify-content-around mb-3">
+                  <button
+                    type="submit"
+                    form="hive-form"
+                    className="btn px-5 btn-michgold fw-bold rounded-pill"
+                  >
+                    UPDATE
+                  </button>
+                </div>
+              </form>
+              <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
+            </div>
           </div>
-        </div>
+        </Container>
       )}
       <Footer />
     </>
