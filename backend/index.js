@@ -4,6 +4,7 @@ import connectDB from "../backend/config/db.js"
 import cors from "cors";
 import dotenv from 'dotenv';
 import session from 'express-session';
+import MongoStore from "connect-mongo";
 
 import hiveRoutes from "./routes/hiveRoutes.js";
 import inspectionRoutes from "./routes/inspectionRoutes.js";
@@ -21,6 +22,15 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5555;
+
+const store = MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: process.env.SESSION_SECRET_KEY
+    }
+})
+
 connectDB();
 
 // ****************************************  MiddleWare  **************************************
@@ -34,20 +44,17 @@ app.use(
     })
 );
 
-app.use(
-    session({
-        name: 'session',
-        secret: process.env.SESSION_SECRET_KEY,
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            maxAge: 24 * 60 * 60 * 1000,
-            httpOnly: true,
-            secure: false,
-        },
-    })
-);
-
+app.use(session({
+    store,
+    secret: process.env.SESSION_SECRET_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000, // 1 day
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+    }
+}));
 
 // ****************************************  Routes  **************************************
 
