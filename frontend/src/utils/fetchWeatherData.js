@@ -6,7 +6,7 @@ const fetchWeatherData = async (zipcode) => {
   try {
     const apiKey = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
     const response = await axios.get(
-      `https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&appid=${apiKey}&units=imperial`
+      `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&appid=${apiKey}&units=imperial`
     );
 
     const { lat, lon } = response.data.coord;
@@ -39,7 +39,7 @@ const fetchWeatherData = async (zipcode) => {
         iconUrl = "";
     }
     const geocodeResponse = await axios.get(
-      `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`
+      `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`
     );
 
     const state = geocodeResponse.data[0].state;
