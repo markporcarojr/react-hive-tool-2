@@ -35,16 +35,22 @@ connectDB();
 
 // ****************************************  MiddleWare  **************************************
 
-app.use(express.json());
+// app.use(express.json());
+// app.use(
+//     cors({
+//         origin: ["https://hive-tool.netlify.app", "https://api.openweathermap.org"],
+//         methods: "GET, POST, PUT, DELETE, PATCH",
+//         credentials: true,
+//     })
+// );
+
 app.use(
     cors({
-        origin: ["https://hive-tool.netlify.app", "https://api.openweathermap.org"],
+        origin: "*",
         methods: "GET, POST, PUT, DELETE, PATCH",
         credentials: true,
     })
 );
-
-
 
 app.use(session({
     store,
