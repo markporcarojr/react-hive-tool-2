@@ -65,7 +65,7 @@ const AuthForm = ({
           </div>
         </Row>
         <Row className="justify-content-center">
-          <Col md={6} className="text-center">
+          <Col xs={12} sm={10} md={8} lg={6} className="text-center">
             <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
             {formFields.map((field, index) => (
               <Form.Group
@@ -103,13 +103,19 @@ const AuthForm = ({
                 {buttonText}
               </Button>
               {isLogin && (
-                <Button
-                  type="button"
-                  className="btn-michgold btn-gold rounded-pill px-5 mb-2"
-                  onClick={onGuestLogin}
-                >
-                  GUEST LOGIN
-                </Button>
+                <div>
+                  <Row className="justify-content-center mb-3">
+                    <Col xs={12} sm={10} md={8} lg={6}>
+                      <Button
+                        type="button"
+                        className="btn-michgold btn-gold rounded-pill px-5 text-center"
+                        onClick={onGuestLogin}
+                      >
+                        GUEST LOGIN
+                      </Button>
+                    </Col>
+                  </Row>
+                </div>
               )}
               <a
                 href={linkHref}
