@@ -83,9 +83,7 @@ const Login = () => {
         isLogin={true}
         onGuestLogin={handleGuestLogin}
       />
-      <div className="guest-login">
-        <button onClick={handleGuestLogin}>Use Guest Account</button>
-      </div>
+
       <Footer />
     </>
   );
