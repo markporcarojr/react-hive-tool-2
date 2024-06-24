@@ -46,6 +46,14 @@ const Login = () => {
     }
   };
 
+  const handleGuestLogin = async () => {
+    const guestCredentials = {
+      email: "guest@guest",
+      password: "guest",
+    };
+    await handleSubmit(guestCredentials);
+  };
+
   const formFields = [
     {
       name: "email",
@@ -73,8 +81,11 @@ const Login = () => {
         linkText="Create Account"
         linkHref="/register"
         isLogin={true}
+        onGuestLogin={handleGuestLogin}
       />
-
+      <div className="guest-login">
+        <button onClick={handleGuestLogin}>Use Guest Account</button>
+      </div>
       <Footer />
     </>
   );

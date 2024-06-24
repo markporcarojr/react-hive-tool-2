@@ -40,8 +40,8 @@ export default function Swarm() {
       });
   }, []);
 
-  const handleClick = (harvest) => {
-    setSelectedSwarm(harvest);
+  const handleClick = (swarm) => {
+    setSelectedSwarm(swarm);
     setShowModal(true);
   };
 
@@ -86,7 +86,10 @@ export default function Swarm() {
               <tbody>
                 {swarms.map((swarm) => (
                   <tr key={swarm._id}>
-                    <td className="text-center">
+                    <td
+                      className="text-center"
+                      onClick={() => handleClick(swarm)}
+                    >
                       <ImageDisplay
                         imageUrl={swarm.swarmImage}
                         maxHeight={"100px"}

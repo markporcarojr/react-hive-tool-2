@@ -19,6 +19,7 @@ const AuthForm = ({
   linkText,
   linkHref,
   isLogin,
+  onGuestLogin,
 }) => {
   const [form, setForm] = useState(initialData);
   const [showPassword, setShowPassword] = useState({});
@@ -97,10 +98,19 @@ const AuthForm = ({
             <Form.Group>
               <Button
                 type="submit"
-                className="btn-michgold btn-gold rounded-pill px-5 m-3 "
+                className="btn-michgold btn-gold rounded-pill px-5 mt-3 mb-2 "
               >
                 {buttonText}
               </Button>
+              {isLogin && (
+                <Button
+                  type="button"
+                  className="btn-michgold btn-gold rounded-pill px-5 mb-2"
+                  onClick={onGuestLogin}
+                >
+                  GUEST LOGIN
+                </Button>
+              )}
               <a
                 href={linkHref}
                 className="d-block text-center fs-4 text-michgold mb-3"

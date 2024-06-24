@@ -172,7 +172,10 @@ const Home = () => {
               <tbody>
                 {hives.map((hive) => (
                   <tr key={hive._id} className="text-center align-middle">
-                    <td className="text-center">
+                    <td
+                      className="text-center"
+                      onClick={() => handleShowModal(hive)}
+                    >
                       <ImageDisplay
                         imageUrl={hive.hiveImage}
                         maxHeight={"10rem"}

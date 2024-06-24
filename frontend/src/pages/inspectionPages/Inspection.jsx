@@ -154,7 +154,7 @@ const InspectionPage = () => {
               <tbody>
                 {filteredInspections.map((inspection) => (
                   <tr key={inspection._id}>
-                    <td>
+                    <td onClick={() => handleShowModal(inspection)}>
                       <ImageDisplay
                         imageUrl={inspection.inspectionImage}
                         maxHeight={"10rem"}
