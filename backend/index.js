@@ -22,7 +22,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5555;
-
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
 const store = MongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
     touchAfter: 24 * 60 * 60,
