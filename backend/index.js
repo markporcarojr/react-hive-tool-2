@@ -38,7 +38,7 @@ connectDB();
 app.use(express.json());
 app.use(
     cors({
-        origin: "https://hive-tool.netlify.app",
+        origin: ["https://hive-tool.netlify.app", "https://api.openweathermap.org"],
         methods: "GET, POST, PUT, DELETE, PATCH",
         credentials: true,
     })
