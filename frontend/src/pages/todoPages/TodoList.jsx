@@ -255,7 +255,7 @@ const TodoList = () => {
                 >
                   {index + 1}- {todo.todo}
                 </h3>
-                <div>
+                <div className="d-flex flex-row align-items-center">
                   <IconContext.Provider
                     value={{
                       color: "gold",
