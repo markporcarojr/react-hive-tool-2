@@ -31,7 +31,7 @@ const EditSwarm = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/swarm/${id}`)
+      .get(`https://react-hive-tool-backend.onrender.com/swarm/${id}`)
       .then((res) => {
         setValue("swarmNumber", res.data.swarmNumber);
         setValue("location", res.data.location);
@@ -74,7 +74,10 @@ const EditSwarm = () => {
         swarmImage: imageUrl || null,
       };
 
-      await axios.put(`http://localhost:5555/swarm/${id}`, formData);
+      await axios.put(
+        `https://react-hive-tool-backend.onrender.com/swarm/${id}`,
+        formData
+      );
       if (oldImageURL && data.swarmImage instanceof File) {
         // Delete the old image
         await deleteImageFromStorage(oldImageURL);

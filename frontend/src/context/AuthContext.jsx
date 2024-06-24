@@ -10,11 +10,14 @@ const AuthProvider = ({ children }) => {
   const handleSignIn = async (email, password) => {
     try {
       // Make API call to authenticate user and receive JWT token
-      const response = await fetch("http://localhost:5555/user/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        "https://react-hive-tool-backend.onrender.com/user/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem("token", data.token); // Store JWT in localStorage

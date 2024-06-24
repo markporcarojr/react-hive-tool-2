@@ -24,7 +24,7 @@ const EditHarvest = () => {
     setLoading(true);
 
     axios
-      .get(`http://localhost:5555/harvest/${id}`)
+      .get(`https://react-hive-tool-backend.onrender.com/harvest/${id}`)
       .then((res) => {
         setValue("harvestAmount", res.data.harvestAmount);
         setValue("harvestType", res.data.harvestType);
@@ -44,7 +44,10 @@ const EditHarvest = () => {
     };
     setLoading(true);
     axios
-      .put(`http://localhost:5555/harvest/${id}`, formData)
+      .put(
+        `https://react-hive-tool-backend.onrender.com/harvest/${id}`,
+        formData
+      )
       .then(() => {
         setLoading(false);
         navigate("/harvest");

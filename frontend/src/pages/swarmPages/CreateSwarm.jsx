@@ -44,7 +44,10 @@ const CreateSwarm = () => {
         swarmImage: imageUrl || null,
       };
 
-      await axios.post("http://localhost:5555/swarm", formData);
+      await axios.post(
+        "https://react-hive-tool-backend.onrender.com/swarm",
+        formData
+      );
       setLoading(false);
       navigate("/swarm");
     } catch (error) {

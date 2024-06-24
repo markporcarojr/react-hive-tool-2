@@ -35,7 +35,9 @@ const InspectionPage = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/inspections?userId=${user._id}`)
+      .get(
+        `https://react-hive-tool-backend.onrender.com/inspections?userId=${user._id}`
+      )
       .then((response) => {
         setInspections(response.data);
         setLoading(false);

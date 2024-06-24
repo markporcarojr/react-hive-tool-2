@@ -56,7 +56,7 @@ function App() {
 
     if (token) {
       axios
-        .get(`http://localhost:5555/user/`, {
+        .get(`https://react-hive-tool-backend.onrender.com/user/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -14,9 +14,12 @@ const ResetPassword = () => {
   const handleResetPassword = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:5555/auth/reset-password/${id}/${token}`, {
-        password,
-      })
+      .post(
+        `https://react-hive-tool-backend.onrender.com/auth/reset-password/${id}/${token}`,
+        {
+          password,
+        }
+      )
       .then((res) => {
         if (res.data.Status === "Success") {
           navigate("/login");

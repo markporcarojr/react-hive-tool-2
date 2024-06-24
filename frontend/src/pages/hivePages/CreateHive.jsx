@@ -42,7 +42,7 @@ const CreateHive = () => {
   const checkHiveNumberExists = async (hiveNumber) => {
     try {
       const response = await axios.get(
-        `http://localhost:5555/check-hive-number?userId=${user._id}&hiveNumber=${hiveNumber}`
+        `https://react-hive-tool-backend.onrender.com/check-hive-number?userId=${user._id}&hiveNumber=${hiveNumber}`
       );
       return response.data.exists;
     } catch (error) {
@@ -77,7 +77,10 @@ const CreateHive = () => {
         hiveImage: imageUrl || null,
       };
 
-      await axios.post("http://localhost:5555/new-hive", formData);
+      await axios.post(
+        "https://react-hive-tool-backend.onrender.com/new-hive",
+        formData
+      );
       setLoading(false);
       setMessage("Hive added successfully.");
       navigate("/");

@@ -27,7 +27,7 @@ const CreateInventory = () => {
     };
     setLoading(true);
     axios
-      .post("http://localhost:5555/inventory", formData)
+      .post("https://react-hive-tool-backend.onrender.com/inventory", formData)
       .then(() => {
         setLoading(false);
         navigate("/inventory");

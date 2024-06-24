@@ -40,9 +40,12 @@ const UpdateUserForm = () => {
         const token = localStorage.getItem("token");
 
         //1- get response for all fields
-        const response = await axios.get(`http://localhost:5555/user`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `https://react-hive-tool-backend.onrender.com/user`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const { apiaryName, userName, zipcode, apiaryImage } =
           response.data.user;
 
@@ -106,7 +109,7 @@ const UpdateUserForm = () => {
 
         const token = localStorage.getItem("token");
         const response = await axios.patch(
-          `http://localhost:5555/user/update/${id}`,
+          `https://react-hive-tool-backend.onrender.com/user/update/${id}`,
           updatedFormData,
           { headers: { Authorization: `Bearer ${token}` } }
         );

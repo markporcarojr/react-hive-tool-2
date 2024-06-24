@@ -55,9 +55,12 @@ const Home = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5555/user", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "https://react-hive-tool-backend.onrender.com/user",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setBackgroundImage(response.data.user.apiaryImage);
         setLoading(false);
       } catch (error) {
@@ -72,7 +75,9 @@ const Home = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/new-hive?userId=${user._id}`)
+      .get(
+        `https://react-hive-tool-backend.onrender.com/new-hive?userId=${user._id}`
+      )
       .then((response) => {
         setHives(response.data);
         setLoading(false);

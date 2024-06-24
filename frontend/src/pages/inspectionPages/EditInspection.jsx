@@ -33,7 +33,7 @@ const EditInspectionForm = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/inspections/${id}`)
+      .get(`https://react-hive-tool-backend.onrender.com/inspections/${id}`)
       .then((res) => {
         const inspectionData = res.data;
         for (const key in inspectionData) {
@@ -100,7 +100,10 @@ const EditInspectionForm = () => {
         inspectionImage: imageUrl,
       };
 
-      axios.put(`http://localhost:5555/inspections/${id}`, formData);
+      axios.put(
+        `https://react-hive-tool-backend.onrender.com/inspections/${id}`,
+        formData
+      );
       if (oldImageURL && data.inspectionImage) {
         // Delete the old image
         await deleteImageFromStorage(oldImageURL);

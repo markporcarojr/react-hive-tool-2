@@ -22,7 +22,7 @@ const Register = () => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:5555/user/register",
+        "https://react-hive-tool-backend.onrender.com/user/register",
         { email: form.email, password: form.password },
         {
           headers: {

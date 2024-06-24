@@ -14,7 +14,7 @@ const DeleteSwarm = () => {
   const handleDeleteSwarm = () => {
     setLoading(true);
     axios
-      .delete(`http://localhost:5555/swarm/${id}`)
+      .delete(`https://react-hive-tool-backend.onrender.com/swarm/${id}`)
       .then(() => {
         setLoading(false);
         navigate("/swarm");

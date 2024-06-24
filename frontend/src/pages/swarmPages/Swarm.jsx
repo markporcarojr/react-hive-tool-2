@@ -29,7 +29,9 @@ export default function Swarm() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/swarm?userId=${user._id}`)
+      .get(
+        `https://react-hive-tool-backend.onrender.com/swarm?userId=${user._id}`
+      )
       .then((response) => {
         setSwarms(response.data);
         setLoading(false);

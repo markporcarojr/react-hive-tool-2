@@ -22,7 +22,9 @@ const Inventory = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/inventory?userId=${user._id}`)
+      .get(
+        `https://react-hive-tool-backend.onrender.com/inventory?userId=${user._id}`
+      )
       .then((response) => {
         setInventorys(response.data);
         setLoading(false);

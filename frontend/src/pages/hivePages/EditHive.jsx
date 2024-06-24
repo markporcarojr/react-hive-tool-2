@@ -33,7 +33,7 @@ const EditHive = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/new-hive/${id}`)
+      .get(`https://react-hive-tool-backend.onrender.com/new-hive/${id}`)
       .then((res) => {
         // this helped clean up the code!
         const hiveData = res.data;
@@ -80,7 +80,10 @@ const EditHive = () => {
         hiveImage: imageUrl, // Use the new or old image URL
       };
 
-      await axios.put(`http://localhost:5555/new-hive/${id}`, formData);
+      await axios.put(
+        `https://react-hive-tool-backend.onrender.com/new-hive/${id}`,
+        formData
+      );
 
       if (oldImageURL && data.hiveImage instanceof File) {
         // Delete the old image only if a new image was uploaded

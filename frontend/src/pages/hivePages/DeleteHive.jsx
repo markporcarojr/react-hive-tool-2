@@ -17,7 +17,9 @@ const DeleteHive = () => {
     setLoading(true);
     try {
       // Delete the image from Firebase Storage
-      const response = await axios.get(`http://localhost:5555/new-hive/${id}`);
+      const response = await axios.get(
+        `https://react-hive-tool-backend.onrender.com/new-hive/${id}`
+      );
       const hive = response.data;
       // fixed bug, if user has no image
       if (hive.hiveImage) {
@@ -25,7 +27,9 @@ const DeleteHive = () => {
       }
 
       // Now delete the hive from your API
-      await axios.delete(`http://localhost:5555/new-hive/${id}`);
+      await axios.delete(
+        `https://react-hive-tool-backend.onrender.com/new-hive/${id}`
+      );
       setLoading(false);
       navigate("/");
     } catch (error) {

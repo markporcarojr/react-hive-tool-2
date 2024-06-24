@@ -19,9 +19,12 @@ const NotificationForm = ({ show, handleClose, setReminder }) => {
         const token = localStorage.getItem("token");
 
         //1- get response for all fields
-        const response = await axios.get(`http://localhost:5555/user`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `https://react-hive-tool-backend.onrender.com/user`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const { email } = response.data.user;
 
         setEmail(email);
