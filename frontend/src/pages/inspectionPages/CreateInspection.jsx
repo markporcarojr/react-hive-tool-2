@@ -507,7 +507,7 @@ const InspectionForm = () => {
                 </p>
                 <input type="hidden" {...register("userId")} />
 
-                <div className="d-flex justify-content-around mt-3">
+                <div className="d-flex justify-content-around m-5">
                   <Button
                     type="submit"
                     form="inspection-form"

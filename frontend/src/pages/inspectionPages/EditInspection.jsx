@@ -421,7 +421,7 @@ const EditInspectionForm = () => {
                 </p>
                 <input type="hidden" {...register("userId")} />
 
-                <div className="d-flex justify-content-around">
+                <div className="d-flex justify-content-around m-5">
                   <Button
                     type="submit"
                     form="inspection-form"

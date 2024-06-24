@@ -288,7 +288,7 @@ const CreateHive = () => {
                     <p className="text-danger fs-5">Date is required</p>
                   )}
                 </div>
-                <div className="d-flex justify-content-around mb-3">
+                <div className="d-flex justify-content-around mt-5">
                   <button
                     type="submit"
                     form="hive-form"

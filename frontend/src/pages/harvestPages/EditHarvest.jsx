@@ -72,7 +72,9 @@ const EditHarvest = () => {
           <h1 className="m-5 fw-bold text-center">EDIT HARVEST</h1>
           <Form onSubmit={handleSubmit(handleEditHarvest)} id="harvest-form">
             <div className="m-3 fs-3 mt-0 fw-semibold">
-              <Form.Label htmlFor="harvestAmount">Harvest Amount</Form.Label>
+              <Form.Label htmlFor="harvestAmount" className="m-3">
+                Harvest Amount
+              </Form.Label>
               <Form.Control
                 {...register("harvestAmount", { required: true })}
                 type="number"
@@ -86,7 +88,9 @@ const EditHarvest = () => {
               )}
             </div>
             <div className="m-3 mt-0 fs-3 fw-semibold">
-              <Form.Label htmlFor="harvestType">Harvest Type</Form.Label>
+              <Form.Label htmlFor="harvestType" className="m-3">
+                Harvest Type
+              </Form.Label>
               <Form.Select
                 {...register("harvestType", { required: true })}
                 id="harvestType"
@@ -106,7 +110,9 @@ const EditHarvest = () => {
               )}
             </div>
             <div className="m-3 fs-3 mt-0 fw-semibold">
-              <Form.Label htmlFor="harvestDate">Date</Form.Label>
+              <Form.Label htmlFor="harvestDate" className="m-3">
+                Date
+              </Form.Label>
               <Form.Control
                 {...register("harvestDate", { required: true })}
                 type="date"
@@ -121,7 +127,7 @@ const EditHarvest = () => {
           </Form>
           {/* Form end */}
 
-          <div className="d-flex justify-content-around mb-3">
+          <div className="d-flex justify-content-around mt-5">
             <Button
               type="submit"
               form="harvest-form"

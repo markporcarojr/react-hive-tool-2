@@ -75,7 +75,9 @@ const CreateSwarm = () => {
 
             <Form onSubmit={handleSubmit(handleSaveSwarm)} id="swarm-form">
               <div className="m-3 fs-3 mt-0 fw-semibold">
-                <Form.Label htmlFor="swarmNumber">Swarm Number</Form.Label>
+                <Form.Label htmlFor="swarmNumber" className="m-3">
+                  Swarm Number
+                </Form.Label>
                 <Form.Control
                   {...register("swarmNumber", { required: true })}
                   type="number"
@@ -91,7 +93,9 @@ const CreateSwarm = () => {
 
               <div className="m-3 mt-0 fs-3 fw-semibold">
                 <Form.Group className="mb-3" controlId="location">
-                  <Form.Label>Location</Form.Label>
+                  <Form.Label htmlFor="location" className="m-3">
+                    Location
+                  </Form.Label>
                   <Form.Control
                     {...register("location", { required: true })}
                     as="textarea"
@@ -104,7 +108,9 @@ const CreateSwarm = () => {
                 </Form.Group>
               </div>
               <div className="m-3 fs-3 mt-0 fw-semibold">
-                <Form.Label htmlFor="swarmImage">Swarm Image</Form.Label>
+                <Form.Label htmlFor="swarmImage" className="m-3">
+                  Swarm Image
+                </Form.Label>
                 <Form.Control
                   type="file"
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
@@ -114,7 +120,9 @@ const CreateSwarm = () => {
                 />
               </div>
               <div className="m-3 fs-3 mt-0 fw-semibold">
-                <Form.Label htmlFor="swarmDate">Date</Form.Label>
+                <Form.Label htmlFor="swarmDate" className="m-3">
+                  Date
+                </Form.Label>
                 <Form.Control
                   {...register("swarmDate", { required: true })}
                   type="date"
@@ -129,7 +137,7 @@ const CreateSwarm = () => {
             </Form>
             {/* Form end */}
 
-            <div className="d-flex justify-content-around mt-3">
+            <div className="d-flex justify-content-around mt-5">
               <Button
                 type="submit"
                 form="swarm-form"

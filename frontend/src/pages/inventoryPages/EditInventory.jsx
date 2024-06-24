@@ -80,7 +80,9 @@ const EditInventory = () => {
               onSubmit={handleSubmit(handleEditInventory)}
             >
               <div className="m-3 fs-3 mt-0 fw-semibold">
-                <Form.Label htmlFor="inventoryType">Equipment Name</Form.Label>
+                <Form.Label htmlFor="inventoryType" className="m-3">
+                  Equipment Name
+                </Form.Label>
                 <Form.Control
                   {...register("inventoryType", { required: true })}
                   type="text"
@@ -94,7 +96,9 @@ const EditInventory = () => {
               </div>
 
               <div className="m-3 fs-3 mt-0 fw-semibold">
-                <Form.Label htmlFor="inventoryAmount">Quantity</Form.Label>
+                <Form.Label htmlFor="inventoryAmount" className="m-3">
+                  Quantity
+                </Form.Label>
                 <Form.Control
                   {...register("inventoryAmount", { required: true })}
                   type="number"
@@ -107,7 +111,9 @@ const EditInventory = () => {
                 )}
               </div>
               <div className="m-3 fs-3 mt-0 fw-semibold">
-                <Form.Label htmlFor="inventoryLocation">Location</Form.Label>
+                <Form.Label htmlFor="inventoryLocation" className="m-3">
+                  Location
+                </Form.Label>
                 <Form.Control
                   {...register("inventoryLocation")}
                   type="text"
@@ -119,7 +125,7 @@ const EditInventory = () => {
             </Form>
             {/* Form end */}
 
-            <div className="d-flex justify-content-around mb-3">
+            <div className="d-flex justify-content-around mt-5">
               <Button
                 type="submit"
                 form="inventory-form"

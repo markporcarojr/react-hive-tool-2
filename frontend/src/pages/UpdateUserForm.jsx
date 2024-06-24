@@ -137,11 +137,11 @@ const UpdateUserForm = () => {
       ) : (
         <Container
           className="mt-5 text-michgold container bg-michblue p-3 rounded-3"
-          style={{ maxWidth: "500px", border: "3px solid #ffcb05" }}
+          style={{ maxWidth: "700px", border: "3px solid #ffcb05" }}
         >
           <h1 className="m-5 fw-bold text-center">UPDATE USER</h1>
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="apiaryName" className="text-michgold mb-4">
+            <Form.Group controlId="apiaryName" className="text-michgold m-3">
               <Form.Label className="fs-3 m-3 fw-semibold">
                 Apiary Name
               </Form.Label>
@@ -152,10 +152,10 @@ const UpdateUserForm = () => {
                 placeholder="Enter Your Apiary Name..."
                 value={formData.apiaryName}
                 onChange={handleChange}
-                className="text-center bg-white text-black border-3 border-michgold rounded-4 fw-bold"
+                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
               />
             </Form.Group>
-            <Form.Group controlId="userName" className="text-michgold mb-4">
+            <Form.Group controlId="userName" className="text-michgold m-3">
               <Form.Label className="fs-3 m-3 fw-semibold">
                 User Name
               </Form.Label>
@@ -166,10 +166,10 @@ const UpdateUserForm = () => {
                 placeholder="Enter Your User Name..."
                 value={formData.userName}
                 onChange={handleChange}
-                className="text-center bg-white text-black border-3 border-michgold rounded-4 fw-bold"
+                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
               />
             </Form.Group>
-            <Form.Group controlId="zipcode" className="text-michgold mb-4">
+            <Form.Group controlId="zipcode" className="text-michgold m-3">
               <Form.Label className="fs-3 m-3 fw-semibold">Zipcode</Form.Label>
 
               <Form.Control
@@ -178,10 +178,10 @@ const UpdateUserForm = () => {
                 placeholder="Enter Your Zipcode..."
                 value={formData.zipcode}
                 onChange={handleChange}
-                className="text-center bg-white text-black border-3 border-michgold rounded-4 fw-bold"
+                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
               />
             </Form.Group>
-            <Form.Group controlId="apiaryImage" className="text-michgold mb-4">
+            <Form.Group controlId="apiaryImage" className="text-michgold m-3">
               <Form.Label className="fs-3 m-3 fw-semibold">
                 Apiary Image
               </Form.Label>
@@ -190,24 +190,22 @@ const UpdateUserForm = () => {
                 placeholder="Apiary Image..."
                 name="apiaryImage"
                 onChange={handleImageUpload}
-                className="text-center bg-white text-black border-3 border-michgold rounded-4 fw-bold"
+                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
               />
             </Form.Group>
 
-            <div className="text-center mt-3">
-              {message && (
-                <p className="mt-3 text-danger fw-bold text-center">
-                  {message}
-                </p>
-              )}
+            <div className="text-center m-5">
               <Button
                 variant="primary"
                 type="submit"
                 className="btn-michgold btn-gold rounded-pill px-5 m-3 mb-2 mt-1"
               >
-                Update User
+                UPDATE USER
               </Button>
             </div>
+            {message && (
+              <p className="mt-3 text-danger fw-bold text-center">{message}</p>
+            )}
           </Form>
         </Container>
       )}
