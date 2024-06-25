@@ -192,23 +192,23 @@ const InspectionForm = () => {
                   </Form.Group>
                   {/* Temperament */}
 
-                  <Form.Group className="mb-3">
+                  <Form.Group className="m-3 fs-3 mt-0 fw-semibold">
                     <Form.Label className="fs-3 m-3 fw-semibold">
                       Temperament
                     </Form.Label>
                     <Form.Select
                       {...register("temperament", { required: true })}
-                      className="text-center text-white bg-inputgrey border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                      className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                       id="temperament"
                       name="temperament"
                     >
                       <option value="" disabled>
                         Select Temperament
                       </option>
-                      <option value="⚠️ Dead">Varroa Mites</option>
+                      <option value="⚠️ Dead">Dead</option>
                       <option value="Calm">Calm</option>
                       <option value="Active">Active</option>
-                      <option value="⚠️ Aggressive">American Foulbrood</option>
+                      <option value="⚠️ Aggressive">Aggressive</option>
                     </Form.Select>
                     {errors.temperament && (
                       <span className="text-danger">
