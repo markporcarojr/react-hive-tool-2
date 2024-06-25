@@ -23,7 +23,7 @@ const EditInventory = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://react-hive-tool-backend.onrender.com/inventory/${id}`)
+      .get(`${import.meta.env.VITE_BACKEND_API}/inventory/${id}`)
       .then((res) => {
         setValue("inventoryType", res.data.inventoryType);
         setValue("inventoryAmount", res.data.inventoryAmount);
@@ -46,10 +46,7 @@ const EditInventory = () => {
     };
     setLoading(true);
     axios
-      .put(
-        `https://react-hive-tool-backend.onrender.com/inventory/${id}`,
-        formData
-      )
+      .put(`${import.meta.env.VITE_BACKEND_API}/inventory/${id}`, formData)
       .then(() => {
         setLoading(false);
         navigate("/inventory");

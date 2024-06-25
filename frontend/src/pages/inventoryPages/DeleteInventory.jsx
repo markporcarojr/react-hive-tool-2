@@ -14,7 +14,7 @@ const DeleteInventory = () => {
   const handleDeleteInventory = () => {
     setLoading(true);
     axios
-      .delete(`https://react-hive-tool-backend.onrender.com/inventory/${id}`)
+      .delete(`${import.meta.env.VITE_BACKEND_API}/inventory/${id}`)
       .then(() => {
         setLoading(false);
         navigate("/inventory");

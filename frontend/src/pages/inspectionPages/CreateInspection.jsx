@@ -43,9 +43,7 @@ const InspectionForm = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(
-        `https://react-hive-tool-backend.onrender.com/new-hive?userId=${user._id}`
-      )
+      .get(`${import.meta.env.VITE_BACKEND_API}/new-hive?userId=${user._id}`)
       .then((response) => {
         setHives(response.data);
         setLoading(false);
@@ -121,10 +119,7 @@ const InspectionForm = () => {
         inspectionImage: imageUrl,
       };
 
-      axios.post(
-        "https://react-hive-tool-backend.onrender.com/inspections",
-        formData
-      );
+      axios.post(`${import.meta.env.VITE_BACKEND_API}/inspections`, formData);
       setLoading(false);
       setMessage("Inspection added successfully.");
       navigate("/inspections");

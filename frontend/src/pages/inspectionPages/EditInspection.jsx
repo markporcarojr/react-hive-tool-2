@@ -33,7 +33,7 @@ const EditInspectionForm = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://react-hive-tool-backend.onrender.com/inspections/${id}`)
+      .get(`${import.meta.env.VITE_BACKEND_API}/inspections/${id}`)
       .then((res) => {
         const inspectionData = res.data;
         for (const key in inspectionData) {
@@ -101,7 +101,7 @@ const EditInspectionForm = () => {
       };
 
       axios.put(
-        `https://react-hive-tool-backend.onrender.com/inspections/${id}`,
+        `${import.meta.env.VITE_BACKEND_API}/inspections/${id}`,
         formData
       );
       if (oldImageURL && data.inspectionImage) {

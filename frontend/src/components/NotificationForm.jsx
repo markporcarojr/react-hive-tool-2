@@ -20,7 +20,7 @@ const NotificationForm = ({ show, handleClose, setReminder }) => {
 
         //1- get response for all fields
         const response = await axios.get(
-          `https://react-hive-tool-backend.onrender.com/user`,
+          `${import.meta.env.VITE_BACKEND_API}/user`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }

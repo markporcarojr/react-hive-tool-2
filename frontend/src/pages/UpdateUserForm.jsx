@@ -41,7 +41,7 @@ const UpdateUserForm = () => {
 
         //1- get response for all fields
         const response = await axios.get(
-          `https://react-hive-tool-backend.onrender.com/user`,
+          `${import.meta.env.VITE_BACKEND_API}/user`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -109,7 +109,7 @@ const UpdateUserForm = () => {
 
         const token = localStorage.getItem("token");
         const response = await axios.patch(
-          `https://react-hive-tool-backend.onrender.com/user/update/${id}`,
+          `${import.meta.env.VITE_BACKEND_API}/user/update/${id}`,
           updatedFormData,
           { headers: { Authorization: `Bearer ${token}` } }
         );

@@ -27,7 +27,7 @@ const CreateInventory = () => {
     };
     setLoading(true);
     axios
-      .post("https://react-hive-tool-backend.onrender.com/inventory", formData)
+      .post(`${import.meta.env.VITE_BACKEND_API}/inventory`, formData)
       .then(() => {
         setLoading(false);
         navigate("/inventory");

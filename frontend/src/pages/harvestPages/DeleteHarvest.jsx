@@ -14,7 +14,7 @@ const DeleteHarvest = () => {
   const handleDeleteHarvest = () => {
     setLoading(true);
     axios
-      .delete(`https://react-hive-tool-backend.onrender.com/harvest/${id}`)
+      .delete(`${import.meta.env.VITE_BACKEND_API}/harvest/${id}`)
       .then(() => {
         setLoading(false);
         navigate("/harvest");

@@ -27,7 +27,7 @@ const CreateHarvest = () => {
     };
     setLoading(true);
     axios
-      .post("https://react-hive-tool-backend.onrender.com/harvest", formData)
+      .post(`${import.meta.env.VITE_BACKEND_API}/harvest`, formData)
       .then(() => {
         setLoading(false);
         navigate("/harvest");

@@ -14,7 +14,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://react-hive-tool-backend.onrender.com/auth/forgot-password",
+        `${import.meta.env.VITE_BACKEND_API}/auth/forgot-password`,
         {
           email: email,
         }

@@ -31,7 +31,7 @@ const EditSwarm = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://react-hive-tool-backend.onrender.com/swarm/${id}`)
+      .get(`${import.meta.env.VITE_BACKEND_API}/swarm/${id}`)
       .then((res) => {
         setValue("swarmNumber", res.data.swarmNumber);
         setValue("location", res.data.location);
@@ -75,7 +75,7 @@ const EditSwarm = () => {
       };
 
       await axios.put(
-        `https://react-hive-tool-backend.onrender.com/swarm/${id}`,
+        `${import.meta.env.VITE_BACKEND_API}/swarm/${id}`,
         formData
       );
       if (oldImageURL && data.swarmImage instanceof File) {

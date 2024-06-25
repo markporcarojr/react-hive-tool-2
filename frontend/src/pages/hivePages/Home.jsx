@@ -56,7 +56,7 @@ const Home = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "https://react-hive-tool-backend.onrender.com/user",
+          `${import.meta.env.VITE_BACKEND_API}/user`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -75,9 +75,7 @@ const Home = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(
-        `https://react-hive-tool-backend.onrender.com/new-hive?userId=${user._id}`
-      )
+      .get(`${import.meta.env.VITE_BACKEND_API}/new-hive?userId=${user._id}`)
       .then((response) => {
         setHives(response.data);
         setLoading(false);

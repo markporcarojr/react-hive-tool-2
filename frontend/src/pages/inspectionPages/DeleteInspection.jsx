@@ -13,26 +13,12 @@ const DeleteInspection = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  // const handleDeleteInspection = () => {
-  //   setLoading(true);
-  //   axios
-  //     .delete(`https://react-hive-tool-backend.onrender.com/inspections/${id}`)
-  //     .then(() => {
-  //       setLoading(false);
-  //       navigate("/inspections");
-  //     })
-  //     .catch((error) => {
-  //       setLoading(false);
-  //       alert("An error has occurred. Please Check Console");
-  //       console.log(error);
-  //     });
-  // };
   const handleDeleteInspection = async () => {
     setLoading(true);
     try {
       // Delete the image from Firebase Storage
       const response = await axios.get(
-        `https://react-hive-tool-backend.onrender.com/inspections/${id}`
+        `${import.meta.env.VITE_BACKEND_API}/inspections/${id}`
       );
       const inspection = response.data;
       // fixed bug, if user has no image
@@ -42,7 +28,7 @@ const DeleteInspection = () => {
 
       // Now delete the hive from your API
       await axios.delete(
-        `https://react-hive-tool-backend.onrender.com/inspections/${id}`
+        `${import.meta.env.VITE_BACKEND_API}/inspections/${id}`
       );
       setLoading(false);
       navigate("/inspections");

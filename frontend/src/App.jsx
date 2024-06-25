@@ -56,7 +56,7 @@ function App() {
 
     if (token) {
       axios
-        .get(`https://react-hive-tool-backend.onrender.com/user/`, {
+        .get(`${import.meta.env.VITE_BACKEND_API}/user/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -42,7 +42,9 @@ const CreateHive = () => {
   const checkHiveNumberExists = async (hiveNumber) => {
     try {
       const response = await axios.get(
-        `https://react-hive-tool-backend.onrender.com/check-hive-number?userId=${user._id}&hiveNumber=${hiveNumber}`
+        `${import.meta.env.VITE_BACKEND_API}/check-hive-number?userId=${
+          user._id
+        }&hiveNumber=${hiveNumber}`
       );
       return response.data.exists;
     } catch (error) {
@@ -78,7 +80,7 @@ const CreateHive = () => {
       };
 
       await axios.post(
-        "https://react-hive-tool-backend.onrender.com/new-hive",
+        `${import.meta.env.VITE_BACKEND_API}/new-hive`,
         formData
       );
       setLoading(false);

@@ -34,7 +34,7 @@ const EditHive = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://react-hive-tool-backend.onrender.com/new-hive/${id}`)
+      .get(`${import.meta.env.VITE_BACKEND_API}/new-hive/${id}`)
       .then((res) => {
         // this helped clean up the code!
         const hiveData = res.data;
@@ -83,7 +83,7 @@ const EditHive = () => {
       };
 
       await axios.put(
-        `https://react-hive-tool-backend.onrender.com/new-hive/${id}`,
+        `${import.meta.env.VITE_BACKEND_API}/new-hive/${id}`,
         formData
       );
 

@@ -60,7 +60,7 @@ const TodoList = () => {
   const handleDeleteTodo = (id) => {
     setLoading(true);
     axios
-      .delete(`https://react-hive-tool-backend.onrender.com/todo/${id}`)
+      .delete(`${import.meta.env.VITE_BACKEND_API}/todo/${id}`)
       .then(() => {
         setLoading(false);
         // Remove the deleted todo from todoDisplay
@@ -81,7 +81,7 @@ const TodoList = () => {
     };
     setLoading(true);
     axios
-      .put(`https://react-hive-tool-backend.onrender.com/todo/${id}`, data)
+      .put(`${import.meta.env.VITE_BACKEND_API}/todo/${id}`, data)
       .then(() => {
         setLoading(false);
         // Find the index of the edited todo in todoDisplay array
@@ -139,9 +139,7 @@ const TodoList = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(
-        `https://react-hive-tool-backend.onrender.com/todo?userId=${user._id}`
-      )
+      .get(`${import.meta.env.VITE_BACKEND_API}/todo?userId=${user._id}`)
       .then((response) => {
         setTodoDisplay(response.data);
         setLoading(false);
@@ -161,7 +159,7 @@ const TodoList = () => {
 
     setLoading(true);
     axios
-      .post("https://react-hive-tool-backend.onrender.com/todo", data)
+      .post(`${import.meta.env.VITE_BACKEND_API}/todo`, data)
       .then((response) => {
         setLoading(false);
         setTodoDisplay((prevTodoDisplay) => [

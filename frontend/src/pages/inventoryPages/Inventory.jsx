@@ -22,9 +22,7 @@ const Inventory = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(
-        `https://react-hive-tool-backend.onrender.com/inventory?userId=${user._id}`
-      )
+      .get(`${import.meta.env.VITE_BACKEND_API}/inventory?userId=${user._id}`)
       .then((response) => {
         setInventorys(response.data);
         setLoading(false);

@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
     try {
       // Make API call to authenticate user and receive JWT token
       const response = await fetch(
-        "https://react-hive-tool-backend.onrender.com/user/login",
+        `${import.meta.env.VITE_BACKEND_API}/user/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

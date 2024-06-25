@@ -28,9 +28,7 @@ export default function Harvest() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(
-        `https://react-hive-tool-backend.onrender.com/harvest?userId=${user._id}`
-      )
+      .get(`${import.meta.env.VITE_BACKEND_API}/harvest?userId=${user._id}`)
       .then((response) => {
         setHarvests(response.data);
         setLoading(false);

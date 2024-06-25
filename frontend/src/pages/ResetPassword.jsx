@@ -15,7 +15,9 @@ const ResetPassword = () => {
     e.preventDefault();
     axios
       .post(
-        `https://react-hive-tool-backend.onrender.com/auth/reset-password/${id}/${token}`,
+        `${
+          import.meta.env.VITE_BACKEND_API
+        }/auth/reset-password/${id}/${token}`,
         {
           password,
         }
