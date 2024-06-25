@@ -419,7 +419,6 @@ const InspectionForm = () => {
                   <Form.Control
                     type="file"
                     accept="image/*"
-                    capture="camera"
                     className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                     id="inspectionImage"
                     name="inspectionImage"
