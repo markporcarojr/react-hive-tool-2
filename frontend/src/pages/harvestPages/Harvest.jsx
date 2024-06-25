@@ -98,7 +98,7 @@ export default function Harvest() {
                           value={{
                             color: "fccb05",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <IoInformationCircleOutline
@@ -109,7 +109,7 @@ export default function Harvest() {
                           value={{
                             color: "green",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <Link to={`/harvest/edit/${harvest._id}`}>
@@ -120,7 +120,7 @@ export default function Harvest() {
                           value={{
                             color: "red",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <Link to={`/harvest/delete/${harvest._id}`}>
