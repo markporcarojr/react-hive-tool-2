@@ -186,7 +186,6 @@ const Home = () => {
                         maxHeight={"10rem"}
                         maxWidth={"10rem"}
                         alt={"Hive Image"}
-                        className="pop-xl"
                       />
                     </td>
                     <td className="text-center fs-3">#{hive.hiveNumber}</td>
