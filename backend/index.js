@@ -45,11 +45,11 @@ app.use(
 );
 
 // app.use(
-//     cors({
-//         origin: "*",
-//         methods: "GET, POST, PUT, DELETE, PATCH",
-//         credentials: true,
-//     })
+//   cors({
+//     origin: "*",
+//     methods: "GET, POST, PUT, DELETE, PATCH",
+//     credentials: true,
+//   })
 // );
 
 app.use(session({
