@@ -49,7 +49,7 @@ const Login = () => {
   const handleGuestLogin = async () => {
     const guestCredentials = {
       email: "guest@guest",
-      password: "Guest",
+      password: "guest",
     };
     await handleSubmit(guestCredentials);
   };
