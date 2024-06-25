@@ -39,7 +39,7 @@ const fetchWeatherData = async (zipcode) => {
         iconUrl = "";
     }
     const geocodeResponse = await axios.get(
-      `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`
+      `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${apiKey}`
     );
 
     const state = geocodeResponse.data[0].state;
