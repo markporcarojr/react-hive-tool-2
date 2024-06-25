@@ -98,7 +98,7 @@ const AuthForm = ({
             <Form.Group>
               <Button
                 type="submit"
-                className="btn-michgold btn-gold rounded-pill px-5 mt-3 mb-2 "
+                className="btn-michgold btn-gold rounded-pill px-4 mt-3 mb-2 "
               >
                 {buttonText}
               </Button>
@@ -108,7 +108,7 @@ const AuthForm = ({
                     <Col xs={12} sm={10} md={8} lg={6}>
                       <Button
                         type="button"
-                        className="btn-michgold btn-gold rounded-pill px-5 text-center"
+                        className="btn-michgold btn-gold rounded-pill px-3 text-center"
                         onClick={onGuestLogin}
                       >
                         GUEST LOGIN
