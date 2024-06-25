@@ -201,6 +201,7 @@ const InspectionForm = () => {
                       className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                       id="temperament"
                       name="temperament"
+                      defaultValue=""
                     >
                       <option value="" disabled>
                         Select Temperament
