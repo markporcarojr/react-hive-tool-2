@@ -193,7 +193,7 @@ const InspectionForm = () => {
                   {/* Temperament */}
                   <Form.Group className="m-3 fs-3 mt-0 fw-semibold mb-3">
                     <Form.Label>Temperament</Form.Label>
-                    <div className="d-flex justify-content-evenly">
+                    <div className="d-flex justify-content-between">
                       <Form.Check
                         {...register("temperament", { required: true })}
                         type="radio"
