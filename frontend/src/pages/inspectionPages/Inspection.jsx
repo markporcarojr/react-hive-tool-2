@@ -172,7 +172,7 @@ const InspectionPage = () => {
                           value={{
                             color: "fccb05",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <IoInformationCircleOutline
@@ -183,7 +183,7 @@ const InspectionPage = () => {
                           value={{
                             color: "green",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <Link to={`/inspections/edit/${inspection._id}`}>
@@ -194,7 +194,7 @@ const InspectionPage = () => {
                           value={{
                             color: "red",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <Link to={`/inspections/delete/${inspection._id}`}>

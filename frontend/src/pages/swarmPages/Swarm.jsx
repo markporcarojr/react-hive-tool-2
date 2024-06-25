@@ -111,7 +111,7 @@ export default function Swarm() {
                           value={{
                             color: "fccb05",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <IoInformationCircleOutline
@@ -122,7 +122,7 @@ export default function Swarm() {
                           value={{
                             color: "green",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <Link to={`/swarm/edit/${swarm._id}`}>
@@ -133,7 +133,7 @@ export default function Swarm() {
                           value={{
                             color: "red",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <Link to={`/swarm/delete/${swarm._id}`}>

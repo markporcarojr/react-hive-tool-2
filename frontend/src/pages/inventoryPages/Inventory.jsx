@@ -100,7 +100,7 @@ const Inventory = () => {
                           value={{
                             color: "fccb05",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <IoInformationCircleOutline
@@ -111,7 +111,7 @@ const Inventory = () => {
                           value={{
                             color: "green",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <Link to={`/inventory/edit/${inventory._id}`}>
@@ -122,7 +122,7 @@ const Inventory = () => {
                           value={{
                             color: "red",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <Link to={`/inventory/delete/${inventory._id}`}>

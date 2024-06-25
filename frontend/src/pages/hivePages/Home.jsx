@@ -199,7 +199,7 @@ const Home = () => {
                           value={{
                             color: "fccb05",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <IoInformationCircleOutline
@@ -210,7 +210,7 @@ const Home = () => {
                           value={{
                             color: "green",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <Link to={`/hives/edit/${hive._id}`}>
@@ -221,7 +221,7 @@ const Home = () => {
                           value={{
                             color: "red",
                             size: "2em",
-                            className: "darken-on-hover",
+                            className: "darken-on-hover m-2",
                           }}
                         >
                           <Link to={`/hives/delete/${hive._id}`}>
