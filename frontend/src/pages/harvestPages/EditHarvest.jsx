@@ -73,7 +73,7 @@ const EditHarvest = () => {
           <Form onSubmit={handleSubmit(handleEditHarvest)} id="harvest-form">
             <div className="m-3 fs-3 mt-0 fw-semibold">
               <Form.Label htmlFor="harvestAmount" className="m-3">
-                Harvest Amount
+                Harvest Amount (lbs)
               </Form.Label>
               <Form.Control
                 {...register("harvestAmount", { required: true })}
