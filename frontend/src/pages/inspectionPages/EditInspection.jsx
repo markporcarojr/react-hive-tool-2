@@ -144,42 +144,25 @@ const EditInspectionForm = () => {
               >
                 <div className="text-center">
                   {/* Temperament */}
-                  <Form.Group className="m-3 fs-4 mt-0 fw-semibold mb-3">
-                    <Form.Label className="fs-3 m-3">Temperament</Form.Label>
-                    <div className="d-flex justify-content-evenly">
-                      <Form.Check
-                        {...register("temperament", { required: true })}
-                        type="radio"
-                        label="Dead"
-                        id="dead"
-                        name="temperament"
-                        value="⚠️ Dead"
-                      />
-                      <Form.Check
-                        {...register("temperament", { required: true })}
-                        type="radio"
-                        label="Calm"
-                        id="calm"
-                        name="temperament"
-                        value="Calm"
-                      />
-                      <Form.Check
-                        {...register("temperament", { required: true })}
-                        type="radio"
-                        label="Aggressive"
-                        id="aggressive"
-                        name="temperament"
-                        value="⚠️ Aggressive"
-                      />
-                      <Form.Check
-                        {...register("temperament", { required: true })}
-                        type="radio"
-                        label="Active"
-                        id="active"
-                        name="temperament"
-                        value="Active"
-                      />
-                    </div>
+
+                  <Form.Group className="m-3 fs-3 mt-0 fw-semibold">
+                    <Form.Label className="fs-3 m-3 fw-semibold">
+                      Temperament
+                    </Form.Label>
+                    <Form.Select
+                      {...register("temperament", { required: true })}
+                      className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                      id="temperament"
+                      name="temperament"
+                    >
+                      <option value="" disabled>
+                        Select Temperament
+                      </option>
+                      <option value="⚠️ Dead">Dead</option>
+                      <option value="Calm">Calm</option>
+                      <option value="Active">Active</option>
+                      <option value="⚠️ Aggressive">Aggressive</option>
+                    </Form.Select>
                     {errors.temperament && (
                       <span className="text-danger">
                         This field is required
