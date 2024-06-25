@@ -56,7 +56,7 @@ const AuthForm = ({
                 srcSet={`${logoWebp1x} 1x, ${logoWebp2x} 2x, ${logoWebp3x} 3x`}
               />
               <img
-                className="pop-xl"
+                className="pop"
                 src={logoPng1x}
                 alt=""
                 srcSet={`${logoPng1x} 1x, ${logoPng2x} 2x, ${logoPng3x} 3x`}
