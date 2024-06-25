@@ -17,6 +17,7 @@ const EditHive = () => {
   const [message, setMessage] = useState("");
   const [oldImageURL, setOldImageURL] = useState("");
   const [sliderValue, setSliderValue] = useState(50);
+  const [hiveNumber, setHiveNumber] = useState("");
 
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
@@ -37,6 +38,7 @@ const EditHive = () => {
       .then((res) => {
         // this helped clean up the code!
         const hiveData = res.data;
+        setHiveNumber(hiveData.hiveNumber);
         for (const key in hiveData) {
           setValue(key, hiveData[key]);
         }
@@ -116,7 +118,9 @@ const EditHive = () => {
         >
           <div>
             <div className="card text-michgold  mt-2 mb-5">
-              <h1 className="m-5 fw-bold text-center">EDIT HIVE</h1>
+              <h1 className="m-5 fw-bold text-center">
+                EDIT HIVE {hiveNumber}
+              </h1>
               <form id="hive-form" onSubmit={handleSubmit(handleEditHive)}>
                 <div className="m-3 fs-3 mt-0 fw-semibold ">
                   <label htmlFor="hiveSource" className="form-label m-3">
