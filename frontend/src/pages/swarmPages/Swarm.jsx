@@ -12,6 +12,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
 import ImageDisplay from "../../components/ImageDisplay";
 import CustomModal from "../../components/Modal.jsx";
+import { Helmet } from "react-helmet";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);
@@ -52,6 +53,14 @@ export default function Swarm() {
 
   return (
     <>
+      <Helmet>
+        <meta
+          name="description"
+          content="Implement effective swarm management strategies with specialized traps. Safely capture and relocate swarms to prevent colony losses and maintain hive stability."
+        />
+
+        <title>Swarm Traps</title>
+      </Helmet>
       <CustomNavbar />
       <div className="p-4">
         <div className="d-flex justify-content-around mb-3">

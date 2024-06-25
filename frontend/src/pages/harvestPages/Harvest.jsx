@@ -11,6 +11,7 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
 import CustomModal from "../../components/Modal.jsx";
+import { Helmet } from "react-helmet";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);
@@ -51,6 +52,14 @@ export default function Harvest() {
 
   return (
     <>
+      <Helmet>
+        <meta
+          name="description"
+          content="Efficiently manage and track honey harvests. Record extraction dates, quantities, and quality metrics to optimize your apiary's honey production."
+        />
+
+        <title>Harvest</title>
+      </Helmet>
       <CustomNavbar />
       <div className="p-4">
         <div className="d-flex justify-content-around mb-3">

@@ -11,6 +11,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaBell } from "react-icons/fa";
 import NotificationForm from "../../components/NotificationForm.jsx";
+import { Helmet } from "react-helmet";
 
 const TodoList = () => {
   const { user } = useContext(UserContext);
@@ -178,6 +179,14 @@ const TodoList = () => {
 
   return (
     <>
+      <Helmet>
+        <meta
+          name="description"
+          content="Stay organized and on track with a customizable to-do list. Plan tasks, set priorities, and manage beekeeping activities efficiently for a successful apiary."
+        />
+
+        <title>Todo List</title>
+      </Helmet>
       <CustomNavbar />
       {loading ? (
         <LoadSpinner />

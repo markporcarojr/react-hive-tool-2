@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
+Allow: /public/
+Sitemap: https://hive-tool.netlify.app/sitemap.xml

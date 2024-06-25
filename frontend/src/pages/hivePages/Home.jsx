@@ -14,6 +14,7 @@ import Footer from "../../components/Footer";
 import ImageDisplay from "../../components/ImageDisplay";
 import fetchWeatherData from "../../utils/fetchWeatherData.js";
 import CustomModal from "../../components/Modal.jsx";
+import { Helmet } from "react-helmet";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);
@@ -98,6 +99,17 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <meta
+          name="google-site-verification"
+          content="NgFiqtFV37kU5_GpW0LPMGokmR-AITKxzTEtLB0A9P8"
+        />
+        <meta
+          name="description"
+          content="Manage your apiary with ease. Track beekeeping tasks, monitor hive health, and optimize honey production. Get started today!"
+        />
+        <title>Hive Tool</title>
+      </Helmet>
       <CustomNavbar />
       <div
         style={{

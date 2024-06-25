@@ -12,6 +12,7 @@ import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import ImageDisplay from "../../components/ImageDisplay";
 import CustomModal from "../../components/Modal";
+import { Helmet } from "react-helmet";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);
@@ -95,6 +96,14 @@ const InspectionPage = () => {
 
   return (
     <>
+      <Helmet>
+        <meta
+          name="description"
+          content="Conduct thorough hive inspections with ease. Monitor hive health, identify issues early, and take proactive measures to ensure strong and productive colonies."
+        />
+
+        <title>Inspections</title>
+      </Helmet>
       <CustomNavbar />
       <div className="p-4 text-center">
         <div className="d-flex justify-content-around mb-4">

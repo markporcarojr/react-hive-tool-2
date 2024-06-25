@@ -11,6 +11,7 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
 import CustomModal from "../../components/Modal";
+import { Helmet } from "react-helmet";
 
 const Inventory = () => {
   const [inventorys, setInventorys] = useState([]);
@@ -54,6 +55,14 @@ const Inventory = () => {
 
   return (
     <>
+      <Helmet>
+        <meta
+          name="description"
+          content="Organize and manage beekeeping supplies and equipment. Track inventory levels, order replacements, and maintain a well-stocked apiary for smooth operations."
+        />
+
+        <title>Inventory</title>
+      </Helmet>
       <CustomNavbar />
       <div className="p-4">
         <div className="d-flex justify-content-around mb-4">
