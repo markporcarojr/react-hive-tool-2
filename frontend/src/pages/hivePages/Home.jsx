@@ -189,7 +189,7 @@ const Home = () => {
                       />
                     </td>
                     <td className="text-center fs-3">#{hive.hiveNumber}</td>
-                    <td className="text-center">{hive.queenColor}</td>
+                    <td className="text-center">{hive.queenColor || "N/A"}</td>
                     <td className="text-center">{hive.broodBoxes}</td>
                     <td className="text-center">{hive.superBoxes}</td>
                     <td className="text-center">{hive.queenExcluder}</td>
