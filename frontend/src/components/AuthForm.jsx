@@ -56,7 +56,7 @@ const AuthForm = ({
                 srcSet={`${logoWebp1x} 1x, ${logoWebp2x} 2x, ${logoWebp3x} 3x`}
               />
               <img
-                className="ms-"
+                className="pop-xl"
                 src={logoPng1x}
                 alt=""
                 srcSet={`${logoPng1x} 1x, ${logoPng2x} 2x, ${logoPng3x} 3x`}
@@ -119,14 +119,14 @@ const AuthForm = ({
               )}
               <a
                 href={linkHref}
-                className="d-block text-center fs-4 text-michgold mb-3"
+                className="d-block text-center fs-4 text-michgold mb-3 link darken-on-hover"
               >
                 {linkText}
               </a>
               {isLogin && (
                 <a
                   href="/forgot-password"
-                  className="d-block text-center fs-4 text-michgold mb-3"
+                  className="d-block text-center fs-4 text-michgold mb-3 link darken-on-hover"
                 >
                   Forgot Password?
                 </a>

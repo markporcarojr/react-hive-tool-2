@@ -178,7 +178,7 @@ const Home = () => {
                 {hives.map((hive) => (
                   <tr key={hive._id} className="text-center align-middle">
                     <td
-                      className="text-center"
+                      className="text-center pop-xl"
                       onClick={() => handleShowModal(hive)}
                     >
                       <ImageDisplay
