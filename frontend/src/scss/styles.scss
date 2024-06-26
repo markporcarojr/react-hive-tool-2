@@ -305,6 +305,14 @@ input[type="range"] {
   border-radius: 5px;
 }
 
+.todo-text {
+  word-wrap: break-word;
+  max-width: 100%; /* Make sure it uses the full width of its container */
+  margin: 0; /* Remove default margin */
+  text-align: left; /* Ensure text is aligned to the left */
+  flex: 1; /* Ensure it takes up available space */
+}
+
 .complete {
   text-decoration: line-through;
 }

@@ -244,7 +244,7 @@ const TodoList = () => {
             )}
             {/* Form end */}
 
-            <div className="d-flex justify-content-around mb-3"></div>
+            {/* <div className="d-flex justify-content-around mb-3"></div> */}
             <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
             {todoDisplay.map((todo, index) => (
               <div
@@ -253,29 +253,28 @@ const TodoList = () => {
                 }`}
                 key={todo._id}
               >
-                <h3
-                  onClick={() => toggleComplete(todo._id)}
-                  style={{
-                    wordWrap: "break-word",
-                    maxWidth: "80%",
-                  }}
-                >
-                  {index + 1}- {todo.todo}
-                </h3>
+                <div className="todo-text">
+                  <p
+                    onClick={() => toggleComplete(todo._id)}
+                    className="justify-content-start"
+                  >
+                    {index + 1}- {todo.todo}
+                  </p>
+                </div>
                 <div className="d-flex flex-row align-items-center">
                   <IconContext.Provider
                     value={{
                       color: "gold",
-                      size: "2em",
+                      size: "1.5rem",
                       className: "darken-on-hover me-3",
                     }}
                   >
-                    <FaBell onClick={handleShow} size={30} />
+                    <FaBell onClick={handleShow} />
                   </IconContext.Provider>
                   <IconContext.Provider
                     value={{
                       color: "green",
-                      size: "2em",
+                      size: "1.5rem",
                       className: "darken-on-hover me-3",
                     }}
                   >
@@ -284,7 +283,7 @@ const TodoList = () => {
                   <IconContext.Provider
                     value={{
                       color: "red",
-                      size: "2em",
+                      size: "1.5rem",
                       className: "darken-on-hover",
                     }}
                   >
