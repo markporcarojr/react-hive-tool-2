@@ -22,7 +22,6 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5555;
-console.log('MONGODB_URI:', process.env.MONGODB_URI);
 const store = MongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
     touchAfter: 24 * 60 * 60,
@@ -38,19 +37,11 @@ connectDB();
 app.use(express.json());
 app.use(
     cors({
-        origin: ["https://hive-tool.netlify.app", "https://api.openweathermap.org"],
+        origin: ["https://hive-tool.netlify.app", "https://api.openweathermap.org", "http://localhost:5173"],
         methods: "GET, POST, PUT, DELETE, PATCH",
         credentials: true,
     })
 );
-
-// app.use(
-//   cors({
-//     origin: "*",
-//     methods: "GET, POST, PUT, DELETE, PATCH",
-//     credentials: true,
-//   })
-// );
 
 app.use(session({
     store,
