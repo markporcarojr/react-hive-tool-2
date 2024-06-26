@@ -62,7 +62,7 @@ function CustomNavbar() {
                 Todo List
               </Link>
               <Link to={`/update/${user._id}`} className="nav-link">
-                <span className="">⚙️ Settings</span>
+                <span className="">Settings</span>
               </Link>
 
               <Link onClick={logout} className="nav-link">
