@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -10,8 +10,24 @@ import { deleteImageFromStorage } from "../../utils/firebaseUtils";
 
 const DeleteHive = () => {
   const [loading, setLoading] = useState(false);
+  const [hiveNumber, setHiveNumber] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_API}/new-hive/${id}`)
+      .then((response) => {
+        setHiveNumber(response.data.hiveNumber);
+        console.log(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching hive data:", error);
+        setLoading(false);
+      });
+  }, []);
 
   const handleDeleteHive = async () => {
     setLoading(true);
@@ -44,10 +60,12 @@ const DeleteHive = () => {
         className="rounded-5 border-3 d-flex align-items-center p-5 m-5"
         style={{ borderColor: "#ffcb05" }}
       >
-        <h1 className="fs-1 fw-bold my-4 text-white mb-5">Delete Hive</h1>
+        <h1 className="fs-1 fw-bold my-4 text-white mb-5">
+          Delete Hive #{hiveNumber}
+        </h1>
         {loading ? <LoadSpinner /> : ""}
         <div className="d-flex align-items-center mx-auto text-michgold">
-          <h3>Are You Sure You Want To Delete This Hive?</h3>
+          <h3>Are You Sure You Want To Delete Hive {hiveNumber}?</h3>
         </div>
         <div>
           <Button className="btn-danger m-3" onClick={handleDeleteHive}>

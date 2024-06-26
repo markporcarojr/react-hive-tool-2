@@ -139,8 +139,9 @@ const InspectionPage = () => {
               bordered
               striped
               hover
+              responsive
               variant="dark"
-              className="text-michgold inspection-table"
+              className="text-michgold table-responsive inspection-table"
             >
               <thead className="fs-4 fw-bold text-center">
                 <tr>
@@ -162,7 +163,7 @@ const InspectionPage = () => {
               </thead>
               <tbody>
                 {filteredInspections.map((inspection) => (
-                  <tr key={inspection._id}>
+                  <tr key={inspection._id} className="text-center align-middle">
                     <td onClick={() => handleShowModal(inspection)}>
                       <ImageDisplay
                         imageUrl={inspection.inspectionImage}
@@ -178,7 +179,7 @@ const InspectionPage = () => {
                         <IconContext.Provider
                           value={{
                             color: "fccb05",
-                            size: "2em",
+                            size: "1.5em",
                             className: "darken-on-hover m-2",
                           }}
                         >
@@ -189,7 +190,7 @@ const InspectionPage = () => {
                         <IconContext.Provider
                           value={{
                             color: "green",
-                            size: "2em",
+                            size: "1.5em",
                             className: "darken-on-hover m-2",
                           }}
                         >
@@ -200,7 +201,7 @@ const InspectionPage = () => {
                         <IconContext.Provider
                           value={{
                             color: "red",
-                            size: "2em",
+                            size: "1.5em",
                             className: "darken-on-hover m-2",
                           }}
                         >

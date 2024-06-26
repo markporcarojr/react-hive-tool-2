@@ -175,8 +175,8 @@ const Home = () => {
             >
               <thead className="fs-4 fw-bold text-center">
                 <tr>
-                  <th>Hive Image</th>
                   <th>Hive ID</th>
+                  <th>Hive Image</th>
                   <th>Queen Color</th>
                   <th>Brood Boxes</th>
                   <th>Super Boxes</th>
@@ -187,6 +187,7 @@ const Home = () => {
               <tbody>
                 {hives.map((hive) => (
                   <tr key={hive._id} className="text-center align-middle">
+                    <td className="text-center fs-3">#{hive.hiveNumber}</td>
                     <td
                       className="text-center"
                       onClick={() => handleShowModal(hive)}
@@ -198,7 +199,6 @@ const Home = () => {
                         alt={"Hive Image"}
                       />
                     </td>
-                    <td className="text-center fs-3">#{hive.hiveNumber}</td>
                     <td className="text-center">{hive.queenColor || "N/A"}</td>
                     <td className="text-center">{hive.broodBoxes}</td>
                     <td className="text-center">{hive.superBoxes}</td>
@@ -208,7 +208,7 @@ const Home = () => {
                         <IconContext.Provider
                           value={{
                             color: "fccb05",
-                            size: "1.5rem",
+                            size: "1.5em",
                             className: "darken-on-hover m-2",
                           }}
                         >
@@ -219,7 +219,7 @@ const Home = () => {
                         <IconContext.Provider
                           value={{
                             color: "green",
-                            size: "1.5rem",
+                            size: "1.5em",
                             className: "darken-on-hover m-2",
                           }}
                         >
@@ -230,7 +230,7 @@ const Home = () => {
                         <IconContext.Provider
                           value={{
                             color: "red",
-                            size: "1.5rem",
+                            size: "1.5em",
                             className: "darken-on-hover m-2",
                           }}
                         >

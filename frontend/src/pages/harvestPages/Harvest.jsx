@@ -104,7 +104,7 @@ export default function Harvest() {
                         <IconContext.Provider
                           value={{
                             color: "fccb05",
-                            size: "2em",
+                            size: "1.5em",
                             className: "darken-on-hover m-2",
                           }}
                         >
@@ -115,7 +115,7 @@ export default function Harvest() {
                         <IconContext.Provider
                           value={{
                             color: "green",
-                            size: "2em",
+                            size: "1.5em",
                             className: "darken-on-hover m-2",
                           }}
                         >
@@ -126,7 +126,7 @@ export default function Harvest() {
                         <IconContext.Provider
                           value={{
                             color: "red",
-                            size: "2em",
+                            size: "1.5em",
                             className: "darken-on-hover m-2",
                           }}
                         >
