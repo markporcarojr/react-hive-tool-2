@@ -208,7 +208,7 @@ const Home = () => {
                         <IconContext.Provider
                           value={{
                             color: "fccb05",
-                            size: "2em",
+                            size: "1.5rem",
                             className: "darken-on-hover m-2",
                           }}
                         >
@@ -219,7 +219,7 @@ const Home = () => {
                         <IconContext.Provider
                           value={{
                             color: "green",
-                            size: "2em",
+                            size: "1.5rem",
                             className: "darken-on-hover m-2",
                           }}
                         >
@@ -230,7 +230,7 @@ const Home = () => {
                         <IconContext.Provider
                           value={{
                             color: "red",
-                            size: "2em",
+                            size: "1.5rem",
                             className: "darken-on-hover m-2",
                           }}
                         >
