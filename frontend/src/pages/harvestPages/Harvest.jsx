@@ -92,7 +92,7 @@ export default function Harvest() {
               </thead>
               <tbody>
                 {harvests.map((harvest) => (
-                  <tr key={harvest._id}>
+                  <tr key={harvest._id} className="text-center align-middle">
                     <td className="text-center">
                       {formatDate(harvest.harvestDate)}
                     </td>

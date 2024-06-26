@@ -95,7 +95,7 @@ const Inventory = () => {
               </thead>
               <tbody>
                 {sortedInventorys.map((inventory) => (
-                  <tr key={inventory._id}>
+                  <tr key={inventory._id} className="text-center align-middle">
                     <td>{inventory.inventoryType}</td>
                     <td className="text-center">{inventory.inventoryAmount}</td>
                     <td className="text-center">
