@@ -20,14 +20,14 @@ function CustomNavbar() {
       <Container fluid>
         <div className="text-center">
           <Navbar.Brand href="/">
-            <picture className="rotateY">
+            <picture>
               <source
                 type="image/webp"
                 style={{ width: "60px" }}
                 srcSet={`${logoWebp1x} 1x, ${logoWebp2x} 2x, ${logoWebp3x} 3x`}
               />
               <img
-                className="ms-3"
+                className="ms-3 rotateY"
                 src={logoPng1x}
                 style={{ width: "60px" }}
                 alt=""
