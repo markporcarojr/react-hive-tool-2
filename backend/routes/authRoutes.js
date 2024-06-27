@@ -93,7 +93,7 @@ router.post("/forgot-password", async (req, res) => {
                 from: process.env.MY_GMAIL,
                 to: email,
                 subject: 'Reset Your Password',
-                text: `http://localhost:5173/reset-password/${user._id}/${token}`
+                text: `${import.meta.env.VITE_BACKEND_API}/${user._id}/${token}`
             };
 
             transporter.sendMail(mailOptions, function (error, info) {
