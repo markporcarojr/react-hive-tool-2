@@ -11,6 +11,8 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 
+
+
 const router = express.Router();
 
 const generateResetToken = async () => {
@@ -93,7 +95,7 @@ router.post("/forgot-password", async (req, res) => {
                 from: process.env.MY_GMAIL,
                 to: email,
                 subject: 'Reset Your Password',
-                text: `${import.meta.env.VITE_BACKEND_API}/${user._id}/${token}`
+                text: `${process.env.FRONTEND_ROUTE}/reset-password/${user._id}/${token}`
             };
 
             transporter.sendMail(mailOptions, function (error, info) {
