@@ -253,6 +253,19 @@ input[type="range"] {
   margin-top: 1em;
 }
 
+@keyframes rotateY {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.rotateY {
+  animation: rotateY 5.5s linear infinite;
+}
+
 .shadow {
   box-shadow: 10px 10px 5px black;
 }

@@ -7,7 +7,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../context/UserContext.jsx";
 import { Container } from "react-bootstrap";
-import { uploadImageToStorage } from "../../utils/firebaseUtils.js";
+// import { uploadImageToStorage } from "../../utils/firebaseUtils.js";
+import { uploadUserImageToStorage } from "../../utils/firebaseUtils.js";
 
 const CreateHive = () => {
   const [loading, setLoading] = useState(false);
@@ -67,10 +68,7 @@ const CreateHive = () => {
     try {
       let imageUrl = "";
       if (data.hiveImage) {
-        imageUrl = await uploadImageToStorage(
-          data.hiveImage,
-          "images/hiveImages/"
-        );
+        imageUrl = await uploadUserImageToStorage(data.hiveImage, user._id);
       }
 
       const formData = {

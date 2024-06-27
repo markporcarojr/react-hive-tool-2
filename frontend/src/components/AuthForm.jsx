@@ -50,7 +50,7 @@ const AuthForm = ({
       <Form noValidate onSubmit={handleSubmit}>
         <Row className="justify-content-center mb-0">
           <div className="d-flex justify-content-center">
-            <picture>
+            <picture className="rotateY">
               <source
                 type="image/webp"
                 srcSet={`${logoWebp1x} 1x, ${logoWebp2x} 2x, ${logoWebp3x} 3x`}
@@ -66,7 +66,17 @@ const AuthForm = ({
         </Row>
         <Row className="justify-content-center">
           <Col xs={12} sm={10} md={8} lg={6} className="text-center">
-            <p style={{ color: "#ab0a0a", textAlign: "center" }}>{message}</p>
+            <p
+              style={{
+                color:
+                  message === "User was registered successfully."
+                    ? "#ffcb05"
+                    : "#ab0a0a",
+                textAlign: "center",
+              }}
+            >
+              {message}
+            </p>
             {formFields.map((field, index) => (
               <Form.Group
                 controlId={field.name}

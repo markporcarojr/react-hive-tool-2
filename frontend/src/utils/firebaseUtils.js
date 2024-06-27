@@ -28,6 +28,31 @@ const uploadImageToStorage = async (imageFile, path) => {
     }
 };
 
+const uploadUserImageToStorage = async (imageFile, userId) => {
+    try {
+        // Compress the image before uploading
+        const compressedImage = await imageCompression(imageFile, {
+            maxSizeMB: 1,
+            maxWidthOrHeight: 1920,
+            useWebWorker: true,
+        });
+
+        // Create a storage reference with user ID in the path
+        const storageRef = ref(storage, `user-images/${userId}/${imageFile.name}`);
+
+        // Upload the compressed image bytes
+        await uploadBytes(storageRef, compressedImage);
+
+        // Get the download URL of the uploaded image
+        const imageUrl = await getDownloadURL(storageRef);
+
+        return imageUrl;
+    } catch (error) {
+        console.error("Image upload error:", error);
+        throw new Error("Failed to upload image.");
+    }
+};
+
 const deleteImageFromStorage = async (imageUrl) => {
     try {
         const storageRef = ref(storage, imageUrl);
@@ -40,4 +65,4 @@ const deleteImageFromStorage = async (imageUrl) => {
     }
 };
 
-export { uploadImageToStorage, deleteImageFromStorage };
+export { uploadImageToStorage, deleteImageFromStorage, uploadUserImageToStorage };

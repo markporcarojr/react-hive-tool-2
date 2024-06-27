@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import CustomNavbar from "../components/CustomNavbar.jsx";
 import LoadSpinner from "../components/Spinner.jsx";
 import Footer from "../components/Footer.jsx";
 import { Container, Button, Form } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import UserContext from "../context/UserContext.jsx";
 import {
   uploadImageToStorage,
   deleteImageFromStorage,
@@ -13,7 +14,7 @@ import {
 const UpdateUserForm = () => {
   const [formData, setFormData] = useState({
     apiaryName: "",
-    userName: "",
+    username: "",
     zipcode: "",
   });
   const [message, setMessage] = useState("");
@@ -22,6 +23,7 @@ const UpdateUserForm = () => {
   const [oldImageURL, setOldImageURL] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
+  const { user } = useContext(UserContext);
 
   //2- create a variable from response with useRef, set to initialize to an empty object
   let oldFormData = useRef({});
@@ -46,14 +48,14 @@ const UpdateUserForm = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        const { apiaryName, userName, zipcode, apiaryImage } =
+        const { apiaryName, username, zipcode, apiaryImage } =
           response.data.user;
 
         //2- create a variable from response using useRef
-        oldFormData.current = { apiaryName, userName, zipcode, apiaryImage };
+        oldFormData.current = { apiaryName, username, zipcode, apiaryImage };
 
         //3- get all edit form values and set the state
-        setFormData({ apiaryName, userName, zipcode });
+        setFormData({ apiaryName, username, zipcode });
         setOldImageURL(apiaryImage);
         setLoading(false);
       } catch (error) {
@@ -158,16 +160,16 @@ const UpdateUserForm = () => {
                 className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
               />
             </Form.Group>
-            <Form.Group controlId="userName" className="text-michgold m-3">
+            <Form.Group controlId="username" className="text-michgold m-3">
               <Form.Label className="fs-3 m-3 fw-semibold">
                 User Name
               </Form.Label>
 
               <Form.Control
                 type="text"
-                name="userName"
+                name="username"
                 placeholder="Enter Your User Name..."
-                value={formData.userName}
+                value={formData.username}
                 onChange={handleChange}
                 className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
               />
@@ -205,6 +207,16 @@ const UpdateUserForm = () => {
               >
                 UPDATE USER
               </Button>
+            </div>
+            <div className="text-center m-3">
+              <Link to={`/user/delete/${user._id}`}>
+                <Button
+                  variant="danger"
+                  className="rounded-pill px-5 m-3 mb-2 mt-1"
+                >
+                  DELETE ACCOUNT
+                </Button>
+              </Link>
             </div>
             {message && (
               <p className="mt-3 text-danger fw-bold text-center">{message}</p>

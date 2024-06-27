@@ -30,7 +30,7 @@ export const loginUser = async (req, res) => {
         }
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
         return res.send({
-            message: `${user.userName} is logged in.`,
+            message: `${user.email} is logged in.`,
             user,
             token,
         });
@@ -110,8 +110,8 @@ export const loginUser = async (req, res) => {
 
 export const registerUser = async (req, res) => {
     try {
-        const { email, password, apiaryName, zipcode, apiaryImage } = req.body;
-        if (!email || !password) {
+        const { email, password, username } = req.body;
+        if (!email || !password || !username) {
             return res.send({
                 message: 'All fields are required'
             })
@@ -123,7 +123,7 @@ export const registerUser = async (req, res) => {
             })
         }
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user = new User({ email, apiaryName, password: hashedPassword, zipcode, apiaryImage })
+        const user = new User({ email, password: hashedPassword, username })
         await user.save();
         return res.send({
             message: "User was registered successfully.",
@@ -197,7 +197,7 @@ export const deleteUser = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const { apiaryName, userName, zipcode, apiaryImage } = req.body;
+        const { apiaryName, username, zipcode, apiaryImage } = req.body;
 
         // Retrieve the current user data
         const currentUser = await User.findById(id);
@@ -212,8 +212,8 @@ export const updateUser = async (req, res) => {
         if (apiaryName) {
             updatedFields.apiaryName = apiaryName;
         }
-        if (userName) {
-            updatedFields.userName = userName;
+        if (username) {
+            updatedFields.username = username;
         }
         if (zipcode) {
             updatedFields.zipcode = zipcode;

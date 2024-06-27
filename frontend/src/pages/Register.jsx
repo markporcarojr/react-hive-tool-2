@@ -13,9 +13,11 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    username: "",
   };
 
   const handleSubmit = async (form) => {
+    console.log(form);
     if (form.password !== form.confirmPassword) {
       setMessage("Passwords do not match.");
       return;
@@ -23,7 +25,7 @@ const Register = () => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_API}/user/register`,
-        { email: form.email, password: form.password },
+        { email: form.email, password: form.password, username: form.username },
         {
           headers: {
             "Content-Type": "application/json",
@@ -32,12 +34,11 @@ const Register = () => {
       );
 
       const responseData = response.data;
-
-      if (response.status === 201) {
-        setMessage("Registration successful. Please log in.");
-        navigate("/login");
+      if (responseData.message === "User was registered successfully.") {
+        setTimeout(() => navigate("/login"), 1000);
       } else {
-        console.log(responseData.error);
+        console.log("Error:", responseData.error);
+        console.log("Data:", responseData);
         setMessage(
           responseData.message || "An error occurred during registration."
         );
@@ -54,6 +55,12 @@ const Register = () => {
       type: "email",
       placeholder: "Email...",
       autoComplete: "new-email",
+    },
+    {
+      name: "username",
+      type: "text",
+      placeholder: "Username...",
+      autoComplete: "new-username",
     },
     {
       name: "password",

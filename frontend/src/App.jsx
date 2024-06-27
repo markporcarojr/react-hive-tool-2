@@ -43,6 +43,7 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
+import DeleteUser from "./pages/DeleteUser.jsx";
 
 import TodoList from "./pages/todoPages/TodoList.jsx";
 
@@ -122,6 +123,7 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
+        <Route path="/user/delete/:id" element={<DeleteUser />} />
       </Routes>
     </UserContext.Provider>
   );

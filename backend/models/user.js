@@ -21,8 +21,9 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    userName: {
+    username: {
         type: String,
+        required: false,
     },
     zipcode: {
         type: Number,
@@ -35,5 +36,12 @@ const userSchema = new Schema({
 
 
 );
+
+userSchema.pre('save', function (next) {
+    if (!this.userName) {
+        this.userName = this.email;
+    }
+    next();
+});
 
 export const User = mongoose.model('User', userSchema);
