@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
 import UserContext from "../../context/UserContext.jsx";
 import {
-  uploadImageToStorage,
+  uploadUserImageToStorage,
   deleteImageFromStorage,
 } from "../../utils/firebaseUtils.js";
 
@@ -85,9 +85,9 @@ const EditInspectionForm = () => {
       // Check if a new image has been uploaded
       if (data.inspectionImage) {
         // Upload the new image and get its URL
-        imageUrl = await uploadImageToStorage(
+        imageUrl = await uploadUserImageToStorage(
           data.inspectionImage,
-          "images/inspectionImages/"
+          user._id
         );
       }
 

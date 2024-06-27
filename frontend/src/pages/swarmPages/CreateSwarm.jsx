@@ -7,7 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Container, Card, Form, Button } from "react-bootstrap";
 import UserContext from "../../context/UserContext.jsx";
-import { uploadImageToStorage } from "../../utils/firebaseUtils.js";
+import { uploadUserImageToStorage } from "../../utils/firebaseUtils.js";
 
 const CreateSwarm = () => {
   const { user } = useContext(UserContext);
@@ -33,10 +33,7 @@ const CreateSwarm = () => {
     try {
       let imageUrl = "";
       if (data.swarmImage) {
-        imageUrl = await uploadImageToStorage(
-          data.swarmImage,
-          "images/swarmImages/"
-        );
+        imageUrl = await uploadUserImageToStorage(data.swarmImage, user._id);
       }
       const formData = {
         ...data,

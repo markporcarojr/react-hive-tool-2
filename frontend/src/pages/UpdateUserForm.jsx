@@ -7,7 +7,7 @@ import { Container, Button, Form } from "react-bootstrap";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import UserContext from "../context/UserContext.jsx";
 import {
-  uploadImageToStorage,
+  uploadUserImageToStorage,
   deleteImageFromStorage,
 } from "../utils/firebaseUtils.js"; // Import Firebase functions
 
@@ -102,9 +102,9 @@ const UpdateUserForm = () => {
 
         if (imageUpdated) {
           // Upload the new image and update the URL
-          const imageUrl = await uploadImageToStorage(
+          const imageUrl = await uploadUserImageToStorage(
             apiaryImage,
-            "images/apiaryImages/"
+            user._id
           );
           updatedFormData.apiaryImage = imageUrl;
         }

@@ -20,7 +20,7 @@ function CustomNavbar() {
       <Container fluid>
         <div className="text-center">
           <Navbar.Brand href="/">
-            <picture>
+            <picture className="rotateY">
               <source
                 type="image/webp"
                 style={{ width: "60px" }}

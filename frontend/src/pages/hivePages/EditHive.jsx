@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import UserContext from "../../context/UserContext.jsx";
 import { Container } from "react-bootstrap";
 import {
-  uploadImageToStorage,
+  uploadUserImageToStorage,
   deleteImageFromStorage,
 } from "../../utils/firebaseUtils.js";
 
@@ -70,10 +70,7 @@ const EditHive = () => {
     try {
       let imageUrl = oldImageURL;
       if (data.hiveImage && data.hiveImage instanceof File) {
-        imageUrl = await uploadImageToStorage(
-          data.hiveImage,
-          "images/hiveImages/"
-        );
+        imageUrl = await uploadUserImageToStorage(data.hiveImage, user._id);
       }
 
       const formData = {

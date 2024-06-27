@@ -8,7 +8,7 @@ import UserContext from "../../context/UserContext.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Card, Form, Button } from "react-bootstrap";
 import {
-  uploadImageToStorage,
+  uploadUserImageToStorage,
   deleteImageFromStorage,
 } from "../../utils/firebaseUtils.js";
 
@@ -62,10 +62,7 @@ const EditSwarm = () => {
       // Check if a new image has been uploaded
       if (data.swarmImage && data.swarmImage instanceof File) {
         // Upload the new image and get its URL
-        imageUrl = await uploadImageToStorage(
-          data.swarmImage,
-          "images/swarmImages/"
-        );
+        imageUrl = await uploadUserImageToStorage(data.swarmImage, user._id);
       }
 
       const formData = {

@@ -7,7 +7,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../context/UserContext.jsx";
 import { Container } from "react-bootstrap";
-// import { uploadImageToStorage } from "../../utils/firebaseUtils.js";
 import { uploadUserImageToStorage } from "../../utils/firebaseUtils.js";
 
 const CreateHive = () => {

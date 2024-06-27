@@ -7,7 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
 import UserContext from "../../context/UserContext.jsx";
-import { uploadImageToStorage } from "../../utils/firebaseUtils.js";
+import { uploadUserImageToStorage } from "../../utils/firebaseUtils.js";
 import fetchWeatherData from "../../utils/fetchWeatherData.js";
 
 const InspectionForm = () => {
@@ -102,9 +102,9 @@ const InspectionForm = () => {
       // Check if an image is selected
       if (data.inspectionImage) {
         // Upload image to Firebase Storage
-        imageUrl = await uploadImageToStorage(
+        imageUrl = await uploadUserImageToStorage(
           data.inspectionImage,
-          "images/inspectionImages/"
+          user._id
         );
       }
 

@@ -1,9 +1,15 @@
 //userController.js
 
-import { User } from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
+import { User } from '../models/user.js';
+import { Hive } from '../models/hive.js';
+import { Swarm } from '../models/swarm.js';
+import { Inspection } from '../models/inspections.js'
+import { Inventory } from '../models/inventory.js';
+import { Todo } from '../models/todo.js';
+import { Harvest } from '../models/harvest.js';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -43,70 +49,6 @@ export const loginUser = async (req, res) => {
         })
     }
 };
-
-// Login With Google Auth
-// export const loginUser = async (req, res) => {
-//     try {
-//         const { email, password, googleOAuthToken } = req.body;
-
-//         if (googleOAuthToken) {
-//             // Handle Google OAuth login
-//             const ticket = await client.verifyIdToken({
-//                 idToken: googleOAuthToken,
-//                 audience: process.env.GOOGLE_CLIENT_ID, // Your Google OAuth client ID
-//             });
-//             const payload = ticket.getPayload();
-//             const googleEmail = payload.email;
-
-//             // Check if the user with this googleEmail exists in your database
-//             let user = await User.findOne({ email: googleEmail });
-
-//             if (!user) {
-//                 // Create a new user if not found
-//                 user = await User.create({
-//                     email: googleEmail,
-//                     // Additional user properties as needed
-//                 });
-//             }
-
-//             // Generate JWT token for the user
-//             const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-
-//             return res.status(200).send({
-//                 message: `${user.apiaryName || 'User'} is logged in via Google OAuth.`,
-//                 user,
-//                 token,
-//             });
-//         }
-
-//         // Handle email/password login
-//         if (!email || !password) {
-//             return res.status(400).send({ message: "Both email and password are required." });
-//         }
-
-//         const user = await User.findOne({ email });
-//         if (!user) {
-//             return res.status(404).send({ message: "User is not registered." });
-//         }
-
-//         const isMatch = await bcrypt.compare(password, user.password);
-//         if (!isMatch) {
-//             return res.status(401).send({ message: "Invalid credentials." });
-//         }
-
-//         // Generate JWT token for the user
-//         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-
-//         res.status(200).send({
-//             message: `${user.apiaryName || 'User'} is logged in.`,
-//             user,
-//             token,
-//         });
-//     } catch (error) {
-//         console.error("Login error:", error);
-//         res.status(500).send({ message: "An error occurred during login." });
-//     }
-// };
 
 export const registerUser = async (req, res) => {
     try {
@@ -177,20 +119,42 @@ export const getUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
     try {
-        const { id } = req.params;
-        const user = await User.findByIdAndDelete(id);
-        if (user) {
-            return res.send({
-                message: "User was deleted successfully.",
-                user,
-            })
-        }
+        const userId = req.params.id;
+
+        // Find related documents associated with the user
+        const hives = await Hive.find({ userId });
+        const swarms = await Swarm.find({ userId });
+        const inspections = await Inspection.find({ userId });
+
+        // Extract image URLs (assuming these models have images)
+        const imageUrls = [
+            ...hives.map(doc => `images/${doc.hiveImage}`),
+            ...swarms.map(doc => `images/${doc.swarmImage}`),
+            ...inspections.map(doc => `images/${doc.inspectionImage}`),
+        ].filter(Boolean); // Remove any undefined or null values
+
+        // Delete images from Firebase Storage
+        const deleteImagePromises = imageUrls.map(imageUrl => {
+            const filePath = imageUrl; // Adjust if necessary
+            return bucket.file(filePath).delete();
+        });
+        await Promise.all(deleteImagePromises);
+
+        // Delete documents associated with the user
+        await Hive.deleteMany({ userId });
+        await Swarm.deleteMany({ userId });
+        await Inspection.deleteMany({ userId });
+        await Inventory.deleteMany({ userId });
+        await Todo.deleteMany({ userId });
+        await Harvest.deleteMany({ userId });
+
+        // Delete user
+        await User.findByIdAndDelete(userId);
+
+        res.status(200).send({ message: 'User and associated documents deleted successfully' });
     } catch (error) {
-        console.log(error);
-        return res.send({
-            message: "Deleting a user callback error.",
-            error,
-        })
+        console.log(error)
+        res.status(500).send({ error: 'Error deleting user and associated documents', error });
     }
 };
 
@@ -230,6 +194,70 @@ export const updateUser = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
+// Login With Google Auth
+// export const loginUser = async (req, res) => {
+//     try {
+//         const { email, password, googleOAuthToken } = req.body;
+
+//         if (googleOAuthToken) {
+//             // Handle Google OAuth login
+//             const ticket = await client.verifyIdToken({
+//                 idToken: googleOAuthToken,
+//                 audience: process.env.GOOGLE_CLIENT_ID, // Your Google OAuth client ID
+//             });
+//             const payload = ticket.getPayload();
+//             const googleEmail = payload.email;
+
+//             // Check if the user with this googleEmail exists in your database
+//             let user = await User.findOne({ email: googleEmail });
+
+//             if (!user) {
+//                 // Create a new user if not found
+//                 user = await User.create({
+//                     email: googleEmail,
+//                     // Additional user properties as needed
+//                 });
+//             }
+
+//             // Generate JWT token for the user
+//             const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+
+//             return res.status(200).send({
+//                 message: `${user.apiaryName || 'User'} is logged in via Google OAuth.`,
+//                 user,
+//                 token,
+//             });
+//         }
+
+//         // Handle email/password login
+//         if (!email || !password) {
+//             return res.status(400).send({ message: "Both email and password are required." });
+//         }
+
+//         const user = await User.findOne({ email });
+//         if (!user) {
+//             return res.status(404).send({ message: "User is not registered." });
+//         }
+
+//         const isMatch = await bcrypt.compare(password, user.password);
+//         if (!isMatch) {
+//             return res.status(401).send({ message: "Invalid credentials." });
+//         }
+
+//         // Generate JWT token for the user
+//         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+
+//         res.status(200).send({
+//             message: `${user.apiaryName || 'User'} is logged in.`,
+//             user,
+//             token,
+//         });
+//     } catch (error) {
+//         console.error("Login error:", error);
+//         res.status(500).send({ message: "An error occurred during login." });
+//     }
+// };
 
 
 

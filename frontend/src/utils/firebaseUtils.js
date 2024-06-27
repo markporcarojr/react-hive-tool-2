@@ -38,7 +38,7 @@ const uploadUserImageToStorage = async (imageFile, userId) => {
         });
 
         // Create a storage reference with user ID in the path
-        const storageRef = ref(storage, `user-images/${userId}/${imageFile.name}`);
+        const storageRef = ref(storage, `user-images/${userId}/${imageFile.name + v4()}`);
 
         // Upload the compressed image bytes
         await uploadBytes(storageRef, compressedImage);
