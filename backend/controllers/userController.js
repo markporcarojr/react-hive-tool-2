@@ -121,25 +121,6 @@ export const deleteUser = async (req, res) => {
     try {
         const userId = req.params.id;
 
-        // Find related documents associated with the user
-        const hives = await Hive.find({ userId });
-        const swarms = await Swarm.find({ userId });
-        const inspections = await Inspection.find({ userId });
-
-        // Extract image URLs (assuming these models have images)
-        const imageUrls = [
-            ...hives.map(doc => `images/${doc.hiveImage}`),
-            ...swarms.map(doc => `images/${doc.swarmImage}`),
-            ...inspections.map(doc => `images/${doc.inspectionImage}`),
-        ].filter(Boolean); // Remove any undefined or null values
-
-        // Delete images from Firebase Storage
-        const deleteImagePromises = imageUrls.map(imageUrl => {
-            const filePath = imageUrl; // Adjust if necessary
-            return bucket.file(filePath).delete();
-        });
-        await Promise.all(deleteImagePromises);
-
         // Delete documents associated with the user
         await Hive.deleteMany({ userId });
         await Swarm.deleteMany({ userId });
@@ -153,8 +134,8 @@ export const deleteUser = async (req, res) => {
 
         res.status(200).send({ message: 'User and associated documents deleted successfully' });
     } catch (error) {
-        console.log(error)
-        res.status(500).send({ error: 'Error deleting user and associated documents', error });
+        console.error('Error deleting user and associated documents:', error);
+        res.status(500).send({ error: 'Error deleting user and associated documents' });
     }
 };
 

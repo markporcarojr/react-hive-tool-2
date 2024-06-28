@@ -1,7 +1,8 @@
-import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, deleteObject, listAll } from "firebase/storage";
 import { storage } from "../config/firebaseConfig";
 import { v4 } from "uuid";
-import imageCompression from "browser-image-compression"; // Import image compression library
+import imageCompression from "browser-image-compression";
+
 
 const uploadImageToStorage = async (imageFile, path) => {
     try {
@@ -65,4 +66,23 @@ const deleteImageFromStorage = async (imageUrl) => {
     }
 };
 
-export { uploadImageToStorage, deleteImageFromStorage, uploadUserImageToStorage };
+
+
+const deleteFolderFromStorage = async (folderPath) => {
+    try {
+        const folderRef = ref(storage, folderPath);
+        const listResult = await listAll(folderRef);
+
+        const deletePromises = listResult.items.map((itemRef) => deleteObject(itemRef));
+
+        await Promise.all(deletePromises);
+        console.log(`Deleted all files in the folder: ${folderPath}`);
+    } catch (error) {
+        console.error("Error deleting folder from Firebase Storage:", error);
+        throw new Error("Failed to delete folder from Firebase Storage.");
+    }
+};
+
+
+
+export { uploadImageToStorage, deleteImageFromStorage, uploadUserImageToStorage, deleteFolderFromStorage, };

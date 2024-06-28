@@ -1,23 +1,29 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import LoadSpinner from "../components/Spinner";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CustomNavbar from "../components/CustomNavbar";
 import Footer from "../components/Footer";
 import { Card, Button } from "react-bootstrap";
 import BackButton from "../components/BackButton";
-import { deleteImageFromStorage } from "../utils/firebaseUtils";
+import { deleteFolderFromStorage } from "../utils/firebaseUtils";
 import UserContext from "../context/UserContext";
 
 const DeleteUser = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  const { id } = useParams();
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/login");
+  };
 
   const handleDeleteUser = async () => {
     setLoading(true);
+
     try {
       // Delete user data from the backend
       const response = await axios.delete(
@@ -26,15 +32,17 @@ const DeleteUser = () => {
       console.log("User deleted:", response.data);
 
       // Delete all user images from Firebase Storage
-      await deleteImageFromStorage(`user-images/${user._id}`);
+      await deleteFolderFromStorage(`user-images/${user._id}`);
+
       console.log("All user images deleted from Firebase Storage.");
 
       setLoading(false);
-      navigate("/");
+      logout();
     } catch (error) {
       setLoading(false);
       setMessage("An error has occurred. Please check console for details.");
       console.error("Error deleting user:", error);
+      logout();
     }
   };
 
@@ -64,5 +72,4 @@ const DeleteUser = () => {
     </>
   );
 };
-
 export default DeleteUser;

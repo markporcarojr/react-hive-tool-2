@@ -17,7 +17,6 @@ const Register = () => {
   };
 
   const handleSubmit = async (form) => {
-    console.log(form);
     if (form.password !== form.confirmPassword) {
       setMessage("Passwords do not match.");
       return;
