@@ -68,7 +68,7 @@ const CreateHarvest = () => {
                 aria-describedby="harvestAmount"
               />
               {errors.harvestAmount && (
-                <p className="text-danger">Amount is required</p>
+                <p className="text-danger m-3">Amount is required</p>
               )}
             </div>
             <div className="m-3 mt-0 fs-3 fw-semibold">
@@ -89,7 +89,7 @@ const CreateHarvest = () => {
                 <option value="Wax">Wax</option>
               </Form.Select>
               {errors.harvestType && (
-                <p className="text-danger">Harvest Type is required</p>
+                <p className="text-danger m-3">Harvest Type is required</p>
               )}
             </div>
             <div className="m-3 fs-3 mt-0 fw-semibold">
@@ -104,7 +104,7 @@ const CreateHarvest = () => {
                 name="harvestDate"
               />
               {errors.harvestDate && (
-                <p className="text-danger">Date is required</p>
+                <p className="text-danger m-3">Date is required</p>
               )}
             </div>
           </Form>

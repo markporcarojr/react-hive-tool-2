@@ -180,7 +180,7 @@ const InspectionForm = () => {
                       </Form.Select>
                     </div>
                     {errors.hiveId && (
-                      <span className="text-danger">
+                      <span className="text-danger m-3">
                         This field is required
                       </span>
                     )}
@@ -207,7 +207,7 @@ const InspectionForm = () => {
                       <option value="⚠️ Aggressive">Aggressive</option>
                     </Form.Select>
                     {errors.temperament && (
-                      <span className="text-danger">
+                      <span className="text-danger m-3">
                         This field is required
                       </span>
                     )}
@@ -240,7 +240,7 @@ const InspectionForm = () => {
                       </span>
                     </div>
                     {errors.temperament && (
-                      <span className="text-danger">
+                      <span className="text-danger m-3">
                         This field is required
                       </span>
                     )}
@@ -436,7 +436,9 @@ const InspectionForm = () => {
                     onChange={handleDateChange}
                   />
                   {errors.inspectionDate && (
-                    <span className="text-danger">This field is required</span>
+                    <span className="text-danger m-3">
+                      This field is required
+                    </span>
                   )}
                 </Form.Group>
                 {/* Weather Temperature */}

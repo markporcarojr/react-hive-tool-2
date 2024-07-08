@@ -84,7 +84,9 @@ const CreateSwarm = () => {
                   aria-describedby="swarmNumber"
                 />
                 {errors.swarmNumber && (
-                  <p className="text-danger">Swarm Trap Number is required</p>
+                  <p className="text-danger m-3">
+                    Swarm Trap Number is required
+                  </p>
                 )}
               </div>
 
@@ -100,7 +102,7 @@ const CreateSwarm = () => {
                     rows={3}
                   />
                   {errors.location && (
-                    <p className="text-danger">Location is required</p>
+                    <p className="text-danger m-3">Location is required</p>
                   )}
                 </Form.Group>
               </div>
@@ -128,7 +130,7 @@ const CreateSwarm = () => {
                   name="swarmDate"
                 />
                 {errors.swarmDate && (
-                  <p className="text-danger">Date is required</p>
+                  <p className="text-danger m-3">Date is required</p>
                 )}
               </div>
             </Form>

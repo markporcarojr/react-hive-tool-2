@@ -45,15 +45,15 @@ const HiveCard = ({ hive }) => {
           >
             <div className="row">
               <div className="col-6">
-                <p className="mb-1">Added:</p>
-                <p className="mb-1 ">Source:</p>
-                <p className="mb-1 ">Breed:</p>
-                <p className="mb-1 ">Queen Color:</p>
-                <p className="mb-1 ">Queen Age:</p>
-                <p className="mb-1 ">Strength:</p>
-                <p className="mb-1 ">Excluder:</p>
-                <p className="mb-1 ">Super Boxes:</p>
-                <p className="mb-1 ">Brood Boxes:</p>
+                <p className="mb-1 text-nowrap">Added:</p>
+                <p className="mb-1 text-nowrap">Source:</p>
+                <p className="mb-1 text-nowrap">Breed:</p>
+                <p className="mb-1 text-nowrap">Queen Color:</p>
+                <p className="mb-1 text-nowrap">Queen Age:</p>
+                <p className="mb-1 text-nowrap">Strength:</p>
+                <p className="mb-1 text-nowrap">Excluder:</p>
+                <p className="mb-1 text-nowrap">Super Boxes:</p>
+                <p className="mb-1 text-nowrap">Brood Boxes:</p>
               </div>
               <div className="col-6 text-end">
                 <p className="mb-1 ">{formattedDate || "N/A"}</p>

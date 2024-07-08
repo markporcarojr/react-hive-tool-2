@@ -39,13 +39,15 @@ function InspectionCard({ inspection }) {
               : "bg-card"
           }`}
         >
+          <h2 className="mt-1 text-michgold text-center mb-0">
+            Hive #{hiveNumber}
+          </h2>
           <div className="container text-michgold card-body d-flex justify-content-between border-bottom border-3 border-michgold">
-            <div className="text-center mt-2">
+            <div className="text-center mt-">
               <p className="mb-0">{weatherCondition}</p>
               <div>{weatherTemp} ℉</div>
             </div>
-            <h2 className="mt-1">Hive #{hiveNumber}</h2>
-            <div className="text-center mt-2">
+            <div className="text-center mt-">
               <p className="mb-0">Inspected</p>
               <div>{formattedDate}</div>
             </div>

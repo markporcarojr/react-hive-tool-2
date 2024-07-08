@@ -140,7 +140,7 @@ const EditHive = () => {
                     <option value="Split">Split</option>
                   </select>
                   {errors.hiveSource && (
-                    <p className="text-danger">Hive Source is required</p>
+                    <p className="text-danger m-3">Hive Source is required</p>
                   )}
 
                   <label htmlFor="breed" className="form-label m-3">
@@ -245,7 +245,7 @@ const EditHive = () => {
                     name="hiveDate"
                   />
                   {errors.hiveDate && (
-                    <p className="text-danger">Date is required</p>
+                    <p className="text-danger m-3">Date is required</p>
                   )}
                 </div>
 

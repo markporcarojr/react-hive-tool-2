@@ -30,7 +30,7 @@ const hiveSchema = new Schema(
         },
         hiveStrength: {
             type: Number,
-            required: true
+            required: false
         },
         queenColor: {
             type: String,

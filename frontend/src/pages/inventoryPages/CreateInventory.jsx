@@ -73,7 +73,7 @@ const CreateInventory = () => {
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 />
                 {errors.inventoryType && (
-                  <p className="text-danger">Inventory Type is required</p>
+                  <p className="text-danger m-3">Inventory Type is required</p>
                 )}
               </div>
 
@@ -89,7 +89,7 @@ const CreateInventory = () => {
                   name="inventoryAmount"
                 />
                 {errors.inventoryAmount && (
-                  <p className="text-danger">Quantity is required</p>
+                  <p className="text-danger m-3">Quantity is required</p>
                 )}
               </div>
               <div className="m-3 fs-3 mt-0 fw-semibold">

@@ -107,10 +107,11 @@ const CreateHive = () => {
           <div>
             <div className="card text-michgold mt-2 mb-5">
               <h1 className="m-5 fw-bold text-center">ADD HIVE</h1>
+              <p className="text-center">* Required Fields</p>
               <form id="hive-form" onSubmit={handleSubmit(handleSaveHive)}>
                 <div className="m-3 fs-3 mt-0 fw-semibold">
                   <label htmlFor="hiveNumber" className="form-label m-3">
-                    Hive Number
+                    * Hive Number
                   </label>
                   <input
                     type="number"
@@ -121,12 +122,14 @@ const CreateHive = () => {
                     aria-describedby="hiveNumber"
                   />
                   {errors.hiveNumber && (
-                    <p className="text-danger fs-5">Hive Number is required</p>
+                    <p className="text-danger fs-5 m-3">
+                      Hive Number is required
+                    </p>
                   )}
                 </div>
                 <div className="m-3 fs-3 mt-0 fw-semibold ">
                   <label htmlFor="hiveSource" className="form-label m-3">
-                    Hive Source
+                    * Hive Source
                   </label>
                   <select
                     {...register("hiveSource", { required: true })}
@@ -141,7 +144,9 @@ const CreateHive = () => {
                     <option value="Split">Split</option>
                   </select>
                   {errors.hiveSource && (
-                    <p className="text-danger fs-5">Hive Source is required</p>
+                    <p className="text-danger fs-5 m-3">
+                      Hive Source is required
+                    </p>
                   )}
 
                   <label htmlFor="breed" className="form-label m-3">
@@ -244,7 +249,7 @@ const CreateHive = () => {
                     htmlFor="hiveDate"
                     className="form-label fs-3 fw-semibold m-3"
                   >
-                    Date
+                    * Date
                   </label>
                   <input
                     {...register("hiveDate", { required: true })}
@@ -254,7 +259,7 @@ const CreateHive = () => {
                     name="hiveDate"
                   />
                   {errors.hiveDate && (
-                    <p className="text-danger fs-5">Date is required</p>
+                    <p className="text-danger fs-5 m-3">Date is required</p>
                   )}
                 </div>
 
@@ -271,7 +276,7 @@ const CreateHive = () => {
                     0
                   </p>
                   <input
-                    {...register("hiveStrength", { required: true })}
+                    {...register("hiveStrength")}
                     type="range"
                     className="m-3 custom-range"
                     min="0"
@@ -286,9 +291,6 @@ const CreateHive = () => {
                       {sliderValue}
                     </span>
                   </div>
-                  {errors.hiveStrength && (
-                    <p className="text-danger fs-5">Date is required</p>
-                  )}
                 </div>
                 <div className="d-flex justify-content-around mt-5">
                   <button
