@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
+import BackButton from "../../components/BackButton.jsx";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import UserContext from "../../context/UserContext.jsx";
@@ -114,9 +115,12 @@ const EditHive = () => {
           className="mt-5"
         >
           <div>
+            <div className="mt-3 text-center">
+              <BackButton text={"⬅ BACK"} />
+            </div>
             <div className="card text-michgold  mt-2 mb-5">
               <h1 className="m-5 fw-bold text-center">
-                EDIT HIVE {hiveNumber}
+                EDIT HIVE #{hiveNumber}
               </h1>
               <form id="hive-form" onSubmit={handleSubmit(handleEditHive)}>
                 <div className="m-3 fs-3 mt-0 fw-semibold ">

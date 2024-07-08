@@ -106,7 +106,7 @@ const InspectionPage = () => {
       </Helmet>
       <CustomNavbar />
       <div className="p-4 text-center">
-        <div className="d-flex justify-content-around mb-4">
+        <div className="d-flex justify-content-around mb-4 sticky-button">
           <Link
             to="/inspections/create"
             className="btn btn-michgold rounded-pill fw-bold"

@@ -58,6 +58,21 @@ export const getHive = async (req, res) => {
         res.status(500).send({ message: error.message });
     }
 };
+export const checkHiveNumber = async (req, res) => {
+    const { userId, hiveNumber } = req.query;
+
+    try {
+        const hive = await Hive.findOne({ userId, hiveNumber });
+        if (hive) {
+            res.json({ exists: true });
+        } else {
+            res.json({ exists: false });
+        }
+    } catch (error) {
+        console.error('Error checking hive number:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
 export const updateHive = async (req, res) => {
     try {
         if (!req.body.hiveNumber ||

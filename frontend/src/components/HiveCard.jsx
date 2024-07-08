@@ -51,7 +51,7 @@ const HiveCard = ({ hive }) => {
                 <p className="mb-1 ">Queen Color:</p>
                 <p className="mb-1 ">Queen Age:</p>
                 <p className="mb-1 ">Strength:</p>
-                <p className="mb-1 ">Queen Excluder:</p>
+                <p className="mb-1 ">Excluder:</p>
                 <p className="mb-1 ">Super Boxes:</p>
                 <p className="mb-1 ">Brood Boxes:</p>
               </div>

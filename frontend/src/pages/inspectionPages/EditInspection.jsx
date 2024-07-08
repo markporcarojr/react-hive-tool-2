@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
+import BackButton from "../../components/BackButton.jsx";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button, Card, Container } from "react-bootstrap";
@@ -135,6 +136,9 @@ const EditInspectionForm = () => {
           className="mt-5"
         >
           <Card className="text-michgold ">
+            <div className="mt-3 text-center">
+              <BackButton text={"⬅ BACK"} />
+            </div>
             <Card.Body>
               {/* Form */}
               <h1 className="m-5 fw-bold text-center">EDIT INSPECTION</h1>

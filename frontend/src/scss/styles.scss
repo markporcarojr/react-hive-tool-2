@@ -280,6 +280,15 @@ input[type="range"] {
   margin-top: 10px;
 }
 
+.sticky-button {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 100px; /* Adjust based on the height of the navbar */
+  z-index: 999; /* Ensure the button is above other content but below the navbar */
+  text-align: center; /* Center the button horizontally */
+  padding-top: 1rem; /* Add padding for better appearance */
+}
+
 .svg-honey {
   background-size: contain;
   background-repeat: no-repeat;

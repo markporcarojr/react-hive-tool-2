@@ -62,7 +62,7 @@ export default function Harvest() {
       </Helmet>
       <CustomNavbar />
       <div className="p-4">
-        <div className="d-flex justify-content-around mb-3">
+        <div className="d-flex justify-content-around mb-3 sticky-button">
           <Link
             to="/harvest/create"
             className="btn btn-michgold rounded-pill fw-bold"

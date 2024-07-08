@@ -42,7 +42,9 @@ const CreateHive = () => {
   const checkHiveNumberExists = async (hiveNumber) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_API}/check-hive-number?userId=${
+        `${
+          import.meta.env.VITE_BACKEND_API
+        }/new-hive/check-hive-number?userId=${
           user._id
         }&hiveNumber=${hiveNumber}`
       );

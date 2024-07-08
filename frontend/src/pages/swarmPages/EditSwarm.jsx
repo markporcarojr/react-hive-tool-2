@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import LoadSpinner from "../../components/Spinner";
+import BackButton from "../../components/BackButton.jsx";
 import axios from "axios";
 import UserContext from "../../context/UserContext.jsx";
 import { useNavigate, useParams } from "react-router-dom";
@@ -104,6 +105,9 @@ const EditSwarm = () => {
         >
           <Card className="text-michgold  mt-2 mb-5">
             {/* Forms */}
+            <div className="mt-3 text-center">
+              <BackButton text={"⬅ BACK"} />
+            </div>
             <h1 className="m-5 fw-bold text-center">EDIT SWARM TRAP</h1>
 
             <Form onSubmit={handleSubmit(handleEditSwarm)} id="swarm-form">

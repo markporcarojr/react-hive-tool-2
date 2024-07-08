@@ -16,8 +16,6 @@ import authRoutes from './routes/authRoutes.js'
 import todoRoutes from './routes/todoRoutes.js'
 import notificationRoutes from "./routes/notificationRoutes.js"
 
-import { Hive } from "./models/hive.js";
-
 dotenv.config();
 
 const app = express();
@@ -66,24 +64,6 @@ app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/todo', todoRoutes);
 app.use('/api', notificationRoutes);
-
-app.get('/check-hive-number', async (req, res) => {
-    const { userId, hiveNumber } = req.query;
-
-    try {
-        const hive = await Hive.findOne({ userId, hiveNumber }); // Assuming you have a Hive model
-        if (hive) {
-            res.json({ exists: true });
-        } else {
-            res.json({ exists: false });
-        }
-    } catch (error) {
-        console.error('Error checking hive number:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
-
-
 
 app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);
