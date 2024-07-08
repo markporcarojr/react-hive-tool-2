@@ -16,8 +16,8 @@ import { Helmet } from "react-helmet";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);
-  const options = { timeZone: "UTC" };
-  return utcDate.toLocaleDateString("en-US", options);
+  // const options = { timeZone: "UTC" };
+  return utcDate.toLocaleDateString("en-US");
 };
 
 const InspectionPage = () => {
@@ -69,8 +69,17 @@ const InspectionPage = () => {
     setSelectedHive(e.target.value);
   };
 
-  const sortedInspections = inspections.sort((a, b) => {
-    if (sortConfig.key) {
+  const sortedInspections = [...inspections].sort((a, b) => {
+    if (sortConfig.key === "inspectionDate") {
+      const dateA = new Date(formatDate(a.inspectionDate));
+      const dateB = new Date(formatDate(b.inspectionDate));
+      if (dateA < dateB) {
+        return sortConfig.direction === "ascending" ? -1 : 1;
+      }
+      if (dateA > dateB) {
+        return sortConfig.direction === "ascending" ? 1 : -1;
+      }
+    } else {
       if (a[sortConfig.key] < b[sortConfig.key]) {
         return sortConfig.direction === "ascending" ? -1 : 1;
       }
