@@ -14,7 +14,6 @@ const InspectionForm = () => {
   const curr = new Date();
   // Create the current date as a local date string in the format yyyy-mm-dd
   const currentDate = curr.toISOString().split("T")[0];
-  console.log(currentDate);
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState();
@@ -98,15 +97,6 @@ const InspectionForm = () => {
     setLoading(true);
     const selectedHive = JSON.parse(data.hiveId);
 
-    const formatDate = (dateString) => {
-      const date = new Date(dateString + "T00:00:00"); // Ensure date is set to local timezone
-      const mm = String(date.getMonth() + 1).padStart(2, "0"); // getMonth() is zero-based
-      const dd = String(date.getDate()).padStart(2, "0");
-      const yyyy = date.getFullYear();
-      return `${mm}-${dd}-${yyyy}`;
-    };
-    const formattedDate = formatDate(selectedDate);
-
     try {
       let imageUrl = null;
       // Check if an image is selected
@@ -127,7 +117,6 @@ const InspectionForm = () => {
         hiveId: selectedHive._id,
         userId: data.userId,
         inspectionImage: imageUrl,
-        inspectionDate: formattedDate,
       };
 
       axios.post(`${import.meta.env.VITE_BACKEND_API}/inspections`, formData);

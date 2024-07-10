@@ -91,7 +91,7 @@ const CreateSwarm = () => {
               </div>
 
               <div className="m-3 mt-0 fs-3 fw-semibold">
-                <Form.Group className="mb-3" controlId="location">
+                <Form.Group className="mb-3" id="location">
                   <Form.Label htmlFor="location" className="m-3">
                     Location
                   </Form.Label>
