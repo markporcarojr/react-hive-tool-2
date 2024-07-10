@@ -16,8 +16,8 @@ import { Helmet } from "react-helmet";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);
-  // const options = { timeZone: "UTC" };
-  return utcDate.toLocaleDateString("en-US");
+  const options = { timeZone: "UTC" };
+  return utcDate.toLocaleDateString("en-US", options);
 };
 
 const InspectionPage = () => {
