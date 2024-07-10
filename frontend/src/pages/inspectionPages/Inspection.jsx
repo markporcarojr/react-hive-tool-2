@@ -29,8 +29,8 @@ const InspectionPage = () => {
   const { user } = useContext(UserContext);
 
   const [sortConfig, setSortConfig] = useState({
-    key: null,
-    direction: "ascending",
+    key: "inspectionDate",
+    direction: "descending",
   });
 
   useEffect(() => {
