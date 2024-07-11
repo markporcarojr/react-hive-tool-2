@@ -137,11 +137,13 @@ const EditInspectionForm = () => {
         >
           <Card className="text-michgold ">
             <div className="mt-3 text-center">
-              <BackButton text={"⬅ BACK"} />
+              <BackButton text={"BACK"} />
             </div>
             <Card.Body>
               {/* Form */}
               <h1 className="m-5 fw-bold text-center">EDIT INSPECTION</h1>
+              <p className="text-center mb-5">* Required Fields</p>
+
               <Form
                 onSubmit={handleSubmit(handleEditInspection)}
                 id="inspection-form"
@@ -151,7 +153,7 @@ const EditInspectionForm = () => {
 
                   <Form.Group className="m-3 fs-3 mt-0 fw-semibold">
                     <Form.Label className="fs-3 m-3 fw-semibold">
-                      Temperament
+                      * Temperament
                     </Form.Label>
                     <Form.Select
                       {...register("temperament", { required: true })}
@@ -169,9 +171,9 @@ const EditInspectionForm = () => {
                       <option value="⚠️ Aggressive">Aggressive</option>
                     </Form.Select>
                     {errors.temperament && (
-                      <span className="text-danger">
-                        This field is required
-                      </span>
+                      <p className="fs-5 text-danger m-3 text-center">
+                        Temperament is required
+                      </p>
                     )}
                   </Form.Group>
                   {/* Hive Strength */}
@@ -179,14 +181,14 @@ const EditInspectionForm = () => {
                     htmlFor="hiveStrength"
                     className="form-label my-1 fs-3 fw-semibold"
                   >
-                    Hive Strength
+                    * Hive Strength
                   </label>
                   <div className="d-flex justify-content-evenly mb-3">
                     <p className="mt-3" style={{ flex: 1 }}>
                       0
                     </p>
                     <input
-                      {...register("hiveStrength", { required: true })}
+                      {...register("hiveStrength")}
                       type="range"
                       className="m-3 custom-range"
                       min="0"
@@ -201,11 +203,6 @@ const EditInspectionForm = () => {
                         {hiveStrength}
                       </span>
                     </div>
-                    {errors.temperament && (
-                      <span className="text-danger">
-                        This field is required
-                      </span>
-                    )}
                   </div>
                 </div>
 
@@ -376,7 +373,7 @@ const EditInspectionForm = () => {
                 {/* Inspection Date */}
                 <Form.Group className="mb-3">
                   <Form.Label className="m-3 fs-3 mt-0 fw-semibold">
-                    Date
+                    * Date
                   </Form.Label>
                   <Form.Control
                     {...register("inspectionDate", { required: true })}
@@ -386,7 +383,9 @@ const EditInspectionForm = () => {
                     name="inspectionDate"
                   />
                   {errors.inspectionDate && (
-                    <span className="text-danger">This field is required</span>
+                    <p className="fs-5 text-danger m-3 text-center">
+                      Date is required
+                    </p>
                   )}
                 </Form.Group>
 

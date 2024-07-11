@@ -90,6 +90,8 @@ const InspectionPage = () => {
     return 0;
   });
 
+  // if a hive is selected then it will be sorted by the hive number
+  // if no selected hive, then all hives will be displayed
   const filteredInspections = sortedInspections.filter((inspection) => {
     if (selectedHive) {
       return inspection.hiveNumber.toString() === selectedHive;
@@ -97,6 +99,9 @@ const InspectionPage = () => {
     return true;
   });
 
+  // create a new set removing duplicates
+  // map inspections to the string of the hiveNumber
+  // spread the Set into an array
   const uniqueHives = [
     ...new Set(
       inspections.map((inspection) => inspection.hiveNumber.toString())
@@ -172,7 +177,7 @@ const InspectionPage = () => {
               </thead>
               <tbody>
                 {filteredInspections.map((inspection) => (
-                  <tr key={inspection._id} className="text-center align-middle">
+                  <tr key={inspection._id} className="">
                     <td onClick={() => handleShowModal(inspection)}>
                       <ImageDisplay
                         imageUrl={inspection.inspectionImage}

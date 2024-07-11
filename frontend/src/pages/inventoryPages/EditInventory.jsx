@@ -75,9 +75,10 @@ const EditInventory = () => {
           <Card className="text-michgold  mt-2 mb-5">
             {/* Forms */}
             <div className="mt-3 text-center">
-              <BackButton text={"⬅ BACK"} />
+              <BackButton text={"BACK"} />
             </div>
             <h1 className="m-5 fw-bold text-center">EDIT ITEM</h1>
+            <p className="text-center mb-4">* Required Fields</p>
 
             <Form
               id="inventory-form"
@@ -85,7 +86,7 @@ const EditInventory = () => {
             >
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="inventoryType" className="m-3">
-                  Equipment Name
+                  * Equipment Name
                 </Form.Label>
                 <Form.Control
                   {...register("inventoryType", { required: true })}
@@ -95,13 +96,15 @@ const EditInventory = () => {
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 />
                 {errors.inventoryType && (
-                  <p className="text-danger">Inventory Type is required</p>
+                  <p className="fs-5 text-danger m-3 text-center">
+                    Equipment Name is required
+                  </p>
                 )}
               </div>
 
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="inventoryAmount" className="m-3">
-                  Quantity
+                  * Quantity
                 </Form.Label>
                 <Form.Control
                   {...register("inventoryAmount", { required: true })}
@@ -111,7 +114,9 @@ const EditInventory = () => {
                   name="inventoryAmount"
                 />
                 {errors.inventoryAmount && (
-                  <p className="text-danger">Quantity is required</p>
+                  <p className="fs-5 text-danger m-3 text-center">
+                    Quantity is required
+                  </p>
                 )}
               </div>
               <div className="m-3 fs-3 mt-0 fw-semibold">

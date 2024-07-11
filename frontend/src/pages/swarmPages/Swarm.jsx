@@ -68,7 +68,7 @@ export default function Swarm() {
             to="/swarm/create"
             className="btn btn-michgold rounded-pill fw-bold"
           >
-            ADD SWARM
+            ADD TRAP
           </Link>
         </div>
         {loading ? (
@@ -85,7 +85,7 @@ export default function Swarm() {
             >
               <thead className="fs-4 fw-bold text-center">
                 <tr>
-                  <th>Swarm Image</th>
+                  <th>Trap Image</th>
                   <th>Date</th>
                   <th>Trap Number</th>
                   <th>Location</th>

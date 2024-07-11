@@ -54,10 +54,12 @@ const CreateHarvest = () => {
           <h1 className="m-5 fw-bold text-center">ADD HARVEST</h1>
 
           {/* Forms */}
+          <p className="text-center mb-4">* Required Fields</p>
+
           <Form onSubmit={handleSubmit(handleSaveHarvest)} id="harvest-form">
             <div className="m-3 fs-3 mt-0 fw-semibold">
               <Form.Label htmlFor="harvestAmount" className="m-3">
-                Harvest Amount (lbs)
+                * Harvest Amount (lbs)
               </Form.Label>
               <Form.Control
                 {...register("harvestAmount", { required: true })}
@@ -68,12 +70,14 @@ const CreateHarvest = () => {
                 aria-describedby="harvestAmount"
               />
               {errors.harvestAmount && (
-                <p className="text-danger m-3">Amount is required</p>
+                <p className="fs-5 text-danger m-3 text-center">
+                  Amount is required
+                </p>
               )}
             </div>
             <div className="m-3 mt-0 fs-3 fw-semibold">
               <Form.Label htmlFor="harvestType" className="m-3">
-                Harvest Type
+                * Harvest Type
               </Form.Label>
               <Form.Select
                 {...register("harvestType", { required: true })}
@@ -89,12 +93,14 @@ const CreateHarvest = () => {
                 <option value="Wax">Wax</option>
               </Form.Select>
               {errors.harvestType && (
-                <p className="text-danger m-3">Harvest Type is required</p>
+                <p className="fs-5 text-danger m-3 text-center">
+                  Harvest Type is required
+                </p>
               )}
             </div>
             <div className="m-3 fs-3 mt-0 fw-semibold">
               <Form.Label htmlFor="harvestDate" className="m-3">
-                Date
+                * Date
               </Form.Label>
               <Form.Control
                 {...register("harvestDate", { required: true })}
@@ -104,7 +110,9 @@ const CreateHarvest = () => {
                 name="harvestDate"
               />
               {errors.harvestDate && (
-                <p className="text-danger m-3">Date is required</p>
+                <p className="fs-5 text-danger m-3 text-center">
+                  Date is required
+                </p>
               )}
             </div>
           </Form>

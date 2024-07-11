@@ -80,12 +80,12 @@ export default function Harvest() {
               hover
               // responsive
               variant="dark"
-              className="text-michgold inventory-table"
+              className="text-michgold harvest-table"
             >
               <thead className="fs-4 fw-bold text-center">
                 <tr>
                   <th>Date</th>
-                  <th>Harvest Type</th>
+                  <th>Type</th>
                   <th>Amount</th>
                   <th>Options</th>
                 </tr>

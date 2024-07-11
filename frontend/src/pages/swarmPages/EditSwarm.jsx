@@ -106,14 +106,15 @@ const EditSwarm = () => {
           <Card className="text-michgold  mt-2 mb-5">
             {/* Forms */}
             <div className="mt-3 text-center">
-              <BackButton text={"⬅ BACK"} />
+              <BackButton text={"BACK"} />
             </div>
             <h1 className="m-5 fw-bold text-center">EDIT SWARM TRAP</h1>
+            <p className="text-center mb-4">* Required Fields</p>
 
             <Form onSubmit={handleSubmit(handleEditSwarm)} id="swarm-form">
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="swarmNumber" className="m-3">
-                  Swarm Number
+                  * Swarm Number
                 </Form.Label>
                 <Form.Control
                   {...register("swarmNumber", { required: true })}
@@ -124,14 +125,16 @@ const EditSwarm = () => {
                   aria-describedby="swarmNumber"
                 />
                 {errors.swarmNumber && (
-                  <p className="text-danger">Swarm Trap Number is required</p>
+                  <p className="fs-5 text-danger m-3 text-center">
+                    Swarm Trap Number is required
+                  </p>
                 )}
               </div>
 
               <div className="m-3 mt-0 fs-3 fw-semibold">
                 <Form.Group className="mb-3" controlId="location">
                   <Form.Label htmlFor="location" className="m-3">
-                    Location
+                    * Location
                   </Form.Label>
                   <Form.Control
                     {...register("location", { required: true })}
@@ -140,7 +143,9 @@ const EditSwarm = () => {
                     rows={3}
                   />
                   {errors.location && (
-                    <p className="text-danger">Location is required</p>
+                    <p className="fs-5 text-danger m-3 text-center">
+                      Location is required
+                    </p>
                   )}
                 </Form.Group>
               </div>
@@ -158,7 +163,7 @@ const EditSwarm = () => {
               </div>
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="swarmDate" className="m-3">
-                  Date
+                  * Date
                 </Form.Label>
                 <Form.Control
                   {...register("swarmDate", { required: true })}
@@ -168,7 +173,9 @@ const EditSwarm = () => {
                   name="swarmDate"
                 />
                 {errors.swarmDate && (
-                  <p className="text-danger">Date is required</p>
+                  <p className="fs-5 text-danger m-3 text-center">
+                    Date is required
+                  </p>
                 )}
               </div>
             </Form>

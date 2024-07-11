@@ -71,13 +71,15 @@ const EditHarvest = () => {
         <Card className="text-michgold  mt-2 mb-5">
           {/* Forms */}
           <div className="mt-3 text-center">
-            <BackButton text={"⬅ BACK"} />
+            <BackButton text={"BACK"} />
           </div>
           <h1 className="m-5 fw-bold text-center">EDIT HARVEST</h1>
+          <p className="text-center mb-4">* Required Fields</p>
+
           <Form onSubmit={handleSubmit(handleEditHarvest)} id="harvest-form">
             <div className="m-3 fs-3 mt-0 fw-semibold">
               <Form.Label htmlFor="harvestAmount" className="m-3">
-                Harvest Amount (lbs)
+                * Harvest Amount (lbs)
               </Form.Label>
               <Form.Control
                 {...register("harvestAmount", { required: true })}
@@ -88,12 +90,14 @@ const EditHarvest = () => {
                 aria-describedby="harvestAmount"
               />
               {errors.harvestAmount && (
-                <p className="text-danger">Amount is required</p>
+                <p className="fs-5 text-danger m-3 text-center">
+                  Amount is required
+                </p>
               )}
             </div>
             <div className="m-3 mt-0 fs-3 fw-semibold">
               <Form.Label htmlFor="harvestType" className="m-3">
-                Harvest Type
+                * Harvest Type
               </Form.Label>
               <Form.Select
                 {...register("harvestType", { required: true })}
@@ -110,12 +114,14 @@ const EditHarvest = () => {
                 <option value="Wax">Wax</option>
               </Form.Select>
               {errors.harvestType && (
-                <p className="text-danger">Harvest Type is required</p>
+                <p className="fs-5 text-danger m-3 text-center">
+                  Harvest Type is required
+                </p>
               )}
             </div>
             <div className="m-3 fs-3 mt-0 fw-semibold">
               <Form.Label htmlFor="harvestDate" className="m-3">
-                Date
+                * Date
               </Form.Label>
               <Form.Control
                 {...register("harvestDate", { required: true })}
@@ -125,12 +131,13 @@ const EditHarvest = () => {
                 name="harvestDate"
               />
               {errors.harvestDate && (
-                <p className="text-danger">Date is required</p>
+                <p className="fs-5 text-danger m-3 text-center">
+                  Date is required
+                </p>
               )}
             </div>
           </Form>
           {/* Form end */}
-
           <div className="d-flex justify-content-around mt-5">
             <Button
               type="submit"

@@ -56,6 +56,7 @@ const CreateInventory = () => {
           <Card className="text-michgold  mt-2 mb-5">
             {/* Forms */}
             <h1 className="m-5 fw-bold text-center">NEW ITEM</h1>
+            <p className="text-center mb-4">* Required Fields</p>
 
             <Form
               id="inventory-form"
@@ -63,7 +64,7 @@ const CreateInventory = () => {
             >
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="inventoryType" className="m-3">
-                  Equipment Name
+                  * Equipment Name
                 </Form.Label>
                 <Form.Control
                   {...register("inventoryType", { required: true })}
@@ -73,13 +74,15 @@ const CreateInventory = () => {
                   className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                 />
                 {errors.inventoryType && (
-                  <p className="text-danger m-3">Inventory Type is required</p>
+                  <p className="fs-5 text-danger m-3 text-center">
+                    Equipment Name is required
+                  </p>
                 )}
               </div>
 
               <div className="m-3 fs-3 mt-0 fw-semibold">
                 <Form.Label htmlFor="inventoryAmount" className="m-3">
-                  Quantity
+                  *Quantity
                 </Form.Label>
                 <Form.Control
                   {...register("inventoryAmount", { required: true })}
@@ -89,7 +92,9 @@ const CreateInventory = () => {
                   name="inventoryAmount"
                 />
                 {errors.inventoryAmount && (
-                  <p className="text-danger m-3">Quantity is required</p>
+                  <p className="fs-5 text-danger m-3 text-center">
+                    Quantity is required
+                  </p>
                 )}
               </div>
               <div className="m-3 fs-3 mt-0 fw-semibold">

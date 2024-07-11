@@ -361,6 +361,8 @@ input[type="range"] {
 @media (max-width: 576px) {
   /* Hide certain table columns on mobile */
 
+  .harvest-table th:nth-child(1),
+  .harvest-table td:nth-child(1),
   .hive-table th:nth-child(3),
   .hive-table td:nth-child(3),
   .hive-table th:nth-child(4),

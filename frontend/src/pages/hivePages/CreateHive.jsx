@@ -107,7 +107,7 @@ const CreateHive = () => {
           <div>
             <div className="card text-michgold mt-2 mb-5">
               <h1 className="m-5 fw-bold text-center">ADD HIVE</h1>
-              <p className="text-center">* Required Fields</p>
+              <p className="text-center mb-4">* Required Fields</p>
               <form id="hive-form" onSubmit={handleSubmit(handleSaveHive)}>
                 <div className="m-3 fs-3 mt-0 fw-semibold">
                   <label htmlFor="hiveNumber" className="form-label m-3">
@@ -122,7 +122,7 @@ const CreateHive = () => {
                     aria-describedby="hiveNumber"
                   />
                   {errors.hiveNumber && (
-                    <p className="text-danger fs-5 m-3">
+                    <p className="fs-5 text-danger m-3 text-center">
                       Hive Number is required
                     </p>
                   )}
@@ -144,7 +144,7 @@ const CreateHive = () => {
                     <option value="Split">Split</option>
                   </select>
                   {errors.hiveSource && (
-                    <p className="text-danger fs-5 m-3">
+                    <p className="fs-5 text-danger m-3 text-center">
                       Hive Source is required
                     </p>
                   )}
@@ -259,7 +259,9 @@ const CreateHive = () => {
                     name="hiveDate"
                   />
                   {errors.hiveDate && (
-                    <p className="text-danger fs-5 m-3">Date is required</p>
+                    <p className="fs-5 text-danger m-3 text-center">
+                      Date is required
+                    </p>
                   )}
                 </div>
 

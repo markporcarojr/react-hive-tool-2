@@ -23,15 +23,8 @@ const InspectionForm = () => {
   const [weatherData, setWeatherData] = useState("");
   const [sliderValue, setSliderValue] = useState(50);
   const [selectedDate, setSelectedDate] = useState(currentDate);
-
-  const weatherConditionValue =
-    weatherData && weatherData.weather && weatherData.weather[0]
-      ? weatherData.weather[0].description
-      : "";
-  const weatherTempValue =
-    weatherData && weatherData.main && weatherData.main.temp
-      ? `${Math.floor(weatherData.main.temp)} ℉`
-      : "";
+  const [weatherTemp, setWeatherTemp] = useState("");
+  const [weatherCondition, setWeatherCondition] = useState("");
 
   const {
     register,
@@ -53,8 +46,6 @@ const InspectionForm = () => {
         setLoading(false);
       });
 
-    // TODO: Why this is here
-
     if (user && user._id) {
       setValue("userId", user._id); // Set the userId field value
     }
@@ -63,14 +54,16 @@ const InspectionForm = () => {
   useEffect(() => {
     const fetchWeather = async () => {
       if (user && user.zipcode) {
-        const data = await fetchWeatherData(user.zipcode);
-        if (data) {
-          setWeatherData(data.data);
-          const description = data.data.weather[0].description;
-          const temp = Math.floor(data.data.main.temp);
+        const weather = await fetchWeatherData(user.zipcode);
+        if (weather) {
+          const weatherConditionValue = weather.data.weather[0].description;
+          const weatherTempValue = Math.floor(weather.data.main.temp);
 
-          setValue("weatherTemp", temp);
-          setValue("weatherCondition", description);
+          setWeatherData(weather.data);
+          setWeatherTemp(weatherTempValue);
+          setWeatherCondition(weatherConditionValue);
+          setValue("weatherTemp", weatherTempValue);
+          setValue("weatherCondition", weatherConditionValue);
         }
       }
     };
@@ -80,6 +73,14 @@ const InspectionForm = () => {
 
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value);
+  };
+  const handleWeatherConditionChange = (e) => {
+    setWeatherCondition(e.target.value);
+    setValue("weatherCondition", e.target.value);
+  };
+  const handleWeatherTempChange = (e) => {
+    setWeatherTemp(e.target.value);
+    setValue("weatherTemp", e.target.value);
   };
 
   const handleSliderChange = (e) => {
@@ -148,7 +149,7 @@ const InspectionForm = () => {
             <Card.Body>
               {/* Form */}
               <h1 className="m-5 fw-bold text-center">NEW INSPECTION</h1>
-
+              <p className="text-center mb-5">* Required Fields</p>
               <Form
                 onSubmit={handleSubmit(handleSaveInspection)}
                 id="inspection-form"
@@ -157,7 +158,7 @@ const InspectionForm = () => {
                 <div className="text-center">
                   <Form.Group className="m-3 fs-3 mt-0 fw-semibold">
                     <div className="m-3 mt-0 fs-3 fw-semibold">
-                      <Form.Label htmlFor="hiveId">Hive Number</Form.Label>
+                      <Form.Label htmlFor="hiveId">* Hive Number</Form.Label>
                       <Form.Select
                         {...register("hiveId", { required: true })}
                         id="hiveId"
@@ -180,8 +181,8 @@ const InspectionForm = () => {
                       </Form.Select>
                     </div>
                     {errors.hiveId && (
-                      <span className="text-danger m-3">
-                        This field is required
+                      <span className="fs-5 text-danger m-3 text-center">
+                        Hive Number is required
                       </span>
                     )}
                   </Form.Group>
@@ -189,7 +190,7 @@ const InspectionForm = () => {
 
                   <Form.Group className="m-3 fs-3 mt-0 fw-semibold">
                     <Form.Label className="fs-3 m-3 fw-semibold">
-                      Temperament
+                      * Temperament
                     </Form.Label>
                     <Form.Select
                       {...register("temperament", { required: true })}
@@ -207,9 +208,9 @@ const InspectionForm = () => {
                       <option value="⚠️ Aggressive">Aggressive</option>
                     </Form.Select>
                     {errors.temperament && (
-                      <span className="text-danger m-3">
-                        This field is required
-                      </span>
+                      <p className="fs-5 text-danger m-3 text-center">
+                        Temperament is required
+                      </p>
                     )}
                   </Form.Group>
                   {/* Hive Strength */}
@@ -217,14 +218,14 @@ const InspectionForm = () => {
                     htmlFor="hiveStrength"
                     className="form-label my-1 fs-3 fw-semibold"
                   >
-                    Hive Strength
+                    * Hive Strength
                   </label>
                   <div className="d-flex justify-content-evenly mb-3">
                     <p className="mt-3" style={{ flex: 1 }}>
                       0
                     </p>
                     <input
-                      {...register("hiveStrength", { required: true })}
+                      {...register("hiveStrength")}
                       type="range"
                       className="m-3 custom-range"
                       min="0"
@@ -239,11 +240,6 @@ const InspectionForm = () => {
                         {sliderValue}
                       </span>
                     </div>
-                    {errors.temperament && (
-                      <span className="text-danger m-3">
-                        This field is required
-                      </span>
-                    )}
                   </div>
                 </div>
 
@@ -300,12 +296,12 @@ const InspectionForm = () => {
                     {...register("brood")}
                     className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
                     id="brood"
-                    aria-label="select example"
                     name="brood"
                   >
                     <option value="" disabled>
-                      Brood Pattern
+                      Select Brood Pattern
                     </option>
+                    <option value="">N/A</option>
                     <option value="Normal Brood">Normal</option>
                     <option value="Spotty Brood">Spotty</option>
                     <option value="Compact Brood">Compact</option>
@@ -424,7 +420,7 @@ const InspectionForm = () => {
                 {/* Inspection Date */}
                 <Form.Group className="mb-">
                   <Form.Label className="m-3 fs-3 mt-3 fw-semibold">
-                    Date
+                    * Date
                   </Form.Label>
                   <Form.Control
                     {...register("inspectionDate", { required: true })}
@@ -436,15 +432,15 @@ const InspectionForm = () => {
                     onChange={handleDateChange}
                   />
                   {errors.inspectionDate && (
-                    <span className="text-danger m-3">
-                      This field is required
-                    </span>
+                    <p className="fs-5 text-danger m-3 text-center">
+                      Date is required
+                    </p>
                   )}
                 </Form.Group>
                 {/* Weather Temperature */}
                 <Form.Group className="mb-">
                   <Form.Label className="m-3 fs-3 mt-3 fw-semibold">
-                    Temperature
+                    Temperature (℉)
                   </Form.Label>
                   <Form.Control
                     {...register("weatherTemp", { required: false })}
@@ -452,7 +448,8 @@ const InspectionForm = () => {
                     type="text"
                     id="weatherTemp"
                     name="weatherTemp"
-                    value={weatherTempValue}
+                    onChange={handleWeatherTempChange}
+                    value={weatherTemp}
                   />
                 </Form.Group>
                 {/* Weather Conditions */}
@@ -467,7 +464,8 @@ const InspectionForm = () => {
                     type="text"
                     id="weatherCondition"
                     name="weatherCondition"
-                    value={weatherConditionValue}
+                    onChange={handleWeatherConditionChange}
+                    value={weatherCondition}
                   />
                 </Form.Group>
 

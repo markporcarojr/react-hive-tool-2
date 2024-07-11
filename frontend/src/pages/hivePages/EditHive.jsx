@@ -116,16 +116,18 @@ const EditHive = () => {
         >
           <div>
             <div className="mt-3 text-center">
-              <BackButton text={"⬅ BACK"} />
+              <BackButton text={"BACK"} />
             </div>
             <div className="card text-michgold  mt-2 mb-5">
               <h1 className="m-5 fw-bold text-center">
                 EDIT HIVE #{hiveNumber}
               </h1>
+              <p className="text-center">* Required Fields</p>
+
               <form id="hive-form" onSubmit={handleSubmit(handleEditHive)}>
                 <div className="m-3 fs-3 mt-0 fw-semibold ">
                   <label htmlFor="hiveSource" className="form-label m-3">
-                    Hive Source
+                    * Hive Source
                   </label>
                   <select
                     {...register("hiveSource", { required: true })}
@@ -140,7 +142,9 @@ const EditHive = () => {
                     <option value="Split">Split</option>
                   </select>
                   {errors.hiveSource && (
-                    <p className="text-danger m-3">Hive Source is required</p>
+                    <p className="fs-5 text-danger m-3 text-center">
+                      Hive Source is required
+                    </p>
                   )}
 
                   <label htmlFor="breed" className="form-label m-3">
@@ -235,7 +239,7 @@ const EditHive = () => {
                     htmlFor="hiveDate"
                     className="form-label fs-3 fw-semibold m-3"
                   >
-                    Date
+                    * Date
                   </label>
                   <input
                     {...register("hiveDate", { required: true })}
@@ -245,7 +249,9 @@ const EditHive = () => {
                     name="hiveDate"
                   />
                   {errors.hiveDate && (
-                    <p className="text-danger m-3">Date is required</p>
+                    <p className="fs-5 text-danger m-3 text-center">
+                      Date is required
+                    </p>
                   )}
                 </div>
 
@@ -262,7 +268,7 @@ const EditHive = () => {
                     0
                   </p>
                   <input
-                    {...register("hiveStrength", { required: true })}
+                    {...register("hiveStrength")}
                     type="range"
                     className="m-3 custom-range"
                     min="0"
