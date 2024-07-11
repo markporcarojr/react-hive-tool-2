@@ -87,7 +87,7 @@ const Inventory = () => {
             >
               <thead className="fs-4 fw-bold text-center">
                 <tr>
-                  <th>Inventory Item</th>
+                  <th>Item</th>
                   <th>Amount</th>
                   <th>Location</th>
                   <th>Options</th>

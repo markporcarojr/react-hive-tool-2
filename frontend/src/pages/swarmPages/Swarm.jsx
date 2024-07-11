@@ -85,9 +85,9 @@ export default function Swarm() {
             >
               <thead className="fs-4 fw-bold text-center">
                 <tr>
-                  <th>Trap Image</th>
+                  <th>Trap #</th>
                   <th>Date</th>
-                  <th>Trap Number</th>
+                  <th>Image</th>
                   <th>Location</th>
                   <th>Options</th>
                 </tr>
@@ -95,6 +95,10 @@ export default function Swarm() {
               <tbody>
                 {swarms.map((swarm) => (
                   <tr key={swarm._id} className="text-center align-middle">
+                    <td className="text-center">{swarm.swarmNumber}</td>
+                    <td className="text-center">
+                      {formatDate(swarm.swarmDate)}
+                    </td>
                     <td
                       className="text-center"
                       onClick={() => handleClick(swarm)}
@@ -106,10 +110,6 @@ export default function Swarm() {
                         alt={"Swarm Image"}
                       />
                     </td>
-                    <td className="text-center">
-                      {formatDate(swarm.swarmDate)}
-                    </td>
-                    <td className="text-center">{swarm.swarmNumber}</td>
                     <td className="text-center">{swarm.location}</td>
 
                     <td>

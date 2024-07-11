@@ -16,7 +16,7 @@ const SwarmCard = ({ swarm }) => {
       <Container className="px-2">
         <Card className="text-michgold  bg-card">
           <Card.Header className="d-flex justify-content-between pt-0 ">
-            <div className="m-2 mb-0 fs-3">Swarm #{swarmNumber}</div>
+            <div className="m-2 mb-0 fs-3">Trap #{swarmNumber}</div>
             <div className="m-2 mb-0 fs-4">{formattedDate}</div>
           </Card.Header>
           <Card.Body className="mb-0 fs-4 p-2 text-center">

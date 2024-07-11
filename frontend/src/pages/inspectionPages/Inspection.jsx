@@ -159,25 +159,28 @@ const InspectionPage = () => {
             >
               <thead className="fs-4 fw-bold text-center">
                 <tr>
-                  <th>Image</th>
+                  <th onClick={() => handleSort("hiveNumber")}>
+                    Hive #
+                    {sortConfig.key === "hiveNumber" &&
+                      (sortConfig.direction === "ascending" ? " ↑" : " ↓")}
+                    {sortConfig.key !== "hiveNumber" && " ↕"}
+                  </th>
                   <th onClick={() => handleSort("inspectionDate")}>
                     Date
                     {sortConfig.key === "inspectionDate" &&
                       (sortConfig.direction === "ascending" ? " ↑" : " ↓")}
                     {sortConfig.key !== "inspectionDate" && " ↕"}
                   </th>
-                  <th onClick={() => handleSort("hiveNumber")}>
-                    Hive Number
-                    {sortConfig.key === "hiveNumber" &&
-                      (sortConfig.direction === "ascending" ? " ↑" : " ↓")}
-                    {sortConfig.key !== "hiveNumber" && " ↕"}
-                  </th>
+
+                  <th>Image</th>
                   <th>Options</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredInspections.map((inspection) => (
-                  <tr key={inspection._id} className="">
+                  <tr key={inspection._id}>
+                    <td>{inspection.hiveNumber}</td>
+                    <td>{formatDate(inspection.inspectionDate)}</td>
                     <td onClick={() => handleShowModal(inspection)}>
                       <ImageDisplay
                         imageUrl={inspection.inspectionImage}
@@ -186,8 +189,6 @@ const InspectionPage = () => {
                         alt={"Inspection Image"}
                       />
                     </td>
-                    <td>{formatDate(inspection.inspectionDate)}</td>
-                    <td>{inspection.hiveNumber}</td>
                     <td>
                       <div className="d-flex justify-content-around">
                         <IconContext.Provider
