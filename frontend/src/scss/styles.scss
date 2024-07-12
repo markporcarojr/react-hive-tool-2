@@ -373,12 +373,12 @@ input[type="range"] {
   .hive-table td:nth-child(6),
   .inventory-table th:nth-child(3),
   .inventory-table td:nth-child(3),
-  .swarm-table th:nth-child(1),
-  .swarm-table td:nth-child(1),
+  .swarm-table th:nth-child(3),
+  .swarm-table td:nth-child(3),
   .swarm-table th:nth-child(4),
   .swarm-table td:nth-child(4),
-  .inspection-table th:nth-child(1),
-  .inspection-table td:nth-child(1) {
+  .inspection-table th:nth-child(3),
+  .inspection-table td:nth-child(3) {
     display: none;
   }
 }
