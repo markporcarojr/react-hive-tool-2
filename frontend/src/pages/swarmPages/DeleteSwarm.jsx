@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,24 +6,35 @@ import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
 import { Card, Button } from "react-bootstrap";
 import BackButton from "../../components/BackButton";
+import { deleteImageFromStorage } from "../../utils/firebaseUtils";
 
 const DeleteSwarm = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
-  const handleDeleteSwarm = () => {
+
+  const handleDeleteSwarm = async () => {
     setLoading(true);
-    axios
-      .delete(`${import.meta.env.VITE_BACKEND_API}/swarm/${id}`)
-      .then(() => {
-        setLoading(false);
-        navigate("/swarm");
-      })
-      .catch((error) => {
-        setLoading(false);
-        alert("An error has occurred. Please Check Console");
-        console.log(error);
-      });
+    try {
+      // Delete the image from Firebase Storage
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_API}/swarm/${id}`
+      );
+      const swarm = response.data;
+      // fixed bug, if user has no image
+      if (swarm.swarmImage) {
+        await deleteImageFromStorage(swarm.swarmImage);
+      }
+
+      // Now delete the swarm from your API
+      await axios.delete(`${import.meta.env.VITE_BACKEND_API}/swarm/${id}`);
+      setLoading(false);
+      navigate("/swarm");
+    } catch (error) {
+      setLoading(false);
+      alert("An error has occurred. Please Check Console");
+      console.log(error);
+    }
   };
 
   return (

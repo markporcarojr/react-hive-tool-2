@@ -14,6 +14,7 @@ const DeleteHive = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  // To get Hive Number to display on page
   useEffect(() => {
     setLoading(true);
     axios
