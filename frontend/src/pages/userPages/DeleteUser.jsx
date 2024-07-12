@@ -1,13 +1,13 @@
 import { useState, useContext } from "react";
-import LoadSpinner from "../components/Spinner";
+import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import CustomNavbar from "../components/CustomNavbar";
-import Footer from "../components/Footer";
+import CustomNavbar from "../../components/CustomNavbar";
+import Footer from "../../components/Footer";
 import { Card, Button } from "react-bootstrap";
-import BackButton from "../components/BackButton";
-import { deleteFolderFromStorage } from "../utils/firebaseUtils";
-import UserContext from "../context/UserContext";
+import BackButton from "../../components/BackButton";
+import { deleteFolderFromStorage } from "../../utils/firebaseUtils";
+import UserContext from "../../context/UserContext";
 
 const DeleteUser = () => {
   const [loading, setLoading] = useState(false);

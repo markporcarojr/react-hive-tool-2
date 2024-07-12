@@ -10,9 +10,6 @@ import axios from "axios";
 import LoadSpinner from "./components/Spinner.jsx";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
 import UserContext from "./context/UserContext.jsx";
-import UpdateUserForm from "./pages/UpdateUserForm.jsx";
-
-import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 
 import Home from "./pages/hivePages/Home.jsx";
 import CreateHive from "./pages/hivePages/CreateHive.jsx";
@@ -39,11 +36,13 @@ import CreateSwarm from "./pages/swarmPages/CreateSwarm.jsx";
 import EditSwarm from "./pages/swarmPages/EditSwarm.jsx";
 import DeleteSwarm from "./pages/swarmPages/DeleteSwarm.jsx";
 
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
-import ForgotPassword from "./pages/ForgotPassword.jsx";
-import ResetPassword from "./pages/ResetPassword.jsx";
-import DeleteUser from "./pages/DeleteUser.jsx";
+import Login from "./pages/userPages/Login.jsx";
+import Register from "./pages/userPages/Register.jsx";
+import ForgotPassword from "./pages/userPages/ForgotPassword.jsx";
+import ResetPassword from "./pages/userPages/ResetPassword.jsx";
+import DeleteUser from "./pages/userPages/DeleteUser.jsx";
+import UpdateUserForm from "./pages/userPages/UpdateUserForm.jsx";
+import PrivacyPolicy from "./pages/userPages/PrivacyPolicy.jsx";
 
 import TodoList from "./pages/todoPages/TodoList.jsx";
 
