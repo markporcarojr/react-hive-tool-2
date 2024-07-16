@@ -129,7 +129,7 @@ const AuthForm = ({
               )}
               <a
                 href={linkHref}
-                className="d-block text-center fs-4 text-michgold mb-3 link darken-on-hover"
+                className="d-block text-center fs-4 text-michgold mb-2 link darken-on-hover"
               >
                 {linkText}
               </a>

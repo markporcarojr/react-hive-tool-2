@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { Container, Form, Button, Col } from "react-bootstrap";
+import { Container, Form, Button, Col, Row } from "react-bootstrap";
 import axios from "axios";
-import CustomNavbar from "../../components/CustomNavbar.jsx";
-import Footer from "../../components/Footer.jsx";
 import { useNavigate } from "react-router-dom";
+
+import logoWebp1x from "../../assets/images/hive_tool@1x.webp";
+import logoWebp2x from "../../assets/images/hive_tool@2x.webp";
+import logoWebp3x from "../../assets/images/hive_tool@3x.webp";
+import logoPng1x from "../../assets/images/hive_tool@1x.png";
+import logoPng2x from "../../assets/images/hive_tool@2x.png";
+import logoPng3x from "../../assets/images/hive_tool@3x.png";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -30,10 +35,29 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <CustomNavbar />
-      <Container className="mt-5 text-michgold">
-        <h1 className="text-center mb-5">Forgot Password</h1>
+      <Container
+        className="border border-warning rounded mt-5"
+        fluid
+        style={{ maxWidth: "700px", backgroundColor: "#000000" }}
+      >
         <Form onSubmit={handleResetPassword}>
+          <Row className="justify-content-center mb-0">
+            <div className="d-flex justify-content-center">
+              <picture className="rotateY">
+                <source
+                  type="image/webp"
+                  srcSet={`${logoWebp1x} 1x, ${logoWebp2x} 2x, ${logoWebp3x} 3x`}
+                />
+                <img
+                  className="pop"
+                  src={logoPng1x}
+                  alt=""
+                  srcSet={`${logoPng1x} 1x, ${logoPng2x} 2x, ${logoPng3x} 3x`}
+                />
+              </picture>
+            </div>
+          </Row>
+          <h1 className="text-center mb-3 text-michgold">Forgot Password?</h1>
           <Col md={5} className="mx-auto">
             <Form.Group controlId="email" className="text-michgold mb-4">
               {/* <Form.Label>Email Address</Form.Label> */}
@@ -42,7 +66,7 @@ const ForgotPassword = () => {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold my-2 white-placeholder"
+                className="text-center bg-white text-black border-3 border-michgold rounded-4 fw-bold"
               />
             </Form.Group>
           </Col>
@@ -64,7 +88,6 @@ const ForgotPassword = () => {
         </Form>
         {message && <p className="mt-3">{message}</p>}
       </Container>
-      <Footer />
     </>
   );
 };

@@ -21,12 +21,12 @@ const formatDate = (dateString) => {
 };
 
 const InspectionPage = () => {
-  const [inspections, setInspections] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [selectedInspection, setSelectedInspection] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedHive, setSelectedHive] = useState("");
   const { user } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [inspections, setInspections] = useState([]);
+  const [selectedInspection, setSelectedInspection] = useState(null);
+  const [selectedHive, setSelectedHive] = useState("");
 
   const [sortConfig, setSortConfig] = useState({
     key: "inspectionDate",
@@ -68,6 +68,8 @@ const InspectionPage = () => {
   const handleHiveChange = (e) => {
     setSelectedHive(e.target.value);
   };
+
+  // TODO: learn a better algo for sortedInspections
 
   const sortedInspections = [...inspections].sort((a, b) => {
     if (sortConfig.key === "inspectionDate") {

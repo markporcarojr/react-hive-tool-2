@@ -71,7 +71,7 @@ const Login = () => {
 
   return (
     <>
-      <CustomNavbar />
+      {/* <CustomNavbar /> */}
       <AuthForm
         formFields={formFields}
         initialData={initialData}
@@ -84,7 +84,7 @@ const Login = () => {
         onGuestLogin={handleGuestLogin}
       />
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
