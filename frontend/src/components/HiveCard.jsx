@@ -19,6 +19,7 @@ const HiveCard = ({ hive }) => {
     queenExcluder,
     superBoxes,
     broodBoxes,
+    frames,
   } = hive;
   const textStyle = { color: "#ffcb05" };
   const utcDate = new Date(hiveDate);
@@ -52,6 +53,7 @@ const HiveCard = ({ hive }) => {
                 <p className="mb-1 text-nowrap">Queen Age:</p>
                 <p className="mb-1 text-nowrap">Strength:</p>
                 <p className="mb-1 text-nowrap">Queen Excluder:</p>
+                <p className="mb-1 text-nowrap">Frames:</p>
                 <p className="mb-1 text-nowrap">Super Boxes:</p>
                 <p className="mb-1 text-nowrap">Brood Boxes:</p>
               </div>
@@ -63,6 +65,7 @@ const HiveCard = ({ hive }) => {
                 <p className="mb-1 ">{queenAge || "N/A"}</p>
                 <p className="mb-1 ">{hiveStrength || "N/A"}%</p>
                 <p className="mb-1 ">{queenExcluder || "N/A"}</p>
+                <p className="mb-1 ">{frames || "10"}</p>
                 <p className="mb-1 ">{superBoxes || "N/A"}</p>
                 <p className="mb-1 ">{broodBoxes || "N/A"}</p>
               </div>

@@ -165,85 +165,95 @@ const Home = () => {
           <LoadSpinner />
         ) : (
           <>
-            <Table
-              bordered
-              striped
-              hover
-              responsive
-              variant="dark"
-              className="text-michgold table-responsive hive-table"
+            <div
+              // className="table-responsive"
+              style={{ maxHeight: "500px", overflowY: "auto" }}
             >
-              <thead className="fs-4 fw-bold text-center">
-                <tr>
-                  <th>Hive ID</th>
-                  <th>Hive Image</th>
-                  <th>Queen Color</th>
-                  <th>Brood Boxes</th>
-                  <th>Super Boxes</th>
-                  <th>Queen Excluder</th>
-                  <th>Options</th>
-                </tr>
-              </thead>
-              <tbody>
-                {hives.map((hive) => (
-                  <tr key={hive._id} className="text-center align-middle">
-                    <td className="text-center fs-3">#{hive.hiveNumber}</td>
-                    <td
-                      className="text-center"
-                      onClick={() => handleShowModal(hive)}
-                    >
-                      <ImageDisplay
-                        imageUrl={hive.hiveImage}
-                        maxHeight={"10rem"}
-                        maxWidth={"10rem"}
-                        alt={"Hive Image"}
-                      />
-                    </td>
-                    <td className="text-center">{hive.queenColor || "N/A"}</td>
-                    <td className="text-center">{hive.broodBoxes}</td>
-                    <td className="text-center">{hive.superBoxes}</td>
-                    <td className="text-center">{hive.queenExcluder}</td>
-                    <td>
-                      <div className="d-flex justify-content-around">
-                        <IconContext.Provider
-                          value={{
-                            color: "fccb05",
-                            size: "1.5em",
-                            className: "darken-on-hover m-2",
-                          }}
-                        >
-                          <IoInformationCircleOutline
-                            onClick={() => handleShowModal(hive)}
-                          />
-                        </IconContext.Provider>
-                        <IconContext.Provider
-                          value={{
-                            color: "green",
-                            size: "1.5em",
-                            className: "darken-on-hover m-2",
-                          }}
-                        >
-                          <Link to={`/hives/edit/${hive._id}`}>
-                            <MdModeEditOutline />
-                          </Link>
-                        </IconContext.Provider>
-                        <IconContext.Provider
-                          value={{
-                            color: "red",
-                            size: "1.5em",
-                            className: "darken-on-hover m-2",
-                          }}
-                        >
-                          <Link to={`/hives/delete/${hive._id}`}>
-                            <FaTrashAlt />
-                          </Link>
-                        </IconContext.Provider>
-                      </div>
-                    </td>
+              <Table
+                bordered
+                striped
+                hover
+                // responsive
+                variant="dark"
+                className="text-michgold hive-table"
+              >
+                <thead className="fs-4 fw-bold text-center sticky-header">
+                  <tr>
+                    <th scope="col">Hive ID</th>
+                    <th scope="col">Hive Image</th>
+                    <th scope="col">Frames</th>
+                    <th scope="col">Queen Color</th>
+                    <th scope="col">Brood Boxes</th>
+                    <th scope="col">Super Boxes</th>
+                    <th scope="col">Queen Excluder</th>
+                    <th scope="col">Options</th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+
+                <tbody>
+                  {hives.map((hive) => (
+                    <tr key={hive._id} className="text-center align-middle">
+                      <td className="text-center fs-3">#{hive.hiveNumber}</td>
+                      <td
+                        className="text-center"
+                        onClick={() => handleShowModal(hive)}
+                      >
+                        <ImageDisplay
+                          imageUrl={hive.hiveImage}
+                          maxHeight={"10rem"}
+                          maxWidth={"10rem"}
+                          alt={"Hive Image"}
+                        />
+                      </td>
+                      <td className="text-center">{hive.frames || "N/A"}</td>
+                      <td className="text-center">
+                        {hive.queenColor || "N/A"}
+                      </td>
+                      <td className="text-center">{hive.broodBoxes}</td>
+                      <td className="text-center">{hive.superBoxes}</td>
+                      <td className="text-center">{hive.queenExcluder}</td>
+                      <td>
+                        <div className="d-flex justify-content-around">
+                          <IconContext.Provider
+                            value={{
+                              color: "fccb05",
+                              size: "1.5em",
+                              className: "darken-on-hover m-2",
+                            }}
+                          >
+                            <IoInformationCircleOutline
+                              onClick={() => handleShowModal(hive)}
+                            />
+                          </IconContext.Provider>
+                          <IconContext.Provider
+                            value={{
+                              color: "green",
+                              size: "1.5em",
+                              className: "darken-on-hover m-2",
+                            }}
+                          >
+                            <Link to={`/hives/edit/${hive._id}`}>
+                              <MdModeEditOutline />
+                            </Link>
+                          </IconContext.Provider>
+                          <IconContext.Provider
+                            value={{
+                              color: "red",
+                              size: "1.5em",
+                              className: "darken-on-hover m-2",
+                            }}
+                          >
+                            <Link to={`/hives/delete/${hive._id}`}>
+                              <FaTrashAlt />
+                            </Link>
+                          </IconContext.Provider>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
 
             <CustomModal
               show={showModal}

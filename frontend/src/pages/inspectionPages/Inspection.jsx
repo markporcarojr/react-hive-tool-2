@@ -135,7 +135,7 @@ const InspectionPage = () => {
           <LoadSpinner />
         ) : (
           <>
-            <div className="d-flex justify-content-around mb-4">
+            <div className="d-flex justify-content-around mb-4 sticky-button-2">
               <Form.Select
                 aria-label="Select Hive"
                 onChange={handleHiveChange}
@@ -151,87 +151,92 @@ const InspectionPage = () => {
                 ))}
               </Form.Select>
             </div>
-            <Table
-              bordered
-              striped
-              hover
-              responsive
-              variant="dark"
-              className="text-michgold table-responsive inspection-table"
+            <div
+              // className="table-responsive"
+              style={{ maxHeight: "500px", overflowY: "auto" }}
             >
-              <thead className="fs-4 fw-bold text-center">
-                <tr>
-                  <th onClick={() => handleSort("hiveNumber")}>
-                    Hive #
-                    {sortConfig.key === "hiveNumber" &&
-                      (sortConfig.direction === "ascending" ? " ↑" : " ↓")}
-                    {sortConfig.key !== "hiveNumber" && " ↕"}
-                  </th>
-                  <th onClick={() => handleSort("inspectionDate")}>
-                    Date
-                    {sortConfig.key === "inspectionDate" &&
-                      (sortConfig.direction === "ascending" ? " ↑" : " ↓")}
-                    {sortConfig.key !== "inspectionDate" && " ↕"}
-                  </th>
+              <Table
+                bordered
+                striped
+                hover
+                // responsive
+                variant="dark"
+                className="text-michgold inspection-table"
+              >
+                <thead className="fs-4 fw-bold text-center sticky-header">
+                  <tr>
+                    <th onClick={() => handleSort("hiveNumber")}>
+                      Hive #
+                      {sortConfig.key === "hiveNumber" &&
+                        (sortConfig.direction === "ascending" ? " ↑" : " ↓")}
+                      {sortConfig.key !== "hiveNumber" && " ↕"}
+                    </th>
+                    <th onClick={() => handleSort("inspectionDate")}>
+                      Date
+                      {sortConfig.key === "inspectionDate" &&
+                        (sortConfig.direction === "ascending" ? " ↑" : " ↓")}
+                      {sortConfig.key !== "inspectionDate" && " ↕"}
+                    </th>
 
-                  <th>Image</th>
-                  <th>Options</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredInspections.map((inspection) => (
-                  <tr key={inspection._id}>
-                    <td>{inspection.hiveNumber}</td>
-                    <td>{formatDate(inspection.inspectionDate)}</td>
-                    <td onClick={() => handleShowModal(inspection)}>
-                      <ImageDisplay
-                        imageUrl={inspection.inspectionImage}
-                        maxHeight={"10rem"}
-                        maxWidth={"10rem"}
-                        alt={"Inspection Image"}
-                      />
-                    </td>
-                    <td>
-                      <div className="d-flex justify-content-around">
-                        <IconContext.Provider
-                          value={{
-                            color: "fccb05",
-                            size: "1.5em",
-                            className: "darken-on-hover m-2",
-                          }}
-                        >
-                          <IoInformationCircleOutline
-                            onClick={() => handleShowModal(inspection)}
-                          />
-                        </IconContext.Provider>
-                        <IconContext.Provider
-                          value={{
-                            color: "green",
-                            size: "1.5em",
-                            className: "darken-on-hover m-2",
-                          }}
-                        >
-                          <Link to={`/inspections/edit/${inspection._id}`}>
-                            <MdModeEditOutline />
-                          </Link>
-                        </IconContext.Provider>
-                        <IconContext.Provider
-                          value={{
-                            color: "red",
-                            size: "1.5em",
-                            className: "darken-on-hover m-2",
-                          }}
-                        >
-                          <Link to={`/inspections/delete/${inspection._id}`}>
-                            <FaTrashAlt />
-                          </Link>
-                        </IconContext.Provider>
-                      </div>
-                    </td>
+                    <th>Image</th>
+                    <th>Options</th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {filteredInspections.map((inspection) => (
+                    <tr key={inspection._id}>
+                      <td>{inspection.hiveNumber}</td>
+                      <td>{formatDate(inspection.inspectionDate)}</td>
+                      <td onClick={() => handleShowModal(inspection)}>
+                        <ImageDisplay
+                          imageUrl={inspection.inspectionImage}
+                          maxHeight={"10rem"}
+                          maxWidth={"10rem"}
+                          alt={"Inspection Image"}
+                        />
+                      </td>
+                      <td>
+                        <div className="d-flex justify-content-around">
+                          <IconContext.Provider
+                            value={{
+                              color: "fccb05",
+                              size: "1.5em",
+                              className: "darken-on-hover m-2",
+                            }}
+                          >
+                            <IoInformationCircleOutline
+                              onClick={() => handleShowModal(inspection)}
+                            />
+                          </IconContext.Provider>
+                          <IconContext.Provider
+                            value={{
+                              color: "green",
+                              size: "1.5em",
+                              className: "darken-on-hover m-2",
+                            }}
+                          >
+                            <Link to={`/inspections/edit/${inspection._id}`}>
+                              <MdModeEditOutline />
+                            </Link>
+                          </IconContext.Provider>
+                          <IconContext.Provider
+                            value={{
+                              color: "red",
+                              size: "1.5em",
+                              className: "darken-on-hover m-2",
+                            }}
+                          >
+                            <Link to={`/inspections/delete/${inspection._id}`}>
+                              <FaTrashAlt />
+                            </Link>
+                          </IconContext.Provider>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
 
             <CustomModal
               show={showModal}

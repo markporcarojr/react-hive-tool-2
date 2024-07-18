@@ -48,6 +48,10 @@ const hiveSchema = new Schema(
             type: String,
             required: false
         },
+        frames: {
+            type: Number,
+            required: false
+        },
         userId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',

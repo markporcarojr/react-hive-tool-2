@@ -147,6 +147,18 @@ const EditHive = () => {
                     </p>
                   )}
 
+                  <label htmlFor="frames" className="form-label m-3">
+                    Number of frames
+                  </label>
+                  <input
+                    {...register("frames")}
+                    type="number"
+                    className="form-control text-center bg-inputgrey text-white border-3 border-michgold rounded-4 opacity-85 fw-bold"
+                    id="frames"
+                    name="frames"
+                    aria-describedby="frames"
+                  />
+
                   <label htmlFor="breed" className="form-label m-3">
                     Breed
                   </label>

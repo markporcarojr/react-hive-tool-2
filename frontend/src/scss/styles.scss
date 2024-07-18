@@ -288,6 +288,26 @@ input[type="range"] {
   text-align: center; /* Center the button horizontally */
   padding-top: 1rem; /* Add padding for better appearance */
 }
+.sticky-button-2 {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 140px; /* Adjust based on the height of the navbar */
+  z-index: 999; /* Ensure the button is above other content but below the navbar */
+  text-align: center; /* Center the button horizontally */
+  padding-top: 1rem; /* Add padding for better appearance */
+}
+.sticky-header {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0px; /* Adjust based on the height of the navbar */
+  z-index: 998; /* Ensure the button is above other content but below the navbar */
+  // padding-top: 1rem; /* Add padding for better appearance */
+}
+
+th {
+  position: sticky;
+  top: 0;
+}
 
 .svg-honey {
   background-size: contain;
@@ -371,6 +391,8 @@ input[type="range"] {
   .hive-table td:nth-child(5),
   .hive-table th:nth-child(6),
   .hive-table td:nth-child(6),
+  .hive-table th:nth-child(7),
+  .hive-table td:nth-child(7),
   .inventory-table th:nth-child(3),
   .inventory-table td:nth-child(3),
   .swarm-table th:nth-child(3),

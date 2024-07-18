@@ -172,7 +172,7 @@ const InspectionForm = () => {
                         {hives.map((hive) => (
                           // By using JSON.stringify(hive) as the value of the <option>,
                           // we ensure that the entire hive object is associated with each dropdown option,
-                          // enabling us to pass comprehensive hive data to the backend when the user makes a selection.
+                          // enabling us to pass hive data to the backend when the user makes a selection.
                           <option key={hive._id} value={JSON.stringify(hive)}>
                             {hive.hiveNumber}
                             {/* Display hive number to the user */}
@@ -323,14 +323,15 @@ const InspectionForm = () => {
                       Select Diseases
                     </option>
                     <option value="">No Diseases</option>
-                    <option value="⚠️ Varroa Mites">Varroa Mites</option>
                     <option value="⚠️ Chalkbrood">Chalkbrood</option>
+                    <option value="⚠️ Nosema">Nosema</option>
+                    <option value="⚠️ Varroa Mites">Varroa Mites</option>
                     <option value="⚠️ Stonebrood">Stonebrood</option>
                     <option value="⚠️ American Foulbrood">
-                      American Foulbrood
+                      American Foulbrood (AFB)
                     </option>
                     <option value="⚠️ European Foulbrood">
-                      European Foulbrood
+                      European Foulbrood (EFB)
                     </option>
                   </Form.Select>
                 </Form.Group>
