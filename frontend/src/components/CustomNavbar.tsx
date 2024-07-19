@@ -35,7 +35,7 @@ function CustomNavbar() {
               />
             </picture>
           </Navbar.Brand>
-          <p className="mb-0 fw-bold">HIVE TOOL</p>
+          <p className="mb-0 fw-bold">HIVE TOOL.TS</p>
         </div>
 
         <Navbar.Toggle aria-controls="navbarNavAltMarkup" className="fw-bold" />

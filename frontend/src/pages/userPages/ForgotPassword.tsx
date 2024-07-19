@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Container, Form, Button, Col } from "react-bootstrap";
 import axios from "axios";
-import CustomNavbar from "../components/CustomNavbar.jsx";
-import Footer from "../components/Footer.jsx";
+import CustomNavbar from "../../components/CustomNavbar.tsx";
+import Footer from "../../components/Footer.tsx";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {

@@ -1,15 +1,15 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
-import CustomNavbar from "../components/CustomNavbar.jsx";
-import LoadSpinner from "../components/Spinner.jsx";
-import Footer from "../components/Footer.jsx";
+import CustomNavbar from "../../components/CustomNavbar.tsx";
+import LoadSpinner from "../../components/Spinner.tsx";
+import Footer from "../../components/Footer.tsx";
 import { Container, Button, Form } from "react-bootstrap";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import UserContext from "../context/UserContext.jsx";
+import UserContext from "../../context/UserContext.tsx";
 import {
   uploadUserImageToStorage,
   deleteImageFromStorage,
-} from "../utils/firebaseUtils.js"; // Import Firebase functions
+} from "../../utils/firebaseUtils.ts"; // Import Firebase functions
 
 const UpdateUserForm = () => {
   const [formData, setFormData] = useState({

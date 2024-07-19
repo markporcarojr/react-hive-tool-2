@@ -1,4 +1,4 @@
-// App.jsx
+// App.tsx
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./scss/styles.scss";
 
@@ -7,45 +7,44 @@ import { Navigate, Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import LoadSpinner from "./components/Spinner.jsx";
-import PrivateRoutes from "./components/PrivateRoutes.jsx";
-import UserContext from "./context/UserContext.jsx";
-import UpdateUserForm from "./pages/UpdateUserForm.jsx";
+import LoadSpinner from "./components/Spinner.tsx";
+import PrivateRoutes from "./components/PrivateRoutes.tsx";
+import UserContext from "./context/UserContext.tsx";
 
-import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
+import Home from "./pages/hivePages/Home.tsx";
+import CreateHive from "./pages/hivePages/CreateHive.tsx";
+import EditHive from "./pages/hivePages/EditHive.tsx";
+import DeleteHive from "./pages/hivePages/DeleteHive.tsx";
 
-import Home from "./pages/hivePages/Home.jsx";
-import CreateHive from "./pages/hivePages/CreateHive.jsx";
-import EditHive from "./pages/hivePages/EditHive.jsx";
-import DeleteHive from "./pages/hivePages/DeleteHive.jsx";
+import Inspection from "./pages/inspectionPages/Inspection.tsx";
+import CreateInspection from "./pages/inspectionPages/CreateInspection.tsx";
+import EditInspection from "./pages/inspectionPages/EditInspection.tsx";
+import DeleteInspection from "./pages/inspectionPages/DeleteInspection.tsx";
 
-import Inspection from "./pages/inspectionPages/Inspection.jsx";
-import CreateInspection from "./pages/inspectionPages/CreateInspection.jsx";
-import EditInspection from "./pages/inspectionPages/EditInspection.jsx";
-import DeleteInspection from "./pages/inspectionPages/DeleteInspection.jsx";
+import Inventory from "./pages/inventoryPages/Inventory.tsx";
+import CreateInventory from "./pages/inventoryPages/CreateInventory.tsx";
+import EditInventory from "./pages/inventoryPages/EditInventory.tsx";
+import DeleteInventory from "./pages/inventoryPages/DeleteInventory.tsx";
 
-import Inventory from "./pages/inventoryPages/Inventory.jsx";
-import CreateInventory from "./pages/inventoryPages/CreateInventory.jsx";
-import EditInventory from "./pages/inventoryPages/EditInventory.jsx";
-import DeleteInventory from "./pages/inventoryPages/DeleteInventory.jsx";
+import Harvest from "./pages/harvestPages/Harvest.tsx";
+import CreateHarvest from "./pages/harvestPages/CreateHarvest.tsx";
+import EditHarvest from "./pages/harvestPages/EditHarvest.tsx";
+import DeleteHarvest from "./pages/harvestPages/DeleteHarvest.tsx";
 
-import Harvest from "./pages/harvestPages/Harvest.jsx";
-import CreateHarvest from "./pages/harvestPages/CreateHarvest.jsx";
-import EditHarvest from "./pages/harvestPages/EditHarvest.jsx";
-import DeleteHarvest from "./pages/harvestPages/DeleteHarvest.jsx";
+import Swarm from "./pages/swarmPages/Swarm.tsx";
+import CreateSwarm from "./pages/swarmPages/CreateSwarm.tsx";
+import EditSwarm from "./pages/swarmPages/EditSwarm.tsx";
+import DeleteSwarm from "./pages/swarmPages/DeleteSwarm.tsx";
 
-import Swarm from "./pages/swarmPages/Swarm.jsx";
-import CreateSwarm from "./pages/swarmPages/CreateSwarm.jsx";
-import EditSwarm from "./pages/swarmPages/EditSwarm.jsx";
-import DeleteSwarm from "./pages/swarmPages/DeleteSwarm.jsx";
+import DeleteUser from "./pages/userPages/DeleteUser.tsx";
+import ForgotPassword from "./pages/userPages/ForgotPassword.tsx";
+import Login from "./pages/userPages/Login.tsx";
+import PrivacyPolicy from "./pages/userPages/PrivacyPolicy.tsx";
+import Register from "./pages/userPages/Register.tsx";
+import ResetPassword from "./pages/userPages/ResetPassword.tsx";
+import UpdateUserForm from "./pages/userPages/UpdateUserForm.tsx";
 
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
-import ForgotPassword from "./pages/ForgotPassword.jsx";
-import ResetPassword from "./pages/ResetPassword.jsx";
-import DeleteUser from "./pages/DeleteUser.jsx";
-
-import TodoList from "./pages/todoPages/TodoList.jsx";
+import TodoList from "./pages/todoPages/TodoList.tsx";
 
 function App() {
   const [user, setUser] = useState(null);

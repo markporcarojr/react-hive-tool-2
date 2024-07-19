@@ -1,9 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import CustomNavbar from "../components/CustomNavbar.jsx";
-import Footer from "../components/Footer.jsx";
-import AuthForm from "../components/AuthForm.jsx";
+import CustomNavbar from "../../components/CustomNavbar.tsx";
+import Footer from "../../components/Footer.tsx";
+import AuthForm from "../../components/AuthForm.tsx";
 
 const Register = () => {
   const [message, setMessage] = useState(null);
