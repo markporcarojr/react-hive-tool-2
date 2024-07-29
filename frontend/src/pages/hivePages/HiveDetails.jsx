@@ -5,6 +5,7 @@ import axios from "axios";
 import LoadSpinner from "../../components/Spinner";
 import { Card, Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import ImageDisplay from "../../components/ImageDisplay";
 
 import logoWebp1x from "../../assets/images/hive_tool@1x.webp";
 import logoWebp2x from "../../assets/images/hive_tool@2x.webp";
@@ -25,7 +26,6 @@ const HiveDetails = () => {
       .then((response) => {
         setHive(response.data);
         setLoading(false);
-        console.log(id);
       })
       .catch((error) => {
         console.error("Error fetching hive data:", error);
@@ -33,11 +33,12 @@ const HiveDetails = () => {
       });
   }, []);
   const {
-    hiveNumber,
     breed,
-    hiveStrength,
     hiveDate,
+    hiveImage,
+    hiveNumber,
     hiveSource,
+    hiveStrength,
     queenColor,
     queenAge,
     queenExcluder,
@@ -77,21 +78,23 @@ const HiveDetails = () => {
           className="bg-card mx-auto m-5"
         >
           <div className={`col g-4 m-3`}>
-            <div className="container px-2">
+            <div className="">
               <Card
                 className={`${hiveStrength === 0 ? "bg-danger" : "bg-card"}`}
               >
-                <Card.Header
-                  className="fs-1 fw-bold text-center pb-0 mb-3"
-                  style={textStyle}
-                >
-                  Hive #{hiveNumber}
-                </Card.Header>
-
+                {/* <div style={{ maxHeight: "400px", maxWidth: "400px" }}> */}
+                <Card.Img variant="top" src={hiveImage}></Card.Img>
+                {/* </div> */}
                 <Card.Body
                   className="pb-2 pt-1 mt-0 m-1 mb-2 fw-semibold fs-5"
                   style={textStyle}
                 >
+                  <Card.Title
+                    className="fs-1 fw-bold text-center pb-0 mb-3"
+                    style={textStyle}
+                  >
+                    Hive #{hiveNumber}
+                  </Card.Title>
                   <div className="row">
                     <div className="col-6">
                       <p className="mb-1 text-nowrap">Added:</p>
