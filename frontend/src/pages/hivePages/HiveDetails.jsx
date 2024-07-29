@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import CustomNavbar from "../../components/CustomNavbar";
 import Footer from "../../components/Footer";
-import axios from "axios";
 import LoadSpinner from "../../components/Spinner";
 import { Card, Container } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import ImageDisplay from "../../components/ImageDisplay";
 
 import logoWebp1x from "../../assets/images/hive_tool@1x.webp";
 import logoWebp2x from "../../assets/images/hive_tool@2x.webp";
@@ -57,7 +56,7 @@ const HiveDetails = () => {
       <CustomNavbar />
       {loading && <LoadSpinner />}
       <div className="d-flex justify-content-between">
-        <picture className="rotateY my-auto" id="logo">
+        <picture className=" my-auto" id="logo">
           <source
             type="image/webp"
             srcSet={`${logoWebp1x} 1x, ${logoWebp2x} 2x, ${logoWebp3x} 3x`}
@@ -83,7 +82,11 @@ const HiveDetails = () => {
                 className={`${hiveStrength === 0 ? "bg-danger" : "bg-card"}`}
               >
                 {/* <div style={{ maxHeight: "400px", maxWidth: "400px" }}> */}
-                <Card.Img variant="top" src={hiveImage}></Card.Img>
+                <Card.Img
+                  variant="top"
+                  src={hiveImage}
+                  style={{ maxWidth: "100%", maxHeight: "300px" }}
+                ></Card.Img>
                 {/* </div> */}
                 <Card.Body
                   className="pb-2 pt-1 mt-0 m-1 mb-2 fw-semibold fs-5"
@@ -127,7 +130,7 @@ const HiveDetails = () => {
             </div>
           </div>
         </Container>
-        <picture className="rotateY my-auto" id="logo">
+        <picture className=" my-auto" id="logo">
           <source
             type="image/webp"
             srcSet={`${logoWebp1x} 1x, ${logoWebp2x} 2x, ${logoWebp3x} 3x`}
