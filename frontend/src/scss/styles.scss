@@ -377,6 +377,11 @@ th {
 }
 
 /* Custom styles for mobile */
+@media (max-width: 1200px) {
+  #logo {
+    display: none;
+  }
+}
 
 @media (max-width: 576px) {
   /* Hide certain table columns on mobile */
