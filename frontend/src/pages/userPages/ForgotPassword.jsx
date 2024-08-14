@@ -35,11 +35,7 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <Container
-        className="border border-warning rounded mt-5"
-        fluid
-        style={{ maxWidth: "700px", backgroundColor: "#000000" }}
-      >
+      <Container className="mt-5" fluid style={{ maxWidth: "700px" }}>
         <Form onSubmit={handleResetPassword}>
           <Row className="justify-content-center mb-0">
             <div className="d-flex justify-content-center">
