@@ -90,7 +90,7 @@ const Inventory = () => {
                   <th>Item</th>
                   <th>Amount</th>
                   <th>Location</th>
-                  <th>Options</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>

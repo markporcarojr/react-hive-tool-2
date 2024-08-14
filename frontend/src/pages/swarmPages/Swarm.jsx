@@ -89,7 +89,7 @@ export default function Swarm() {
                   <th>Date</th>
                   <th>Image</th>
                   <th>Location</th>
-                  <th>Options</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>

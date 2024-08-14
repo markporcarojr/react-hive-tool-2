@@ -87,7 +87,7 @@ export default function Harvest() {
                   <th>Date</th>
                   <th>Type</th>
                   <th>Amount</th>
-                  <th>Options</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>

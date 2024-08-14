@@ -165,21 +165,22 @@ const InspectionPage = () => {
               >
                 <thead className="fs-4 fw-bold text-center sticky-header">
                   <tr>
-                    <th onClick={() => handleSort("hiveNumber")}>
+                    <th role="button" onClick={() => handleSort("hiveNumber")}>
                       Hive #
                       {sortConfig.key === "hiveNumber" &&
                         (sortConfig.direction === "ascending" ? " ↑" : " ↓")}
-                      {sortConfig.key !== "hiveNumber" && " ↕"}
                     </th>
-                    <th onClick={() => handleSort("inspectionDate")}>
+                    <th
+                      role="button"
+                      onClick={() => handleSort("inspectionDate")}
+                    >
                       Date
                       {sortConfig.key === "inspectionDate" &&
                         (sortConfig.direction === "ascending" ? " ↑" : " ↓")}
-                      {sortConfig.key !== "inspectionDate" && " ↕"}
                     </th>
 
                     <th>Image</th>
-                    <th>Options</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>

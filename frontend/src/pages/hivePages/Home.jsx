@@ -186,7 +186,7 @@ const Home = () => {
                     <th scope="col">Brood Boxes</th>
                     <th scope="col">Super Boxes</th>
                     <th scope="col">Queen Excluder</th>
-                    <th scope="col">Options</th>
+                    <th scope="col">Actions</th>
                   </tr>
                 </thead>
 
