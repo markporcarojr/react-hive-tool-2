@@ -4,7 +4,7 @@ import { Modal, Button, Table, Form } from "react-bootstrap";
 import { IconContext } from "react-icons";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaArrowDown, FaArrowUp, FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
 import LoadSpinner from "../../components/Spinner";
@@ -166,17 +166,25 @@ const InspectionPage = () => {
                 <thead className="fs-4 fw-bold text-center sticky-header">
                   <tr>
                     <th role="button" onClick={() => handleSort("hiveNumber")}>
-                      Hive #
+                      Hive #{" "}
                       {sortConfig.key === "hiveNumber" &&
-                        (sortConfig.direction === "ascending" ? " ↑" : " ↓")}
+                        (sortConfig.direction === "ascending" ? (
+                          <FaArrowUp size={"1.3rem"} />
+                        ) : (
+                          <FaArrowDown size={"1.3rem"} />
+                        ))}
                     </th>
                     <th
                       role="button"
                       onClick={() => handleSort("inspectionDate")}
                     >
-                      Date
+                      Date{" "}
                       {sortConfig.key === "inspectionDate" &&
-                        (sortConfig.direction === "ascending" ? " ↑" : " ↓")}
+                        (sortConfig.direction === "ascending" ? (
+                          <FaArrowUp size={"1.3rem"} />
+                        ) : (
+                          <FaArrowDown size={"1.3rem"} />
+                        ))}
                     </th>
 
                     <th>Image</th>
