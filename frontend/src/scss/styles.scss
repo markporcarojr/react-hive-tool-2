@@ -166,6 +166,7 @@ footer {
   bottom: 0;
   width: 100vw;
   background-color: #ffcb05;
+  z-index: 998;
 }
 
 input[type="range"] {
@@ -284,7 +285,7 @@ input[type="range"] {
   position: -webkit-sticky; /* For Safari */
   position: sticky;
   top: 100px; /* Adjust based on the height of the navbar */
-  z-index: 999; /* Ensure the button is above other content but below the navbar */
+  z-index: 997; /* Ensure the button is above other content but below the navbar */
   text-align: center; /* Center the button horizontally */
   padding-top: 1rem; /* Add padding for better appearance */
 }
@@ -300,7 +301,7 @@ input[type="range"] {
   position: -webkit-sticky; /* For Safari */
   position: sticky;
   top: 0px; /* Adjust based on the height of the navbar */
-  z-index: 998; /* Ensure the button is above other content but below the navbar */
+  z-index: 995; /* Ensure the button is above other content but below the navbar */
   // padding-top: 1rem; /* Add padding for better appearance */
 }
 
