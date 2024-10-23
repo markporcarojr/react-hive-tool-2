@@ -1,27 +1,20 @@
 // Home.jsx
-import { useEffect, useState, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Modal, Button, Table } from "react-bootstrap";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
+import { Helmet } from "react-helmet";
 import { IconContext } from "react-icons";
+import { FaTrashAlt } from "react-icons/fa";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
-import { FaTrashAlt } from "react-icons/fa";
-import axios from "axios";
-import UserContext from "../../context/UserContext";
-import LoadSpinner from "../../components/Spinner";
-import CustomNavbar from "../../components/CustomNavbar";
-import Footer from "../../components/Footer";
+import { Link, useParams } from "react-router-dom";
 import ImageDisplay from "../../components/ImageDisplay";
-import fetchWeatherData from "../../utils/fetchWeatherData.js";
+import CustomNavbar from "../../components/layout/CustomNavbar";
+import Footer from "../../components/layout/Footer.jsx";
 import CustomModal from "../../components/Modal.jsx";
-import { Helmet } from "react-helmet";
-
-const formatDate = (dateString) => {
-  const utcDate = new Date(dateString);
-  const options = { timeZone: "UTC" };
-
-  return utcDate.toLocaleDateString("en-US", options);
-};
+import LoadSpinner from "../../components/Spinner";
+import UserContext from "../../context/UserContext";
+import fetchWeatherData from "../../utils/fetchWeatherData.js";
 
 const Home = () => {
   const [hives, setHives] = useState([]);

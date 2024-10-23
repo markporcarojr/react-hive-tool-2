@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Container, Form, Button, Col } from "react-bootstrap";
 import axios from "axios";
-import CustomNavbar from "../../components/CustomNavbar.jsx";
-import Footer from "../../components/Footer.jsx";
+import { useState } from "react";
+import { Button, Col, Container, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import CustomNavbar from "../../components/layout/CustomNavbar";
+import Footer from "../../components/layout/Footer.jsx";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");

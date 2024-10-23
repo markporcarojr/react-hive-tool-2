@@ -1,12 +1,12 @@
-import { useState, useEffect, useContext } from "react";
-import { useForm } from "react-hook-form";
-import CustomNavbar from "../../components/CustomNavbar";
-import Footer from "../../components/Footer";
-import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import UserContext from "../../context/UserContext.jsx";
+import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import CustomNavbar from "../../components/layout/CustomNavbar";
+import Footer from "../../components/layout/Footer";
+import LoadSpinner from "../../components/Spinner";
+import UserContext from "../../context/UserContext.jsx";
 import { uploadUserImageToStorage } from "../../utils/firebaseUtils.js";
 
 const CreateHive = () => {

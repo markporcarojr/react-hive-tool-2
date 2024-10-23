@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
-import { Col, Container, Card } from "react-bootstrap";
-import "../scss/styles.scss";
-import "../assets/images/honeycomb_noback.png";
+import { Card, Col, Container } from "react-bootstrap";
+import "../../assets/images/honeycomb_noback.png";
+import "../../scss/styles.scss";
 
 const HarvestCard = ({ harvest }) => {
   if (!harvest) {

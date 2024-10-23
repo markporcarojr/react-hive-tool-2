@@ -1,17 +1,16 @@
-import { useState, useContext, useEffect } from "react";
-import CustomNavbar from "../../components/CustomNavbar.jsx";
-import Footer from "../../components/Footer.jsx";
-import LoadSpinner from "../../components/Spinner.jsx";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import { Container, Card, Form, Button } from "react-bootstrap";
-import UserContext from "../../context/UserContext.jsx";
-import { IconContext } from "react-icons";
-import { MdModeEditOutline } from "react-icons/md";
-import { FaTrashAlt } from "react-icons/fa";
-import { FaBell } from "react-icons/fa";
-import NotificationForm from "../../components/NotificationForm.jsx";
+import { useContext, useEffect, useState } from "react";
+import { Button, Card, Container, Form } from "react-bootstrap";
 import { Helmet } from "react-helmet";
+import { IconContext } from "react-icons";
+import { FaBell, FaTrashAlt } from "react-icons/fa";
+import { MdModeEditOutline } from "react-icons/md";
+import { useNavigate, useParams } from "react-router-dom";
+import NotificationForm from "../../components/forms/NotificationForm.jsx";
+import CustomNavbar from "../../components/layout/CustomNavbar.jsx";
+import Footer from "../../components/layout/Footer.jsx";
+import LoadSpinner from "../../components/Spinner.jsx";
+import UserContext from "../../context/UserContext.jsx";
 
 const TodoList = () => {
   const { user } = useContext(UserContext);

@@ -1,6 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Col, Container, Card } from "react-bootstrap";
+import { Card, Col, Container } from "react-bootstrap";
 
 const InventoryCard = ({ inventory }) => {
   if (!inventory) {

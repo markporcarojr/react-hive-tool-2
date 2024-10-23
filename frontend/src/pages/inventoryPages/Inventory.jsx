@@ -1,17 +1,17 @@
-import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import LoadSpinner from "../../components/Spinner";
-import { Link } from "react-router-dom";
-import CustomNavbar from "../../components/CustomNavbar";
-import Footer from "../../components/Footer";
-import UserContext from "../../context/UserContext";
-import { Modal, Button, Table } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
+import { Helmet } from "react-helmet";
 import { IconContext } from "react-icons";
+import { FaTrashAlt } from "react-icons/fa";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
-import { FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import CustomNavbar from "../../components/layout/CustomNavbar";
+import Footer from "../../components/layout/Footer";
 import CustomModal from "../../components/Modal";
-import { Helmet } from "react-helmet";
+import LoadSpinner from "../../components/Spinner";
+import UserContext from "../../context/UserContext";
 
 const Inventory = () => {
   const [inventorys, setInventorys] = useState([]);

@@ -1,11 +1,11 @@
-import Footer from "../components/Footer.jsx";
-import UserContext from "../context/UserContext.jsx";
-import CustomNavbar from "../components/CustomNavbar.jsx";
-import { useState, useContext } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Container, Form, Button } from "react-bootstrap";
-import AuthForm from "../components/AuthForm.jsx";
+import Footer from "./Footer.jsx";
+// import UserContext from "../context/UserContext.jsx";
+import CustomNavbar from "../components/layout/CustomNavbar.jsx";
+// import { useState, useContext } from "react";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+import { Button, Container, Form } from "react-bootstrap";
+// import AuthForm from "../components/AuthForm.jsx";
 
 const Login = () => {
   // const [message, setMessage] = useState(null);

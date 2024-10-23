@@ -1,13 +1,13 @@
-import { Navbar, Container, Nav } from "react-bootstrap";
-import logoWebp1x from "../assets/images/hive_tool@1x.webp";
-import logoWebp2x from "../assets/images/hive_tool@2x.webp";
-import logoWebp3x from "../assets/images/hive_tool@3x.webp";
-import logoPng1x from "../assets/images/hive_tool@1x.png";
-import logoPng2x from "../assets/images/hive_tool@2x.png";
-import logoPng3x from "../assets/images/hive_tool@3x.png";
-import UserContext from "../context/UserContext.jsx";
 import { useContext } from "react";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import logoPng1x from "../../assets/images/hive_tool@1x.png";
+import logoWebp1x from "../../assets/images/hive_tool@1x.webp";
+import logoPng2x from "../../assets/images/hive_tool@2x.png";
+import logoWebp2x from "../../assets/images/hive_tool@2x.webp";
+import logoPng3x from "../../assets/images/hive_tool@3x.png";
+import logoWebp3x from "../../assets/images/hive_tool@3x.webp";
+import UserContext from "../../context/UserContext.jsx";
 
 function CustomNavbar() {
   const { user, setUser } = useContext(UserContext);

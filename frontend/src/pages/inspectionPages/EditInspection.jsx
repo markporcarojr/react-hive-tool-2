@@ -1,16 +1,16 @@
-import { useState, useEffect, useContext } from "react";
-import { useForm } from "react-hook-form";
-import CustomNavbar from "../../components/CustomNavbar";
-import Footer from "../../components/Footer";
-import LoadSpinner from "../../components/Spinner";
-import BackButton from "../../components/BackButton.jsx";
 import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { Button, Card, Container, Form } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { Form, Button, Card, Container } from "react-bootstrap";
+import BackButton from "../../components/BackButton.jsx";
+import CustomNavbar from "../../components/layout/CustomNavbar";
+import Footer from "../../components/layout/Footer";
+import LoadSpinner from "../../components/Spinner";
 import UserContext from "../../context/UserContext.jsx";
 import {
-  uploadUserImageToStorage,
   deleteImageFromStorage,
+  uploadUserImageToStorage,
 } from "../../utils/firebaseUtils.js";
 
 const EditInspectionForm = () => {

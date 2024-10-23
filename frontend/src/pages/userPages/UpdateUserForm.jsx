@@ -1,14 +1,14 @@
-import { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
-import CustomNavbar from "../../components/CustomNavbar.jsx";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import CustomNavbar from "../../components/layout/CustomNavbar";
+import Footer from "../../components/layout/Footer.jsx";
 import LoadSpinner from "../../components/Spinner.jsx";
-import Footer from "../../components/Footer.jsx";
-import { Container, Button, Form } from "react-bootstrap";
-import { useNavigate, useParams, Link } from "react-router-dom";
 import UserContext from "../../context/UserContext.jsx";
 import {
-  uploadUserImageToStorage,
   deleteImageFromStorage,
+  uploadUserImageToStorage,
 } from "../../utils/firebaseUtils.js"; // Import Firebase functions
 
 const UpdateUserForm = () => {

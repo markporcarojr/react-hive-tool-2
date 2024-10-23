@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
-import CustomNavbar from "../../components/CustomNavbar";
-import Footer from "../../components/Footer";
-import LoadSpinner from "../../components/Spinner";
+import { useEffect, useState } from "react";
 import { Card, Container } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import CustomNavbar from "../../components/layout/CustomNavbar";
+import Footer from "../../components/layout/Footer";
+import LoadSpinner from "../../components/Spinner";
 
-import logoWebp1x from "../../assets/images/hive_tool@1x.webp";
-import logoWebp2x from "../../assets/images/hive_tool@2x.webp";
-import logoWebp3x from "../../assets/images/hive_tool@3x.webp";
 import logoPng1x from "../../assets/images/hive_tool@1x.png";
+import logoWebp1x from "../../assets/images/hive_tool@1x.webp";
 import logoPng2x from "../../assets/images/hive_tool@2x.png";
+import logoWebp2x from "../../assets/images/hive_tool@2x.webp";
 import logoPng3x from "../../assets/images/hive_tool@3x.png";
+import logoWebp3x from "../../assets/images/hive_tool@3x.webp";
 
 const HiveDetails = () => {
   const [loading, setLoading] = useState(false);

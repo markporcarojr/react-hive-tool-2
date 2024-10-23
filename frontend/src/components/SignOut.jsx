@@ -1,6 +1,6 @@
 // src/components/SignOut.js
-import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function SignOut() {
   const { handleSignOut } = useAuth();

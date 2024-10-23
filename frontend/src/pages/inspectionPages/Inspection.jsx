@@ -1,18 +1,18 @@
-import { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import { Modal, Button, Table, Form } from "react-bootstrap";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { Form, Table } from "react-bootstrap";
+import { Helmet } from "react-helmet";
 import { IconContext } from "react-icons";
+import { FaArrowDown, FaArrowUp, FaTrashAlt } from "react-icons/fa";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
-import { FaArrowDown, FaArrowUp, FaTrashAlt } from "react-icons/fa";
-import axios from "axios";
-import UserContext from "../../context/UserContext";
-import LoadSpinner from "../../components/Spinner";
-import CustomNavbar from "../../components/CustomNavbar";
-import Footer from "../../components/Footer";
+import { Link } from "react-router-dom";
 import ImageDisplay from "../../components/ImageDisplay";
 import CustomModal from "../../components/Modal";
-import { Helmet } from "react-helmet";
+import LoadSpinner from "../../components/Spinner";
+import CustomNavbar from "../../components/layout/CustomNavbar";
+import Footer from "../../components/layout/Footer";
+import UserContext from "../../context/UserContext";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);

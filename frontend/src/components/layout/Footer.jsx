@@ -1,5 +1,5 @@
-import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { IconContext } from "react-icons";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 function Footer() {
   return (

@@ -1,11 +1,11 @@
 // CustomModal.js
-import { Modal, Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import ImageDisplay from "./ImageDisplay";
-import HiveCard from "./HiveCard"; // Import your card components
-import InspectionCard from "./InspectionCard";
-import HarvestCard from "./HarvestCard";
-import SwarmCard from "./SwarmCard";
-import InventoryCard from "./InventoryCard";
+import HarvestCard from "./cards/HarvestCard";
+import HiveCard from "./cards/HiveCard";
+import InspectionCard from "./cards/InspectionCard";
+import InventoryCard from "./cards/InventoryCard";
+import SwarmCard from "./cards/SwarmCard";
 
 const CustomModal = ({ show, onHide, selectedItem, cardType }) => {
   return (

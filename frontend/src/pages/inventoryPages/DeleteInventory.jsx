@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
+import { useState } from "react";
+import { Button, Card } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import CustomNavbar from "../../components/CustomNavbar";
-import Footer from "../../components/Footer";
-import { Card, Button } from "react-bootstrap";
 import BackButton from "../../components/BackButton";
+import CustomNavbar from "../../components/layout/CustomNavbar";
+import Footer from "../../components/layout/Footer";
+import LoadSpinner from "../../components/Spinner";
 
 const DeleteInventory = () => {
   const [loading, setLoading] = useState(false);

@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
-import logoWebp1x from "../assets/images/hive_tool@1x.webp";
-import logoWebp2x from "../assets/images/hive_tool@2x.webp";
-import logoWebp3x from "../assets/images/hive_tool@3x.webp";
-import logoPng1x from "../assets/images/hive_tool@1x.png";
-import logoPng2x from "../assets/images/hive_tool@2x.png";
-import logoPng3x from "../assets/images/hive_tool@3x.png";
+import logoPng1x from "../../assets/images/hive_tool@1x.png";
+import logoWebp1x from "../../assets/images/hive_tool@1x.webp";
+import logoPng2x from "../../assets/images/hive_tool@2x.png";
+import logoWebp2x from "../../assets/images/hive_tool@2x.webp";
+import logoPng3x from "../../assets/images/hive_tool@3x.png";
+import logoWebp3x from "../../assets/images/hive_tool@3x.webp";
 
 const AuthForm = ({
   formFields,

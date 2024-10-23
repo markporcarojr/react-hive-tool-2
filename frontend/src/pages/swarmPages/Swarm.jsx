@@ -1,18 +1,18 @@
-import { useEffect, useState, useContext } from "react";
-import CustomNavbar from "../../components/CustomNavbar";
-import Footer from "../../components/Footer";
-import { Link } from "react-router-dom";
-import LoadSpinner from "../../components/Spinner";
 import axios from "axios";
-import UserContext from "../../context/UserContext";
-import { Modal, Button, Table } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
+import { Helmet } from "react-helmet";
 import { IconContext } from "react-icons";
+import { FaTrashAlt } from "react-icons/fa";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
-import { FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import ImageDisplay from "../../components/ImageDisplay";
+import CustomNavbar from "../../components/layout/CustomNavbar";
+import Footer from "../../components/layout/Footer";
 import CustomModal from "../../components/Modal.jsx";
-import { Helmet } from "react-helmet";
+import LoadSpinner from "../../components/Spinner";
+import UserContext from "../../context/UserContext";
 
 const formatDate = (dateString) => {
   const utcDate = new Date(dateString);

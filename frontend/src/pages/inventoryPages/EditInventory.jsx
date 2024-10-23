@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import CustomNavbar from "../../components/CustomNavbar";
-import Footer from "../../components/Footer";
-import LoadSpinner from "../../components/Spinner";
-import BackButton from "../../components/BackButton.jsx";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { Button, Card, Container, Form } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { Container, Card, Form, Button } from "react-bootstrap";
+import BackButton from "../../components/BackButton.jsx";
+import CustomNavbar from "../../components/layout/CustomNavbar";
+import Footer from "../../components/layout/Footer";
+import LoadSpinner from "../../components/Spinner";
 
 const EditInventory = () => {
   const [loading, setLoading] = useState(false);

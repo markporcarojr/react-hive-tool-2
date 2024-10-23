@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { Container, Form, Button, Col, Row } from "react-bootstrap";
 import axios from "axios";
+import { useState } from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-import logoWebp1x from "../../assets/images/hive_tool@1x.webp";
-import logoWebp2x from "../../assets/images/hive_tool@2x.webp";
-import logoWebp3x from "../../assets/images/hive_tool@3x.webp";
 import logoPng1x from "../../assets/images/hive_tool@1x.png";
+import logoWebp1x from "../../assets/images/hive_tool@1x.webp";
 import logoPng2x from "../../assets/images/hive_tool@2x.png";
+import logoWebp2x from "../../assets/images/hive_tool@2x.webp";
 import logoPng3x from "../../assets/images/hive_tool@3x.png";
+import logoWebp3x from "../../assets/images/hive_tool@3x.webp";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");

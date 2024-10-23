@@ -1,8 +1,8 @@
-import { useState, useContext, useEffect } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
-import UserContext from "../context/UserContext.jsx";
 import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import UserContext from "../../context/UserContext.jsx";
 
 const NotificationForm = ({ show, handleClose, setReminder }) => {
   const [email, setEmail] = useState("");

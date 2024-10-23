@@ -1,5 +1,3 @@
-import React from "react";
-
 const Title = () => {
   return (
     <div id="title" className="container title">

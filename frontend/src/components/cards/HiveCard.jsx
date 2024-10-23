@@ -1,8 +1,5 @@
 // HiveCard.jsx
 import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { IoInformationCircleOutline } from "react-icons/io5";
-import { IconContext } from "react-icons";
 
 const HiveCard = ({ hive }) => {
   if (!hive) {

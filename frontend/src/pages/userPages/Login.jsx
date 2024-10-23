@@ -1,10 +1,8 @@
-import Footer from "../../components/Footer.jsx";
-import UserContext from "../../context/UserContext.jsx";
-import CustomNavbar from "../../components/CustomNavbar.jsx";
-import { useState, useContext } from "react";
 import axios from "axios";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthForm from "../../components/AuthForm.jsx";
+import AuthForm from "../../components/forms/AuthForm.jsx";
+import UserContext from "../../context/UserContext.jsx";
 
 const Login = () => {
   const [message, setMessage] = useState(null);
