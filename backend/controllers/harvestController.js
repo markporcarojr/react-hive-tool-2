@@ -44,7 +44,6 @@ export const getHarvest = async (req, res) => {
     try {
 
         const { id } = req.params;
-
         const harvest = await Harvest.findById(id);
 
         return res.status(200).json(harvest);
