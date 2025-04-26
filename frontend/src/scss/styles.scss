@@ -153,6 +153,15 @@ body {
   clear: both;
 }
 
+.card:hover {
+  transform: scale(1.02);
+  transition: 0.3s ease;
+}
+.bg-pattern {
+  background-color: #00274c;
+  background-image: url("https://www.transparenttextures.com/patterns/axiom-pattern.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
 .eye-icon {
   position: absolute;
   right: 15px;
@@ -306,7 +315,7 @@ input[type="range"] {
 }
 
 th {
-  position: sticky;
+  // position: sticky;
   top: 0;
 }
 

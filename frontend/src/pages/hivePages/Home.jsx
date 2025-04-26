@@ -1,7 +1,7 @@
 // Home.jsx
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Card, Button, Row, Col } from "react-bootstrap";
 import { Helmet } from "react-helmet";
 import { IconContext } from "react-icons";
 import { FaTrashAlt } from "react-icons/fa";
@@ -158,95 +158,63 @@ const Home = () => {
           <LoadSpinner />
         ) : (
           <>
-            <div
-              // className="table-responsive"
-              style={{ maxHeight: "500px", overflowY: "auto" }}
-            >
-              <Table
-                bordered
-                striped
-                hover
-                // responsive
-                variant="dark"
-                className="text-michgold hive-table"
-              >
-                <thead className="fs-4 fw-bold text-center sticky-header">
-                  <tr>
-                    <th scope="col">Hive ID</th>
-                    <th scope="col">Hive Image</th>
-                    <th scope="col">Frames</th>
-                    <th scope="col">Queen Color</th>
-                    <th scope="col">Brood Boxes</th>
-                    <th scope="col">Super Boxes</th>
-                    <th scope="col">Queen Excluder</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {hives.map((hive) => (
-                    <tr key={hive._id} className="text-center align-middle">
-                      <td className="text-center fs-3">#{hive.hiveNumber}</td>
-                      <td
-                        className="text-center"
-                        onClick={() => handleShowModal(hive)}
-                      >
-                        <ImageDisplay
-                          imageUrl={hive.hiveImage}
-                          maxHeight={"10rem"}
-                          maxWidth={"10rem"}
-                          alt={"Hive Image"}
-                        />
-                      </td>
-                      <td className="text-center">{hive.frames || "N/A"}</td>
-                      <td className="text-center">
-                        {hive.queenColor || "N/A"}
-                      </td>
-                      <td className="text-center">{hive.broodBoxes}</td>
-                      <td className="text-center">{hive.superBoxes}</td>
-                      <td className="text-center">{hive.queenExcluder}</td>
-                      <td>
-                        <div className="d-flex justify-content-around">
-                          <IconContext.Provider
-                            value={{
-                              color: "fccb05",
-                              size: "1.5em",
-                              className: "darken-on-hover m-2",
-                            }}
-                          >
-                            <IoInformationCircleOutline
-                              onClick={() => handleShowModal(hive)}
-                            />
-                          </IconContext.Provider>
-                          <IconContext.Provider
-                            value={{
-                              color: "green",
-                              size: "1.5em",
-                              className: "darken-on-hover m-2",
-                            }}
-                          >
-                            <Link to={`/hives/edit/${hive._id}`}>
-                              <MdModeEditOutline />
-                            </Link>
-                          </IconContext.Provider>
-                          <IconContext.Provider
-                            value={{
-                              color: "red",
-                              size: "1.5em",
-                              className: "darken-on-hover m-2",
-                            }}
-                          >
-                            <Link to={`/hives/delete/${hive._id}`}>
-                              <FaTrashAlt />
-                            </Link>
-                          </IconContext.Provider>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </div>
+            <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+              {hives.map((hive) => (
+                <Col key={hive._id}>
+                  <Card className="h-100 shadow-sm">
+                    <Card.Img
+                      variant="top"
+                      src={hive.hiveImage}
+                      alt="Hive Image"
+                      style={{ objectFit: "cover", height: "200px" }}
+                      onClick={() => handleShowModal(hive)}
+                    />
+                    <Card.Body className="d-flex flex-column text-michgold bg-pattern">
+                      <Card.Title className="text-center fw-bold">
+                        Hive #{hive.hiveNumber}
+                      </Card.Title>
+                      <div className="mt-2">
+                        <p className="mb-1">
+                          <strong>Frames:</strong> {hive.frames || "N/A"}
+                        </p>
+                        <p className="mb-1">
+                          <strong>Queen Color:</strong>{" "}
+                          {hive.queenColor || "N/A"}
+                        </p>
+                        <p className="mb-1">
+                          <strong>Brood Boxes:</strong> {hive.broodBoxes}
+                        </p>
+                        <p className="mb-1">
+                          <strong>Super Boxes:</strong> {hive.superBoxes}
+                        </p>
+                        <p className="mb-1">
+                          <strong>Queen Excluder:</strong> {hive.queenExcluder}
+                        </p>
+                      </div>
+                      <div className="mt-auto d-flex justify-content-around pt-3">
+                        <Link to={`/hives/edit/${hive._id}`}>
+                          <Button variant="outline-success" size="sm">
+                            Edit
+                          </Button>
+                        </Link>
+                        <Button
+                          variant="outline-primary"
+                          size="sm"
+                          onClick={() => handleShowModal(hive)}
+                        >
+                          Info
+                        </Button>
+                        <Link to={`/hives/delete/${hive._id}`}>
+                          <Button variant="outline-danger" size="sm">
+                            Delete
+                          </Button>
+                        </Link>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
 
             <CustomModal
               show={showModal}
